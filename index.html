@@ -100,6 +100,22 @@
       display: block;
     }
 
+    /* Hero Background Video/Photo Mobile Framing (Ensures all group members are framed on mobile) */
+    .hero-bg-media {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+    }
+
+    @media (max-width: 640px) {
+      .hero-bg-media {
+        object-fit: cover;
+        object-position: 50% 20%;
+        transform: scale(1.0);
+      }
+    }
+
     /* SECTION REVEAL, TEXT REVEAL & EXIT ANIMATIONS */
     .reveal-item {
       opacity: 0;
@@ -915,11 +931,11 @@
           playsinline
           poster="photo.jpg"
           onloadedmetadata="this.muted=true; this.volume=0;"
-          class="w-full h-full object-cover object-center scale-105 pointer-events-none"
+          class="hero-bg-media pointer-events-none"
         >
           <source src="Animate_group_photo_video_202608131557.mp4" type="video/mp4" />
           <!-- Fallback Image if video unsupported -->
-          <img src="photo.jpg" alt="PayKudi Background" class="w-full h-full object-cover object-center" />
+          <img src="photo.jpg" alt="PayKudi Background" class="hero-bg-media" />
         </video>
         <div
           class="absolute inset-0 bg-gradient-to-r from-gray-950/95 via-gray-900/80 to-gray-950/60 backdrop-blur-[2px]">
