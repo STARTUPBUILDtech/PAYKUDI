@@ -371,6 +371,54 @@
       z-index: 1;
     }
 
+    /* Compact Glass Contact Form Inputs */
+    .glass-input-field {
+      width: 100%;
+      height: clamp(34px, 3vw, 40px);
+      padding: clamp(8px, 1vw, 11px);
+      font-size: clamp(10px, 0.85vw, 12px);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      color: #ffffff;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .glass-input-field::placeholder {
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    .glass-input-field:focus {
+      border-color: rgba(199, 247, 195, 0.55);
+      box-shadow: 0 0 0 3px rgba(199, 247, 195, 0.08);
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    .glass-textarea-field {
+      width: 100%;
+      height: clamp(65px, 6vw, 85px);
+      padding: clamp(8px, 1vw, 11px);
+      font-size: clamp(10px, 0.85vw, 12px);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      color: #ffffff;
+      outline: none;
+      resize: none;
+      transition: all 0.2s ease;
+    }
+
+    .glass-textarea-field::placeholder {
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    .glass-textarea-field:focus {
+      border-color: rgba(199, 247, 195, 0.55);
+      box-shadow: 0 0 0 3px rgba(199, 247, 195, 0.08);
+      background: rgba(255, 255, 255, 0.09);
+    }
+
     /* Contact success fade transition */
     #contactFormContainer,
     #contactSuccessContainer {
@@ -1504,99 +1552,97 @@
       <div class="absolute inset-0 bg-gradient-to-br from-gray-950/85 via-[#0E5296]/40 to-gray-950/85"></div>
     </div>
 
-    <!-- TWO INDEPENDENT GLOSSY FOOTER TILES -->
+    <!-- TWO INDEPENDENT GLOSSY FOOTER TILES (30% Left, 70% Right) -->
     <div class="relative z-10 max-w-7xl mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-[0.75fr_1.75fr] gap-4 sm:gap-6 items-stretch">
+      <div class="grid grid-cols-1 lg:grid-cols-[0.72fr_1.8fr] gap-4 sm:gap-6 items-stretch">
 
-        <!-- ================= LEFT SMALL GLOSSY TILE (~30-35%) ================= -->
-        <section class="paykudi-glass-tile rounded-[clamp(16px,2vw,24px)] p-[clamp(20px,2.5vw,32px)] text-white flex flex-col justify-between min-h-[300px]">
+        <!-- ================= LEFT SMALL TILE (~30%): COMPACT CONTACT US FORM ================= -->
+        <section class="paykudi-glass-tile rounded-[clamp(14px,1.8vw,22px)] p-[clamp(18px,2.2vw,28px)] text-white flex flex-col justify-between min-h-[300px]">
+          <div class="relative z-10 h-full flex flex-col justify-between">
+            <div id="contactFormContainer" class="w-full">
+              <h3 class="font-black text-white text-[clamp(13px,1.2vw,16px)] uppercase tracking-[0.12em] font-heading mb-4 text-brand-mint">
+                CONTACT US
+              </h3>
 
-          <!-- TOP: EXACT HEADER LOGO & BRANDING -->
-          <div class="space-y-4 relative z-10">
-            <a href="#heroSection" class="payment-room-brand inline-flex items-center gap-2.5 no-underline group" aria-label="PayKudi home">
-              <img src="paykudi-logo.png" alt="PAYKUDI Logo" class="h-[clamp(26px,2.5vw,32px)] w-auto object-contain" />
-              <span class="payment-room-brand-copy" aria-hidden="true">
-                <span class="payment-room-brand-name font-black text-white text-[clamp(15px,1.5vw,17px)]">
-                  <span class="brand-pay text-[#0E5296]">PAY</span><span class="brand-kudi text-[#2EA043]">KUDI</span><span class="brand-kudi text-[#2EA043]">.</span>
-                </span>
-                <span class="payment-room-brand-subtitle text-[9px] text-gray-300 font-medium mt-0.5">
-                  Powered by <strong class="text-white font-bold">Start<span class="text-[#0E5296]">up.</span></strong>
-                </span>
-              </span>
-            </a>
+              <form onsubmit="handleContactFormSubmit(event)" class="space-y-3">
+                <div>
+                  <label for="contactFullName" class="block text-[clamp(9px,0.8vw,11px)] font-bold text-gray-300 mb-1">
+                    Name
+                  </label>
+                  <input type="text" id="contactFullName" required placeholder="Your name" class="glass-input-field" />
+                </div>
 
-            <!-- DESCRIPTION -->
-            <p class="text-gray-300/85 text-[clamp(11px,1.05vw,13px)] leading-relaxed max-w-[260px]">
-              Simple, secure and smarter financial solutions built for everyday life. Reach out to us anytime.
-            </p>
+                <div>
+                  <label for="contactEmailAddr" class="block text-[clamp(9px,0.8vw,11px)] font-bold text-gray-300 mb-1">
+                    Email
+                  </label>
+                  <input type="email" id="contactEmailAddr" required placeholder="Your email" class="glass-input-field" />
+                </div>
+
+                <div>
+                  <label for="contactInquiryMsg" class="block text-[clamp(9px,0.8vw,11px)] font-bold text-gray-300 mb-1">
+                    Message
+                  </label>
+                  <textarea id="contactInquiryMsg" required placeholder="How can we help?" class="glass-textarea-field"></textarea>
+                </div>
+
+                <button type="submit" id="contactModalSubmitBtn"
+                  class="w-full bg-brand-green hover:bg-[#258336] active:bg-[#1e6b2c] text-white text-[clamp(10px,0.85vw,12px)] font-extrabold py-2.5 px-4 rounded-xl transition-all shadow-md hover:shadow-lg cursor-pointer mt-1">
+                  Send Message
+                </button>
+              </form>
+            </div>
+
+            <!-- SUCCESS MESSAGE CONTAINER -->
+            <div id="contactSuccessContainer"
+              class="hidden flex-col items-center justify-center text-center space-y-2.5 p-4 my-auto min-h-[220px]">
+              <div class="w-10 h-10 rounded-full bg-brand-green text-white flex items-center justify-center mx-auto shadow-lg border border-white/20 shrink-0">
+                <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+              <h4 class="text-base font-extrabold text-white font-heading">Message Sent!</h4>
+              <p class="text-xs text-white/80 font-medium leading-relaxed max-w-xs mx-auto">
+                Thank you for reaching out to PayKudi. We will get back to you shortly.
+              </p>
+            </div>
           </div>
-
-          <!-- MIDDLE: CONTACT -->
-          <div class="mt-6 pt-4 border-t border-white/10 relative z-10">
-            <p class="text-brand-mint text-[9px] font-extrabold tracking-[0.15em] uppercase mb-1.5">
-              Contact
-            </p>
-            <a href="mailto:hello@paykudi.co" class="text-white hover:text-brand-mint text-[clamp(12px,1.1vw,14px)] font-semibold transition-colors no-underline block">
-              hello@paykudi.co
-            </a>
-          </div>
-
-          <!-- BOTTOM: SOCIAL ICONS -->
-          <div class="flex items-center gap-2.5 mt-5 relative z-10">
-            <a href="https://www.instagram.com/usepaykudi?igsh=MXh5c3Z6NmJvNmVtOQ==" target="_blank" rel="noopener" aria-label="Instagram"
-              class="w-8 h-8 rounded-full border border-brand-mint/40 text-brand-mint hover:bg-brand-mint hover:text-brand-dark flex items-center justify-center transition-all shadow-sm hover:scale-110">
-              <img src="icons8-instagram-logo-100.png" alt="Instagram" class="w-4 h-4 object-contain" />
-            </a>
-
-            <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"
-              class="w-8 h-8 rounded-full border border-brand-mint/40 text-brand-mint hover:bg-brand-mint hover:text-brand-dark flex items-center justify-center transition-all shadow-sm hover:scale-110">
-              <img src="icons8-linkedin-logo-100.png" alt="LinkedIn" class="w-4 h-4 object-contain" />
-            </a>
-
-            <a href="mailto:hello@paykudi.co" aria-label="Email Us"
-              class="w-8 h-8 rounded-full border border-brand-mint/40 text-brand-mint hover:bg-brand-mint hover:text-brand-dark flex items-center justify-center transition-all shadow-sm hover:scale-110">
-              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-              </svg>
-            </a>
-          </div>
-
         </section>
 
 
-        <!-- ================= RIGHT LARGE GLOSSY TILE (~65-70%) ================= -->
-        <section class="paykudi-glass-tile-right rounded-[clamp(16px,2vw,24px)] p-[clamp(20px,2.5vw,32px)] text-white flex flex-col justify-between min-h-[300px] overflow-hidden">
+        <!-- ================= RIGHT LARGE TILE (~70%): HEADING, NEWSLETTER & NAV ================= -->
+        <section class="paykudi-glass-tile-right rounded-[clamp(14px,1.8vw,22px)] p-[clamp(20px,2.5vw,32px)] text-white flex flex-col justify-between min-h-[300px] overflow-hidden">
+          <div class="relative z-10 space-y-5">
 
-          <!-- TOP HEADER & NEWSLETTER MORPH BUTTON -->
-          <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6 relative z-10">
-
+            <!-- HEADER & HEADING -->
             <div>
               <p class="text-brand-mint text-[9px] font-extrabold tracking-[0.15em] uppercase mb-1">
-                PayKudi
+                PAYKUDI
               </p>
 
-              <h2 class="text-[clamp(1.5rem,2.8vw,2.5rem)] font-black tracking-tight leading-[1.1] text-white font-heading">
-                Smarter payments.<br />
-                Simpler everyday life.
+              <!-- Single-line heading on desktop -->
+              <h2 class="text-[clamp(1.6rem,3.2vw,3rem)] font-black tracking-tight leading-[1.15] text-white font-heading whitespace-normal lg:whitespace-nowrap">
+                Take control of your payments.
               </h2>
 
-              <p class="text-gray-300 text-[clamp(11px,1.1vw,13px)] leading-relaxed mt-2.5 max-w-md">
-                Everything you need to connect, pay and manage your everyday transactions in one place.
+              <!-- Specifically Newsletter Subtext -->
+              <p class="text-gray-300 text-[clamp(10.5px,1vw,12.5px)] leading-relaxed mt-2 max-w-2xl">
+                Stay updated with PayKudi news, product updates, useful tips, new features and important announcements delivered straight to your inbox.
               </p>
             </div>
 
-            <!-- RESTORED INTERACTIVE MORPHING NEWSLETTER BUTTON -->
+            <!-- NEWSLETTER BUTTON PLACED DIRECTLY BELOW SUBTEXT -->
             <div id="footerNewsletterMorphWrapper"
-              class="relative w-full max-w-[clamp(210px,24vw,280px)] h-[clamp(40px,3.8vw,46px)] overflow-hidden rounded-xl sm:rounded-2xl shadow-xl shrink-0">
+              class="relative w-full max-w-[clamp(200px,24vw,280px)] h-[clamp(40px,4vw,48px)] overflow-hidden rounded-[clamp(9px,1vw,13px)] shadow-xl shrink-0">
 
               <button id="footerNewsletterOriginalBtn" onclick="morphFooterNewsletterButton(event)"
-                class="absolute inset-0 w-full h-full bg-brand-mint hover:bg-brand-mintDark text-brand-dark font-extrabold px-4 rounded-xl sm:rounded-2xl text-[clamp(11px,1vw,13px)] cursor-pointer flex items-center justify-center text-center z-10 whitespace-nowrap shadow-md hover:scale-[1.02] transition-all">
+                class="absolute inset-0 w-full h-full bg-brand-mint hover:bg-brand-mintDark text-brand-dark font-extrabold px-4 rounded-[clamp(9px,1vw,13px)] text-[clamp(9px,0.85vw,11px)] cursor-pointer flex items-center justify-center text-center z-10 whitespace-nowrap shadow-md hover:scale-[1.02] transition-all">
                 <span>Subscribe to our Newsletter</span>
               </button>
 
               <form id="footerNewsletterMorphedForm" onsubmit="handleFooterNewsletterSubmit(event)"
                 onclick="event.stopPropagation()"
-                class="hidden absolute inset-0 w-full h-full bg-white p-1 rounded-xl sm:rounded-2xl border border-brand-mint/50 shadow-2xl slide-morph-panel items-center gap-1.5 z-20">
+                class="hidden absolute inset-0 w-full h-full bg-white p-1 rounded-[clamp(9px,1vw,13px)] border border-brand-mint/50 shadow-2xl slide-morph-panel items-center gap-1.5 z-20">
                 <input type="text" id="footerNewsletterInput" required placeholder="Enter your email address"
                   oninput="clearFooterNewsletterInputError()"
                   class="flex-grow h-full px-3 text-gray-900 placeholder-gray-400 bg-transparent text-xs font-medium focus:outline-none rounded-lg min-w-0" />
@@ -1618,68 +1664,63 @@
               </form>
 
               <div id="footerNewsletterMorphedSuccess"
-                class="hidden absolute inset-0 w-full h-full bg-brand-mint text-brand-dark font-extrabold px-3 rounded-xl sm:rounded-2xl shadow-lg slide-morph-panel items-center justify-center gap-1.5 text-[clamp(10px,1vw,12px)] z-30 whitespace-nowrap">
+                class="hidden absolute inset-0 w-full h-full bg-brand-mint text-brand-dark font-extrabold px-3 rounded-[clamp(9px,1vw,13px)] shadow-lg slide-morph-panel items-center justify-center gap-1.5 text-[clamp(9px,0.85vw,11px)] z-30 whitespace-nowrap">
                 <svg class="w-4 h-4 text-brand-dark shrink-0" style="width: 16px; height: 16px;" fill="none"
                   stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
                     d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <span class="whitespace-nowrap">You're subscribed to PayKudi Newsletter!</span>
+                <span class="whitespace-nowrap">You're subscribed!</span>
               </div>
 
             </div>
 
-          </div>
+            <!-- DIVIDER -->
+            <div class="border-t border-white/15 pt-4 relative z-10"></div>
 
+            <!-- NAVIGATION GRID -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 relative z-10 text-xs sm:text-sm">
+              <!-- SUPPORT -->
+              <div>
+                <h3 class="text-[11px] font-extrabold uppercase tracking-wider text-brand-mint mb-2.5">
+                  Support
+                </h3>
+                <ul class="space-y-2 text-gray-300 font-medium">
+                  <li><a href="#footerSection" class="hover:text-brand-mint transition-colors">Contact Us</a></li>
+                  <li><a href="javascript:void(0)" class="hover:text-brand-mint transition-colors">Privacy Policy</a></li>
+                  <li><a href="mailto:hello@paykudi.co" class="hover:text-brand-mint transition-colors">Email Us</a></li>
+                </ul>
+              </div>
 
-          <!-- DIVIDER -->
-          <div class="border-t border-white/15 my-6 relative z-10"></div>
+              <!-- EXPLORE -->
+              <div>
+                <h3 class="text-[11px] font-extrabold uppercase tracking-wider text-brand-mint mb-2.5">
+                  Explore
+                </h3>
+                <ul class="space-y-2 text-gray-300 font-medium">
+                  <li><a href="#heroSection" class="hover:text-brand-mint transition-colors">Overview</a></li>
+                  <li><a href="#about" class="hover:text-brand-mint transition-colors">Built for Deals</a></li>
+                  <li><a href="#about" class="hover:text-brand-mint transition-colors">Features</a></li>
+                  <li><a href="#community" class="hover:text-brand-mint transition-colors">Community</a></li>
+                </ul>
+              </div>
 
-
-          <!-- NAVIGATION COLUMNS -->
-          <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 relative z-10 text-xs sm:text-sm">
-
-            <!-- SUPPORT -->
-            <div>
-              <h3 class="text-[11px] font-extrabold uppercase tracking-wider text-brand-mint mb-3">
-                Support
-              </h3>
-              <ul class="space-y-2 text-gray-300 font-medium">
-                <li><a href="#footerSection" class="hover:text-brand-mint transition-colors">Contact Us</a></li>
-                <li><a href="javascript:void(0)" class="hover:text-brand-mint transition-colors">Privacy Policy</a></li>
-                <li><a href="mailto:hello@paykudi.co" class="hover:text-brand-mint transition-colors">Email Us</a></li>
-              </ul>
-            </div>
-
-            <!-- EXPLORE -->
-            <div>
-              <h3 class="text-[11px] font-extrabold uppercase tracking-wider text-brand-mint mb-3">
-                Explore
-              </h3>
-              <ul class="space-y-2 text-gray-300 font-medium">
-                <li><a href="#heroSection" class="hover:text-brand-mint transition-colors">Overview</a></li>
-                <li><a href="#about" class="hover:text-brand-mint transition-colors">Built for Deals</a></li>
-                <li><a href="#about" class="hover:text-brand-mint transition-colors">Features</a></li>
-                <li><a href="#community" class="hover:text-brand-mint transition-colors">Community</a></li>
-              </ul>
-            </div>
-
-            <!-- CONNECT -->
-            <div class="col-span-2 sm:col-span-1">
-              <h3 class="text-[11px] font-extrabold uppercase tracking-wider text-brand-mint mb-3">
-                Connect
-              </h3>
-              <ul class="space-y-2 text-gray-300 font-medium">
-                <li><a href="https://www.instagram.com/usepaykudi?igsh=MXh5c3Z6NmJvNmVtOQ==" target="_blank" rel="noopener" class="hover:text-brand-mint transition-colors">Instagram</a></li>
-                <li><a href="https://linkedin.com" target="_blank" rel="noopener" class="hover:text-brand-mint transition-colors">LinkedIn</a></li>
-                <li><a href="https://wa.me/2348123456789" target="_blank" rel="noopener" class="hover:text-brand-mint transition-colors">WhatsApp Support</a></li>
-              </ul>
+              <!-- CONNECT -->
+              <div class="col-span-2 sm:col-span-1">
+                <h3 class="text-[11px] font-extrabold uppercase tracking-wider text-brand-mint mb-2.5">
+                  Connect
+                </h3>
+                <ul class="space-y-2 text-gray-300 font-medium">
+                  <li><a href="https://www.instagram.com/usepaykudi?igsh=MXh5c3Z6NmJvNmVtOQ==" target="_blank" rel="noopener" class="hover:text-brand-mint transition-colors">Instagram</a></li>
+                  <li><a href="https://linkedin.com" target="_blank" rel="noopener" class="hover:text-brand-mint transition-colors">LinkedIn</a></li>
+                  <li><a href="https://wa.me/2348123456789" target="_blank" rel="noopener" class="hover:text-brand-mint transition-colors">WhatsApp Support</a></li>
+                </ul>
+              </div>
             </div>
 
           </div>
 
-
-          <!-- COPYRIGHT -->
+          <!-- COPYRIGHT ROW -->
           <div class="border-t border-white/15 mt-6 pt-4 flex items-center justify-between text-[11px] text-gray-400 font-medium relative z-10">
             <p>© <span id="year"></span> PayKudi. All rights reserved.</p>
             <p>Powered by <strong class="text-white">Start<span class="text-[#0E5296]">up.</span></strong></p>
