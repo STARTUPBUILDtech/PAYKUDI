@@ -375,17 +375,17 @@
     .floating-field {
       position: relative;
       width: 100%;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.45rem;
     }
 
     .glass-floating-input {
       width: 100%;
-      height: clamp(38px, 4vw, 44px);
-      padding: 16px 12px 6px 12px;
-      font-size: clamp(10px, 0.85vw, 12px);
+      height: clamp(34px, 3.2vw, 38px);
+      padding: 13px 10px 3px 10px;
+      font-size: clamp(9.5px, 0.75vw, 11px);
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 11px;
+      border-radius: 9px;
       color: #ffffff;
       outline: none;
       transition: all 0.2s ease;
@@ -393,12 +393,12 @@
 
     .glass-floating-textarea {
       width: 100%;
-      height: clamp(70px, 7vw, 86px);
-      padding: 18px 12px 6px 12px;
-      font-size: clamp(10px, 0.85vw, 12px);
+      height: clamp(54px, 5vw, 68px);
+      padding: 14px 10px 3px 10px;
+      font-size: clamp(9.5px, 0.75vw, 11px);
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 11px;
+      border-radius: 9px;
       color: #ffffff;
       outline: none;
       resize: none;
@@ -414,22 +414,22 @@
 
     .glass-floating-label {
       position: absolute;
-      left: 14px;
+      left: 12px;
       top: 50%;
       transform: translateY(-50%);
       color: rgba(255, 255, 255, 0.48);
       pointer-events: none;
-      font-size: clamp(10px, 0.85vw, 12px);
+      font-size: clamp(9.5px, 0.75vw, 11px);
       font-weight: 500;
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 2;
       border-radius: 4px;
-      padding: 0 4px;
+      padding: 0 3px;
       line-height: 1;
     }
 
     .floating-field textarea ~ .glass-floating-label {
-      top: 20px;
+      top: 16px;
       transform: none;
     }
 
@@ -438,9 +438,9 @@
     .glass-floating-input:not(:placeholder-shown) ~ .glass-floating-label,
     .glass-floating-textarea:focus ~ .glass-floating-label,
     .glass-floating-textarea:not(:placeholder-shown) ~ .glass-floating-label {
-      top: 5px;
+      top: 3px;
       transform: none;
-      font-size: 8.5px;
+      font-size: 7.5px;
       font-weight: 700;
       color: #C7F7C3;
       background: rgba(10, 42, 50, 0.85);
@@ -1571,7 +1571,7 @@
 
 
   <!-- ================= PAYKUDI GLOSSY TWO-TILE FOOTER ================= -->
-  <footer id="footerSection" class="relative overflow-hidden px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+  <footer id="footerSection" class="relative overflow-hidden px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
 
     <!-- Existing PayKudi Photo Background -->
     <div class="absolute inset-0 z-0 overflow-hidden">
@@ -1581,17 +1581,17 @@
 
     <!-- TWO INDEPENDENT GLOSSY FOOTER TILES (30% Left, 70% Right) -->
     <div class="relative z-10 max-w-7xl mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-[0.72fr_1.8fr] gap-4 sm:gap-6 items-stretch">
+      <div class="grid grid-cols-1 lg:grid-cols-[0.72fr_1.8fr] gap-3 sm:gap-4 items-stretch">
 
         <!-- ================= LEFT SMALL TILE (~30%): COMPACT CONTACT US FORM ================= -->
-        <section class="paykudi-glass-tile rounded-[clamp(14px,1.8vw,22px)] p-[clamp(18px,2.2vw,28px)] text-white flex flex-col justify-between min-h-[300px]">
+        <section class="paykudi-glass-tile rounded-[clamp(12px,1.5vw,18px)] p-[clamp(14px,1.8vw,22px)] text-white flex flex-col justify-between h-full">
           <div class="relative z-10 h-full flex flex-col justify-between items-center text-center w-full">
-            <div id="contactFormContainer" class="w-full max-w-[clamp(230px,92%,340px)] mx-auto">
-              <h3 class="font-black text-white text-[clamp(13px,1.2vw,16px)] uppercase tracking-[0.12em] font-heading mb-4 text-brand-mint text-center">
+            <div id="contactFormContainer" class="w-full max-w-[clamp(210px,90%,310px)] mx-auto">
+              <h3 class="font-black text-white text-[clamp(11px,1vw,13px)] uppercase tracking-[0.12em] font-heading mb-2.5 text-brand-mint text-center">
                 CONTACT US
               </h3>
 
-              <form onsubmit="handleContactFormSubmit(event)" class="w-full space-y-1 text-left">
+              <form onsubmit="handleContactFormSubmit(event)" class="w-full text-left">
                 <div class="floating-field">
                   <input type="text" id="contactFullName" required placeholder=" " autocomplete="name" class="glass-floating-input" />
                   <label for="contactFullName" class="glass-floating-label">Name</label>
@@ -1608,7 +1608,7 @@
                 </div>
 
                 <button type="submit" id="contactModalSubmitBtn"
-                  class="w-full bg-brand-green hover:bg-[#258336] active:bg-[#1e6b2c] text-white text-[clamp(10px,0.85vw,12px)] font-extrabold py-2.5 px-4 rounded-xl transition-all shadow-md hover:shadow-lg cursor-pointer mt-2">
+                  class="w-full bg-brand-green hover:bg-[#258336] active:bg-[#1e6b2c] text-white text-[clamp(9.5px,0.8vw,11.5px)] font-extrabold py-2 px-3 rounded-lg transition-all shadow-md hover:shadow-lg cursor-pointer mt-1">
                   Send Message
                 </button>
               </form>
@@ -1616,14 +1616,14 @@
 
             <!-- SUCCESS MESSAGE CONTAINER -->
             <div id="contactSuccessContainer"
-              class="hidden flex-col items-center justify-center text-center space-y-2.5 p-4 my-auto min-h-[220px]">
-              <div class="w-10 h-10 rounded-full bg-brand-green text-white flex items-center justify-center mx-auto shadow-lg border border-white/20 shrink-0">
-                <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+              class="hidden flex-col items-center justify-center text-center space-y-2 p-3 my-auto min-h-[180px]">
+              <div class="w-9 h-9 rounded-full bg-brand-green text-white flex items-center justify-center mx-auto shadow-lg border border-white/20 shrink-0">
+                <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
                   <polyline points="20 6 9 17 4 12"></polyline>
                 </svg>
               </div>
-              <h4 class="text-base font-extrabold text-white font-heading">Message Sent!</h4>
-              <p class="text-xs text-white/80 font-medium leading-relaxed max-w-xs mx-auto">
+              <h4 class="text-sm font-extrabold text-white font-heading">Message Sent!</h4>
+              <p class="text-[11px] text-white/80 font-medium leading-relaxed max-w-xs mx-auto">
                 Thank you for reaching out to PayKudi. We will get back to you shortly.
               </p>
             </div>
@@ -1632,29 +1632,29 @@
 
 
         <!-- ================= RIGHT LARGE TILE (~70%): HEADING, NEWSLETTER & NAV ================= -->
-        <section class="paykudi-glass-tile-right rounded-[clamp(14px,1.8vw,22px)] p-[clamp(20px,2.5vw,32px)] text-white flex flex-col justify-between min-h-[300px] overflow-hidden">
-          <div class="relative z-10 space-y-5">
+        <section class="paykudi-glass-tile-right rounded-[clamp(12px,1.5vw,18px)] p-[clamp(14px,1.8vw,22px)] text-white flex flex-col justify-between h-full overflow-hidden">
+          <div class="relative z-10">
 
             <!-- HEADER & HEADING -->
             <div>
-              <p class="text-brand-mint text-[9px] font-extrabold tracking-[0.15em] uppercase mb-1">
+              <p class="text-brand-mint text-[8.5px] font-extrabold tracking-[0.15em] uppercase mb-0.5">
                 PAYKUDI
               </p>
 
               <!-- Single-line heading on desktop -->
-              <h2 class="text-[clamp(1.6rem,3.2vw,3rem)] font-black tracking-tight leading-[1.15] text-white font-heading whitespace-normal lg:whitespace-nowrap">
+              <h2 class="text-[clamp(1.35rem,2.5vw,2.3rem)] font-black tracking-tight leading-[1.1] text-white font-heading whitespace-normal lg:whitespace-nowrap mb-1">
                 Take control of your payments.
               </h2>
 
               <!-- Specifically Newsletter Subtext -->
-              <p class="text-gray-300 text-[clamp(10.5px,1vw,12.5px)] leading-relaxed mt-2 max-w-2xl">
+              <p class="text-gray-300 text-[clamp(9.5px,0.85vw,11.5px)] leading-snug mt-1 mb-2.5 max-w-xl">
                 Stay updated with PayKudi news, product updates, useful tips, new features and important announcements delivered straight to your inbox.
               </p>
             </div>
 
-            <!-- NEWSLETTER BUTTON PLACED DIRECTLY BELOW SUBTEXT -->
+            <!-- NEWSLETTER BUTTON PLACED DIRECTLY BELOW SUBTEXT (PROMINENT SIZE PRESERVED) -->
             <div id="footerNewsletterMorphWrapper"
-              class="relative w-full max-w-[clamp(200px,24vw,280px)] h-[clamp(40px,4vw,48px)] overflow-hidden rounded-[clamp(9px,1vw,13px)] shadow-xl shrink-0">
+              class="relative w-full max-w-[clamp(200px,24vw,280px)] h-[clamp(40px,4vw,48px)] overflow-hidden rounded-[clamp(9px,1vw,13px)] shadow-xl shrink-0 mb-3">
 
               <button id="footerNewsletterOriginalBtn" onclick="morphFooterNewsletterButton(event)"
                 class="absolute inset-0 w-full h-full bg-brand-mint hover:bg-brand-mintDark text-brand-dark font-extrabold px-4 rounded-[clamp(9px,1vw,13px)] text-[clamp(9px,0.85vw,11px)] cursor-pointer flex items-center justify-center text-center z-10 whitespace-nowrap shadow-md hover:scale-[1.02] transition-all">
@@ -1696,17 +1696,17 @@
 
             </div>
 
-            <!-- DIVIDER -->
-            <div class="border-t border-white/15 pt-4 relative z-10"></div>
+            <!-- COMPACT DIVIDER -->
+            <div class="border-t border-white/15 my-2.5 pt-2.5 relative z-10"></div>
 
-            <!-- NAVIGATION GRID -->
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 relative z-10 text-xs sm:text-sm">
+            <!-- COMPACT NAVIGATION GRID -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 relative z-10 text-[9.5px] sm:text-[10.5px]">
               <!-- SUPPORT -->
               <div>
-                <h3 class="text-[11px] font-extrabold uppercase tracking-wider text-brand-mint mb-2.5">
+                <h3 class="text-[9.5px] font-extrabold uppercase tracking-wider text-brand-mint mb-1.5">
                   Support
                 </h3>
-                <ul class="space-y-2 text-gray-300 font-medium">
+                <ul class="space-y-1 text-gray-300 font-medium">
                   <li><a href="#footerSection" class="hover:text-brand-mint transition-colors">Contact Us</a></li>
                   <li><a href="javascript:void(0)" class="hover:text-brand-mint transition-colors">Privacy Policy</a></li>
                   <li><a href="mailto:hello@paykudi.co" class="hover:text-brand-mint transition-colors">Email Us</a></li>
@@ -1715,10 +1715,10 @@
 
               <!-- EXPLORE -->
               <div>
-                <h3 class="text-[11px] font-extrabold uppercase tracking-wider text-brand-mint mb-2.5">
+                <h3 class="text-[9.5px] font-extrabold uppercase tracking-wider text-brand-mint mb-1.5">
                   Explore
                 </h3>
-                <ul class="space-y-2 text-gray-300 font-medium">
+                <ul class="space-y-1 text-gray-300 font-medium">
                   <li><a href="#heroSection" class="hover:text-brand-mint transition-colors">Overview</a></li>
                   <li><a href="#about" class="hover:text-brand-mint transition-colors">Built for Deals</a></li>
                   <li><a href="#about" class="hover:text-brand-mint transition-colors">Features</a></li>
@@ -1728,10 +1728,10 @@
 
               <!-- CONNECT -->
               <div class="col-span-2 sm:col-span-1">
-                <h3 class="text-[11px] font-extrabold uppercase tracking-wider text-brand-mint mb-2.5">
+                <h3 class="text-[9.5px] font-extrabold uppercase tracking-wider text-brand-mint mb-1.5">
                   Connect
                 </h3>
-                <ul class="space-y-2 text-gray-300 font-medium">
+                <ul class="space-y-1 text-gray-300 font-medium">
                   <li><a href="https://www.instagram.com/usepaykudi?igsh=MXh5c3Z6NmJvNmVtOQ==" target="_blank" rel="noopener" class="hover:text-brand-mint transition-colors">Instagram</a></li>
                   <li><a href="https://linkedin.com" target="_blank" rel="noopener" class="hover:text-brand-mint transition-colors">LinkedIn</a></li>
                   <li><a href="https://wa.me/2348123456789" target="_blank" rel="noopener" class="hover:text-brand-mint transition-colors">WhatsApp Support</a></li>
@@ -1741,8 +1741,8 @@
 
           </div>
 
-          <!-- COPYRIGHT ROW -->
-          <div class="border-t border-white/15 mt-6 pt-4 flex items-center justify-between text-[11px] text-gray-400 font-medium relative z-10">
+          <!-- COMPACT COPYRIGHT ROW -->
+          <div class="border-t border-white/15 mt-3 pt-2.5 flex items-center justify-between text-[9.5px] text-gray-400 font-medium relative z-10">
             <p>© <span id="year"></span> PayKudi. All rights reserved.</p>
             <p>Powered by <strong class="text-white">Start<span class="text-[#0E5296]">up.</span></strong></p>
           </div>
