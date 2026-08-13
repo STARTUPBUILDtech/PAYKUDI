@@ -3034,8 +3034,38 @@
 
       setTimeout(type, 2000);
     }
+    function initCleanUrlNavigation() {
+      if (window.location.hash && window.history && window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.pathname + window.location.search);
+      }
+
+      document.addEventListener('click', function (e) {
+        const anchor = e.target.closest('a[href*="#"]');
+        if (!anchor) return;
+
+        const href = anchor.getAttribute('href');
+        if (!href || href === '#' || href === 'javascript:void(0)') return;
+
+        const hashIndex = href.indexOf('#');
+        if (hashIndex === -1) return;
+
+        const targetId = href.substring(hashIndex);
+        if (!targetId || targetId === '#') return;
+
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          e.preventDefault();
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+
+          if (window.history && window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.pathname + window.location.search);
+          }
+        }
+      });
+    }
 
     document.addEventListener('DOMContentLoaded', () => {
+      initCleanUrlNavigation();
       initScrollReveal();
       updateNavbarOnScroll();
       initHeroHeadlineSlider();
