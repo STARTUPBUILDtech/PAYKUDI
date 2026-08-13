@@ -74,7 +74,7 @@
     .hero-headline-viewport {
       overflow: hidden;
       position: relative;
-      visibility: hidden;
+      visibility: visible;
       margin-top: 12px;
       margin-bottom: 12px;
     }
@@ -111,6 +111,7 @@
       will-change: opacity, transform, filter;
     }
 
+    #heroSection .reveal-item,
     .reveal-item.reveal-visible {
       opacity: 1;
       transform: translateY(0);
@@ -326,130 +327,52 @@
       color: #64748B;
     }
 
-    /* Semi-transparent Glossy Glass Footer Tiles */
-    .paykudi-glass-tile {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.045));
-      backdrop-filter: blur(18px) saturate(135%);
-      -webkit-backdrop-filter: blur(18px) saturate(135%);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.16);
-      position: relative;
-      overflow: hidden;
+    /* Compact contact panel: keep the footer contact view comfortably sized. */
+    .footer-contact-panel .cf-fl-field {
+      margin-bottom: 1rem;
     }
 
-    .paykudi-glass-tile::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 35%;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.10), transparent);
-      pointer-events: none;
-      z-index: 1;
+    .footer-contact-panel .cf-fl-field .cf-fl-input {
+      padding: 12px 12px 12px 38px;
     }
 
-    .paykudi-glass-tile-right {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
-      backdrop-filter: blur(18px) saturate(135%);
-      -webkit-backdrop-filter: blur(18px) saturate(135%);
-      border: 1px solid rgba(255, 255, 255, 0.20);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.18);
-      position: relative;
-      overflow: hidden;
+    .footer-contact-panel .cf-fl-field.cf-textarea .cf-fl-input {
+      min-height: 76px;
     }
 
-    .paykudi-glass-tile-right::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 35%;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), transparent);
-      pointer-events: none;
-      z-index: 1;
+    .footer-contact-panel a[aria-label="Email Us"] {
+      order: 1;
     }
 
-    /* Compact Glass Contact Form Inputs with Floating Labels */
-    .floating-field {
-      position: relative;
-      width: 100%;
-      margin-bottom: 0.45rem;
+    .footer-contact-panel a[aria-label="LinkedIn"] {
+      order: 2;
     }
 
-    .glass-floating-input {
-      width: 100%;
-      height: clamp(34px, 3.2vw, 38px);
-      padding: 13px 10px 3px 10px;
-      font-size: clamp(9.5px, 0.75vw, 11px);
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 9px;
-      color: #ffffff;
-      outline: none;
-      transition: all 0.2s ease;
+    .footer-contact-panel a[aria-label="Instagram @usepaykudi"] {
+      order: 3;
     }
 
-    .glass-floating-textarea {
-      width: 100%;
-      height: clamp(54px, 5vw, 68px);
-      padding: 14px 10px 3px 10px;
-      font-size: clamp(9.5px, 0.75vw, 11px);
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 9px;
-      color: #ffffff;
-      outline: none;
-      resize: none;
-      transition: all 0.2s ease;
+    .footer-contact-panel a[aria-label="WhatsApp Support"] {
+      order: 4;
     }
 
-    .glass-floating-input:focus,
-    .glass-floating-textarea:focus {
-      border-color: rgba(199, 247, 195, 0.55);
-      box-shadow: 0 0 0 3px rgba(199, 247, 195, 0.08);
-      background: rgba(255, 255, 255, 0.09);
-    }
-
-    .glass-floating-label {
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: rgba(255, 255, 255, 0.48);
-      pointer-events: none;
-      font-size: clamp(9.5px, 0.75vw, 11px);
-      font-weight: 500;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      z-index: 2;
-      border-radius: 4px;
-      padding: 0 3px;
-      line-height: 1;
-    }
-
-    .floating-field textarea ~ .glass-floating-label {
-      top: 16px;
-      transform: none;
-    }
-
-    /* Floating label active state (focused or containing value) */
-    .glass-floating-input:focus ~ .glass-floating-label,
-    .glass-floating-input:not(:placeholder-shown) ~ .glass-floating-label,
-    .glass-floating-textarea:focus ~ .glass-floating-label,
-    .glass-floating-textarea:not(:placeholder-shown) ~ .glass-floating-label {
-      top: 3px;
-      transform: none;
-      font-size: 7.5px;
-      font-weight: 700;
-      color: #C7F7C3;
-      background: rgba(10, 42, 50, 0.85);
-    }
 
     /* Contact success fade transition */
     #contactFormContainer,
     #contactSuccessContainer {
       transition: opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1), transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    #contactSuccessContainer {
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+    }
+
+    #contactSuccessContainer.contact-success-visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
     }
 
     /* Buyer and merchant benefit cards: clear lead-ins with compact, aligned supporting copy. */
@@ -467,6 +390,46 @@
       margin-bottom: 2px;
       font-size: clamp(12.5px, 1.15vw, 14.5px);
       line-height: 1.3;
+    }
+
+    /* Keep the footer contact view fully framed within every viewport. */
+    #footerCardContainer.footer-contact-active {
+      height: auto;
+      min-height: min(540px, calc(100svh - 104px));
+    }
+
+    #footerCardContainer.footer-contact-active #footerContactPanel {
+      overscroll-behavior: auto;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-y;
+    }
+
+    #footerCardContainer.footer-contact-active #footerContactPanel>.relative {
+      height: auto;
+      min-height: 100%;
+      justify-content: flex-start;
+    }
+
+    @media (min-width: 768px) {
+      #footerCardContainer.footer-contact-active {
+        height: auto !important;
+        min-height: min(480px, calc(100svh - 104px)) !important;
+        max-height: calc(100svh - 104px);
+      }
+
+      #footerCardContainer.footer-contact-active .footer-contact-panel {
+        padding: 20px 24px;
+      }
+
+      #footerCardContainer.footer-contact-active .cf-fl-field {
+        margin-bottom: 0.75rem;
+      }
+
+      #footerCardContainer.footer-contact-active .cf-fl-field .cf-fl-input {
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
     }
 
     @media (max-width: 360px) {
@@ -708,100 +671,9 @@
       }
     }
 
-    /* DYNAMIC ANIMATED BRAND THEME GLOWS MOVING AROUND WHITE BACKGROUND */
-    @keyframes floatGlow1 {
-      0% {
-        transform: translate(0px, 0px) scale(1) rotate(0deg);
-      }
-
-      33% {
-        transform: translate(65px, -45px) scale(1.18) rotate(120deg);
-      }
-
-      66% {
-        transform: translate(-55px, 55px) scale(0.88) rotate(240deg);
-      }
-
-      100% {
-        transform: translate(0px, 0px) scale(1) rotate(360deg);
-      }
-    }
-
-    @keyframes floatGlow2 {
-      0% {
-        transform: translate(0px, 0px) scale(1.1) rotate(360deg);
-      }
-
-      33% {
-        transform: translate(-75px, 65px) scale(0.9) rotate(240deg);
-      }
-
-      66% {
-        transform: translate(45px, -55px) scale(1.2) rotate(120deg);
-      }
-
-      100% {
-        transform: translate(0px, 0px) scale(1.1) rotate(0deg);
-      }
-    }
-
-    @keyframes floatGlow3 {
-      0% {
-        transform: translate(-35px, 35px) scale(0.95);
-      }
-
-      50% {
-        transform: translate(55px, -65px) scale(1.22);
-      }
-
-      100% {
-        transform: translate(-35px, 35px) scale(0.95);
-      }
-    }
-
-    .glow-sec-left {
-      position: absolute;
-      top: 5%;
-      left: -80px;
-      width: clamp(350px, 45vw, 550px);
-      height: clamp(350px, 45vw, 550px);
-      background: radial-gradient(circle, rgba(14, 82, 150, 0.18) 0%, rgba(46, 160, 67, 0.12) 50%, transparent 80%);
-      border-radius: 50%;
-      filter: blur(85px);
-      pointer-events: none;
-      z-index: 0;
-      animation: floatGlow1 18s ease-in-out infinite;
-      will-change: transform;
-    }
-
-    .glow-sec-right {
-      position: absolute;
-      bottom: 5%;
-      right: -80px;
-      width: clamp(350px, 45vw, 550px);
-      height: clamp(350px, 45vw, 550px);
-      background: radial-gradient(circle, rgba(46, 160, 67, 0.18) 0%, rgba(18, 163, 180, 0.14) 50%, transparent 80%);
-      border-radius: 50%;
-      filter: blur(85px);
-      pointer-events: none;
-      z-index: 0;
-      animation: floatGlow2 22s ease-in-out infinite;
-      will-change: transform;
-    }
-
-    .glow-sec-center {
-      position: absolute;
-      top: 40%;
-      left: 30%;
-      width: clamp(300px, 40vw, 500px);
-      height: clamp(300px, 40vw, 500px);
-      background: radial-gradient(circle, rgba(18, 163, 180, 0.14) 0%, rgba(14, 82, 150, 0.10) 50%, transparent 80%);
-      border-radius: 50%;
-      filter: blur(90px);
-      pointer-events: none;
-      z-index: 0;
-      animation: floatGlow3 16s ease-in-out infinite;
-      will-change: transform;
+    /* Smooth Static Gradient Background for About Section */
+    .about-gradient-bg {
+      background: linear-gradient(180deg, #F8FAFC 0%, rgba(14, 82, 150, 0.03) 45%, rgba(46, 160, 67, 0.03) 75%, #F8FAFC 100%);
     }
 
     /* ── Contact Form: floating label ── */
@@ -899,7 +771,8 @@
 
       <!-- FARTHEST LEFT: PayKudi Logo Image -->
       <div class="flex items-center shrink-0 min-w-0">
-        <a href="#heroSection" class="payment-room-brand group" aria-label="PayKudi home" style="text-decoration:none;">
+        <a href="#heroSection" onclick="slideFooterBackToMain()" class="payment-room-brand group"
+          aria-label="PayKudi home" style="text-decoration:none;">
           <img src="paykudi-logo.png" alt="PAYKUDI Logo" />
           <span class="payment-room-brand-copy" aria-hidden="true">
             <span class="payment-room-brand-name"><span class="brand-pay">PAY</span><span
@@ -913,7 +786,7 @@
       <!-- FARTHEST RIGHT: Nav Links -->
       <div class="flex items-center gap-5 sm:gap-7 ml-auto">
         <nav class="hidden md:flex items-center gap-6 lg:gap-7">
-          <a id="navLinkAbout" href="#about"
+          <a id="navLinkAbout" href="#about" onclick="slideFooterBackToMain()"
             class="nav-spy-link text-slate-800 hover:text-[#0E5296] font-bold text-xs sm:text-sm tracking-tight transition-colors py-1 relative group"
             style="font-family: 'Inter', sans-serif; text-decoration:none;">
             About
@@ -921,7 +794,7 @@
               class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#0E5296] transition-all duration-300 group-hover:w-full"></span>
           </a>
 
-          <a id="navLinkCommunity" href="#community"
+          <a id="navLinkCommunity" href="#community" onclick="slideFooterBackToMain()"
             class="nav-spy-link text-slate-800 hover:text-[#0E5296] font-bold text-xs sm:text-sm tracking-tight transition-colors py-1 relative group"
             style="font-family: 'Inter', sans-serif; text-decoration:none;">
             Community
@@ -929,7 +802,7 @@
               class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#0E5296] transition-all duration-300 group-hover:w-full"></span>
           </a>
 
-          <a id="navLinkContact" href="#footerSection"
+          <a id="navLinkContact" href="javascript:void(0)" onclick="openContactUsModal()"
             class="nav-spy-link text-slate-800 hover:text-[#0E5296] font-bold text-xs sm:text-sm tracking-tight transition-colors py-1 relative group cursor-pointer"
             style="font-family: 'Inter', sans-serif; text-decoration:none;">
             Contact
@@ -964,8 +837,8 @@
 
     <div>
       <div class="flex items-center justify-between pb-6 mb-6">
-        <a href="#heroSection" onclick="closeMobileMenu();" class="payment-room-brand shrink-0" aria-label="PayKudi home"
-          style="text-decoration:none;">
+        <a href="#heroSection" onclick="closeMobileMenu(); slideFooterBackToMain();" class="payment-room-brand shrink-0"
+          aria-label="PayKudi home" style="text-decoration:none;">
           <img src="paykudi-logo.png" alt="PAYKUDI Logo" />
           <span class="payment-room-brand-copy" aria-hidden="true">
             <span class="payment-room-brand-name"><span class="brand-pay">PAY</span><span
@@ -984,19 +857,19 @@
       </div>
 
       <nav class="space-y-4 pt-2">
-        <a id="mobileLinkHero" href="#heroSection" onclick="closeMobileMenu();"
+        <a id="mobileLinkHero" href="#heroSection" onclick="closeMobileMenu(); slideFooterBackToMain();"
           class="mobile-nav-link block text-base font-bold text-gray-800 hover:text-[#0E5296] transition-colors py-1">
           Home
         </a>
-        <a id="mobileLinkAbout" href="#about" onclick="closeMobileMenu();"
+        <a id="mobileLinkAbout" href="#about" onclick="closeMobileMenu(); slideFooterBackToMain();"
           class="mobile-nav-link block text-base font-bold text-gray-800 hover:text-[#0E5296] transition-colors py-1">
           About
         </a>
-        <a id="mobileLinkCommunity" href="#community" onclick="closeMobileMenu();"
+        <a id="mobileLinkCommunity" href="#community" onclick="closeMobileMenu(); slideFooterBackToMain();"
           class="mobile-nav-link block text-base font-bold text-gray-800 hover:text-[#0E5296] transition-colors py-1">
           Community
         </a>
-        <a id="mobileLinkContact" href="#footerSection" onclick="closeMobileMenu();"
+        <a id="mobileLinkContact" href="javascript:void(0)" onclick="closeMobileMenu(); openContactUsModal();"
           class="mobile-nav-link block text-base font-bold text-gray-800 hover:text-[#0E5296] transition-colors py-1">
           Contact
         </a>
@@ -1022,8 +895,7 @@
     </div>
 
     <div class="pt-4 flex items-center gap-1.5 text-[11px] font-medium text-gray-500">
-      <img src="paykudi-logo.png"
-        alt="Paykudi Logo" class="h-4 w-auto object-contain" />
+      <img src="paykudi-logo.png" alt="Paykudi Logo" class="h-4 w-auto object-contain" />
       <span>•</span>
       <span>Take control of your payments</span>
     </div>
@@ -1152,10 +1024,7 @@
 
 
     <!-- ================= ABOUT / POSSIBILITIES SECTION ================= -->
-    <section id="about" class="py-20 bg-white relative overflow-hidden">
-      <div class="glow-sec-left"></div>
-      <div class="glow-sec-right"></div>
-      <div class="glow-sec-center"></div>
+    <section id="about" class="py-20 about-gradient-bg relative overflow-hidden">
 
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
@@ -1570,188 +1439,295 @@
   </main>
 
 
-  <!-- ================= PAYKUDI GLOSSY TWO-TILE FOOTER ================= -->
-  <footer id="footerSection" class="relative overflow-hidden px-4 sm:px-6 lg:px-8 py-10 sm:py-14 min-h-[70vh] flex items-center justify-center">
+  <!-- ================= ULTRA-PREMIUM PAYKUDI MESH GLASS FOOTER ================= -->
+  <footer id="footerSection" class="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden flex items-center">
 
-    <!-- Existing PayKudi Photo Background (70% Viewport View) -->
     <div class="absolute inset-0 z-0 overflow-hidden">
-      <img src="paykudi-contact-photo.jpg" alt="PayKudi Team" class="w-full h-full object-cover" style="object-position: center 25%;" />
-      <div class="absolute inset-0 bg-gradient-to-br from-gray-950/85 via-[#0E5296]/40 to-gray-950/85"></div>
+      <img src="paykudi-contact-photo.jpg" alt="PayKudi Team" class="w-full h-full object-cover object-top" />
+      <div class="absolute inset-0 bg-gradient-to-br from-gray-950/80 via-[#0E5296]/30 to-gray-950/80"></div>
     </div>
 
-    <!-- TWO INDEPENDENT GLOSSY FOOTER TILES (30% Left, 70% Right) -->
-    <div class="relative z-10 max-w-7xl mx-auto w-full">
-      <div class="grid grid-cols-1 lg:grid-cols-[0.72fr_1.8fr] gap-3 sm:gap-4 items-stretch">
+    <div class="w-full max-w-7xl mx-auto relative z-10">
 
-        <!-- ================= LEFT SMALL TILE (~30%): COMPACT CONTACT US FORM ================= -->
-        <section class="paykudi-glass-tile rounded-[clamp(12px,1.5vw,18px)] p-[clamp(14px,1.8vw,22px)] text-white flex flex-col justify-between h-full">
-          <div class="relative z-10 h-full flex flex-col justify-between items-center text-center w-full">
-            <div id="contactFormContainer" class="w-full max-w-[clamp(210px,90%,310px)] mx-auto">
-              <h3 class="font-black text-white text-[clamp(11px,1vw,13px)] uppercase tracking-[0.12em] font-heading mb-2.5 text-brand-mint text-center">
-                CONTACT US
-              </h3>
+      <div id="footerCardContainer"
+        class="relative overflow-hidden rounded-[24px] sm:rounded-[32px] text-white shadow-xl border border-white/10 bg-white/2 backdrop-blur-sm reveal-item stagger-1">
 
-              <form onsubmit="handleContactFormSubmit(event)" class="w-full text-left">
-                <div class="floating-field">
-                  <input type="text" id="contactFullName" required placeholder=" " autocomplete="name" class="glass-floating-input" />
-                  <label for="contactFullName" class="glass-floating-label">Name</label>
-                </div>
+        <!-- PANEL 1: Main Overview Footer Content -->
+        <div id="footerMainPanel" class="slide-morph-panel panel-visible p-6 sm:p-8 lg:p-8 relative z-10">
 
-                <div class="floating-field">
-                  <input type="email" id="contactEmailAddr" required placeholder=" " autocomplete="email" class="glass-floating-input" />
-                  <label for="contactEmailAddr" class="glass-floating-label">Email</label>
-                </div>
-
-                <div class="floating-field">
-                  <textarea id="contactInquiryMsg" required placeholder=" " class="glass-floating-textarea"></textarea>
-                  <label for="contactInquiryMsg" class="glass-floating-label">Message</label>
-                </div>
-
-                <button type="submit" id="contactModalSubmitBtn"
-                  class="w-full bg-brand-green hover:bg-[#258336] active:bg-[#1e6b2c] text-white text-[clamp(9.5px,0.8vw,11.5px)] font-extrabold py-2 px-3 rounded-lg transition-all shadow-md hover:shadow-lg cursor-pointer mt-1">
-                  Send Message
-                </button>
-              </form>
-            </div>
-
-            <!-- SUCCESS MESSAGE CONTAINER -->
-            <div id="contactSuccessContainer"
-              class="hidden flex-col items-center justify-center text-center space-y-2 p-3 my-auto min-h-[180px]">
-              <div class="w-9 h-9 rounded-full bg-brand-green text-white flex items-center justify-center mx-auto shadow-lg border border-white/20 shrink-0">
-                <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              </div>
-              <h4 class="text-sm font-extrabold text-white font-heading">Message Sent!</h4>
-              <p class="text-[11px] text-white/80 font-medium leading-relaxed max-w-xs mx-auto">
-                Thank you for reaching out to PayKudi. We will get back to you shortly.
+          <div class="max-w-4xl w-full mb-6 sm:mb-8">
+            <h2
+              class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight text-white mb-2 font-heading lg:whitespace-nowrap">
+              Ready to take control of your payments?
+            </h2>
+            <div class="mt-4 sm:mt-5">
+              <p class="text-sm sm:text-base font-medium text-white/85">
+                We want to hear from you, reach out to us.
               </p>
+              <button onclick="openContactUsModal()"
+                style="padding: clamp(0.65rem, 1.2vw, 0.875rem) clamp(1.25rem, 2.5vw, 1.75rem); font-size: clamp(0.75rem, 1.1vw, 0.875rem); border-radius: clamp(0.5rem, 1.2vw, 0.75rem);"
+                class="mt-3 bg-white hover:bg-gray-100 text-gray-950 font-extrabold transition-all shadow-xl hover:scale-105 cursor-pointer">
+                Contact us
+              </button>
             </div>
           </div>
-        </section>
 
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-5 pt-4 border-t border-white/10 items-start">
 
-        <!-- ================= RIGHT LARGE TILE (~70%): HEADING, NEWSLETTER & NAV ================= -->
-        <section class="paykudi-glass-tile-right rounded-[clamp(12px,1.5vw,18px)] p-[clamp(14px,1.8vw,22px)] text-white flex flex-col justify-between h-full overflow-hidden">
-          <div class="relative z-10">
-
-            <!-- HEADER & HEADING -->
-            <div>
-              <p class="text-brand-mint text-[8.5px] font-extrabold tracking-[0.15em] uppercase mb-0.5">
-                PAYKUDI
+            <div class="lg:col-span-5 space-y-4">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-gray-200">Newsletter</h4>
+              <p class="text-xs sm:text-sm text-gray-300 font-medium max-w-sm leading-relaxed">
+                We'd love to share our love for safe social commerce with you in our monthly newsletter.
               </p>
 
-              <!-- Single-line heading on desktop -->
-              <h2 class="text-[clamp(1.35rem,2.5vw,2.3rem)] font-black tracking-tight leading-[1.1] text-white font-heading whitespace-normal lg:whitespace-nowrap mb-1">
-                Take control of your payments.
-              </h2>
+              <div id="footerNewsletterMorphWrapper"
+                class="relative w-full max-w-sm h-[48px] overflow-hidden rounded-xl sm:rounded-2xl shadow-xl mt-3">
 
-              <!-- Specifically Newsletter Subtext -->
-              <p class="text-gray-300 text-[clamp(9.5px,0.85vw,11.5px)] leading-snug mt-1 mb-2.5 max-w-xl">
-                Stay updated with PayKudi news, product updates, useful tips, new features and important announcements delivered straight to your inbox.
-              </p>
-            </div>
-
-            <!-- NEWSLETTER BUTTON PLACED DIRECTLY BELOW SUBTEXT (PROMINENT SIZE PRESERVED) -->
-            <div id="footerNewsletterMorphWrapper"
-              class="relative w-full max-w-[clamp(200px,24vw,280px)] h-[clamp(40px,4vw,48px)] overflow-hidden rounded-[clamp(9px,1vw,13px)] shadow-xl shrink-0 mb-3">
-
-              <button id="footerNewsletterOriginalBtn" onclick="morphFooterNewsletterButton(event)"
-                class="absolute inset-0 w-full h-full bg-brand-mint hover:bg-brand-mintDark text-brand-dark font-extrabold px-4 rounded-[clamp(9px,1vw,13px)] text-[clamp(9px,0.85vw,11px)] cursor-pointer flex items-center justify-center text-center z-10 whitespace-nowrap shadow-md hover:scale-[1.02] transition-all">
-                <span>Subscribe to our Newsletter</span>
-              </button>
-
-              <form id="footerNewsletterMorphedForm" onsubmit="handleFooterNewsletterSubmit(event)"
-                onclick="event.stopPropagation()"
-                class="hidden absolute inset-0 w-full h-full bg-white p-1 rounded-[clamp(9px,1vw,13px)] border border-brand-mint/50 shadow-2xl slide-morph-panel items-center gap-1.5 z-20">
-                <input type="text" id="footerNewsletterInput" required placeholder="Enter your email address"
-                  oninput="clearFooterNewsletterInputError()"
-                  class="flex-grow h-full px-3 text-gray-900 placeholder-gray-400 bg-transparent text-xs font-medium focus:outline-none rounded-lg min-w-0" />
-
-                <button type="submit" id="footerNewsletterSubmitArrowBtn" aria-label="Submit newsletter subscription"
-                  class="h-full aspect-square rounded-lg bg-brand-green hover:bg-[#258336] active:bg-[#1e6b2c] text-white flex items-center justify-center font-extrabold shadow-md transition-colors shrink-0 cursor-pointer hover:brightness-95 active:brightness-90 ml-auto">
-                  <svg id="footerNewsletterArrowIcon" class="w-3.5 h-3.5" fill="none" stroke="currentColor"
-                    viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
-                  </svg>
-                  <svg id="footerNewsletterSpinnerIcon" class="w-3.5 h-3.5 animate-spin hidden" fill="none"
-                    viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                    </path>
-                  </svg>
+                <button id="footerNewsletterOriginalBtn" onclick="morphFooterNewsletterButton(event)"
+                  class="absolute inset-0 w-full h-full bg-brand-mint hover:bg-brand-mintDark text-brand-dark font-extrabold px-5 rounded-xl sm:rounded-2xl text-xs sm:text-sm cursor-pointer flex items-center justify-center text-center z-10 whitespace-nowrap shadow-lg">
+                  <span>Subscribe to our Newsletter</span>
                 </button>
-              </form>
 
-              <div id="footerNewsletterMorphedSuccess"
-                class="hidden absolute inset-0 w-full h-full bg-brand-mint text-brand-dark font-extrabold px-3 rounded-[clamp(9px,1vw,13px)] shadow-lg slide-morph-panel items-center justify-center gap-1.5 text-[clamp(9px,0.85vw,11px)] z-30 whitespace-nowrap">
-                <svg class="w-4 h-4 text-brand-dark shrink-0" style="width: 16px; height: 16px;" fill="none"
-                  stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span class="whitespace-nowrap">You're subscribed!</span>
+                <form id="footerNewsletterMorphedForm" onsubmit="handleFooterNewsletterSubmit(event)"
+                  onclick="event.stopPropagation()"
+                  class="hidden absolute inset-0 w-full h-full bg-white p-1 rounded-xl sm:rounded-2xl border border-brand-mint/50 shadow-2xl slide-morph-panel items-center gap-1.5 z-20">
+                  <input type="text" id="footerNewsletterInput" required placeholder="Enter your email address"
+                    oninput="clearFooterNewsletterInputError()"
+                    class="flex-grow h-full px-3.5 text-gray-900 placeholder-gray-400 bg-transparent text-xs sm:text-sm font-medium focus:outline-none rounded-lg min-w-0" />
+
+                  <button type="submit" id="footerNewsletterSubmitArrowBtn" aria-label="Submit newsletter subscription"
+                    class="h-full aspect-square rounded-lg bg-brand-green hover:bg-[#258336] active:bg-[#1e6b2c] text-white flex items-center justify-center font-extrabold shadow-md transition-colors shrink-0 cursor-pointer hover:brightness-95 active:brightness-90 ml-auto">
+                    <svg id="footerNewsletterArrowIcon" class="w-3.5 h-3.5" fill="none" stroke="currentColor"
+                      viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                    </svg>
+                    <svg id="footerNewsletterSpinnerIcon" class="w-3.5 h-3.5 animate-spin hidden" fill="none"
+                      viewBox="0 0 24 24">
+                      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                      <path class="opacity-75" fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                      </path>
+                    </svg>
+                  </button>
+                </form>
+
+                <div id="footerNewsletterMorphedSuccess"
+                  class="hidden absolute inset-0 w-full h-full bg-brand-mint text-brand-dark font-extrabold px-3 rounded-xl sm:rounded-2xl shadow-lg slide-morph-panel items-center justify-center gap-1.5 text-xs sm:text-sm z-30 whitespace-nowrap">
+                  <svg class="w-4 h-4 text-brand-dark shrink-0" style="width: 18px; height: 18px;" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span class="whitespace-nowrap">You're subscribed to PayKudi Newsletter!</span>
+                </div>
+
               </div>
-
             </div>
 
-            <!-- COMPACT DIVIDER -->
-            <div class="border-t border-white/15 my-2.5 pt-2.5 relative z-10"></div>
+            <div class="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8 text-xs sm:text-sm">
 
-            <!-- COMPACT NAVIGATION GRID -->
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 relative z-10 text-[9.5px] sm:text-[10.5px]">
-              <!-- SUPPORT -->
-              <div>
-                <h3 class="text-[9.5px] font-extrabold uppercase tracking-wider text-brand-mint mb-1.5">
-                  Support
-                </h3>
-                <ul class="space-y-1 text-gray-300 font-medium">
-                  <li><a href="#footerSection" class="hover:text-brand-mint transition-colors">Contact Us</a></li>
-                  <li><a href="javascript:void(0)" class="hover:text-brand-mint transition-colors">Privacy Policy</a></li>
-                  <li><a href="mailto:hello@paykudi.co" class="hover:text-brand-mint transition-colors">Email Us</a></li>
+              <div class="space-y-3">
+                <h4 class="font-bold text-white text-sm">Home</h4>
+                <ul class="space-y-2 text-gray-300 font-medium">
+                  <li><a href="#heroSection" class="hover:text-brand-mint transition-colors">Overview</a></li>
+                  <li><a href="javascript:void(0)" onclick="openContactUsModal()"
+                      class="hover:text-brand-mint transition-colors">Contact</a></li>
                 </ul>
               </div>
 
-              <!-- EXPLORE -->
-              <div>
-                <h3 class="text-[9.5px] font-extrabold uppercase tracking-wider text-brand-mint mb-1.5">
-                  Explore
-                </h3>
-                <ul class="space-y-1 text-gray-300 font-medium">
-                  <li><a href="#heroSection" class="hover:text-brand-mint transition-colors">Overview</a></li>
+              <div class="space-y-3">
+                <h4 class="font-bold text-white text-sm">About</h4>
+                <ul class="space-y-2 text-gray-300 font-medium">
                   <li><a href="#about" class="hover:text-brand-mint transition-colors">Built for Deals</a></li>
                   <li><a href="#about" class="hover:text-brand-mint transition-colors">Features</a></li>
-                  <li><a href="#community" class="hover:text-brand-mint transition-colors">Community</a></li>
                 </ul>
               </div>
 
-              <!-- CONNECT -->
-              <div class="col-span-2 sm:col-span-1">
-                <h3 class="text-[9.5px] font-extrabold uppercase tracking-wider text-brand-mint mb-1.5">
-                  Connect
-                </h3>
-                <ul class="space-y-1 text-gray-300 font-medium">
-                  <li><a href="https://www.instagram.com/usepaykudi?igsh=MXh5c3Z6NmJvNmVtOQ==" target="_blank" rel="noopener" class="hover:text-brand-mint transition-colors">Instagram</a></li>
-                  <li><a href="https://linkedin.com" target="_blank" rel="noopener" class="hover:text-brand-mint transition-colors">LinkedIn</a></li>
-                  <li><a href="https://wa.me/2348123456789" target="_blank" rel="noopener" class="hover:text-brand-mint transition-colors">WhatsApp Support</a></li>
+              <div class="space-y-3 col-span-2 sm:col-span-1">
+                <h4 class="font-bold text-white text-sm">Community</h4>
+                <ul class="space-y-2 text-gray-300 font-medium">
+                  <li><a href="#community" class="hover:text-brand-mint transition-colors">Founding Members</a></li>
+                  <li><a href="javascript:void(0)" onclick="openContactUsModal()"
+                      class="hover:text-brand-mint transition-colors">Contact Us</a></li>
                 </ul>
+
+                <div class="flex items-center gap-2 pt-3">
+                  <a href="mailto:hello@paykudi.co" aria-label="Email support"
+                    class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-gray-200 hover:text-white flex items-center justify-center transition-colors">
+                    <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                      <path
+                        d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                    </svg>
+                  </a>
+                  <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"
+                    class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-gray-200 hover:text-white flex items-center justify-center transition-colors">
+                    <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                      <path
+                        d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+                    </svg>
+                  </a>
+                  <a href="https://www.instagram.com/usepaykudi?igsh=MXh5c3Z6NmJvNmVtOQ==" target="_blank"
+                    rel="noopener" aria-label="Instagram"
+                    class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-gray-200 hover:text-white flex items-center justify-center transition-colors">
+                    <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                      <path
+                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    </svg>
+                  </a>
+                </div>
+
               </div>
+
             </div>
 
           </div>
 
-          <!-- COMPACT COPYRIGHT ROW -->
-          <div class="border-t border-white/15 mt-3 pt-2.5 flex items-center justify-between text-[9.5px] text-gray-400 font-medium relative z-10">
-            <p>© <span id="year"></span> PayKudi. All rights reserved.</p>
-            <p>Powered by <strong class="text-white">Start<span class="text-[#0E5296]">up.</span></strong></p>
+          <div
+            class="pt-4 border-t border-white/10 mt-4 flex flex-wrap items-center justify-center gap-2 text-xs text-gray-400 font-medium text-center">
+            <span>&copy; <span id="year"></span></span>
+            <div class="inline-flex items-center gap-1">
+              <img src="paykudi-logo.png" alt="Paykudi Logo" class="h-4 w-auto object-contain" />
+              <span class="font-extrabold text-white"><span class="text-[#0E5296]">PAY</span><span
+                  class="text-[#2EA043]">KUDI</span><span class="text-[#2EA043]">.</span></span>
+            </div>
+            <span>•</span>
+            <span>Powered by <strong class="text-white">Start<span class="text-[#0E5296]">up.</span></strong></span>
           </div>
 
-        </section>
+        </div>
+
+
+        <!-- PANEL 2: Contact Us View -->
+        <div id="footerContactPanel"
+          class="footer-contact-panel hidden absolute inset-0 w-full h-full bg-transparent backdrop-blur-sm p-5 sm:p-7 lg:p-8 slide-morph-panel overflow-y-auto z-20 border-0">
+
+          <div class="relative z-10 h-full flex flex-col justify-center space-y-4">
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-6 items-center my-auto">
+
+              <div class="md:col-span-6 flex flex-col justify-between space-y-4 my-auto pl-0">
+                <div>
+                  <h3 class="font-extrabold text-white tracking-tight font-heading"
+                    style="font-size: clamp(1.35rem, 3vw, 1.85rem); line-height: 1.2;">
+                    Contact Us
+                  </h3>
+                  <p class="text-gray-300 font-normal mt-2 leading-relaxed max-w-md"
+                    style="font-size: clamp(0.75rem, 1.2vw, 0.875rem);">
+                    Talk Directly to us, we want to hear you
+                  </p>
+
+                  <div class="flex items-center gap-2.5 mt-4 flex-wrap">
+
+                    <a href="mailto:hello@paykudi.co" aria-label="Email Us"
+                      class="w-10 h-10 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 flex items-center justify-center transition-all duration-300 shadow-lg hover:scale-110 backdrop-blur-md">
+                      <img src="icons8-gmail-logo-120.png" alt="Email" class="w-5 h-5 object-contain" />
+                    </a>
+
+                    <a href="https://www.instagram.com/usepaykudi?igsh=MXh5c3Z6NmJvNmVtOQ==" target="_blank"
+                      rel="noopener" aria-label="Instagram @usepaykudi"
+                      class="w-10 h-10 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 flex items-center justify-center transition-all duration-300 shadow-lg hover:scale-110 backdrop-blur-md">
+                      <img src="icons8-instagram-logo-100.png" alt="Instagram" class="w-5 h-5 object-contain" />
+                    </a>
+
+                    <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"
+                      class="w-10 h-10 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 flex items-center justify-center transition-all duration-300 shadow-lg hover:scale-110 backdrop-blur-md">
+                      <img src="icons8-linkedin-logo-100.png" alt="LinkedIn" class="w-5 h-5 object-contain" />
+                    </a>
+
+                    <a href="https://wa.me/2348123456789" target="_blank" rel="noopener" aria-label="WhatsApp Support"
+                      class="w-10 h-10 rounded-xl bg-white/10 hover:bg-emerald-500/30 border border-white/15 text-emerald-300 hover:text-emerald-200 flex items-center justify-center transition-all duration-300 shadow-lg hover:scale-110 group backdrop-blur-md">
+                      <svg class="w-5 h-5 fill-current transition-transform group-hover:scale-110" viewBox="0 0 24 24">
+                        <path
+                          d="M12.031 2c-5.514 0-9.969 4.456-9.969 9.968 0 1.763.459 3.486 1.332 5.006l-1.394 5.093 5.231-1.371c1.468.802 3.125 1.242 4.799 1.242 5.513 0 9.968-4.456 9.968-9.968 0-5.513-4.455-9.97-9.967-9.97zm0 17.5c-1.488 0-2.949-.395-4.225-1.144l-.303-.178-3.138.823.837-3.061-.196-.312c-.822-1.309-1.256-2.831-1.256-4.39 0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8zm4.386-5.991c-.241-.121-1.428-.704-1.649-.784-.221-.08-.382-.121-.543.121-.161.242-.623.784-.764.945-.141.161-.282.181-.523.061s-1.02-.376-1.943-1.2c-.718-.64-1.202-1.431-1.343-1.672-.141-.242-.015-.373.106-.493.109-.108.242-.282.362-.423.121-.141.161-.242.242-.403.08-.161.04-.302-.02-.423-.06-.121-.543-1.309-.744-1.792-.196-.47-.396-.406-.543-.414h-.463c-.161 0-.423.06-.644.302s-.845.825-.845 2.012c0 1.187.865 2.332.985 2.493.121.161 1.704 2.602 4.129 3.65.577.249 1.028.398 1.38.51.58.184 1.108.158 1.525.096.467-.07 1.428-.584 1.629-1.148.201-.564.201-1.047.141-1.148-.061-.101-.222-.162-.463-.283z" />
+                      </svg>
+                    </a>
+
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="md:col-span-6 bg-white/5 backdrop-blur-md text-white shadow-xl flex flex-col justify-between border border-white/15"
+                style="padding: clamp(1rem, 2vw, 1.5rem); border-radius: clamp(0.875rem, 2vw, 1.25rem); position: relative; min-height: 220px;">
+
+                <div id="contactFormContainer">
+                  <h4 class="font-extrabold text-white font-heading mb-4"
+                    style="font-size: clamp(1.1rem, 2vw, 1.35rem);">
+                    Send us a message
+                  </h4>
+
+                  <form onsubmit="handleContactFormSubmit(event)">
+
+                    <div class="cf-fl-field">
+                      <span class="cf-fl-icon">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                          <circle cx="12" cy="7" r="4" />
+                        </svg>
+                      </span>
+                      <input type="text" id="contactFullName" required placeholder=" " class="cf-fl-input" />
+                      <label class="cf-fl-label" for="contactFullName">Full Name</label>
+                    </div>
+
+                    <div class="cf-fl-field">
+                      <span class="cf-fl-icon">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                          <polyline points="22,6 12,13 2,6" />
+                        </svg>
+                      </span>
+                      <input type="email" id="contactEmailAddr" required placeholder=" " class="cf-fl-input" />
+                      <label class="cf-fl-label" for="contactEmailAddr">Email address</label>
+                    </div>
+
+                    <div class="cf-fl-field cf-textarea">
+                      <span class="cf-fl-icon">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                        </svg>
+                      </span>
+                      <textarea id="contactInquiryMsg" required rows="3" placeholder=" " class="cf-fl-input"></textarea>
+                      <label class="cf-fl-label" for="contactInquiryMsg">About your inquiry</label>
+                    </div>
+
+                    <button type="submit" id="contactModalSubmitBtn"
+                      style="font-size: clamp(0.75rem, 1.1vw, 0.875rem); padding: clamp(0.65rem, 1.2vw, 0.875rem) clamp(1rem, 2vw, 1.5rem); border-radius: clamp(0.5rem, 1.2vw, 0.75rem);"
+                      class="w-full bg-[#0E5296] hover:bg-[#0a3d70] text-white font-extrabold transition-all shadow-lg hover:shadow-xl cursor-pointer mt-1">
+                      Submit
+                    </button>
+                  </form>
+                </div>
+
+                <div id="contactSuccessContainer"
+                  class="absolute inset-0 flex flex-col items-center justify-center text-center space-y-3 p-6"
+                  style="border-radius: clamp(0.875rem, 2vw, 1.25rem); display: none; opacity: 0; transform: translateY(8px);">
+                  <div
+                    class="w-12 h-12 rounded-full bg-[#2EA043] text-white flex items-center justify-center mx-auto shadow-lg border border-white/20 shrink-0">
+                    <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
+                  <h4 class="text-lg font-extrabold text-white font-heading">Message Sent!</h4>
+                  <p class="text-xs text-white/80 font-medium leading-relaxed max-w-xs mx-auto">
+                    Thank you for sharing your valuable insight with PayKudi. We will reach out to you shortly.
+                  </p>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
 
       </div>
-    </div>
 
+    </div>
   </footer>
 
 
@@ -2314,7 +2290,161 @@
       }
     }
 
-    // Integrated Contact Form Submit Handler
+    // Inline Footer Contact Panel Logic
+    let _contactInactivityTimer = null;
+    const CONTACT_INACTIVITY_MS = 10000;
+    let isContactFormSubmitted = false;
+
+    function _resetContactInactivityTimer() {
+      clearTimeout(_contactInactivityTimer);
+      _contactInactivityTimer = setTimeout(() => {
+        const panel = document.getElementById('footerContactPanel');
+        if (panel && !panel.classList.contains('hidden')) {
+          slideFooterBackToMain();
+        }
+      }, CONTACT_INACTIVITY_MS);
+    }
+
+    function _attachContactActivityListeners() {
+      const panel = document.getElementById('footerContactPanel');
+      if (!panel) return;
+      ['mousemove', 'mousedown', 'keydown', 'touchstart', 'scroll', 'input'].forEach(evt => {
+        panel.addEventListener(evt, _resetContactInactivityTimer, { passive: true });
+      });
+    }
+
+    function _detachContactActivityListeners() {
+      const panel = document.getElementById('footerContactPanel');
+      if (!panel) return;
+      ['mousemove', 'mousedown', 'keydown', 'touchstart', 'scroll', 'input'].forEach(evt => {
+        panel.removeEventListener(evt, _resetContactInactivityTimer);
+      });
+      clearTimeout(_contactInactivityTimer);
+    }
+
+    function openContactUsModal() {
+      _isContactOpen = true;
+      updateNavbarOnScroll();
+      const contactFooterPanel = document.getElementById('footerContactPanel');
+      const footerCard = document.getElementById('footerCardContainer');
+      const footerMainPanel = document.getElementById('footerMainPanel');
+
+      if (!contactFooterPanel) return;
+
+      const formContainer = document.getElementById('contactFormContainer');
+      const successContainer = document.getElementById('contactSuccessContainer');
+
+      if (isContactFormSubmitted) {
+        if (formContainer) {
+          formContainer.style.display = 'none';
+          formContainer.style.opacity = '0';
+          formContainer.style.pointerEvents = 'none';
+        }
+        if (successContainer) {
+          successContainer.style.display = 'flex';
+          successContainer.style.flexDirection = 'column';
+          successContainer.style.alignItems = 'center';
+          successContainer.style.justifyContent = 'center';
+          successContainer.style.opacity = '1';
+          successContainer.style.transform = 'translateY(0)';
+        }
+      } else {
+        if (formContainer) {
+          formContainer.style.display = '';
+          formContainer.style.opacity = '1';
+          formContainer.style.transform = '';
+          formContainer.style.pointerEvents = '';
+        }
+        if (successContainer) {
+          successContainer.style.display = 'none';
+          successContainer.style.opacity = '0';
+          successContainer.style.transform = 'translateY(8px)';
+        }
+      }
+
+      if (footerCard) {
+        footerCard.classList.add('footer-contact-active');
+        footerCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      if (footerMainPanel) {
+        footerMainPanel.classList.remove('slide-morph-panel-reverse');
+        footerMainPanel.classList.add('slide-morph-panel');
+        footerMainPanel.style.visibility = 'visible';
+        footerMainPanel.classList.remove('panel-visible');
+      }
+
+      contactFooterPanel.classList.remove('slide-morph-panel-reverse');
+      contactFooterPanel.classList.add('slide-morph-panel');
+      contactFooterPanel.classList.remove('hidden');
+      contactFooterPanel.classList.remove('panel-visible');
+
+      void contactFooterPanel.offsetHeight;
+
+      requestAnimationFrame(() => {
+        contactFooterPanel.classList.add('panel-visible');
+      });
+
+      _attachContactActivityListeners();
+      _resetContactInactivityTimer();
+    }
+
+    function slideFooterBackToMain() {
+      _isContactOpen = false;
+      updateNavbarOnScroll();
+      const contactFooterPanel = document.getElementById('footerContactPanel');
+      const footerMainPanel = document.getElementById('footerMainPanel');
+      if (!contactFooterPanel) return;
+
+      _detachContactActivityListeners();
+
+      const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (isReducedMotion) {
+        if (footerMainPanel) {
+          footerMainPanel.classList.remove('slide-morph-panel-reverse');
+          footerMainPanel.classList.add('slide-morph-panel');
+          footerMainPanel.style.visibility = 'visible';
+          footerMainPanel.classList.add('panel-visible');
+        }
+        contactFooterPanel.classList.add('hidden');
+        contactFooterPanel.classList.remove('panel-visible');
+        const footerCardReduced = document.getElementById('footerCardContainer');
+        if (footerCardReduced) footerCardReduced.classList.remove('footer-contact-active');
+        return;
+      }
+
+      contactFooterPanel.classList.remove('slide-morph-panel');
+      contactFooterPanel.classList.add('slide-morph-panel-reverse');
+      void contactFooterPanel.offsetHeight;
+      requestAnimationFrame(() => {
+        contactFooterPanel.classList.remove('panel-visible');
+      });
+
+      if (footerMainPanel) {
+        footerMainPanel.classList.remove('slide-morph-panel');
+        footerMainPanel.classList.add('slide-morph-panel-reverse');
+        footerMainPanel.style.visibility = 'visible';
+        void footerMainPanel.offsetHeight;
+        requestAnimationFrame(() => {
+          footerMainPanel.classList.add('panel-visible');
+        });
+      }
+
+      const duration = 850;
+      setTimeout(() => {
+        contactFooterPanel.classList.add('hidden');
+        contactFooterPanel.classList.remove('panel-visible', 'slide-morph-panel-reverse');
+        contactFooterPanel.classList.add('slide-morph-panel');
+        const footerCard = document.getElementById('footerCardContainer');
+        if (footerCard) footerCard.classList.remove('footer-contact-active');
+      }, duration);
+    }
+
+    function closeContactUsModal() {
+      slideFooterBackToMain();
+    }
+
     async function handleContactFormSubmit(e) {
       e.preventDefault();
       const nameEl = document.getElementById('contactFullName');
@@ -2328,6 +2458,8 @@
       const name = nameEl.value.trim();
       const email = emailEl.value.trim();
       const message = msgEl.value.trim();
+
+      isContactFormSubmitted = true;
 
       if (submitBtn) {
         submitBtn.disabled = true;
@@ -2350,32 +2482,43 @@
 
       if (submitBtn) {
         submitBtn.disabled = false;
-        submitBtn.innerText = "Submit Message";
+        submitBtn.innerText = "Submit";
       }
 
       if (formContainer) {
-        formContainer.style.display = 'none';
+        formContainer.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+        formContainer.style.opacity = '0';
+        formContainer.style.transform = 'translateY(-6px)';
+        formContainer.style.pointerEvents = 'none';
       }
-      if (successContainer) {
-        successContainer.style.display = 'flex';
-        successContainer.style.opacity = '1';
-      }
+
+      setTimeout(() => {
+        if (formContainer) formContainer.style.display = 'none';
+        if (successContainer) {
+          successContainer.style.display = 'flex';
+          successContainer.style.flexDirection = 'column';
+          successContainer.style.alignItems = 'center';
+          successContainer.style.justifyContent = 'center';
+          successContainer.style.opacity = '0';
+          successContainer.style.transform = 'translateY(8px)';
+          successContainer.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+
+          void successContainer.offsetHeight;
+
+          requestAnimationFrame(() => {
+            successContainer.style.opacity = '1';
+            successContainer.style.transform = 'translateY(0)';
+          });
+        }
+
+        _attachContactActivityListeners();
+        _resetContactInactivityTimer();
+
+      }, 380);
     }
 
-    function openContactUsModal() {
-      const footerSec = document.getElementById('footerSection');
-      if (footerSec) {
-        footerSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }
-
-    function slideFooterBackToMain() {
-      // Legacy helper - footer is now a permanent two-column layout
-    }
-
-    function closeContactUsModal() {
-      // Legacy helper - footer is now a permanent two-column layout
-    }
+    // Tracks whether the Contact panel is intentionally open (set by openContactUsModal / slideFooterBackToMain)
+    let _isContactOpen = false;
 
     // Scroll-adaptive Navigation Links Spy
     function updateNavbarOnScroll() {
@@ -2391,8 +2534,10 @@
 
       let activeSection = 'hero';
 
-      if (footerSec && (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 || scrollPos >= footerTop - 100)) {
+      if (_isContactOpen) {
         activeSection = 'contact';
+      } else if (footerSec && scrollPos >= footerTop - 100) {
+        activeSection = 'none'; // in footer, contact not open → nothing highlighted
       } else if (communitySec && scrollPos >= communityTop - 100) {
         activeSection = 'community';
       } else if (aboutSec && scrollPos >= aboutTop - 100) {
