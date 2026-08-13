@@ -371,52 +371,79 @@
       z-index: 1;
     }
 
-    /* Compact Glass Contact Form Inputs */
-    .glass-input-field {
+    /* Compact Glass Contact Form Inputs with Floating Labels */
+    .floating-field {
+      position: relative;
       width: 100%;
-      height: clamp(34px, 3vw, 40px);
-      padding: clamp(8px, 1vw, 11px);
+      margin-bottom: 0.75rem;
+    }
+
+    .glass-floating-input {
+      width: 100%;
+      height: clamp(38px, 4vw, 44px);
+      padding: 16px 12px 6px 12px;
       font-size: clamp(10px, 0.85vw, 12px);
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 10px;
+      border-radius: 11px;
       color: #ffffff;
       outline: none;
       transition: all 0.2s ease;
     }
 
-    .glass-input-field::placeholder {
-      color: rgba(255, 255, 255, 0.45);
-    }
-
-    .glass-input-field:focus {
-      border-color: rgba(199, 247, 195, 0.55);
-      box-shadow: 0 0 0 3px rgba(199, 247, 195, 0.08);
-      background: rgba(255, 255, 255, 0.09);
-    }
-
-    .glass-textarea-field {
+    .glass-floating-textarea {
       width: 100%;
-      height: clamp(65px, 6vw, 85px);
-      padding: clamp(8px, 1vw, 11px);
+      height: clamp(70px, 7vw, 86px);
+      padding: 18px 12px 6px 12px;
       font-size: clamp(10px, 0.85vw, 12px);
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 10px;
+      border-radius: 11px;
       color: #ffffff;
       outline: none;
       resize: none;
       transition: all 0.2s ease;
     }
 
-    .glass-textarea-field::placeholder {
-      color: rgba(255, 255, 255, 0.45);
-    }
-
-    .glass-textarea-field:focus {
+    .glass-floating-input:focus,
+    .glass-floating-textarea:focus {
       border-color: rgba(199, 247, 195, 0.55);
       box-shadow: 0 0 0 3px rgba(199, 247, 195, 0.08);
       background: rgba(255, 255, 255, 0.09);
+    }
+
+    .glass-floating-label {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255, 255, 255, 0.48);
+      pointer-events: none;
+      font-size: clamp(10px, 0.85vw, 12px);
+      font-weight: 500;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 2;
+      border-radius: 4px;
+      padding: 0 4px;
+      line-height: 1;
+    }
+
+    .floating-field textarea ~ .glass-floating-label {
+      top: 20px;
+      transform: none;
+    }
+
+    /* Floating label active state (focused or containing value) */
+    .glass-floating-input:focus ~ .glass-floating-label,
+    .glass-floating-input:not(:placeholder-shown) ~ .glass-floating-label,
+    .glass-floating-textarea:focus ~ .glass-floating-label,
+    .glass-floating-textarea:not(:placeholder-shown) ~ .glass-floating-label {
+      top: 5px;
+      transform: none;
+      font-size: 8.5px;
+      font-weight: 700;
+      color: #C7F7C3;
+      background: rgba(10, 42, 50, 0.85);
     }
 
     /* Contact success fade transition */
@@ -1558,36 +1585,30 @@
 
         <!-- ================= LEFT SMALL TILE (~30%): COMPACT CONTACT US FORM ================= -->
         <section class="paykudi-glass-tile rounded-[clamp(14px,1.8vw,22px)] p-[clamp(18px,2.2vw,28px)] text-white flex flex-col justify-between min-h-[300px]">
-          <div class="relative z-10 h-full flex flex-col justify-between">
-            <div id="contactFormContainer" class="w-full">
-              <h3 class="font-black text-white text-[clamp(13px,1.2vw,16px)] uppercase tracking-[0.12em] font-heading mb-4 text-brand-mint">
+          <div class="relative z-10 h-full flex flex-col justify-between items-center text-center w-full">
+            <div id="contactFormContainer" class="w-full max-w-[clamp(230px,92%,340px)] mx-auto">
+              <h3 class="font-black text-white text-[clamp(13px,1.2vw,16px)] uppercase tracking-[0.12em] font-heading mb-4 text-brand-mint text-center">
                 CONTACT US
               </h3>
 
-              <form onsubmit="handleContactFormSubmit(event)" class="space-y-3">
-                <div>
-                  <label for="contactFullName" class="block text-[clamp(9px,0.8vw,11px)] font-bold text-gray-300 mb-1">
-                    Name
-                  </label>
-                  <input type="text" id="contactFullName" required placeholder="Your name" class="glass-input-field" />
+              <form onsubmit="handleContactFormSubmit(event)" class="w-full space-y-1 text-left">
+                <div class="floating-field">
+                  <input type="text" id="contactFullName" required placeholder=" " autocomplete="name" class="glass-floating-input" />
+                  <label for="contactFullName" class="glass-floating-label">Name</label>
                 </div>
 
-                <div>
-                  <label for="contactEmailAddr" class="block text-[clamp(9px,0.8vw,11px)] font-bold text-gray-300 mb-1">
-                    Email
-                  </label>
-                  <input type="email" id="contactEmailAddr" required placeholder="Your email" class="glass-input-field" />
+                <div class="floating-field">
+                  <input type="email" id="contactEmailAddr" required placeholder=" " autocomplete="email" class="glass-floating-input" />
+                  <label for="contactEmailAddr" class="glass-floating-label">Email</label>
                 </div>
 
-                <div>
-                  <label for="contactInquiryMsg" class="block text-[clamp(9px,0.8vw,11px)] font-bold text-gray-300 mb-1">
-                    Message
-                  </label>
-                  <textarea id="contactInquiryMsg" required placeholder="How can we help?" class="glass-textarea-field"></textarea>
+                <div class="floating-field">
+                  <textarea id="contactInquiryMsg" required placeholder=" " class="glass-floating-textarea"></textarea>
+                  <label for="contactInquiryMsg" class="glass-floating-label">Message</label>
                 </div>
 
                 <button type="submit" id="contactModalSubmitBtn"
-                  class="w-full bg-brand-green hover:bg-[#258336] active:bg-[#1e6b2c] text-white text-[clamp(10px,0.85vw,12px)] font-extrabold py-2.5 px-4 rounded-xl transition-all shadow-md hover:shadow-lg cursor-pointer mt-1">
+                  class="w-full bg-brand-green hover:bg-[#258336] active:bg-[#1e6b2c] text-white text-[clamp(10px,0.85vw,12px)] font-extrabold py-2.5 px-4 rounded-xl transition-all shadow-md hover:shadow-lg cursor-pointer mt-2">
                   Send Message
                 </button>
               </form>
