@@ -1464,235 +1464,322 @@
   </main>
 
 
-  <!-- ================= ULTRA-PREMIUM PAYKUDI MESH GLASS FOOTER ================= -->
-  <footer id="footerSection" class="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+  <!-- ================= PAYKUDI FOOTER ================= -->
+  <footer id="footerSection" class="relative overflow-hidden px-4 sm:px-6 lg:px-8 py-6">
 
-    <div class="absolute inset-0 z-0 overflow-hidden">
-      <img src="paykudi-contact-photo.jpg" alt="PayKudi Team" class="w-full h-full object-cover object-top" />
-      <div class="absolute inset-0 bg-gradient-to-br from-gray-950/85 via-[#0E5296]/35 to-gray-950/85"></div>
+    <!-- Existing PayKudi background image -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src="paykudi-contact-photo.jpg"
+        alt=""
+        class="w-full h-full object-cover"
+      />
+
+      <div class="absolute inset-0 bg-[#062f32]/80"></div>
     </div>
 
-    <div class="w-full max-w-7xl mx-auto relative z-10">
 
-      <div id="footerCardContainer"
-        class="relative overflow-hidden rounded-[24px] sm:rounded-[32px] text-white shadow-2xl border border-white/15 bg-white/5 backdrop-blur-lg p-6 sm:p-8 lg:p-10 reveal-item stagger-1">
+    <!-- TWO FOOTER TILES -->
+    <div class="relative z-10 max-w-6xl mx-auto">
 
-        <!-- PERMANENT TWO-COLUMN FOOTER GRID -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+      <div class="grid grid-cols-1 md:grid-cols-[0.72fr_1.7fr] gap-3">
 
-          <!-- LEFT COLUMN: Contact / Brand Area (lg:col-span-5 ~40%) -->
-          <div class="lg:col-span-5 space-y-5">
+
+        <!-- ================================================= -->
+        <!-- LEFT SMALL TILE -->
+        <!-- ================================================= -->
+
+        <section
+          class="bg-[#07545a]/95 rounded-2xl px-5 py-5 sm:px-6 sm:py-6 text-white flex flex-col justify-between min-h-[270px]"
+        >
+
+          <!-- BRAND -->
+          <div>
+
+            <a
+              href="#heroSection"
+              class="inline-flex items-center gap-2.5 no-underline"
+            >
+
+              <img
+                src="paykudi-logo.png"
+                alt="PayKudi"
+                class="w-9 h-9 object-contain"
+              />
+
+              <div class="leading-none">
+
+                <div class="font-black text-lg tracking-tight">
+                  <span class="text-[#7FDE62]">PAY</span><span class="text-white">KUDI</span><span class="text-[#7FDE62]">.</span>
+                </div>
+
+                <div class="text-[8px] text-white/45 mt-1">
+                  Powered by <span class="text-white/70 font-bold">Startup.</span>
+                </div>
+
+              </div>
+
+            </a>
+
+
+            <!-- DESCRIPTION -->
+            <p class="text-white/55 text-[10px] leading-relaxed mt-4 max-w-[240px]">
+              Simple, secure and smarter financial solutions
+              built for everyday life.
+            </p>
+
+          </div>
+
+
+          <!-- CONTACT -->
+          <div class="mt-5">
+
+            <p class="text-[#9BE77F] text-[8px] font-bold tracking-[0.15em] uppercase mb-1">
+              Contact
+            </p>
+
+            <a
+              href="mailto:hello@paykudi.co"
+              class="text-white/85 hover:text-[#C7F7C3] text-[11px] font-semibold transition-colors no-underline"
+            >
+              hello@paykudi.co
+            </a>
+
+          </div>
+
+
+          <!-- SOCIAL -->
+          <div class="flex gap-2 mt-5">
+
+            <a
+              href="https://www.instagram.com/usepaykudi"
+              target="_blank"
+              rel="noopener"
+              class="w-6 h-6 rounded-full border border-[#8BD975]/60 text-[#9BE77F] flex items-center justify-center hover:bg-[#9BE77F] hover:text-[#07545a] transition-all"
+            >
+              <img
+                src="icons8-instagram-logo-100.png"
+                alt="Instagram"
+                class="w-3 h-3"
+              />
+            </a>
+
+
+            <a
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener"
+              class="w-6 h-6 rounded-full border border-[#8BD975]/60 text-[#9BE77F] flex items-center justify-center hover:bg-[#9BE77F] hover:text-[#07545a] transition-all"
+            >
+              <img
+                src="icons8-linkedin-logo-100.png"
+                alt="LinkedIn"
+                class="w-3 h-3"
+              />
+            </a>
+
+
+            <a
+              href="mailto:hello@paykudi.co"
+              class="w-6 h-6 rounded-full border border-[#8BD975]/60 text-[#9BE77F] flex items-center justify-center hover:bg-[#9BE77F] hover:text-[#07545a] transition-all"
+            >
+              <svg
+                class="w-3 h-3"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 8l9 6 9-6M5 5h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"
+                />
+              </svg>
+            </a>
+
+          </div>
+
+        </section>
+
+
+
+        <!-- ================================================= -->
+        <!-- RIGHT LARGE TILE -->
+        <!-- ================================================= -->
+
+        <section
+          class="bg-[#9BEA62] rounded-2xl px-6 py-6 sm:px-8 sm:py-7 text-[#082f2b] flex flex-col justify-between min-h-[270px] overflow-hidden"
+        >
+
+          <!-- TOP -->
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
+
             <div>
-              <div class="inline-flex items-center gap-2 mb-2">
-                <img src="paykudi-logo.png" alt="Paykudi Logo" class="h-7 w-auto object-contain" />
-                <span class="font-extrabold text-white text-xl sm:text-2xl font-heading tracking-tight">
-                  <span class="text-[#0E5296]">PAY</span><span class="text-[#2EA043]">KUDI</span><span class="text-[#2EA043]">.</span>
-                </span>
-              </div>
-              <p class="text-xs sm:text-sm text-gray-300 font-medium leading-relaxed max-w-sm">
-                Safe social commerce & instant payment protection. Reach out to us anytime—we're here for you.
-              </p>
-            </div>
 
-            <!-- Compact Social & Support Quick Buttons -->
-            <div class="flex items-center gap-2.5 flex-wrap">
-              <a href="mailto:hello@paykudi.co" aria-label="Email Us"
-                class="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 flex items-center justify-center transition-all duration-300 shadow-md hover:scale-105 backdrop-blur-md">
-                <img src="icons8-gmail-logo-120.png" alt="Email" class="w-4 h-4 object-contain" />
-              </a>
-
-              <a href="https://wa.me/2348123456789" target="_blank" rel="noopener" aria-label="WhatsApp Support"
-                class="w-9 h-9 rounded-xl bg-white/10 hover:bg-emerald-500/30 border border-white/15 text-emerald-300 hover:text-emerald-200 flex items-center justify-center transition-all duration-300 shadow-md hover:scale-105 group backdrop-blur-md">
-                <svg class="w-4 h-4 fill-current transition-transform group-hover:scale-110" viewBox="0 0 24 24">
-                  <path
-                    d="M12.031 2c-5.514 0-9.969 4.456-9.969 9.968 0 1.763.459 3.486 1.332 5.006l-1.394 5.093 5.231-1.371c1.468.802 3.125 1.242 4.799 1.242 5.513 0 9.968-4.456 9.968-9.968 0-5.513-4.455-9.97-9.967-9.97zm0 17.5c-1.488 0-2.949-.395-4.225-1.144l-.303-.178-3.138.823.837-3.061-.196-.312c-.822-1.309-1.256-2.831-1.256-4.39 0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8zm4.386-5.991c-.241-.121-1.428-.704-1.649-.784-.221-.08-.382-.121-.543.121-.161.242-.623.784-.764.945-.141.161-.282.181-.523.061s-1.02-.376-1.943-1.2c-.718-.64-1.202-1.431-1.343-1.672-.141-.242-.015-.373.106-.493.109-.108.242-.282.362-.423.121-.141.161-.242.242-.403.08-.161.04-.302-.02-.423-.06-.121-.543-1.309-.744-1.792-.196-.47-.396-.406-.543-.414h-.463c-.161 0-.423.06-.644.302s-.845.825-.845 2.012c0 1.187.865 2.332.985 2.493.121.161 1.704 2.602 4.129 3.65.577.249 1.028.398 1.38.51.58.184 1.108.158 1.525.096.467-.07 1.428-.584 1.629-1.148.201-.564.201-1.047.141-1.148-.061-.101-.222-.162-.463-.283z" />
-                </svg>
-              </a>
-
-              <a href="https://www.instagram.com/usepaykudi?igsh=MXh5c3Z6NmJvNmVtOQ==" target="_blank"
-                rel="noopener" aria-label="Instagram @usepaykudi"
-                class="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 flex items-center justify-center transition-all duration-300 shadow-md hover:scale-105 backdrop-blur-md">
-                <img src="icons8-instagram-logo-100.png" alt="Instagram" class="w-4 h-4 object-contain" />
-              </a>
-
-              <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"
-                class="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 flex items-center justify-center transition-all duration-300 shadow-md hover:scale-105 backdrop-blur-md">
-                <img src="icons8-linkedin-logo-100.png" alt="LinkedIn" class="w-4 h-4 object-contain" />
-              </a>
-            </div>
-
-            <!-- Compact Contact Form Card -->
-            <div class="bg-white/10 backdrop-blur-xl rounded-2xl p-4 sm:p-5 border border-white/20 shadow-xl relative overflow-hidden">
-              <div id="contactFormContainer">
-                <h4 class="font-extrabold text-white font-heading text-sm sm:text-base mb-3">
-                  Send us a message
-                </h4>
-
-                <form onsubmit="handleContactFormSubmit(event)" class="space-y-2.5">
-                  <div class="cf-fl-field">
-                    <span class="cf-fl-icon">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                        <circle cx="12" cy="7" r="4" />
-                      </svg>
-                    </span>
-                    <input type="text" id="contactFullName" required placeholder=" " class="cf-fl-input" />
-                    <label class="cf-fl-label" for="contactFullName">Full Name</label>
-                  </div>
-
-                  <div class="cf-fl-field">
-                    <span class="cf-fl-icon">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                        <polyline points="22,6 12,13 2,6" />
-                      </svg>
-                    </span>
-                    <input type="email" id="contactEmailAddr" required placeholder=" " class="cf-fl-input" />
-                    <label class="cf-fl-label" for="contactEmailAddr">Email address</label>
-                  </div>
-
-                  <div class="cf-fl-field cf-textarea">
-                    <span class="cf-fl-icon">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                      </svg>
-                    </span>
-                    <textarea id="contactInquiryMsg" required rows="2" placeholder=" " class="cf-fl-input"></textarea>
-                    <label class="cf-fl-label" for="contactInquiryMsg">About your inquiry</label>
-                  </div>
-
-                  <button type="submit" id="contactModalSubmitBtn"
-                    class="w-full bg-[#0E5296] hover:bg-[#0a3d70] text-white text-xs sm:text-sm font-extrabold py-2.5 px-4 rounded-xl transition-all shadow-md hover:shadow-lg cursor-pointer">
-                    Submit Message
-                  </button>
-                </form>
-              </div>
-
-              <div id="contactSuccessContainer"
-                class="hidden flex-col items-center justify-center text-center space-y-2 p-4 min-h-[170px]">
-                <div class="w-10 h-10 rounded-full bg-[#2EA043] text-white flex items-center justify-center mx-auto shadow-lg border border-white/20 shrink-0">
-                  <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                </div>
-                <h4 class="text-base font-extrabold text-white font-heading">Message Sent!</h4>
-                <p class="text-xs text-white/80 font-medium leading-relaxed max-w-xs mx-auto">
-                  Thank you for reaching out to PayKudi. We will get back to you shortly.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- RIGHT COLUMN: Main Footer Navigation & Newsletter (lg:col-span-7 ~60%) -->
-          <div class="lg:col-span-7 space-y-6">
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-8 text-xs sm:text-sm">
-
-              <!-- Group 1: Explore -->
-              <div class="space-y-3">
-                <h4 class="font-bold text-white text-sm uppercase tracking-wider text-brand-mint">Explore</h4>
-                <ul class="space-y-2 text-gray-300 font-medium">
-                  <li><a href="#heroSection" class="hover:text-brand-mint transition-colors">Overview</a></li>
-                  <li><a href="#about" class="hover:text-brand-mint transition-colors">Built for Deals</a></li>
-                  <li><a href="#about" class="hover:text-brand-mint transition-colors">Features</a></li>
-                  <li><a href="#community" class="hover:text-brand-mint transition-colors">Founding Members</a></li>
-                </ul>
-              </div>
-
-              <!-- Group 2: Support -->
-              <div class="space-y-3">
-                <h4 class="font-bold text-white text-sm uppercase tracking-wider text-brand-mint">Support</h4>
-                <ul class="space-y-2 text-gray-300 font-medium">
-                  <li><a href="#footerSection" class="hover:text-brand-mint transition-colors">Contact Us</a></li>
-                  <li><a href="mailto:hello@paykudi.co" class="hover:text-brand-mint transition-colors">hello@paykudi.co</a></li>
-                  <li><a href="https://wa.me/2348123456789" target="_blank" rel="noopener" class="hover:text-brand-mint transition-colors">WhatsApp Support</a></li>
-                  <li><a href="javascript:void(0)" class="hover:text-brand-mint transition-colors">Privacy Policy</a></li>
-                </ul>
-              </div>
-
-              <!-- Group 3: Connect -->
-              <div class="space-y-3 col-span-2 sm:col-span-1">
-                <h4 class="font-bold text-white text-sm uppercase tracking-wider text-brand-mint">Connect</h4>
-                <ul class="space-y-2 text-gray-300 font-medium">
-                  <li><a href="https://www.instagram.com/usepaykudi?igsh=MXh5c3Z6NmJvNmVtOQ==" target="_blank" rel="noopener" class="hover:text-brand-mint transition-colors">Instagram</a></li>
-                  <li><a href="https://linkedin.com" target="_blank" rel="noopener" class="hover:text-brand-mint transition-colors">LinkedIn</a></li>
-                  <li><a href="mailto:hello@paykudi.co" class="hover:text-brand-mint transition-colors">Email Support</a></li>
-                </ul>
-              </div>
-
-            </div>
-
-            <!-- Newsletter Box -->
-            <div class="pt-4 border-t border-white/10 space-y-3">
-              <h4 class="text-xs font-bold uppercase tracking-wider text-gray-200">Newsletter</h4>
-              <p class="text-xs sm:text-sm text-gray-300 font-medium max-w-md leading-relaxed">
-                We'd love to share our love for safe social commerce with you in our monthly newsletter.
+              <p class="text-[#286354] text-[8px] font-bold tracking-[0.15em] uppercase mb-1">
+                PayKudi
               </p>
 
-              <div id="footerNewsletterMorphWrapper"
-                class="relative w-full max-w-md h-[46px] overflow-hidden rounded-xl sm:rounded-2xl shadow-lg mt-2">
+              <h2 class="text-2xl sm:text-3xl font-black tracking-tight leading-[1.05]">
+                Smarter payments.<br />
+                Simpler everyday life.
+              </h2>
 
-                <button id="footerNewsletterOriginalBtn" onclick="morphFooterNewsletterButton(event)"
-                  class="absolute inset-0 w-full h-full bg-brand-mint hover:bg-brand-mintDark text-brand-dark font-extrabold px-5 rounded-xl sm:rounded-2xl text-xs sm:text-sm cursor-pointer flex items-center justify-center text-center z-10 whitespace-nowrap shadow-lg">
-                  <span>Subscribe to our Newsletter</span>
-                </button>
+              <p class="text-[#315f55] text-[10px] leading-relaxed mt-3 max-w-[390px]">
+                Everything you need to connect, pay and manage
+                your everyday transactions in one place.
+              </p>
 
-                <form id="footerNewsletterMorphedForm" onsubmit="handleFooterNewsletterSubmit(event)"
-                  onclick="event.stopPropagation()"
-                  class="hidden absolute inset-0 w-full h-full bg-white p-1 rounded-xl sm:rounded-2xl border border-brand-mint/50 shadow-2xl slide-morph-panel items-center gap-1.5 z-20">
-                  <input type="text" id="footerNewsletterInput" required placeholder="Enter your email address"
-                    oninput="clearFooterNewsletterInputError()"
-                    class="flex-grow h-full px-3.5 text-gray-900 placeholder-gray-400 bg-transparent text-xs sm:text-sm font-medium focus:outline-none rounded-lg min-w-0" />
+            </div>
 
-                  <button type="submit" id="footerNewsletterSubmitArrowBtn" aria-label="Submit newsletter subscription"
-                    class="h-full aspect-square rounded-lg bg-brand-green hover:bg-[#258336] active:bg-[#1e6b2c] text-white flex items-center justify-center font-extrabold shadow-md transition-colors shrink-0 cursor-pointer hover:brightness-95 active:brightness-90 ml-auto">
-                    <svg id="footerNewsletterArrowIcon" class="w-3.5 h-3.5" fill="none" stroke="currentColor"
-                      viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
-                    </svg>
-                    <svg id="footerNewsletterSpinnerIcon" class="w-3.5 h-3.5 animate-spin hidden" fill="none"
-                      viewBox="0 0 24 24">
-                      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                      <path class="opacity-75" fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                      </path>
-                    </svg>
-                  </button>
-                </form>
 
-                <div id="footerNewsletterMorphedSuccess"
-                  class="hidden absolute inset-0 w-full h-full bg-brand-mint text-brand-dark font-extrabold px-3 rounded-xl sm:rounded-2xl shadow-lg slide-morph-panel items-center justify-center gap-1.5 text-xs sm:text-sm z-30 whitespace-nowrap">
-                  <svg class="w-4 h-4 text-brand-dark shrink-0" style="width: 18px; height: 18px;" fill="none"
-                    stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <span class="whitespace-nowrap">You're subscribed to PayKudi Newsletter!</span>
-                </div>
+            <!-- SMALL CTA -->
+            <a
+              href="#about"
+              class="shrink-0 inline-flex items-center justify-center bg-[#07545a] text-white text-[10px] font-bold px-5 py-2.5 rounded-lg hover:bg-[#063f43] transition-colors w-fit"
+            >
+              Explore PayKudi
+            </a>
+
+          </div>
+
+
+          <!-- DIVIDER -->
+          <div class="border-t border-[#4b8d61]/25 my-5"></div>
+
+
+          <!-- NAVIGATION -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
+
+            <!-- SUPPORT -->
+            <div>
+
+              <h3 class="text-[10px] font-bold text-[#163f38] mb-2.5">
+                Support
+              </h3>
+
+              <div class="space-y-1.5">
+
+                <a
+                  href="#footerSection"
+                  class="block text-[9px] text-[#467066] hover:text-[#163f38] transition-colors"
+                >
+                  Contact Us
+                </a>
+
+                <a
+                  href="#"
+                  class="block text-[9px] text-[#467066] hover:text-[#163f38] transition-colors"
+                >
+                  Privacy Policy
+                </a>
+
+                <a
+                  href="mailto:hello@paykudi.co"
+                  class="block text-[9px] text-[#467066] hover:text-[#163f38] transition-colors"
+                >
+                  Email Us
+                </a>
 
               </div>
+
             </div>
+
+
+            <!-- EXPLORE -->
+            <div>
+
+              <h3 class="text-[10px] font-bold text-[#163f38] mb-2.5">
+                Explore
+              </h3>
+
+              <div class="space-y-1.5">
+
+                <a
+                  href="#about"
+                  class="block text-[9px] text-[#467066] hover:text-[#163f38] transition-colors"
+                >
+                  About Us
+                </a>
+
+                <a
+                  href="#about"
+                  class="block text-[9px] text-[#467066] hover:text-[#163f38] transition-colors"
+                >
+                  Features
+                </a>
+
+                <a
+                  href="#community"
+                  class="block text-[9px] text-[#467066] hover:text-[#163f38] transition-colors"
+                >
+                  Community
+                </a>
+
+              </div>
+
+            </div>
+
+
+            <!-- CONNECT -->
+            <div>
+
+              <h3 class="text-[10px] font-bold text-[#163f38] mb-2.5">
+                Connect
+              </h3>
+
+              <div class="space-y-1.5">
+
+                <a
+                  href="https://www.instagram.com/usepaykudi"
+                  target="_blank"
+                  rel="noopener"
+                  class="block text-[9px] text-[#467066] hover:text-[#163f38] transition-colors"
+                >
+                  Instagram
+                </a>
+
+                <a
+                  href="https://linkedin.com"
+                  target="_blank"
+                  rel="noopener"
+                  class="block text-[9px] text-[#467066] hover:text-[#163f38] transition-colors"
+                >
+                  LinkedIn
+                </a>
+
+                <a
+                  href="https://wa.me/2348123456789"
+                  target="_blank"
+                  rel="noopener"
+                  class="block text-[9px] text-[#467066] hover:text-[#163f38] transition-colors"
+                >
+                  WhatsApp
+                </a>
+
+              </div>
+
+            </div>
+
           </div>
 
-        </div>
 
-        <!-- BOTTOM COPYRIGHT ROW -->
-        <div class="pt-5 border-t border-white/10 mt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-300 font-medium">
-          <div class="inline-flex items-center gap-2">
-            <img src="paykudi-logo.png" alt="Paykudi Logo" class="h-4 w-auto object-contain" />
-            <span class="font-extrabold text-white">
-              <span class="text-[#0E5296]">PAY</span><span class="text-[#2EA043]">KUDI</span><span class="text-[#2EA043]">.</span>
-            </span>
-            <span class="text-gray-400">© <span id="year"></span> PayKudi. All rights reserved.</span>
+          <!-- COPYRIGHT -->
+          <div class="border-t border-[#4b8d61]/25 mt-5 pt-3">
+
+            <p class="text-[#467066] text-[8px]">
+              © <span id="year"></span> PayKudi. All rights reserved.
+            </p>
+
           </div>
 
-          <div class="flex items-center gap-3 text-gray-400">
-            <span>Powered by <strong class="text-white">Start<span class="text-[#0E5296]">up.</span></strong></span>
-          </div>
-        </div>
+        </section>
 
       </div>
 
     </div>
+
   </footer>
 
 
