@@ -906,13 +906,15 @@
     <section id="heroSection"
       class="relative w-full min-h-screen flex flex-col justify-center overflow-hidden bg-gray-950 text-white py-16 sm:py-20">
       <div class="absolute inset-0 z-0 overflow-hidden bg-gray-950">
-        <!-- Animated Background Video with Photo Fallback Poster -->
+        <!-- Animated Background Video (Completely Silent / Muted) -->
         <video
           autoplay
           loop
-          muted
+          muted="muted"
+          volume="0"
           playsinline
           poster="photo.jpg"
+          onloadedmetadata="this.muted=true; this.volume=0;"
           class="w-full h-full object-cover object-center scale-105 pointer-events-none"
         >
           <source src="Animate_group_photo_video_202608131557.mp4" type="video/mp4" />
