@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html class="h-full light" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>PayKudi Feedback Survey</title>
+  <link rel="shortcut icon" href="paykudi-favicon.png?v=2">
+  <link rel="icon" type="image/png" href="paykudi-favicon.png?v=2">
+  <link rel="apple-touch-icon" href="paykudi-favicon.png?v=2">
+
+  <!-- Tailwind CSS & Google Fonts -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#12A3B4",
+            "deep-teal": "#0B5347",
+            "dark-teal": "#04302C",
+            "light-teal": "#9FE1CB",
+            "teal-glow": "rgba(18, 163, 180, 0.15)",
+            surface: "#FFFFFF",
+            background: "#F4FAF8",
+            "text-main": "#04302C",
+            "text-muted": "#4B6B64",
+          },
+          borderRadius: {
+            card: "16px",
+            input: "12px",
+          },
+          fontFamily: {
+            sans: ["Inter", "sans-serif"],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Exact brand lockup styles copied from index.html */
+    .payment-room-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      min-width: 0;
+      color: #1F2937;
+    }
+
+    .payment-room-brand img {
+      display: block;
+      width: auto;
+      height: 28px;
+      max-width: none;
+      flex: 0 0 auto;
+      object-fit: contain;
+    }
+
+    .payment-room-brand-copy {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      justify-content: center;
+      line-height: 1.05;
+      white-space: nowrap;
+      transform: translateY(1px);
+    }
+
+    .payment-room-brand-name {
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .payment-room-brand-subtitle {
+      margin-top: 1px;
+      font-size: 9px;
+      font-weight: 600;
+      color: #64748B;
+    }
+
+    .brand-pay {
+      color: #0E5296;
+    }
+
+    .brand-kudi {
+      color: #2EA043;
+    }
+
+    /* Prevent rubber-banding / pulling at the end of scroll */
+    html, body {
+      overscroll-behavior: none !important;
+      overscroll-behavior-y: none !important;
+      overscroll-behavior-x: none !important;
+    }
+
+    /* Fluid Clamp Typography (Optimized for Desktop & Mobile Balance) */
+    .title-clamp {
+      font-size: clamp(22px, 3vw, 30px);
+      line-height: 1.25;
+    }
+
+    .subhead-clamp {
+      font-size: clamp(14px, 1.5vw, 16px);
+      line-height: 1.6;
+    }
+
+    .explainer-clamp {
+      font-size: clamp(13.5px, 1.3vw, 15px);
+      line-height: 1.6;
+    }
+
+    .question-label-clamp {
+      font-size: clamp(13.5px, 1.3vw, 15px);
+    }
+
+    .logo-clamp {
+      height: clamp(38px, 5vw, 48px);
+    }
+
+    .badge-clamp {
+      font-size: clamp(10.5px, 1.2vw, 12px);
+      padding: clamp(3px, 0.4vw, 5px) clamp(8px, 1vw, 12px);
+    }
+
+    .checkbox-label-clamp {
+      font-size: clamp(13px, 1.4vw, 14.5px);
+      line-height: 1.45;
+    }
+
+    .checkbox-box-clamp {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Complete Form Component Clamp Utilities */
+    .form-card-clamp {
+      padding: clamp(14px, 2vw, 20px);
+    }
+
+    .form-input-clamp {
+      padding: 10px 14px;
+      font-size: 14px;
+    }
+
+    .radio-card-clamp {
+      padding: 10px 14px;
+      font-size: 14px;
+    }
+
+    .textarea-clamp {
+      padding: 10px 14px;
+      font-size: 14px;
+      min-height: 90px;
+    }
+
+    .btn-clamp {
+      padding: 12px 20px;
+      font-size: 15px;
+    }
+
+    .header-clamp {
+      height: 44px;
+    }
+
+    .header-logo-clamp {
+      height: 28px;
+    }
+
+    .header-title-clamp {
+      font-size: 17px;
+    }
+
+    .error-text-clamp {
+      font-size: 12px;
+    }
+
+    /* Floating Glowing Progress Widget Smooth Gliding Shift */
+    .progress-glow-widget {
+      box-shadow: 0 6px 24px rgba(18, 163, 180, 0.35), 0 0 16px rgba(18, 163, 180, 0.25);
+      animation: tealPillGlow 2.5s infinite ease-in-out;
+      bottom: 1.5rem !important;
+      top: auto !important;
+      transition: transform 1.1s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease, box-shadow 0.3s ease !important;
+      will-change: transform;
+    }
+
+    .progress-pos-bottom {
+      transform: translateY(0) !important;
+    }
+
+    .progress-pos-top {
+      transform: translateY(calc(-100vh + 6.5rem)) !important;
+    }
+
+    @keyframes tealPillGlow {
+      0%, 100% {
+        box-shadow: 0 6px 24px rgba(18, 163, 180, 0.35), 0 0 14px rgba(18, 163, 180, 0.2);
+      }
+      50% {
+        box-shadow: 0 10px 36px rgba(18, 163, 180, 0.55), 0 0 24px rgba(18, 163, 180, 0.4);
+      }
+    }
+
+    /* Remove focus outline on country code input */
+    #country_code_val:focus,
+    #country_code_val:focus-visible {
+      outline: none !important;
+      box-shadow: none !important;
+      border: none !important;
+      ring: 0 !important;
+    }
+
+    /* Soft Teal Focus Glow */
+    .input-glow:focus {
+      border-color: #12A3B4;
+      box-shadow: 0 0 0 4px rgba(18, 163, 180, 0.2);
+      outline: none;
+    }
+
+    /* Radio Card Custom Selection Styling */
+    .custom-radio:checked+div {
+      border-color: #12A3B4;
+      background-color: #F0FAF7;
+    }
+
+    .custom-radio:checked+div .radio-inner {
+      background-color: #12A3B4;
+      transform: scale(1);
+    }
+
+    .custom-radio:focus-visible+div {
+      box-shadow: 0 0 0 4px rgba(18, 163, 180, 0.2);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-fade-in {
+      animation: fadeInUp 0.5s ease-out forwards;
+    }
+
+    .screen-transition {
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+  </style>
+</head>
+
+<body class="bg-background text-text-main antialiased min-h-screen flex flex-col font-sans">
+
+  <!-- ==================== SCREEN 1: WELCOME ==================== -->
+  <div id="welcome-screen"
+    class="screen-transition flex-grow flex flex-col items-center justify-center p-4 sm:p-8 max-w-xl mx-auto w-full relative overflow-hidden my-auto">
+    <!-- Subtle Background Ambient Accents -->
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none opacity-40">
+      <div class="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] rounded-full bg-light-teal blur-[120px]"></div>
+      <div class="absolute bottom-[10%] -right-[10%] w-[60%] h-[60%] rounded-full bg-[#D4F4EA] blur-[120px]"></div>
+    </div>
+
+    <div class="w-full flex flex-col items-center text-center space-y-8 z-10 py-6 animate-fade-in">
+      <!-- PayKudi Logo -->
+      <div class="flex-shrink-0 mb-2">
+        <img alt="PayKudi Logo" class="w-auto object-contain" style="height:96px;"
+          src="paykudi-logo.png" />
+      </div>
+
+      <!-- Currency Status Pill -->
+      <div class="inline-flex items-center gap-1.5 rounded-full bg-white border border-light-teal/60 shadow-2xs badge-clamp font-medium text-dark-teal max-w-full">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse flex-shrink-0"></span>
+        <span class="font-bold text-deep-teal whitespace-nowrap">Live in NGN 🇳🇬</span>
+        <span class="text-gray-300">•</span>
+        <span class="text-text-muted whitespace-nowrap">Coming soon to INR 🇮🇳 & USD 🇺🇸</span>
+      </div>
+
+      <!-- Welcome Content -->
+      <div class="space-y-4 flex flex-col items-center max-w-lg">
+        <h1 class="title-clamp font-extrabold text-dark-teal tracking-tight text-balance">
+          A very big thank you from the <span class="font-extrabold"><span class="text-[#111827]">Start</span><span class="text-[#12A3B4]">up.</span></span> team
+        </h1>
+        <p class="subhead-clamp text-text-muted font-normal leading-relaxed text-balance">
+          We're building something new called <span class="font-extrabold tracking-tight"><span class="text-[#0B4F9C]">PAY</span><span class="text-[#239B3B]">KUDI</span><span class="text-[#239B3B]">.</span></span>, and we'd love your honest take before it launches. It'll only take a moment.
+        </p>
+      </div>
+
+      <!-- Single CTA Button -->
+      <div class="w-full pt-4 max-w-md">
+        <button id="start-btn" onclick="goToSurvey()"
+          class="w-full py-[clamp(14px,2vw,18px)] px-8 bg-primary hover:bg-deep-teal text-white rounded-[16px] font-bold text-base transition-all duration-300 shadow-md hover:shadow-lg active:scale-[0.99] flex items-center justify-center gap-2.5 cursor-pointer">
+          <span>Get started</span>
+          <span class="material-symbols-outlined text-xl transform transition-transform group-hover:translate-x-1">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SCREEN 2: THE SURVEY ==================== -->
+  <div id="survey-screen" class="hidden screen-transition flex-grow flex-col">
+    <!-- Sticky Header -->
+    <header class="bg-surface/90 backdrop-blur-md border-b border-light-teal/50 w-full top-0 sticky z-50 flex items-center px-4 sm:px-8 header-clamp max-w-3xl mx-auto shadow-xs">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="payment-room-brand group" aria-label="PayKudi home" style="text-decoration:none;">
+          <img src="paykudi-logo.png" alt="PAYKUDI Logo" />
+          <span class="payment-room-brand-copy" aria-hidden="true">
+            <span class="payment-room-brand-name"><span class="brand-pay">PAY</span><span class="brand-kudi">KUDI</span><span class="brand-kudi">.</span></span>
+            <span class="payment-room-brand-subtitle">Powered by <strong class="text-slate-800 font-black">Start<span class="text-[#0E5296]">up.</span></strong></span>
+          </span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Floating Progress Widget (Default Bottom-Right, shifts to Top-Right when submit button approaches) -->
+    <div id="floating-progress-bar"
+      onclick="scrollToFirstUnanswered()"
+      title="Click to jump to next unanswered question"
+      class="hidden fixed right-5 sm:right-8 z-50 cursor-pointer group progress-glow-widget bg-white/95 backdrop-blur-md rounded-full px-3.5 py-2 border border-light-teal/80 shadow-lg flex items-center gap-2.5 progress-pos-bottom">
+      
+      <!-- Circular SVG Progress Ring -->
+      <div class="relative w-8 h-8 flex items-center justify-center flex-shrink-0">
+        <svg class="w-8 h-8 transform -rotate-90" viewBox="0 0 36 36">
+          <path class="text-gray-200" stroke-width="3.5" stroke="currentColor" fill="none"
+            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+          <path id="circle-progress-bar" class="text-primary transition-all duration-500 ease-out"
+            stroke-dasharray="0, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none"
+            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+        </svg>
+        <span id="circle-progress-count" class="absolute text-[11px] font-extrabold text-dark-teal">0</span>
+      </div>
+
+      <div class="flex flex-col text-left">
+        <span id="progress-percent-text" class="text-xs font-bold text-dark-teal leading-none">0%</span>
+        <span id="progress-count-text" class="text-[10px] font-medium text-text-muted leading-tight">0 of 10</span>
+      </div>
+    </div>
+
+    <main class="flex-grow w-full max-w-2xl mx-auto px-4 sm:px-6 py-6 sm:py-10 flex flex-col gap-6" id="survey-container">
+      
+      <!-- Survey Header & Explainer Card -->
+      <div class="space-y-4" id="survey-header-wrap">
+        <h1 class="title-clamp font-extrabold text-dark-teal tracking-tight">Feedback Survey</h1>
+
+        <!-- PayKudi Concept Explainer Box -->
+        <div class="bg-white rounded-card form-card-clamp border border-light-teal/60 shadow-xs space-y-3">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <div class="flex items-center gap-2 text-deep-teal font-bold text-sm tracking-wide uppercase">
+              <span class="material-symbols-outlined text-primary text-lg">info</span>
+              <span>How PayKudi Works</span>
+            </div>
+            <!-- Currency Availability Badge -->
+            <div class="inline-flex items-center gap-1.5 rounded-full bg-[#F0FAF7] border border-light-teal/60 badge-clamp font-semibold text-deep-teal max-w-full">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse flex-shrink-0"></span>
+              <span class="whitespace-nowrap">Operational in NGN 🇳🇬</span>
+              <span class="text-gray-300">•</span>
+              <span class="text-text-muted font-normal whitespace-nowrap">Coming soon to INR 🇮🇳 & USD 🇺🇸</span>
+            </div>
+          </div>
+          <div class="explainer-clamp text-text-muted leading-relaxed text-justify space-y-2.5">
+            <p>
+              <span class="font-bold text-dark-teal"><span class="text-[#0B4F9C]">PAY</span><span class="text-[#239B3B]">KUDI</span></span> is a payment platform that lets you pay confidently for deals you'd normally be nervous about, at a distance you can't fully verify.
+            </p>
+            <p>
+              It runs on WhatsApp, so there's nothing new to download for the part that matters most: negotiating, paying, and confirming your deal. Payment stays protected until the buyer confirms they've received exactly what was ordered. And if the buyer goes quiet, it releases automatically after the allocated confirmation time, so sellers aren't left waiting forever either.
+            </p>
+            <p>
+              If any dispute arises, our AI reviews the case based on the evidence provided first, then a trained team member makes the final call.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Survey Form -->
+      <form class="flex flex-col gap-5" id="survey-form" onsubmit="handleFormSubmit(event)">
+        
+        <!-- Question 1: Frequency (Required) -->
+        <div id="q1-group" role="group" aria-labelledby="q1-label" class="bg-white rounded-card form-card-clamp border border-light-teal/50 shadow-xs flex flex-col gap-3 transition-all duration-200">
+          <h3 id="q1-label" class="question-label-clamp font-bold text-dark-teal flex items-start gap-1.5">
+            <span class="flex-shrink-0">1.</span>
+            <span>How often do you buy or sell with people you don't know online? <span class="text-rose-600">*</span></span>
+          </h3>
+          <div class="flex flex-col gap-2.5">
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="online_frequency" type="radio" value="Never" onchange="clearRadioError('q1-group', 'q1-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">Never</span>
+              </div>
+            </label>
+
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="online_frequency" type="radio" value="Rarely" onchange="clearRadioError('q1-group', 'q1-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">Rarely</span>
+              </div>
+            </label>
+
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="online_frequency" type="radio" value="Sometimes" onchange="clearRadioError('q1-group', 'q1-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">Sometimes</span>
+              </div>
+            </label>
+
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="online_frequency" type="radio" value="Often" onchange="clearRadioError('q1-group', 'q1-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">Often</span>
+              </div>
+            </label>
+          </div>
+          <p id="q1-error" class="hidden error-text-clamp text-rose-600 font-medium mt-0.5 flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">error</span>
+            <span>Please select an option</span>
+          </p>
+        </div>
+
+        <!-- Question 2: Deal Platform (Required) -->
+        <div id="q2-group" role="group" aria-labelledby="q2-label" class="bg-white rounded-card form-card-clamp border border-light-teal/50 shadow-xs flex flex-col gap-3 transition-all duration-200">
+          <h3 id="q2-label" class="question-label-clamp font-bold text-dark-teal flex items-start gap-1.5">
+            <span class="flex-shrink-0">2.</span>
+            <span>Where do you usually agree on the deal itself? <span class="text-rose-600">*</span></span>
+          </h3>
+          <div class="flex flex-col gap-2.5">
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="deal_platform" type="radio" value="Instagram" onchange="clearRadioError('q2-group', 'q2-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">Instagram</span>
+              </div>
+            </label>
+
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="deal_platform" type="radio" value="WhatsApp" onchange="clearRadioError('q2-group', 'q2-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">WhatsApp</span>
+              </div>
+            </label>
+
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="deal_platform" type="radio" value="Facebook Marketplace" onchange="clearRadioError('q2-group', 'q2-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">Facebook Marketplace</span>
+              </div>
+            </label>
+
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="deal_platform" type="radio" value="Twitter (X)" onchange="clearRadioError('q2-group', 'q2-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">Twitter (X)</span>
+              </div>
+            </label>
+
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="deal_platform" type="radio" value="Jiji" onchange="clearRadioError('q2-group', 'q2-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">Jiji</span>
+              </div>
+            </label>
+
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="deal_platform" type="radio" value="Other" onchange="clearRadioError('q2-group', 'q2-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">Other</span>
+              </div>
+            </label>
+          </div>
+          <p id="q2-error" class="hidden error-text-clamp text-rose-600 font-medium mt-0.5 flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">error</span>
+            <span>Please select an option</span>
+          </p>
+        </div>
+
+        <!-- Question 3: Deal Value (Required) -->
+        <div id="q3-group" role="group" aria-labelledby="q3-label" class="bg-white rounded-card form-card-clamp border border-light-teal/50 shadow-xs flex flex-col gap-3 transition-all duration-200">
+          <h3 id="q3-label" class="question-label-clamp font-bold text-dark-teal flex items-start gap-1.5">
+            <span class="flex-shrink-0">3.</span>
+            <span>What's the typical value of a deal you've made with a stranger online? <span class="text-rose-600">*</span></span>
+          </h3>
+          <div class="flex flex-col gap-2.5">
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="deal_value" type="radio" value="Under ₦25,000" onchange="clearRadioError('q3-group', 'q3-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">Under ₦25,000</span>
+              </div>
+            </label>
+
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="deal_value" type="radio" value="₦25,000–₦100,000" onchange="clearRadioError('q3-group', 'q3-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">₦25,000–₦100,000</span>
+              </div>
+            </label>
+
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="deal_value" type="radio" value="₦100,000–₦500,000" onchange="clearRadioError('q3-group', 'q3-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">₦100,000–₦500,000</span>
+              </div>
+            </label>
+
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="deal_value" type="radio" value="Over ₦500,000" onchange="clearRadioError('q3-group', 'q3-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">Over ₦500,000</span>
+              </div>
+            </label>
+          </div>
+          <p id="q3-error" class="hidden error-text-clamp text-rose-600 font-medium mt-0.5 flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">error</span>
+            <span>Please select an option</span>
+          </p>
+        </div>
+
+        <!-- Question 4: Stopped (Open Text, Optional) -->
+        <div class="bg-white rounded-card form-card-clamp border border-light-teal/50 shadow-xs flex flex-col gap-2">
+          <label class="question-label-clamp font-bold text-dark-teal flex items-start gap-1.5" for="what_stopped">
+            <span class="flex-shrink-0">4.</span>
+            <span>What's stopped you from paying a stranger online before? <span class="text-text-muted font-normal text-sm ml-1">(Optional)</span></span>
+          </label>
+          <textarea class="w-full bg-white border border-gray-300 rounded-input textarea-clamp text-text-main placeholder-gray-400 transition-all duration-200 input-glow resize-y"
+            id="what_stopped" name="what_stopped" placeholder="Share your previous hesitations or experiences..." rows="3"></textarea>
+        </div>
+
+        <!-- Question 5: Idea Reaction (Required) -->
+        <div id="q5-group" role="group" aria-labelledby="q5-label" class="bg-white rounded-card form-card-clamp border border-light-teal/50 shadow-xs flex flex-col gap-3 transition-all duration-200">
+          <h3 id="q5-label" class="question-label-clamp font-bold text-dark-teal flex items-start gap-1.5">
+            <span class="flex-shrink-0">5.</span>
+            <span>How does the idea of <span class="font-extrabold tracking-tight"><span class="text-[#0B4F9C]">PAY</span><span class="text-[#239B3B]">KUDI</span></span> make you feel? <span class="text-rose-600">*</span></span>
+          </h3>
+          <div class="flex flex-col gap-2.5">
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="idea_feeling" type="radio" value="Excited to try it" onchange="clearRadioError('q5-group', 'q5-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">Excited to try it</span>
+              </div>
+            </label>
+
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="idea_feeling" type="radio" value="Curious but unsure" onchange="clearRadioError('q5-group', 'q5-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">Curious but unsure</span>
+              </div>
+            </label>
+
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="idea_feeling" type="radio" value="Skeptical" onchange="clearRadioError('q5-group', 'q5-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">Skeptical</span>
+              </div>
+            </label>
+
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="idea_feeling" type="radio" value="Not interested" onchange="clearRadioError('q5-group', 'q5-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">Not interested</span>
+              </div>
+            </label>
+          </div>
+          <p id="q5-error" class="hidden error-text-clamp text-rose-600 font-medium mt-0.5 flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">error</span>
+            <span>Please select an option</span>
+          </p>
+        </div>
+
+        <!-- Question 6: Pay Stranger (Required) -->
+        <div id="q6-group" role="group" aria-labelledby="q6-label" class="bg-white rounded-card form-card-clamp border border-light-teal/50 shadow-xs flex flex-col gap-3 transition-all duration-200">
+          <h3 id="q6-label" class="question-label-clamp font-bold text-dark-teal flex items-start gap-1.5">
+            <span class="flex-shrink-0">6.</span>
+            <span>Would you pay a stranger through <span class="font-extrabold tracking-tight"><span class="text-[#0B4F9C]">PAY</span><span class="text-[#239B3B]">KUDI</span></span> to complete a deal? <span class="text-rose-600">*</span></span>
+          </h3>
+          <div class="flex flex-col gap-2.5">
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="pay_stranger" type="radio" value="Yes" onchange="clearRadioError('q6-group', 'q6-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">Yes</span>
+              </div>
+            </label>
+
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="pay_stranger" type="radio" value="Maybe" onchange="clearRadioError('q6-group', 'q6-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">Maybe</span>
+              </div>
+            </label>
+
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="pay_stranger" type="radio" value="No" onchange="clearRadioError('q6-group', 'q6-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">No</span>
+              </div>
+            </label>
+          </div>
+          <p id="q6-error" class="hidden error-text-clamp text-rose-600 font-medium mt-0.5 flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">error</span>
+            <span>Please select an option</span>
+          </p>
+        </div>
+
+        <!-- Question 7: Trust Amount (Required) -->
+        <div id="q7-group" role="group" aria-labelledby="q7-label" class="bg-white rounded-card form-card-clamp border border-light-teal/50 shadow-xs flex flex-col gap-3 transition-all duration-200">
+          <h3 id="q7-label" class="question-label-clamp font-bold text-dark-teal flex items-start gap-1.5">
+            <span class="flex-shrink-0">7.</span>
+            <span>What's the most you'd trust to a new payment app like this, starting out? <span class="text-rose-600">*</span></span>
+          </h3>
+          <div class="flex flex-col gap-2.5">
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="trust_amount" type="radio" value="Under ₦10,000" onchange="clearRadioError('q7-group', 'q7-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">Under ₦10,000</span>
+              </div>
+            </label>
+
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="trust_amount" type="radio" value="₦10,000–₦50,000" onchange="clearRadioError('q7-group', 'q7-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">₦10,000–₦50,000</span>
+              </div>
+            </label>
+
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="trust_amount" type="radio" value="₦50,000–₦200,000" onchange="clearRadioError('q7-group', 'q7-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">₦50,000–₦200,000</span>
+              </div>
+            </label>
+
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="trust_amount" type="radio" value="Over ₦200,000" onchange="clearRadioError('q7-group', 'q7-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">Over ₦200,000</span>
+              </div>
+            </label>
+          </div>
+          <p id="q7-error" class="hidden error-text-clamp text-rose-600 font-medium mt-0.5 flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">error</span>
+            <span>Please select an option</span>
+          </p>
+        </div>
+
+        <!-- Question 8: Raise Dispute (Required) -->
+        <div id="q8-group" role="group" aria-labelledby="q8-label" class="bg-white rounded-card form-card-clamp border border-light-teal/50 shadow-xs flex flex-col gap-3 transition-all duration-200">
+          <h3 id="q8-label" class="question-label-clamp font-bold text-dark-teal flex items-start gap-1.5">
+            <span class="flex-shrink-0">8.</span>
+            <span>If a deal went wrong, would you be interested in raising a dispute? <span class="text-rose-600">*</span></span>
+          </h3>
+          <div class="flex flex-col gap-2.5">
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="raise_dispute" type="radio" value="Yes" onchange="clearRadioError('q8-group', 'q8-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">Yes</span>
+              </div>
+            </label>
+
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="raise_dispute" type="radio" value="Maybe" onchange="clearRadioError('q8-group', 'q8-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">Maybe</span>
+              </div>
+            </label>
+
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="raise_dispute" type="radio" value="No" onchange="clearRadioError('q8-group', 'q8-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">No</span>
+              </div>
+            </label>
+          </div>
+          <p id="q8-error" class="hidden error-text-clamp text-rose-600 font-medium mt-0.5 flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">error</span>
+            <span>Please select an option</span>
+          </p>
+        </div>
+
+        <!-- Question 9: Dispute SLA (Required) -->
+        <div id="q9-group" role="group" aria-labelledby="q9-label" class="bg-white rounded-card form-card-clamp border border-light-teal/50 shadow-xs flex flex-col gap-3 transition-all duration-200">
+          <h3 id="q9-label" class="question-label-clamp font-bold text-dark-teal flex items-start gap-1.5">
+            <span class="flex-shrink-0">9.</span>
+            <span>How long do you expect a dispute on a deal to be resolved after being raised? <span class="text-rose-600">*</span></span>
+          </h3>
+          <div class="flex flex-col gap-2.5">
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="dispute_sla" type="radio" value="Within an hour" onchange="clearRadioError('q9-group', 'q9-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">Within an hour</span>
+              </div>
+            </label>
+
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="dispute_sla" type="radio" value="Same day" onchange="clearRadioError('q9-group', 'q9-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">Same day</span>
+              </div>
+            </label>
+
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="dispute_sla" type="radio" value="A few days" onchange="clearRadioError('q9-group', 'q9-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">A few days</span>
+              </div>
+            </label>
+
+            <label class="relative flex items-center cursor-pointer group">
+              <input class="custom-radio sr-only" name="dispute_sla" type="radio" value="Doesn't matter, as long as it's fair" onchange="clearRadioError('q9-group', 'q9-error')" />
+              <div class="w-full flex items-center radio-card-clamp rounded-input border border-gray-200 transition-all duration-200 group-hover:border-primary">
+                <div class="w-5 h-5 rounded-full border border-gray-400 flex items-center justify-center mr-3 bg-white flex-shrink-0">
+                  <div class="radio-inner w-2.5 h-2.5 rounded-full bg-transparent transform scale-0 transition-transform duration-200"></div>
+                </div>
+                <span class="font-medium text-text-main">Doesn't matter, as long as it's fair</span>
+              </div>
+            </label>
+          </div>
+          <p id="q9-error" class="hidden error-text-clamp text-rose-600 font-medium mt-0.5 flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">error</span>
+            <span>Please select an option</span>
+          </p>
+        </div>
+
+        <!-- Question 10: Email (Required) -->
+        <div class="bg-white rounded-card form-card-clamp border border-light-teal/50 shadow-xs flex flex-col gap-2" id="email-card">
+          <label class="question-label-clamp font-bold text-dark-teal flex items-start gap-1.5" for="email">
+            <span class="flex-shrink-0">10.</span>
+            <span>Email address <span class="text-rose-600">*</span> <span class="text-text-muted font-normal text-xs sm:text-sm ml-1">(To receive launch updates)</span></span>
+          </label>
+          <input class="w-full bg-white border border-gray-300 rounded-input form-input-clamp text-text-main placeholder-gray-400 transition-all duration-200 input-glow"
+            id="email" name="email" placeholder="your@email.com" required type="email" oninput="validateEmailField()" />
+          <p id="email-error" class="hidden error-text-clamp text-rose-600 font-medium mt-0.5 flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">error</span>
+            <span>Please enter a valid email address (e.g. name@example.com)</span>
+          </p>
+        </div>
+
+        <!-- Question 11: WhatsApp Phone Number (Required) -->
+        <div class="bg-white rounded-card form-card-clamp border border-light-teal/50 shadow-xs flex flex-col gap-2" id="phone-card">
+          <label class="question-label-clamp font-bold text-dark-teal flex items-start gap-1.5" for="phone">
+            <span class="flex-shrink-0">11.</span>
+            <span>WhatsApp phone number <span class="text-rose-600">*</span> <span class="text-text-muted font-normal text-xs sm:text-sm ml-1">(To receive launch updates)</span></span>
+          </label>
+          
+          <div class="relative flex items-center w-full rounded-input overflow-hidden border border-gray-300 transition-all duration-200 focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/20" id="phone-input-wrap">
+            <!-- Country Code Prefix Badge (NG + 234) -->
+            <div class="flex-shrink-0 bg-gray-50 border-r border-gray-300 px-3.5 py-[clamp(10px,1.5vw,14px)] flex items-center gap-1 cursor-text select-none"
+                 title="Tap to change country code" onclick="editCountryCode()">
+              <span id="country-flag-icon" class="font-bold text-dark-teal text-[clamp(13.5px,1.6vw,16px)] leading-none">NG</span>
+              <span class="font-bold text-dark-teal text-[clamp(13.5px,1.6vw,16px)] leading-none">+</span>
+              <input type="text" id="country_code_val" name="country_code" value="234"
+                class="w-10 sm:w-12 bg-transparent text-dark-teal font-bold text-[clamp(13.5px,1.6vw,16px)] leading-none focus:outline-none focus:ring-0 border-none p-0 tracking-tight shadow-none outline-none"
+                oninput="handleCountryDigitsInput(this)" onclick="event.stopPropagation()" placeholder="234" maxlength="5" />
+            </div>
+            
+            <!-- WhatsApp Phone Input Field -->
+            <input class="w-full bg-white px-[clamp(12px,1.8vw,16px)] py-[clamp(10px,1.5vw,14px)] text-text-main font-medium placeholder-gray-400 focus:outline-none border-none text-[clamp(13.5px,1.6vw,16px)]"
+              id="phone" name="phone" placeholder="801 234 5678" required type="tel" oninput="validatePhoneField()" />
+          </div>
+
+          <p id="phone-error" class="hidden error-text-clamp text-rose-600 font-medium mt-0.5 flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">error</span>
+            <span>Please enter a valid WhatsApp phone number</span>
+          </p>
+        </div>
+
+        <!-- Opt-in Checkbox Card with Info Button & Early Access Benefit Explainer -->
+        <div class="bg-white rounded-card form-card-clamp border border-light-teal/50 shadow-xs mt-1 transition-all duration-300 flex flex-col gap-3" id="optin-card">
+          <div id="optin-checkbox-wrap" class="flex items-center justify-between gap-3">
+            <label id="optin-checkbox-label" class="flex items-center gap-3 cursor-pointer select-none flex-grow">
+              <input type="checkbox" id="send_updates" name="send_updates" onchange="toggleOptinBenefitInfo(this.checked)"
+                class="checkbox-box-clamp rounded text-primary border-gray-300 focus:ring-primary focus:ring-2 focus:ring-offset-0 cursor-pointer flex-shrink-0" />
+              <span class="checkbox-label-clamp font-medium text-dark-teal">
+                Be part of <span class="font-extrabold tracking-tight"><span class="text-[#0B4F9C]">PAY</span><span class="text-[#239B3B]">KUDI</span></span> community
+              </span>
+            </label>
+
+            <!-- Info (i) Icon Button -->
+            <button type="button" onclick="toggleOptinBenefitInfoManual()" title="Community benefits info"
+              class="w-7 h-7 rounded-full bg-light-teal/30 hover:bg-light-teal/60 text-primary flex items-center justify-center flex-shrink-0 transition-all cursor-pointer">
+              <span class="material-symbols-outlined text-lg">info</span>
+            </button>
+          </div>
+
+          <!-- Info / Benefit Message (Expands when checking the box OR clicking the info icon) -->
+          <div id="optin-info-message" class="hidden flex-col gap-2 pt-2.5 border-t border-light-teal/40 bg-[#F0FAF7]/60 rounded-input p-3 transition-all">
+            <div class="flex items-center gap-2 text-dark-teal font-bold text-xs sm:text-sm">
+              <span class="material-symbols-outlined text-primary text-base">verified</span>
+              <span>Community Early Access</span>
+            </div>
+            <p class="text-xs text-text-muted leading-relaxed font-medium">
+              You'll be part of our community to test out <span class="font-extrabold tracking-tight"><span class="text-[#0B4F9C]">PAY</span><span class="text-[#239B3B]">KUDI</span></span> early, get early access, and enjoy special community benefits.
+            </p>
+          </div>
+
+          <!-- Inline Prompt Box (Triggers if Submit is clicked while unchecked) -->
+          <div id="optin-prompt-box" class="hidden flex-col gap-3 transition-all">
+            <div class="flex items-center gap-2 text-dark-teal font-bold text-xs sm:text-sm">
+              <span class="material-symbols-outlined text-primary text-lg">groups</span>
+              <span>Be part of <span class="font-extrabold tracking-tight"><span class="text-[#0B4F9C]">PAY</span><span class="text-[#239B3B]">KUDI</span></span> community</span>
+            </div>
+            <p class="text-xs text-text-muted leading-relaxed font-medium">
+              You'll be part of our community to test out <span class="font-extrabold tracking-tight"><span class="text-[#0B4F9C]">PAY</span><span class="text-[#239B3B]">KUDI</span></span> early, get early access, and enjoy special community benefits.
+            </p>
+            <div class="flex items-center gap-2.5 pt-1">
+              <button type="button" onclick="confirmOptinChoice(true)"
+                class="px-4 py-2 bg-[#12A3B4] hover:bg-[#0E8B9A] text-white font-bold text-xs sm:text-sm rounded-card transition-all cursor-pointer shadow-xs">
+                Yes, keep me updated
+              </button>
+              <button type="button" onclick="confirmOptinChoice(false)"
+                class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-text-main font-semibold text-xs sm:text-sm rounded-card transition-all cursor-pointer">
+                No, submit anyway
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Single Submit Button -->
+        <div class="pt-2" id="submit-btn-wrap">
+          <button class="w-full bg-[#12A3B4] hover:bg-[#0E8B9A] text-white font-bold btn-clamp rounded-card transition-all duration-300 shadow-sm hover:shadow-md active:scale-[0.99] cursor-pointer flex items-center justify-center gap-2"
+            type="submit">
+            <span>Submit response</span>
+          </button>
+        </div>
+      </form>
+
+      <!-- Success State (Seamless, No Extra White Card Container) -->
+      <div class="hidden flex-col items-center justify-center text-center py-[clamp(40px,8vw,80px)] px-4 opacity-0 transition-opacity duration-500 my-auto space-y-6" id="success-state">
+        <!-- 1. Animated Checkmark Icon (Popped First) -->
+        <div id="success-check-icon" class="w-20 h-20 bg-light-teal/40 rounded-full flex items-center justify-center transform scale-0 transition-transform duration-500 ease-out">
+          <span class="material-symbols-outlined text-primary text-5xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+        </div>
+
+        <!-- 2. Text & Content (Fades Up After Checkmark Icon) -->
+        <div id="success-text-content" class="flex flex-col items-center gap-4 opacity-0 transform translate-y-4 transition-all duration-500 max-w-md">
+          <h2 class="title-clamp font-extrabold text-dark-teal tracking-tight">Thank you.</h2>
+          <p class="subhead-clamp text-text-muted leading-relaxed text-balance" id="success-reassurance-msg">
+            Your response directly shapes what we build next. We'll keep you posted as <span class="font-extrabold tracking-tight"><span class="text-[#0B4F9C]">PAY</span><span class="text-[#239B3B]">KUDI</span></span> gets closer to launch!
+          </p>
+          <div class="pt-2 flex flex-col sm:flex-row gap-3">
+            <a href="index.html" style="background: linear-gradient(135deg, #0E5296 0%, #2EA043 100%);" class="px-6 py-3 text-white font-bold rounded-card hover:opacity-90 transition-all cursor-pointer shadow-sm flex items-center justify-center gap-2 text-sm">
+              <span>Check us out</span>
+            </a>
+            <button onclick="restartSurvey()" class="px-6 py-3 bg-white border border-light-teal/80 text-primary font-bold rounded-card hover:bg-light-teal/20 transition-all cursor-pointer shadow-xs hover:shadow-sm text-sm">
+              Submit another response
+            </button>
+          </div>
+          <!-- Social Icons -->
+          <div class="flex items-center justify-center gap-3 pt-2">
+            <a href="https://www.instagram.com/usepaykudi?igsh=MXh5c3Z6NmJvNmVtOQ==" target="_blank" rel="noopener" aria-label="Instagram"
+              class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-all shrink-0">
+              <img src="icons8-instagram-logo-100.png" alt="Instagram" class="w-5 h-5 object-contain" />
+            </a>
+            <a href="mailto:hello@paykudi.co" aria-label="Email Us"
+              class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-all shrink-0">
+              <img src="icons8-gmail-logo-120.png" alt="Email" class="w-5 h-5 object-contain" />
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"
+              class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-all shrink-0">
+              <img src="icons8-linkedin-logo-100.png" alt="LinkedIn" class="w-5 h-5 object-contain" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- JavaScript Logic -->
+  <script>
+    function goToSurvey() {
+      const welcomeScreen = document.getElementById('welcome-screen');
+      const surveyScreen = document.getElementById('survey-screen');
+
+      welcomeScreen.style.opacity = '0';
+      welcomeScreen.style.transform = 'translateY(-10px)';
+
+      setTimeout(() => {
+        welcomeScreen.classList.add('hidden');
+        surveyScreen.classList.remove('hidden');
+        surveyScreen.classList.add('flex');
+
+        // Instantly force viewport scroll to top (0,0) with zero auto-scrolling delay
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+
+        const floatingBar = document.getElementById('floating-progress-bar');
+        if (floatingBar) {
+          floatingBar.classList.remove('progress-pos-top');
+          floatingBar.classList.add('progress-pos-bottom');
+          floatingBar.classList.remove('hidden');
+        }
+        updateProgressBar();
+        checkWidgetOverlap();
+      }, 350);
+    }
+
+    function isValidEmail(email) {
+      if (!email) return false;
+      const str = String(email).trim();
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str);
+    }
+
+    function isValidPhone(phone) {
+      if (!phone) return false;
+      const digits = String(phone).replace(/[\s\-()+]/g, '');
+      return digits.length >= 7 && /^\d+$/.test(digits);
+    }
+
+    function validateEmailField() {
+      const emailInput = document.getElementById('email');
+      const emailError = document.getElementById('email-error');
+      if (isValidEmail(emailInput.value)) {
+        emailInput.classList.remove('border-rose-500', 'bg-rose-50/20');
+        emailInput.classList.add('border-gray-300');
+        if (emailError) emailError.classList.add('hidden');
+      }
+      updateProgressBar();
+    }
+
+    function editCountryCode() {
+      const codeInput = document.getElementById('country_code_val');
+      if (codeInput) {
+        codeInput.focus();
+        codeInput.select();
+      }
+    }
+
+    function handleCountryDigitsInput(input) {
+      input.value = input.value.replace(/\D/g, '');
+      const digits = input.value.trim();
+      const flagEl = document.getElementById('country-flag-icon');
+
+      if (flagEl) {
+        if (digits === '234') flagEl.textContent = 'NG';
+        else if (digits === '91') flagEl.textContent = 'IN';
+        else if (digits === '1') flagEl.textContent = 'US';
+        else if (digits === '44') flagEl.textContent = 'GB';
+        else if (digits === '254') flagEl.textContent = 'KE';
+        else if (digits === '233') flagEl.textContent = 'GH';
+        else if (digits === '27') flagEl.textContent = 'ZA';
+        else flagEl.textContent = 'INT';
+      }
+    }
+
+    function validatePhoneField() {
+      const phoneInput = document.getElementById('phone');
+      const phoneError = document.getElementById('phone-error');
+      const phoneWrap = document.getElementById('phone-input-wrap');
+      const val = phoneInput.value.replace(/[\s\-()+]/g, '');
+
+      if (val && val.length >= 7 && /^\d+$/.test(val)) {
+        if (phoneWrap) {
+          phoneWrap.classList.remove('border-rose-500', 'bg-rose-50/20');
+          phoneWrap.classList.add('border-gray-300');
+        }
+        if (phoneError) phoneError.classList.add('hidden');
+      }
+      updateProgressBar();
+    }
+
+    function clearRadioError(groupId, errorId) {
+      const group = document.getElementById(groupId);
+      const error = document.getElementById(errorId);
+      if (group && error) {
+        group.classList.remove('border-rose-400', 'bg-rose-50/10');
+        error.classList.add('hidden');
+      }
+      updateProgressBar();
+    }
+
+    function handleFormSubmit(event) {
+      event.preventDefault();
+
+      let isValid = true;
+      let firstInvalidEl = null;
+
+      // 1. Question 1 (Frequency) Validation
+      const q1Checked = document.querySelector('input[name="online_frequency"]:checked');
+      const q1Group = document.getElementById('q1-group');
+      const q1Error = document.getElementById('q1-error');
+      if (!q1Checked) {
+        isValid = false;
+        if (q1Group) q1Group.classList.add('border-rose-400', 'bg-rose-50/10');
+        if (q1Error) q1Error.classList.remove('hidden');
+        if (!firstInvalidEl) firstInvalidEl = q1Group;
+      } else {
+        if (q1Group) q1Group.classList.remove('border-rose-400', 'bg-rose-50/10');
+        if (q1Error) q1Error.classList.add('hidden');
+      }
+
+      // 2. Question 2 (Deal Platform) Validation
+      const q2Checked = document.querySelector('input[name="deal_platform"]:checked');
+      const q2Group = document.getElementById('q2-group');
+      const q2Error = document.getElementById('q2-error');
+      if (!q2Checked) {
+        isValid = false;
+        if (q2Group) q2Group.classList.add('border-rose-400', 'bg-rose-50/10');
+        if (q2Error) q2Error.classList.remove('hidden');
+        if (!firstInvalidEl) firstInvalidEl = q2Group;
+      } else {
+        if (q2Group) q2Group.classList.remove('border-rose-400', 'bg-rose-50/10');
+        if (q2Error) q2Error.classList.add('hidden');
+      }
+
+      // 3. Question 3 (Deal Value) Validation
+      const q3Checked = document.querySelector('input[name="deal_value"]:checked');
+      const q3Group = document.getElementById('q3-group');
+      const q3Error = document.getElementById('q3-error');
+      if (!q3Checked) {
+        isValid = false;
+        if (q3Group) q3Group.classList.add('border-rose-400', 'bg-rose-50/10');
+        if (q3Error) q3Error.classList.remove('hidden');
+        if (!firstInvalidEl) firstInvalidEl = q3Group;
+      } else {
+        if (q3Group) q3Group.classList.remove('border-rose-400', 'bg-rose-50/10');
+        if (q3Error) q3Error.classList.add('hidden');
+      }
+
+      // 4. Question 5 (Idea Feeling) Validation
+      const q5Checked = document.querySelector('input[name="idea_feeling"]:checked');
+      const q5Group = document.getElementById('q5-group');
+      const q5Error = document.getElementById('q5-error');
+      if (!q5Checked) {
+        isValid = false;
+        if (q5Group) q5Group.classList.add('border-rose-400', 'bg-rose-50/10');
+        if (q5Error) q5Error.classList.remove('hidden');
+        if (!firstInvalidEl) firstInvalidEl = q5Group;
+      } else {
+        if (q5Group) q5Group.classList.remove('border-rose-400', 'bg-rose-50/10');
+        if (q5Error) q5Error.classList.add('hidden');
+      }
+
+      // 5. Question 6 (Pay Stranger) Validation
+      const q6Checked = document.querySelector('input[name="pay_stranger"]:checked');
+      const q6Group = document.getElementById('q6-group');
+      const q6Error = document.getElementById('q6-error');
+      if (!q6Checked) {
+        isValid = false;
+        if (q6Group) q6Group.classList.add('border-rose-400', 'bg-rose-50/10');
+        if (q6Error) q6Error.classList.remove('hidden');
+        if (!firstInvalidEl) firstInvalidEl = q6Group;
+      } else {
+        if (q6Group) q6Group.classList.remove('border-rose-400', 'bg-rose-50/10');
+        if (q6Error) q6Error.classList.add('hidden');
+      }
+
+      // 6. Question 7 (Trust Amount) Validation
+      const q7Checked = document.querySelector('input[name="trust_amount"]:checked');
+      const q7Group = document.getElementById('q7-group');
+      const q7Error = document.getElementById('q7-error');
+      if (!q7Checked) {
+        isValid = false;
+        if (q7Group) q7Group.classList.add('border-rose-400', 'bg-rose-50/10');
+        if (q7Error) q7Error.classList.remove('hidden');
+        if (!firstInvalidEl) firstInvalidEl = q7Group;
+      } else {
+        if (q7Group) q7Group.classList.remove('border-rose-400', 'bg-rose-50/10');
+        if (q7Error) q7Error.classList.add('hidden');
+      }
+
+      // 7. Question 8 (Dispute SLA) Validation
+      const q8Checked = document.querySelector('input[name="dispute_sla"]:checked');
+      const q8Group = document.getElementById('q8-group');
+      const q8Error = document.getElementById('q8-error');
+      if (!q8Checked) {
+        isValid = false;
+        if (q8Group) q8Group.classList.add('border-rose-400', 'bg-rose-50/10');
+        if (q8Error) q8Error.classList.remove('hidden');
+        if (!firstInvalidEl) firstInvalidEl = q8Group;
+      } else {
+        if (q8Group) q8Group.classList.remove('border-rose-400', 'bg-rose-50/10');
+        if (q8Error) q8Error.classList.add('hidden');
+      }
+
+      // 8. Question 9 (Email) Validation
+      const emailInput = document.getElementById('email');
+      const emailError = document.getElementById('email-error');
+      if (!isValidEmail(emailInput.value)) {
+        isValid = false;
+        if (emailInput) {
+          emailInput.classList.add('border-rose-500', 'bg-rose-50/20');
+          emailInput.classList.remove('border-gray-300');
+        }
+        if (emailError) emailError.classList.remove('hidden');
+        if (!firstInvalidEl) firstInvalidEl = emailInput;
+      } else {
+        if (emailInput) {
+          emailInput.classList.remove('border-rose-500', 'bg-rose-50/20');
+          emailInput.classList.add('border-gray-300');
+        }
+        if (emailError) emailError.classList.add('hidden');
+      }
+
+      // 9. Question 10 (WhatsApp Phone) Validation
+      const phoneInput = document.getElementById('phone');
+      const phoneError = document.getElementById('phone-error');
+      const phoneWrap = document.getElementById('phone-input-wrap');
+      const phoneDigits = phoneInput.value.replace(/[\s\-()+]/g, '');
+      if (!phoneDigits || phoneDigits.length < 7 || !/^\d+$/.test(phoneDigits)) {
+        isValid = false;
+        if (phoneWrap) {
+          phoneWrap.classList.add('border-rose-500', 'bg-rose-50/20');
+          phoneWrap.classList.remove('border-gray-300');
+        }
+        if (phoneError) phoneError.classList.remove('hidden');
+        if (!firstInvalidEl) firstInvalidEl = phoneWrap || phoneInput;
+      } else {
+        if (phoneWrap) {
+          phoneWrap.classList.remove('border-rose-500', 'bg-rose-50/20');
+          phoneWrap.classList.add('border-gray-300');
+        }
+        if (phoneError) phoneError.classList.add('hidden');
+      }
+
+      if (!isValid) {
+        if (firstInvalidEl) {
+          firstInvalidEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          if (firstInvalidEl.focus) firstInvalidEl.focus();
+        }
+        return;
+      }
+
+      // Check if newsletter checkbox is unchecked and user hasn't chosen yet
+      const updatesOptIn = document.getElementById('send_updates').checked;
+      const promptBox = document.getElementById('optin-prompt-box');
+      const optinCard = document.getElementById('optin-card');
+      const checkWrap = document.getElementById('optin-checkbox-wrap');
+      const infoMsg = document.getElementById('optin-info-message');
+      const submitWrap = document.getElementById('submit-btn-wrap');
+
+      if (!updatesOptIn && !pendingUncheckedSubmit) {
+        if (checkWrap) checkWrap.classList.add('hidden');
+        if (submitWrap) submitWrap.classList.add('hidden'); // Hide main Submit button!
+        if (infoMsg) {
+          infoMsg.classList.add('hidden');
+          infoMsg.classList.remove('flex');
+        }
+        if (promptBox) {
+          promptBox.classList.remove('hidden');
+          promptBox.classList.add('flex');
+        }
+        if (optinCard) {
+          optinCard.classList.add('border-primary', 'ring-4', 'ring-primary/20');
+          optinCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return; // Pause until user responds to prompt
+      }
+
+      finalizeSubmission();
+    }
+
+    let pendingUncheckedSubmit = false;
+
+    function toggleOptinBenefitInfo(isChecked) {
+      const infoMsg = document.getElementById('optin-info-message');
+      const submitBtn = document.querySelector('#survey-form button[type="submit"]');
+      hideOptinPrompt();
+
+      if (isChecked) {
+        if (infoMsg) {
+          infoMsg.classList.remove('hidden');
+          infoMsg.classList.add('flex');
+          setTimeout(() => {
+            if (submitBtn) {
+              submitBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          }, 80);
+        }
+      } else {
+        if (infoMsg) {
+          infoMsg.classList.add('hidden');
+          infoMsg.classList.remove('flex');
+        }
+      }
+    }
+
+    function toggleOptinBenefitInfoManual() {
+      const infoMsg = document.getElementById('optin-info-message');
+      const submitBtn = document.querySelector('#survey-form button[type="submit"]');
+      if (!infoMsg) return;
+
+      if (infoMsg.classList.contains('hidden')) {
+        infoMsg.classList.remove('hidden');
+        infoMsg.classList.add('flex');
+        setTimeout(() => {
+          if (submitBtn) {
+            submitBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }, 80);
+      } else {
+        infoMsg.classList.add('hidden');
+        infoMsg.classList.remove('flex');
+      }
+    }
+
+    function confirmOptinChoice(wantUpdates) {
+      const checkbox = document.getElementById('send_updates');
+      if (checkbox) checkbox.checked = wantUpdates;
+
+      pendingUncheckedSubmit = true;
+      hideOptinPrompt();
+      finalizeSubmission();
+    }
+
+    function hideOptinPrompt() {
+      const promptBox = document.getElementById('optin-prompt-box');
+      const optinCard = document.getElementById('optin-card');
+      const checkWrap = document.getElementById('optin-checkbox-wrap');
+      const submitWrap = document.getElementById('submit-btn-wrap');
+
+      if (checkWrap) checkWrap.classList.remove('hidden');
+      if (submitWrap) submitWrap.classList.remove('hidden'); // Restore main Submit button!
+      if (promptBox) {
+        promptBox.classList.add('hidden');
+        promptBox.classList.remove('flex');
+      }
+      if (optinCard) {
+        optinCard.classList.remove('border-primary', 'ring-4', 'ring-primary/20');
+      }
+    }
+
+    async function finalizeSubmission() {
+      const form = document.getElementById('survey-form');
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        const previousSubmissions = JSON.parse(localStorage.getItem('paykudi_survey_responses') || '[]');
+        previousSubmissions.push({
+          timestamp: new Date().toISOString(),
+          data: data
+        });
+        localStorage.setItem('paykudi_survey_responses', JSON.stringify(previousSubmissions));
+      } catch (e) {
+        console.log('LocalStorage log error:', e);
+      }
+
+      // Send response to PayKudi DB backend endpoint
+      try {
+        await fetch('/api/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        }).then(res => res.json())
+          .then(resData => console.log('✅ PayKudi DB Submit Result:', resData))
+          .catch(err => console.error('❌ PayKudi DB API fetch error:', err));
+      } catch (err) {
+        console.error('❌ PayKudi DB submit error:', err);
+      }
+
+      const updatesOptIn = document.getElementById('send_updates').checked;
+      const reassuranceEl = document.getElementById('success-reassurance-msg');
+      if (updatesOptIn) {
+        reassuranceEl.innerHTML = `Your response directly shapes what we build next. We'll keep you posted as <span class="font-extrabold tracking-tight"><span class="text-[#0B4F9C]">PAY</span><span class="text-[#239B3B]">KUDI</span></span> gets closer to launch!`;
+      } else {
+        reassuranceEl.innerHTML = `We really appreciate your honest feedback. Your response directly shapes what we build next!`;
+      }
+
+      pendingUncheckedSubmit = false;
+      showSuccessState();
+    }
+
+    function showSuccessState() {
+      const form = document.getElementById('survey-form');
+      const headerWrap = document.getElementById('survey-header-wrap');
+      const successState = document.getElementById('success-state');
+      const checkIcon = document.getElementById('success-check-icon');
+      const textContent = document.getElementById('success-text-content');
+      const floatingBar = document.getElementById('floating-progress-bar');
+
+      if (floatingBar) floatingBar.classList.add('hidden');
+      form.style.opacity = '0';
+      headerWrap.style.opacity = '0';
+
+      if (checkIcon) {
+        checkIcon.classList.remove('scale-100');
+        checkIcon.classList.add('scale-0');
+      }
+      if (textContent) {
+        textContent.classList.remove('opacity-100', 'translate-y-0');
+        textContent.classList.add('opacity-0', 'translate-y-4');
+      }
+
+      setTimeout(() => {
+        form.classList.add('hidden');
+        headerWrap.classList.add('hidden');
+
+        successState.classList.remove('hidden');
+        successState.classList.add('flex');
+
+        void successState.offsetWidth; // Trigger CSS reflow
+
+        successState.style.opacity = '1';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Step 1: Pop Checkmark Icon First
+        setTimeout(() => {
+          if (checkIcon) {
+            checkIcon.classList.remove('scale-0');
+            checkIcon.classList.add('scale-100');
+          }
+        }, 150);
+
+        // Step 2: Fade & Slide Up Text Content under Checkmark
+        setTimeout(() => {
+          if (textContent) {
+            textContent.classList.remove('opacity-0', 'translate-y-4');
+            textContent.classList.add('opacity-100', 'translate-y-0');
+          }
+        }, 450);
+
+      }, 300);
+    }
+
+    function restartSurvey() {
+      const form = document.getElementById('survey-form');
+      const headerWrap = document.getElementById('survey-header-wrap');
+      const successState = document.getElementById('success-state');
+      const checkIcon = document.getElementById('success-check-icon');
+      const textContent = document.getElementById('success-text-content');
+
+      form.reset();
+      document.getElementById('send_updates').checked = false;
+
+      successState.style.opacity = '0';
+
+      setTimeout(() => {
+        if (checkIcon) {
+          checkIcon.classList.remove('scale-100');
+          checkIcon.classList.add('scale-0');
+        }
+        if (textContent) {
+          textContent.classList.remove('opacity-100', 'translate-y-0');
+          textContent.classList.add('opacity-0', 'translate-y-4');
+        }
+
+        successState.classList.add('hidden');
+        successState.classList.remove('flex');
+
+        form.classList.remove('hidden');
+        headerWrap.classList.remove('hidden');
+        form.style.opacity = '1';
+        headerWrap.style.opacity = '1';
+
+        const floatingBar = document.getElementById('floating-progress-bar');
+        if (floatingBar) floatingBar.classList.remove('hidden');
+        updateProgressBar();
+
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      }, 300);
+    }
+
+    function scrollToFirstUnanswered() {
+      const emailInput = document.getElementById('email');
+      const phoneInput = document.getElementById('phone');
+
+      if (!document.querySelector('input[name="online_frequency"]:checked')) { scrollToField('q1-group'); return; }
+      if (!document.querySelector('input[name="deal_platform"]:checked')) { scrollToField('q2-group'); return; }
+      if (!document.querySelector('input[name="deal_value"]:checked')) { scrollToField('q3-group'); return; }
+      if (!document.querySelector('input[name="idea_feeling"]:checked')) { scrollToField('q5-group'); return; }
+      if (!document.querySelector('input[name="pay_stranger"]:checked')) { scrollToField('q6-group'); return; }
+      if (!document.querySelector('input[name="trust_amount"]:checked')) { scrollToField('q7-group'); return; }
+      if (!document.querySelector('input[name="raise_dispute"]:checked')) { scrollToField('q8-group'); return; }
+      if (!document.querySelector('input[name="dispute_sla"]:checked')) { scrollToField('q9-group'); return; }
+      if (!isValidEmail(emailInput.value)) { scrollToField('email-card'); return; }
+      if (!isValidPhone(phoneInput.value)) { scrollToField('phone-card'); return; }
+
+      const form = document.getElementById('survey-form');
+      if (form) form.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
+
+    function updateProgressBar() {
+      const emailInput = document.getElementById('email');
+      const phoneInput = document.getElementById('phone');
+
+      const s1 = Boolean(document.querySelector('input[name="online_frequency"]:checked'));
+      const s2 = Boolean(document.querySelector('input[name="deal_platform"]:checked'));
+      const s3 = Boolean(document.querySelector('input[name="deal_value"]:checked'));
+      const s4 = Boolean(document.querySelector('input[name="idea_feeling"]:checked'));
+      const s5 = Boolean(document.querySelector('input[name="pay_stranger"]:checked'));
+      const s6 = Boolean(document.querySelector('input[name="trust_amount"]:checked'));
+      const s7 = Boolean(document.querySelector('input[name="raise_dispute"]:checked'));
+      const s8 = Boolean(document.querySelector('input[name="dispute_sla"]:checked'));
+      const s9 = Boolean(emailInput && isValidEmail(emailInput.value));
+      const s10 = Boolean(phoneInput && isValidPhone(phoneInput.value));
+
+      const steps = [s1, s2, s3, s4, s5, s6, s7, s8, s9, s10];
+      const count = steps.filter(Boolean).length;
+      const pct = Math.round((count / 10) * 100);
+
+      const pctText = document.getElementById('progress-percent-text');
+      const countText = document.getElementById('progress-count-text');
+      const circleCount = document.getElementById('circle-progress-count');
+      const circleBar = document.getElementById('circle-progress-bar');
+
+      if (pctText) pctText.textContent = `${pct}%`;
+      if (countText) countText.textContent = `${count} of 10 answered`;
+      if (circleCount) circleCount.textContent = `${count}`;
+      if (circleBar) circleBar.setAttribute('stroke-dasharray', `${pct}, 100`);
+    }
+
+    function scrollToField(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const input = el.querySelector('input, textarea');
+        if (input && input.focus) input.focus();
+      }
+    }
+
+    function checkWidgetOverlap() {
+      const widget = document.getElementById('floating-progress-bar');
+      const submitBtn = document.querySelector('#survey-form button[type="submit"]');
+
+      if (!widget || !submitBtn || widget.classList.contains('hidden')) return;
+
+      const submitRect = submitBtn.getBoundingClientRect();
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+
+      if (submitRect.top <= windowHeight - 60 && submitRect.bottom >= 0) {
+        widget.classList.remove('progress-pos-bottom');
+        widget.classList.add('progress-pos-top');
+      } else {
+        widget.classList.remove('progress-pos-top');
+        widget.classList.add('progress-pos-bottom');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('survey-form');
+      if (form) {
+        form.addEventListener('input', updateProgressBar);
+        form.addEventListener('change', updateProgressBar);
+        form.addEventListener('click', updateProgressBar);
+      }
+      window.addEventListener('scroll', checkWidgetOverlap, { passive: true });
+      window.addEventListener('resize', checkWidgetOverlap, { passive: true });
+    });
+  </script>
+</body>
+
+</html>

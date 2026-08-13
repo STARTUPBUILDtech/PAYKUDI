@@ -1,0 +1,3141 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PayKudi | Pay with confidence, right on WhatsApp</title>
+  <link rel="shortcut icon" href="paykudi-favicon.png?v=2">
+  <link rel="icon" type="image/png" href="paykudi-favicon.png?v=2">
+  <link rel="apple-touch-icon" href="paykudi-favicon.png?v=2">
+
+  <!-- Google Fonts: Hanken Grotesk & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              blue: '#0E5296',
+              green: '#2EA043',
+              dark: '#102B1B',
+              mint: '#C7F7C3',
+              mintDark: '#A3E89E',
+              lightBg: '#F7FAF8',
+            }
+          },
+          fontFamily: {
+            heading: ['"Hanken Grotesk"', 'sans-serif'],
+            body: ['"Inter"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #1F2937;
+      background-color: #FFFFFF;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    .font-heading {
+      font-family: 'Hanken Grotesk', sans-serif;
+    }
+
+    .bg-pattern {
+      background-image: radial-gradient(#2EA043 0.75px, transparent 0.75px), radial-gradient(#0E5296 0.75px, #ffffff 0.75px);
+      background-size: 30px 30px;
+      background-position: 0 0, 15px 15px;
+      opacity: 0.05;
+    }
+
+    .photo-placeholder {
+      background: linear-gradient(135deg, #E2E8F0 0%, #CBD5E1 100%);
+      border: 2px dashed #94A3B8;
+    }
+
+    /* HERO HEADLINE INFINITE UPWARD SWITCHER */
+    .hero-headline-viewport {
+      overflow: hidden;
+      position: relative;
+      visibility: hidden;
+      margin-top: 12px;
+      margin-bottom: 12px;
+    }
+
+    .hero-headline-slider {
+      display: flex;
+      flex-direction: column;
+      gap: 0px;
+      will-change: transform;
+    }
+
+    .hero-headline-text {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: clamp(28px, 5.2vw, 62px);
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      margin: 0;
+      padding: 4px 0 12px 0;
+      flex-shrink: 0;
+      box-sizing: border-box;
+      display: block;
+    }
+
+    /* SECTION REVEAL, TEXT REVEAL & EXIT ANIMATIONS */
+    .reveal-item {
+      opacity: 0;
+      transform: translateY(32px);
+      filter: blur(6px);
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform, filter;
+    }
+
+    .reveal-item.reveal-visible {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0px);
+    }
+
+    .reveal-item.reveal-exit-up {
+      opacity: 0.15;
+      transform: translateY(-24px);
+      filter: blur(2px);
+    }
+
+    .reveal-item.reveal-exit-down {
+      opacity: 0;
+      transform: translateY(32px);
+      filter: blur(6px);
+    }
+
+    /* Stagger delay classes */
+    .stagger-1 {
+      transition-delay: 60ms;
+    }
+
+    .stagger-2 {
+      transition-delay: 140ms;
+    }
+
+    .stagger-3 {
+      transition-delay: 220ms;
+    }
+
+    .stagger-4 {
+      transition-delay: 300ms;
+    }
+
+    .stagger-5 {
+      transition-delay: 380ms;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal-item {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+        transition: none !important;
+      }
+    }
+
+    /* GLOBAL RESPONSIVE CLAMP FLUID TYPOGRAPHY & SPACING SYSTEM */
+    .clamp-h1 {
+      font-size: clamp(28px, 5vw, 62px) !important;
+      line-height: clamp(1.1, 1.15, 1.2) !important;
+    }
+
+    .clamp-h2 {
+      font-size: clamp(24px, 3.8vw, 48px) !important;
+      line-height: clamp(1.15, 1.2, 1.25) !important;
+    }
+
+    .clamp-h3 {
+      font-size: clamp(18px, 2.2vw, 24px) !important;
+      line-height: clamp(1.2, 1.3, 1.4) !important;
+    }
+
+    .clamp-subhead {
+      font-size: clamp(15px, 1.8vw, 20px) !important;
+      line-height: clamp(1.45, 1.55, 1.65) !important;
+    }
+
+    .clamp-body {
+      font-size: clamp(13px, 1.35vw, 16px) !important;
+      line-height: 1.6 !important;
+    }
+
+    .clamp-badge {
+      font-size: clamp(11px, 1.2vw, 13px) !important;
+    }
+
+    .clamp-btn {
+      font-size: clamp(12px, 1.4vw, 15px) !important;
+      padding: clamp(10px, 1.5vw, 16px) clamp(16px, 2.5vw, 32px) !important;
+    }
+
+    .clamp-card-p {
+      padding: clamp(16px, 2.5vw, 24px) !important;
+    }
+
+    .clamp-section-py {
+      padding-top: clamp(48px, 7vh, 96px) !important;
+      padding-bottom: clamp(48px, 7vh, 96px) !important;
+    }
+
+    /* RESPONSIVE CLAMP FOR LOGO IMAGES & FOOTER ELEMENTS */
+    .clamp-logo-img {
+      height: clamp(22px, 2.5vw, 32px) !important;
+      width: auto !important;
+    }
+
+    .clamp-footer-text {
+      font-size: clamp(11px, 1.2vw, 14px) !important;
+    }
+
+    .clamp-footer-py {
+      padding-top: clamp(24px, 4vh, 48px) !important;
+      padding-bottom: clamp(24px, 4vh, 48px) !important;
+    }
+
+    .clamp-footer-gap {
+      gap: clamp(12px, 2vw, 24px) !important;
+    }
+
+    .clamp-modal-title {
+      font-size: clamp(15px, 2.2vw, 18px) !important;
+      line-height: 1.3 !important;
+    }
+
+    /* BADGE CLAMP UTILITIES FOR SCREEN RESIZE */
+    .clamp-badge-title {
+      font-size: clamp(12px, 1.2vw, 14.5px) !important;
+      line-height: 1.25 !important;
+    }
+
+    .clamp-badge-sub {
+      font-size: clamp(10px, 0.95vw, 12px) !important;
+      line-height: 1.2 !important;
+    }
+
+    .clamp-badge-p {
+      padding: clamp(12px, 1.5vw, 20px) !important;
+    }
+
+    /* STICKY FULL-WIDTH WHITE HEADER WITH GREEN & BLUE BRAND ACCENTS */
+    .liquid-nav-header {
+      position: sticky !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+      transform: none !important;
+      z-index: 99999 !important;
+      padding: 0 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(246, 251, 255, 0.82)) !important;
+      backdrop-filter: blur(18px) saturate(150%) !important;
+      -webkit-backdrop-filter: blur(18px) saturate(150%) !important;
+      border: 1px solid rgba(255, 255, 255, 0.78) !important;
+      border-bottom-color: rgba(203, 213, 225, 0.72) !important;
+      border-radius: 0 !important;
+      box-shadow: 0 10px 28px -14px rgba(14, 82, 150, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .liquid-nav-header:hover {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(239, 249, 255, 0.88)) !important;
+      box-shadow: 0 14px 32px -14px rgba(14, 82, 150, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+    }
+
+    .brand-pay {
+      color: #0E5296;
+      font-weight: 900 !important;
+    }
+
+    .brand-kudi {
+      color: #2EA043;
+      font-weight: 900 !important;
+    }
+
+    .logo-dot {
+      color: #12A3B4;
+    }
+
+    /* Keep the header brand lockup identical to the payment room. */
+    .payment-room-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      min-width: 0;
+      color: #1F2937;
+    }
+
+    .payment-room-brand img {
+      display: block;
+      width: auto;
+      height: 28px;
+      max-width: none;
+      flex: 0 0 auto;
+      object-fit: contain;
+    }
+
+    .payment-room-brand-copy {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      justify-content: center;
+      line-height: 1.05;
+      white-space: nowrap;
+      transform: translateY(1px);
+    }
+
+    .payment-room-brand-name {
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .payment-room-brand-subtitle {
+      margin-top: 1px;
+      font-size: 9px;
+      font-weight: 600;
+      color: #64748B;
+    }
+
+    /* Compact contact panel: keep the footer contact view comfortably sized. */
+    .footer-contact-panel .cf-fl-field {
+      margin-bottom: 1rem;
+    }
+
+    .footer-contact-panel .cf-fl-field .cf-fl-input {
+      padding: 12px 12px 12px 38px;
+    }
+
+    .footer-contact-panel .cf-fl-field.cf-textarea .cf-fl-input {
+      min-height: 76px;
+    }
+
+    .footer-contact-panel a[aria-label="Email Us"] {
+      order: 1;
+    }
+
+    .footer-contact-panel a[aria-label="LinkedIn"] {
+      order: 2;
+    }
+
+    .footer-contact-panel a[aria-label="Instagram @usepaykudi"] {
+      order: 3;
+    }
+
+    .footer-contact-panel a[aria-label="WhatsApp Support"] {
+      order: 4;
+    }
+
+
+    /* Contact success fade transition */
+    #contactFormContainer,
+    #contactSuccessContainer {
+      transition: opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1), transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    #contactSuccessContainer {
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+    }
+
+    #contactSuccessContainer.contact-success-visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    /* Buyer and merchant benefit cards: clear lead-ins with compact, aligned supporting copy. */
+    .benefit-list {
+      font-size: clamp(12px, 1.1vw, 14px) !important;
+      line-height: 1.5 !important;
+    }
+
+    .benefit-list>li>span:last-child {
+      text-align: justify;
+    }
+
+    .benefit-list strong {
+      display: block;
+      margin-bottom: 2px;
+      font-size: clamp(12.5px, 1.15vw, 14.5px);
+      line-height: 1.3;
+    }
+
+    /* Keep the footer contact view fully framed within every viewport. */
+    #footerCardContainer.footer-contact-active {
+      height: auto;
+      min-height: min(540px, calc(100svh - 104px));
+    }
+
+    #footerCardContainer.footer-contact-active #footerContactPanel {
+      overscroll-behavior: auto;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-y;
+    }
+
+    #footerCardContainer.footer-contact-active #footerContactPanel>.relative {
+      height: auto;
+      min-height: 100%;
+      justify-content: flex-start;
+    }
+
+    @media (min-width: 768px) {
+      #footerCardContainer.footer-contact-active {
+        height: auto !important;
+        min-height: min(480px, calc(100svh - 104px)) !important;
+        max-height: calc(100svh - 104px);
+      }
+
+      #footerCardContainer.footer-contact-active .footer-contact-panel {
+        padding: 20px 24px;
+      }
+
+      #footerCardContainer.footer-contact-active .cf-fl-field {
+        margin-bottom: 0.75rem;
+      }
+
+      #footerCardContainer.footer-contact-active .cf-fl-field .cf-fl-input {
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .payment-room-brand-copy {
+        display: none;
+      }
+    }
+
+    /* On phones the footer just wraps its content. */
+    @media (max-width: 639px) {
+      #footerSection {
+        min-height: 0 !important;
+      }
+    }
+
+    /* ================= TRUST MARQUEE ================= */
+    #trustMarquee {
+      background: linear-gradient(105deg, #D8ECFA 0%, #E2F3F1 38%, #EAF5E4 68%, #D9F0D5 100%);
+      overflow: hidden;
+    }
+
+    .trust-marquee-viewport {
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%);
+    }
+
+    .trust-marquee-track {
+      display: flex;
+      width: max-content;
+      animation: trustMarqueeScroll 34s linear infinite;
+      will-change: transform;
+    }
+
+    .trust-marquee-track:hover,
+    .trust-marquee-track:focus-within,
+    .trust-marquee-track:active {
+      animation-play-state: paused;
+    }
+
+    .trust-marquee-group {
+      display: flex;
+      align-items: center;
+      flex: 0 0 auto;
+    }
+
+    .trust-marquee-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-width: min(290px, 76vw);
+      padding: 5px 18px;
+    }
+
+    .trust-marquee-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: clamp(2rem, 3vw, 2.25rem);
+      height: clamp(2rem, 3vw, 2.25rem);
+      flex: 0 0 auto;
+      border-radius: 0.875rem;
+    }
+
+    .trust-marquee-icon img {
+      display: block;
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+    }
+
+    .trust-marquee-copy {
+      min-width: 0;
+      line-height: 1.2;
+    }
+
+    .trust-marquee-title {
+      display: block;
+      color: #102B1B;
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-weight: 800;
+    }
+
+    .trust-marquee-subtitle {
+      display: block;
+      margin-top: 2px;
+      color: #64748B;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .trust-marquee-separator {
+      display: none;
+    }
+
+    @keyframes trustMarqueeScroll {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .trust-marquee-viewport {
+        -webkit-mask-image: none;
+        mask-image: none;
+      }
+
+      .trust-marquee-track {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+        animation: none;
+      }
+
+      .trust-marquee-group[aria-hidden="true"] {
+        display: none;
+      }
+
+      .trust-marquee-item {
+        min-width: min(260px, 100%);
+      }
+    }
+
+    /* CELEBRATORY BALLOONS, FLOWERS & RIBBONS SLOW GENTLE FLOAT TO BORDERS */
+    @keyframes particleSlowFloatToBorder {
+      0% {
+        opacity: 0;
+        transform: translate3d(0, 0, 0) scale(0.4) rotate(0deg);
+      }
+
+      10% {
+        opacity: 1;
+        transform: translate3d(var(--tx-start), var(--ty-start), 0) scale(1.18) rotate(var(--rot-start));
+      }
+
+      50% {
+        opacity: 0.95;
+        transform: translate3d(var(--tx-mid), var(--ty-mid), 0) scale(1.08) rotate(var(--rot-mid));
+      }
+
+      85% {
+        opacity: 0.8;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate3d(var(--tx-end), var(--ty-end), 0) scale(0.85) rotate(var(--rot-end));
+      }
+    }
+
+    .community-celebration-particle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 99999;
+      font-size: clamp(20px, 2.8vw, 34px);
+      user-select: none;
+      animation: particleSlowFloatToBorder var(--duration) cubic-bezier(0.18, 0.65, 0.32, 1) forwards;
+      will-change: transform, opacity;
+    }
+
+    /* CURTAIN REVEAL WIPE MORPH TRANSITION (CLIP-PATH) */
+    /* Forward slide: panel enters from the RIGHT */
+    .slide-morph-panel {
+      clip-path: inset(0 0 0 100%);
+      transition: clip-path 850ms cubic-bezier(0.65, 0, 0.35, 1) !important;
+      will-change: clip-path;
+    }
+
+    .slide-morph-panel.panel-visible {
+      clip-path: inset(0 0 0 0) !important;
+    }
+
+    /* Reverse slide: panel enters from the LEFT */
+    .slide-morph-panel-reverse {
+      clip-path: inset(0 100% 0 0);
+      transition: clip-path 850ms cubic-bezier(0.65, 0, 0.35, 1) !important;
+      will-change: clip-path;
+    }
+
+    .slide-morph-panel-reverse.panel-visible {
+      clip-path: inset(0 0 0 0) !important;
+    }
+
+    /* BOUNCING HEART EMOJI IN COMMUNITY BADGE */
+    @keyframes heartBounce {
+
+      0%,
+      100% {
+        transform: translateY(0) scale(1);
+      }
+
+      30% {
+        transform: translateY(-5px) scale(1.18);
+      }
+
+      55% {
+        transform: translateY(-2px) scale(1.08);
+      }
+
+      75% {
+        transform: translateY(-4px) scale(1.14);
+      }
+    }
+
+    .heart-bounce {
+      display: inline-block;
+      animation: heartBounce 1.4s ease-in-out infinite;
+      line-height: 1;
+      will-change: transform;
+      vertical-align: middle;
+    }
+
+    /* TYPEWRITER CURSOR ANIMATION */
+    .typewriter-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background-color: #2EA043;
+      margin-left: 3px;
+      vertical-align: middle;
+      animation: blinkCursor 0.85s infinite;
+      border-radius: 1px;
+    }
+
+    @keyframes blinkCursor {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
+    }
+
+    /* DYNAMIC ANIMATED BRAND THEME GLOWS MOVING AROUND WHITE BACKGROUND */
+    @keyframes floatGlow1 {
+      0% {
+        transform: translate(0px, 0px) scale(1) rotate(0deg);
+      }
+
+      33% {
+        transform: translate(65px, -45px) scale(1.18) rotate(120deg);
+      }
+
+      66% {
+        transform: translate(-55px, 55px) scale(0.88) rotate(240deg);
+      }
+
+      100% {
+        transform: translate(0px, 0px) scale(1) rotate(360deg);
+      }
+    }
+
+    @keyframes floatGlow2 {
+      0% {
+        transform: translate(0px, 0px) scale(1.1) rotate(360deg);
+      }
+
+      33% {
+        transform: translate(-75px, 65px) scale(0.9) rotate(240deg);
+      }
+
+      66% {
+        transform: translate(45px, -55px) scale(1.2) rotate(120deg);
+      }
+
+      100% {
+        transform: translate(0px, 0px) scale(1.1) rotate(0deg);
+      }
+    }
+
+    @keyframes floatGlow3 {
+      0% {
+        transform: translate(-35px, 35px) scale(0.95);
+      }
+
+      50% {
+        transform: translate(55px, -65px) scale(1.22);
+      }
+
+      100% {
+        transform: translate(-35px, 35px) scale(0.95);
+      }
+    }
+
+    .glow-sec-left {
+      position: absolute;
+      top: 5%;
+      left: -80px;
+      width: clamp(350px, 45vw, 550px);
+      height: clamp(350px, 45vw, 550px);
+      background: radial-gradient(circle, rgba(14, 82, 150, 0.18) 0%, rgba(46, 160, 67, 0.12) 50%, transparent 80%);
+      border-radius: 50%;
+      filter: blur(85px);
+      pointer-events: none;
+      z-index: 0;
+      animation: floatGlow1 18s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    .glow-sec-right {
+      position: absolute;
+      bottom: 5%;
+      right: -80px;
+      width: clamp(350px, 45vw, 550px);
+      height: clamp(350px, 45vw, 550px);
+      background: radial-gradient(circle, rgba(46, 160, 67, 0.18) 0%, rgba(18, 163, 180, 0.14) 50%, transparent 80%);
+      border-radius: 50%;
+      filter: blur(85px);
+      pointer-events: none;
+      z-index: 0;
+      animation: floatGlow2 22s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    .glow-sec-center {
+      position: absolute;
+      top: 40%;
+      left: 30%;
+      width: clamp(300px, 40vw, 500px);
+      height: clamp(300px, 40vw, 500px);
+      background: radial-gradient(circle, rgba(18, 163, 180, 0.14) 0%, rgba(14, 82, 150, 0.10) 50%, transparent 80%);
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 0;
+      animation: floatGlow3 16s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    /* ── Contact Form: floating label ── */
+    .cf-fl-field {
+      position: relative;
+      margin-bottom: 1.5rem;
+      box-sizing: border-box;
+    }
+
+    .cf-fl-field .cf-fl-input {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 15px 12px 15px 40px;
+      background: rgba(255, 255, 255, 0.10);
+      border: 1.5px solid rgba(255, 255, 255, 0.25);
+      border-radius: 12px;
+      outline: none;
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(0.8rem, 1.1vw, 0.9rem);
+      color: #ffffff;
+      resize: none;
+      transition: border-color 0.25s ease;
+    }
+
+    .cf-fl-field .cf-fl-input::placeholder {
+      color: transparent;
+    }
+
+    .cf-fl-field .cf-fl-input:focus {
+      border-color: rgba(255, 255, 255, 0.65);
+    }
+
+    .cf-fl-field .cf-fl-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255, 255, 255, 0.45);
+      pointer-events: none;
+      z-index: 2;
+      display: flex;
+    }
+
+    .cf-fl-field.cf-textarea .cf-fl-icon {
+      top: 1.15rem;
+      transform: none;
+    }
+
+    .cf-fl-label {
+      position: absolute;
+      left: 40px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.5);
+      pointer-events: none;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      white-space: nowrap;
+      z-index: 2;
+    }
+
+    .cf-fl-field.cf-textarea .cf-fl-label {
+      top: 1.15rem;
+      transform: none;
+    }
+
+    .cf-fl-input:focus~.cf-fl-label,
+    .cf-fl-input:not(:placeholder-shown)~.cf-fl-label {
+      top: 0;
+      left: 34px;
+      transform: translateY(-50%);
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.95);
+      letter-spacing: 0.03em;
+      padding: 0 5px;
+      background: linear-gradient(rgba(20, 30, 48, 0.85), rgba(20, 30, 48, 0.85));
+      border-radius: 4px;
+    }
+
+    .cf-fl-field.cf-textarea .cf-fl-input:focus~.cf-fl-label,
+    .cf-fl-field.cf-textarea .cf-fl-input:not(:placeholder-shown)~.cf-fl-label {
+      top: 0;
+      transform: translateY(-50%);
+    }
+  </style>
+</head>
+
+<body class="antialiased selection:bg-brand-mint selection:text-brand-dark flex flex-col min-h-screen">
+
+  <!-- ================= STICKY HEADER (WHITE WITH APP GREEN & BLUE ACCENTS) ================= -->
+  <header class="liquid-nav-header">
+    <div class="w-full min-h-[44px] px-4 sm:px-6 lg:px-8 py-1.5 flex items-center justify-between gap-3">
+
+      <!-- FARTHEST LEFT: PayKudi Logo Image -->
+      <div class="flex items-center shrink-0 min-w-0">
+        <a href="#heroSection" onclick="slideFooterBackToMain()" class="payment-room-brand group" aria-label="PayKudi home" style="text-decoration:none;">
+          <img src="paykudi-logo.png" alt="PAYKUDI Logo" />
+          <span class="payment-room-brand-copy" aria-hidden="true">
+            <span class="payment-room-brand-name"><span class="brand-pay">PAY</span><span
+                class="brand-kudi">KUDI</span><span class="brand-kudi">.</span></span>
+            <span class="payment-room-brand-subtitle">Powered by <strong class="text-slate-800 font-black">Start<span
+                  class="text-[#0E5296]">up.</span></strong></span>
+          </span>
+        </a>
+      </div>
+
+      <!-- FARTHEST RIGHT: Nav Links -->
+      <div class="flex items-center gap-5 sm:gap-7 ml-auto">
+        <nav class="hidden md:flex items-center gap-6 lg:gap-7">
+          <a id="navLinkAbout" href="#about" onclick="slideFooterBackToMain()"
+            class="nav-spy-link text-slate-800 hover:text-[#0E5296] font-bold text-xs sm:text-sm tracking-tight transition-colors py-1 relative group"
+            style="font-family: 'Inter', sans-serif; text-decoration:none;">
+            About
+            <span
+              class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#0E5296] transition-all duration-300 group-hover:w-full"></span>
+          </a>
+
+          <a id="navLinkCommunity" href="#community" onclick="slideFooterBackToMain()"
+            class="nav-spy-link text-slate-800 hover:text-[#0E5296] font-bold text-xs sm:text-sm tracking-tight transition-colors py-1 relative group"
+            style="font-family: 'Inter', sans-serif; text-decoration:none;">
+            Community
+            <span
+              class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#0E5296] transition-all duration-300 group-hover:w-full"></span>
+          </a>
+
+          <a id="navLinkContact" href="javascript:void(0)" onclick="openContactUsModal()"
+            class="nav-spy-link text-slate-800 hover:text-[#0E5296] font-bold text-xs sm:text-sm tracking-tight transition-colors py-1 relative group cursor-pointer"
+            style="font-family: 'Inter', sans-serif; text-decoration:none;">
+            Contact
+            <span
+              class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#0E5296] transition-all duration-300 group-hover:w-full"></span>
+          </a>
+        </nav>
+
+        <div class="nav-actions flex items-center gap-2.5 shrink-0">
+          <button id="mobileMenuBtn" onclick="openMobileMenu()"
+            class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-lg text-slate-700 hover:text-[#0E5296] hover:bg-slate-100 transition-colors cursor-pointer shrink-0"
+            aria-label="Toggle menu">
+            <svg width="24" height="24" class="block" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Mobile Menu Backdrop Overlay -->
+  <div id="mobileMenuBackdrop" onclick="closeMobileMenu()"
+    class="fixed inset-0 bg-gray-950/60 backdrop-blur-sm z-[99999] opacity-0 pointer-events-none transition-opacity duration-300">
+  </div>
+
+  <!-- Mobile Right Side Drawer Panel -->
+  <aside id="mobileMenuDrawer"
+    class="fixed top-0 right-0 bottom-0 w-80 max-w-[85vw] bg-white/85 backdrop-blur-2xl p-7 shadow-2xl z-[100000] flex flex-col justify-between transform translate-x-full opacity-0 pointer-events-none transition-all duration-300 ease-in-out border-l border-white/60">
+
+    <div>
+      <div class="flex items-center justify-between pb-6 mb-6">
+        <a href="#heroSection" onclick="closeMobileMenu(); slideFooterBackToMain();" class="payment-room-brand shrink-0" aria-label="PayKudi home"
+          style="text-decoration:none;">
+          <img src="paykudi-logo.png" alt="PAYKUDI Logo" />
+          <span class="payment-room-brand-copy" aria-hidden="true">
+            <span class="payment-room-brand-name"><span class="brand-pay">PAY</span><span
+                class="brand-kudi">KUDI</span><span class="brand-kudi">.</span></span>
+            <span class="payment-room-brand-subtitle">Powered by <strong class="text-slate-800 font-black">Start<span
+                  class="text-[#0E5296]">up.</span></strong></span>
+          </span>
+        </a>
+
+        <button onclick="closeMobileMenu()" aria-label="Close menu"
+          class="w-10 h-10 rounded-full bg-gray-100/90 text-gray-700 hover:bg-gray-200 hover:text-gray-900 flex items-center justify-center transition-colors cursor-pointer shrink-0">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <nav class="space-y-4 pt-2">
+        <a id="mobileLinkHero" href="#heroSection" onclick="closeMobileMenu(); slideFooterBackToMain();"
+          class="mobile-nav-link block text-base font-bold text-gray-800 hover:text-[#0E5296] transition-colors py-1">
+          Home
+        </a>
+        <a id="mobileLinkAbout" href="#about" onclick="closeMobileMenu(); slideFooterBackToMain();"
+          class="mobile-nav-link block text-base font-bold text-gray-800 hover:text-[#0E5296] transition-colors py-1">
+          About
+        </a>
+        <a id="mobileLinkCommunity" href="#community" onclick="closeMobileMenu(); slideFooterBackToMain();"
+          class="mobile-nav-link block text-base font-bold text-gray-800 hover:text-[#0E5296] transition-colors py-1">
+          Community
+        </a>
+        <a id="mobileLinkContact" href="javascript:void(0)" onclick="closeMobileMenu(); openContactUsModal();"
+          class="mobile-nav-link block text-base font-bold text-gray-800 hover:text-[#0E5296] transition-colors py-1">
+          Contact
+        </a>
+      </nav>
+
+      <div class="my-7 border-t border-gray-100"></div>
+
+      <div class="flex items-center gap-3">
+        <a href="mailto:hello@paykudi.co" aria-label="Email Us"
+          class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors shrink-0">
+          <img src="icons8-gmail-logo-120.png" alt="Email" class="w-5 h-5 object-contain" />
+        </a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"
+          class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors shrink-0">
+          <img src="icons8-linkedin-logo-100.png" alt="LinkedIn" class="w-5 h-5 object-contain" />
+        </a>
+        <a href="https://www.instagram.com/usepaykudi?igsh=MXh5c3Z6NmJvNmVtOQ==" target="_blank" rel="noopener"
+          aria-label="Instagram"
+          class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors shrink-0">
+          <img src="icons8-instagram-logo-100.png" alt="Instagram" class="w-5 h-5 object-contain" />
+        </a>
+      </div>
+    </div>
+
+    <div class="pt-4 flex items-center gap-1.5 text-[11px] font-medium text-gray-500">
+      <img src="paykudi-logo.png"
+        alt="Paykudi Logo" class="h-4 w-auto object-contain" />
+      <span>•</span>
+      <span>Take control of your payments</span>
+    </div>
+  </aside>
+
+  <main class="flex-grow">
+    <!-- ================= HERO SECTION (100% FULL VIEWPORT COVERAGE) ================= -->
+    <section id="heroSection"
+      class="relative w-full min-h-screen flex flex-col justify-center overflow-hidden bg-gray-950 text-white py-16 sm:py-20">
+      <div class="absolute inset-0 z-0 overflow-hidden bg-gray-950">
+        <img src="photo.jpg"
+          onerror="this.onerror=null; this.src='paykudi-email-hero.jpg'; this.onerror=function(){this.style.display='none';};"
+          alt="PayKudi Background" class="w-full h-full object-cover object-center scale-105" />
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-gray-950/95 via-gray-900/80 to-gray-950/60 backdrop-blur-[2px]">
+        </div>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+          <div class="lg:col-span-12 max-w-3xl flex flex-col justify-center items-start gap-5 sm:gap-6 text-left">
+
+            <!-- Headline Vertical Infinite Upward Switcher -->
+            <div class="hero-headline-viewport text-left w-full my-auto py-1 reveal-item stagger-1">
+              <div id="hero-headline-slider" class="hero-headline-slider" aria-hidden="true">
+                <div class="hero-headline-text">
+                  Take control of your social media deals with <span class="text-brand-mint">Zero Risk.</span>
+                </div>
+                <div class="hero-headline-text">
+                  Buy &amp; Sell Safely on Social Media with <span class="text-brand-mint">Total Trust.</span>
+                </div>
+                <div class="hero-headline-text">
+                  Pay confidently for <span class="text-brand-mint">deals made at a distance.</span>
+                </div>
+                <div class="hero-headline-text">
+                  The smartest way to pay for <span class="text-brand-mint">social commerce.</span>
+                </div>
+                <div class="hero-headline-text hero-headline-clone">
+                  Take control of your social media deals with <span class="text-brand-mint">Zero Risk.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Inline Morphing Hero Form & Button + Left-Aligned Trust Badge -->
+            <div class="w-full max-w-[280px] sm:max-w-[310px] mx-0 flex flex-col items-start text-left gap-3.5">
+
+              <div id="heroMorphWrapper"
+                class="relative w-full h-[46px] overflow-hidden rounded-xl sm:rounded-2xl shadow-xl reveal-item stagger-2">
+
+                <button id="heroOriginalBtn" onclick="morphHeroButton(event)"
+                  class="absolute inset-0 w-full h-full bg-brand-green hover:bg-[#258336] text-white font-extrabold px-4 rounded-xl sm:rounded-2xl text-xs sm:text-sm cursor-pointer flex items-center justify-center text-center z-10 whitespace-nowrap border border-white/20">
+                  <span>Be on top of Paykudi Update</span>
+                </button>
+
+                <form id="heroMorphedForm" onsubmit="handleHeroInlineSubmit(event)" onclick="event.stopPropagation()"
+                  class="hidden absolute inset-0 w-full h-full bg-white p-1 rounded-xl sm:rounded-2xl border border-brand-mint/50 shadow-xl slide-morph-panel items-center gap-1.5 z-20">
+                  <input type="text" id="heroInlineInput" required placeholder="WhatsApp number or email"
+                    oninput="clearHeroInputError()"
+                    class="flex-grow h-full px-3 text-gray-900 placeholder-gray-400 bg-transparent text-xs font-medium focus:outline-none rounded-lg min-w-0" />
+
+                  <button type="submit" id="heroSubmitArrowBtn" aria-label="Submit waitlist interest"
+                    class="h-full aspect-square rounded-lg bg-brand-green hover:bg-[#258336] active:bg-[#1e6b2c] text-white flex items-center justify-center font-extrabold shadow-md transition-colors shrink-0 cursor-pointer hover:brightness-95 active:brightness-90 ml-auto">
+                    <svg id="heroArrowIcon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                    </svg>
+                    <svg id="heroSpinnerIcon" class="w-3.5 h-3.5 animate-spin hidden" fill="none" viewBox="0 0 24 24">
+                      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                      <path class="opacity-75" fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                      </path>
+                    </svg>
+                  </button>
+                </form>
+
+                <div id="heroMorphedSuccess"
+                  class="hidden absolute inset-0 w-full h-full bg-brand-mint text-brand-dark font-extrabold px-3 rounded-xl sm:rounded-2xl shadow-lg slide-morph-panel items-center justify-center gap-1.5 text-[11px] sm:text-xs z-30 whitespace-nowrap">
+                  <svg class="w-4 h-4 text-brand-dark shrink-0" style="width: 17px; height: 17px;" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span class="whitespace-nowrap">You have been added to Paykudi update list</span>
+                </div>
+
+              </div>
+
+              <!-- Counter Badge -->
+              <div
+                class="flex items-center justify-start gap-2.5 text-xs text-gray-200 font-medium w-full text-left reveal-item stagger-3">
+                <div class="flex -space-x-2 shrink-0">
+                  <div
+                    class="w-7 h-7 rounded-full bg-[#25D366] text-white border-2 border-white flex items-center justify-center shadow-sm shrink-0"
+                    title="WhatsApp">
+                    <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                      <path
+                        d="M12.031 2c-5.514 0-9.969 4.456-9.969 9.968 0 1.763.459 3.486 1.332 5.006l-1.394 5.093 5.231-1.371c1.468.802 3.125 1.242 4.799 1.242 5.513 0 9.968-4.456 9.968-9.968 0-5.513-4.455-9.97-9.967-9.97zm0 17.5c-1.488 0-2.949-.395-4.225-1.144l-.303-.178-3.138.823.837-3.061-.196-.312c-.822-1.309-1.256-2.831-1.256-4.39 0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8zm4.386-5.991c-.241-.121-1.428-.704-1.649-.784-.221-.08-.382-.121-.543.121-.161.242-.623.784-.764.945-.141.161-.282.181-.523.061s-1.02-.376-1.943-1.2c-.718-.64-1.202-1.431-1.343-1.672-.141-.242-.015-.373.106-.493.109-.108.242-.282.362-.423.121-.141.161-.242.242-.403.08-.161.04-.302-.02-.423-.06-.121-.543-1.309-.744-1.792-.196-.47-.396-.406-.543-.414h-.463c-.161 0-.423.06-.644.302s-.845.825-.845 2.012c0 1.187.865 2.332.985 2.493.121.161 1.704 2.602 4.129 3.65.577.249 1.028.398 1.38.51.58.184 1.108.158 1.525.096.467-.07 1.428-.584 1.629-1.148.201-.564.201-1.047.141-1.148-.061-.101-.222-.162-.463-.283z" />
+                    </svg>
+                  </div>
+                  <div
+                    class="w-7 h-7 rounded-full bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 text-white border-2 border-white flex items-center justify-center shadow-sm shrink-0"
+                    title="Instagram">
+                    <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                      <path
+                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    </svg>
+                  </div>
+                  <div
+                    class="w-7 h-7 rounded-full bg-[#0E5296] text-white border-2 border-white flex items-center justify-center font-extrabold text-[12px] shadow-sm shrink-0"
+                    title="Naira">
+                    ₦
+                  </div>
+                </div>
+                <span class="inline-flex items-center min-h-[20px] text-left shrink whitespace-nowrap overflow-hidden">
+                  <span id="heroTypingText">Take control of your payments</span><span class="typewriter-cursor"></span>
+                </span>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================= ABOUT / POSSIBILITIES SECTION ================= -->
+    <section id="about" class="py-20 bg-white relative overflow-hidden">
+      <div class="glow-sec-left"></div>
+      <div class="glow-sec-right"></div>
+      <div class="glow-sec-center"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+        <!-- Header Title -->
+        <div class="text-center max-w-5xl mx-auto mb-10 reveal-item stagger-1">
+          <h2 class="clamp-h2 font-extrabold text-gray-900 tracking-tight whitespace-normal md:whitespace-nowrap">
+            Built for genuine buyers and sellers.
+          </h2>
+        </div>
+
+        <!-- 3 Mini Feature Badges -->
+        <div id="featureBadgesContainer"
+          class="relative grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-5xl mx-auto mb-12 reveal-item stagger-2">
+
+          <!-- Ghost Cursor Pointer Onboarding Element -->
+          <div id="ghostCursor" aria-hidden="true"
+            class="pointer-events-none absolute z-30 transition-all duration-700 ease-in-out opacity-0 top-0 left-0 flex items-center gap-1.5 -translate-x-3 -translate-y-3">
+            <svg class="w-5 h-5 text-gray-900 drop-shadow-md transform -rotate-12 fill-current shrink-0"
+              viewBox="0 0 24 24">
+              <path d="M3 3l7 18 3-7 7-3L3 3z" />
+            </svg>
+            <span
+              class="bg-[#C6F432] text-gray-900 font-extrabold text-[11px] px-2.5 py-1 rounded-full shadow-md border border-black/10 tracking-tight flex items-center gap-1 shrink-0 animate-pulse">
+              Tap to reveal
+            </span>
+            <span id="ghostTapPulse"
+              class="absolute -top-1 -left-1 w-7 h-7 rounded-full opacity-0 pointer-events-none transition-all duration-400"></span>
+          </div>
+
+          <!-- Badge 1: 100% Payment Protection -->
+          <div id="featureBadge1" role="button" tabindex="0" onclick="openFeatureModal('protection', this)"
+            onkeydown="if(event.key==='Enter'||event.key===' ') openFeatureModal('protection', this)"
+            class="feature-badge-card bg-slate-50 clamp-badge-p rounded-2xl border border-gray-100 flex items-center gap-3 text-left shadow-xs cursor-pointer hover:bg-slate-100 hover:border-gray-200 active:scale-[0.98] transition-all group">
+            <div
+              class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-brand-green/10 text-brand-green flex items-center justify-center font-bold text-lg sm:text-xl shrink-0 group-hover:scale-105 transition-transform">
+              🛡️</div>
+            <div class="flex-grow min-w-0">
+              <h3 class="font-bold text-gray-900 clamp-badge-title flex items-center gap-1">
+                <span>100% Payment Protection</span>
+                <svg class="w-3.5 h-3.5 text-gray-400 group-hover:text-brand-green transition-colors shrink-0"
+                  fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </h3>
+              <p class="clamp-badge-sub text-gray-500">Confirmed on delivery</p>
+            </div>
+          </div>
+
+          <!-- Badge 2: Fast Dispute Review -->
+          <div id="featureBadge2" role="button" tabindex="0" onclick="openFeatureModal('dispute', this)"
+            onkeydown="if(event.key==='Enter'||event.key===' ') openFeatureModal('dispute', this)"
+            class="feature-badge-card bg-slate-50 clamp-badge-p rounded-2xl border border-gray-100 flex items-center gap-3 text-left shadow-xs cursor-pointer hover:bg-slate-100 hover:border-gray-200 active:scale-[0.98] transition-all group">
+            <div
+              class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold text-lg sm:text-xl shrink-0 group-hover:scale-105 transition-transform">
+              ⚡</div>
+            <div class="flex-grow min-w-0">
+              <h3 class="font-bold text-gray-900 clamp-badge-title flex items-center gap-1">
+                <span>Fast Dispute Review</span>
+                <svg class="w-3.5 h-3.5 text-gray-400 group-hover:text-brand-blue transition-colors shrink-0"
+                  fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </h3>
+              <p class="clamp-badge-sub text-gray-500">AI & trained support</p>
+            </div>
+          </div>
+
+          <!-- Badge 3: WhatsApp Native -->
+          <div id="featureBadge3" role="button" tabindex="0" onclick="openFeatureModal('whatsapp', this)"
+            onkeydown="if(event.key==='Enter'||event.key===' ') openFeatureModal('whatsapp', this)"
+            class="feature-badge-card bg-slate-50 clamp-badge-p rounded-2xl border border-gray-100 flex items-center gap-3 text-left shadow-xs cursor-pointer hover:bg-slate-100 hover:border-gray-200 active:scale-[0.98] transition-all group">
+            <div
+              class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#25D366]/15 text-[#25D366] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <svg class="w-5 h-5 sm:w-6 sm:h-6 fill-current" viewBox="0 0 24 24">
+                <path
+                  d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+              </svg>
+            </div>
+            <div class="flex-grow min-w-0">
+              <h3 class="font-bold text-gray-900 clamp-badge-title flex items-center gap-1">
+                <span>WhatsApp Native</span>
+                <svg class="w-3.5 h-3.5 text-gray-400 group-hover:text-[#25D366] transition-colors shrink-0" fill="none"
+                  stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </h3>
+              <p class="clamp-badge-sub text-gray-500">Zero app download</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Single Interactive Card Carousel Container -->
+        <div class="max-w-2xl mx-auto relative reveal-item stagger-3">
+
+          <div class="grid grid-cols-1 grid-rows-1 rounded-3xl overflow-hidden shadow-xl">
+
+            <!-- Card 1: For Buyers -->
+            <div id="aboutCard1"
+              class="col-start-1 row-start-1 bg-white clamp-card-p rounded-3xl border border-gray-200 flex flex-col justify-between transition-all duration-500 opacity-100 scale-100 translate-x-0 z-10">
+              <div
+                class="absolute top-0 right-0 bg-brand-blue text-white text-[10px] sm:text-xs font-extrabold px-3.5 py-1 rounded-bl-xl uppercase">
+                For Buyers
+              </div>
+
+              <div>
+                <div
+                  class="w-10 h-10 rounded-xl bg-brand-blue/10 text-brand-blue flex items-center justify-center text-xl font-bold mb-3">
+                  🛍️
+                </div>
+                <h3 class="clamp-h3 font-bold text-gray-900 mb-2.5">Shop without "what if"</h3>
+
+                <ul class="benefit-list space-y-2.5 clamp-body text-gray-600">
+                  <li class="flex items-start gap-2.5">
+                    <span
+                      class="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-brand-mint text-brand-dark flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">1</span>
+                    <span><strong class="text-gray-900">Start a deal on WhatsApp.</strong> Message PayKudi and add your
+                      seller: no new app, just your existing chat.</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <span
+                      class="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-brand-mint text-brand-dark flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">2</span>
+                    <span><strong class="text-gray-900">Pay with PayKudi.</strong> Your funds stay protected until you
+                      say the deal is done.</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <span
+                      class="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-brand-mint text-brand-dark flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">3</span>
+                    <span><strong class="text-gray-900">Confirm when it arrives, then it releases.</strong> Get exactly
+                      what you ordered? Confirm and payment goes through. Something's off? Raise it right there in the
+                      chat and our team steps in.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="mt-4 pt-3.5 border-t border-gray-100 flex items-center justify-between">
+                <span class="text-xs font-semibold text-brand-blue">No more paying a stranger blind</span>
+              </div>
+            </div>
+
+            <!-- Card 2: For Merchants & Freelancers -->
+            <div id="aboutCard2"
+              class="col-start-1 row-start-1 bg-white clamp-card-p rounded-3xl border border-gray-200 flex flex-col justify-between transition-all duration-500 opacity-0 scale-95 translate-x-full pointer-events-none z-0">
+              <div
+                class="absolute top-0 right-0 bg-brand-green text-white text-[10px] sm:text-xs font-extrabold px-3.5 py-1 rounded-bl-xl uppercase">
+                For Merchants & Freelancers
+              </div>
+
+              <div>
+                <div
+                  class="w-10 h-10 rounded-xl bg-brand-green/10 text-brand-green flex items-center justify-center text-xl font-bold mb-3">
+                  🏷️
+                </div>
+                <h3 class="clamp-h3 font-bold text-gray-900 mb-2.5">Close deals 3x faster</h3>
+
+                <ul class="benefit-list space-y-2.5 clamp-body text-gray-600">
+                  <li class="flex items-start gap-2.5">
+                    <span
+                      class="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-brand-mint text-brand-dark flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">1</span>
+                    <span><strong class="text-gray-900">Add your buyer in seconds.</strong> Generate a PayKudi link
+                      right inside your WhatsApp chat: no separate invoicing tool needed.</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <span
+                      class="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-brand-mint text-brand-dark flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">2</span>
+                    <span><strong class="text-gray-900">See their payment locked in before you ship.</strong> No more
+                      chasing a "transfer sent" that never actually lands: you know it's real before you send anything
+                      out.</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <span
+                      class="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-brand-mint text-brand-dark flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">3</span>
+                    <span><strong class="text-gray-900">Get paid the moment they confirm.</strong> Once your buyer
+                      confirms delivery, payment moves straight to your account: no delay, no follow-up needed.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="mt-4 pt-3.5 border-t border-gray-100 flex items-center justify-between">
+                <span class="text-xs font-semibold text-brand-green">Ship with confidence, get paid with
+                  certainty</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Pagination Dots -->
+          <div class="flex items-center justify-center gap-3 mt-5">
+            <button id="cardDot0" onclick="switchAboutCard(0)" aria-label="View Buyers Card"
+              class="w-3 h-3 rounded-full bg-[#0E5296] border-2 border-[#0E5296] shadow-xs cursor-pointer transition-all duration-300 scale-110"></button>
+            <button id="cardDot1" onclick="switchAboutCard(1)" aria-label="View Merchants Card"
+              class="w-3 h-3 rounded-full bg-transparent border-2 border-gray-300 hover:border-gray-400 cursor-pointer transition-all duration-300"></button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ================= COMMUNITY SECTION ================= -->
+    <section id="community"
+      class="relative w-full min-h-screen flex flex-col justify-center overflow-hidden bg-brand-dark text-white pt-24 pb-16">
+
+      <div class="absolute inset-0 z-0 overflow-hidden bg-brand-dark">
+        <img src="paykudi-circle-team.jpg"
+          onerror="this.onerror=null; this.src='https://ldtayomrkiutloswfnpl.supabase.co/storage/v1/object/public/public-assets/paykudi-circle-team.jpg';"
+          alt="PayKudi Community Background" class="w-full h-full object-cover object-center scale-105" />
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-brand-dark/95 via-brand-dark/85 to-brand-dark/70 backdrop-blur-[2px]">
+        </div>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+        <div class="max-w-3xl space-y-6 text-left">
+
+          <!-- Trust Tag -->
+          <div
+            class="inline-flex items-center gap-2 bg-brand-mint/20 text-brand-mint text-xs font-bold px-3.5 py-1.5 rounded-full border border-brand-mint/30 shadow-md backdrop-blur-md reveal-item stagger-1">
+            🤝 Built With & For You
+          </div>
+
+          <!-- Headline -->
+          <h2 class="clamp-h2 font-extrabold tracking-tight leading-tight reveal-item stagger-2">
+            Powered by real user feedback, built for everyday deals.
+          </h2>
+
+          <!-- Description -->
+          <p class="clamp-subhead text-gray-200 font-normal reveal-item stagger-3">
+            We're crafting PayKudi alongside online vendors, Instagram shoppers, and WhatsApp creators across Lagos,
+            Abuja, Port Harcourt, and beyond. Every feature is designed around real stories and real challenges you
+            face every day.
+          </p>
+
+          <!-- Badges -->
+          <div class="pt-2 flex flex-wrap gap-4 reveal-item stagger-4">
+            <div class="bg-white/10 backdrop-blur-md border border-white/15 px-4 py-3 rounded-2xl shadow-sm">
+              <p class="text-lg font-black text-brand-mint font-heading">Seller & Buyer</p>
+              <p class="text-xs text-gray-300">Feedback Driven</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur-md border border-white/15 px-4 py-3 rounded-2xl shadow-sm">
+              <p class="text-2xl font-black text-brand-mint font-heading flex items-center gap-1.5">100% <span
+                  class="heart-bounce" aria-hidden="true">💚</span></p>
+              <p class="text-xs text-gray-300">Community Focused</p>
+            </div>
+          </div>
+
+          <!-- Inline Morphing Community Form & Button -->
+          <div class="pt-4 reveal-item stagger-5">
+            <div id="communityMorphWrapper"
+              class="relative w-full max-w-sm h-[56px] overflow-hidden rounded-2xl shadow-xl">
+
+              <button id="communityOriginalBtn" onclick="morphCommunityButton(event)"
+                class="absolute inset-0 w-full h-full bg-brand-mint hover:bg-brand-mintDark text-brand-dark font-extrabold px-5 rounded-2xl text-sm cursor-pointer flex items-center justify-center text-center z-10 whitespace-nowrap">
+                Be Part of the Founding Community
+              </button>
+
+              <form id="communityMorphedForm" onsubmit="handleCommunityInlineSubmit(event)"
+                onclick="event.stopPropagation()"
+                class="hidden absolute inset-0 w-full h-full bg-white p-1.5 rounded-2xl border border-brand-mint/40 shadow-2xl slide-morph-panel items-center gap-1.5 z-20">
+                <input type="text" id="communityInlineInput" required placeholder="WhatsApp number or email"
+                  oninput="clearCommunityInputError()"
+                  class="flex-grow h-full px-3.5 text-gray-900 placeholder-gray-400 bg-transparent text-xs sm:text-sm font-medium focus:outline-none rounded-xl min-w-0" />
+
+                <button type="submit" id="communitySubmitArrowBtn" aria-label="Submit community interest"
+                  class="h-full aspect-square rounded-xl bg-brand-mint hover:bg-brand-mintDark active:bg-[#258a3a] text-brand-dark flex items-center justify-center font-extrabold shadow-md transition-colors shrink-0 cursor-pointer hover:brightness-95 active:brightness-90 ml-auto">
+                  <svg id="communityArrowIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                  </svg>
+                  <svg id="communitySpinnerIcon" class="w-4 h-4 animate-spin hidden" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                    </path>
+                  </svg>
+                </button>
+              </form>
+
+              <div id="communityMorphedSuccess"
+                class="hidden absolute inset-0 w-full h-full bg-brand-mint text-brand-dark font-extrabold px-3 rounded-2xl shadow-xl slide-morph-panel items-center justify-center gap-2 text-xs sm:text-sm z-30 whitespace-nowrap">
+                <svg class="w-5 h-5 text-brand-dark shrink-0" style="width: 20px; height: 20px;" fill="none"
+                  stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span class="whitespace-nowrap">Welcome to the Community</span>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================= TRUST MARQUEE ================= -->
+    <section id="trustMarquee" class="py-3 sm:py-4 reveal-item" aria-label="PayKudi platform highlights">
+      <div class="trust-marquee-viewport">
+        <div class="trust-marquee-track">
+          <div class="trust-marquee-group">
+            <div class="trust-marquee-item">
+              <span class="trust-marquee-copy"><span class="trust-marquee-title clamp-badge-title"><span
+                    style="color:#64748B;">Powered By </span><span style="color:#102B1B;">Start</span><span
+                    style="color:#0E5296;">up.</span></span></span>
+            </div><span class="trust-marquee-separator" aria-hidden="true"></span>
+            <div class="trust-marquee-item">
+              <span class="trust-marquee-icon bg-brand-green/10 text-[#25D366]" aria-hidden="true"><svg
+                  class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                  <path
+                    d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+                </svg></span>
+              <span class="trust-marquee-copy"><span class="trust-marquee-title clamp-badge-title">WhatsApp
+                  Native</span><span class="trust-marquee-subtitle clamp-badge-sub">Payments where you already
+                  chat</span></span>
+            </div><span class="trust-marquee-separator" aria-hidden="true"></span>
+            <div class="trust-marquee-item">
+              <span class="trust-marquee-icon bg-brand-blue/10 text-[#0E5296]" aria-hidden="true"><svg class="w-5 h-5"
+                  fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <rect x="3" y="6" width="18" height="13" rx="3" stroke-width="2" />
+                  <path stroke-linecap="round" stroke-width="2"
+                    d="M12 3v3M8 12h.01M16 12h.01M8.5 16h7M3 11H1m22 0h-2" />
+                  <circle cx="12" cy="3" r="1" fill="currentColor" />
+                </svg></span>
+              <span class="trust-marquee-copy"><span class="trust-marquee-title clamp-badge-title">AI Dispute
+                  Resolver</span><span class="trust-marquee-subtitle clamp-badge-sub">Smart, evidence-led
+                  reviews</span></span>
+            </div><span class="trust-marquee-separator" aria-hidden="true"></span>
+            <div class="trust-marquee-item">
+              <span class="trust-marquee-icon bg-brand-green/10 text-[#2EA043]" aria-hidden="true"><svg class="w-5 h-5"
+                  fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M18.364 5.636l-1.414 1.414M6.343 17.657l-1.414 1.414M12 8v4l2.5 2.5M12 3a9 9 0 100 18 9 9 0 000-18z" />
+                </svg></span>
+              <span class="trust-marquee-copy"><span class="trust-marquee-title clamp-badge-title">24hrs Support
+                  Agent</span><span class="trust-marquee-subtitle clamp-badge-sub">Help whenever you need
+                  it</span></span>
+            </div><span class="trust-marquee-separator" aria-hidden="true"></span>
+            <div class="trust-marquee-item">
+              <span class="trust-marquee-icon bg-brand-blue/10 text-[#0E5296]" aria-hidden="true"><svg class="w-5 h-5"
+                  fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 8v4l3 2m6-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg></span>
+              <span class="trust-marquee-copy"><span class="trust-marquee-title clamp-badge-title">30min Dispute
+                  Resolution</span><span class="trust-marquee-subtitle clamp-badge-sub">Fast, fair next
+                  steps</span></span>
+            </div><span class="trust-marquee-separator" aria-hidden="true"></span>
+            <div class="trust-marquee-item">
+              <span class="trust-marquee-icon bg-brand-green/10 text-[#2EA043]" aria-hidden="true"><svg class="w-5 h-5"
+                  fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.77 9.77 0 01-4.083-.9L3 20l1.084-3.252A7.6 7.6 0 013 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg></span>
+              <span class="trust-marquee-copy"><span class="trust-marquee-title clamp-badge-title">Dedicated Dispute
+                  Room</span><span class="trust-marquee-subtitle clamp-badge-sub">Every deal, clearly
+                  tracked</span></span>
+            </div>
+          </div>
+
+          <div class="trust-marquee-group" aria-hidden="true">
+            <div class="trust-marquee-item"><span class="trust-marquee-copy"><span
+                  class="trust-marquee-title clamp-badge-title"><span style="color:#64748B;">Powered By </span><span
+                    style="color:#102B1B;">Start</span><span style="color:#0E5296;">up.</span></span></span></div><span
+              class="trust-marquee-separator"></span>
+            <div class="trust-marquee-item"><span class="trust-marquee-icon bg-brand-green/10 text-[#25D366]"><svg
+                  class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                  <path
+                    d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+                </svg></span><span class="trust-marquee-copy"><span
+                  class="trust-marquee-title clamp-badge-title">WhatsApp Native</span><span
+                  class="trust-marquee-subtitle clamp-badge-sub">Payments where you already chat</span></span></div>
+            <span class="trust-marquee-separator"></span>
+            <div class="trust-marquee-item"><span class="trust-marquee-icon bg-brand-blue/10 text-[#0E5296]"><svg
+                  class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <rect x="3" y="6" width="18" height="13" rx="3" stroke-width="2" />
+                  <path stroke-linecap="round" stroke-width="2"
+                    d="M12 3v3M8 12h.01M16 12h.01M8.5 16h7M3 11H1m22 0h-2" />
+                  <circle cx="12" cy="3" r="1" fill="currentColor" />
+                </svg></span><span class="trust-marquee-copy"><span class="trust-marquee-title clamp-badge-title">AI
+                  Dispute Resolver</span><span class="trust-marquee-subtitle clamp-badge-sub">Smart, evidence-led
+                  reviews</span></span></div><span class="trust-marquee-separator"></span>
+            <div class="trust-marquee-item"><span class="trust-marquee-icon bg-brand-green/10 text-[#2EA043]"><svg
+                  class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M18.364 5.636l-1.414 1.414M6.343 17.657l-1.414 1.414M12 8v4l2.5 2.5M12 3a9 9 0 100 18 9 9 0 000-18z" />
+                </svg></span><span class="trust-marquee-copy"><span class="trust-marquee-title clamp-badge-title">24hrs
+                  Support Agent</span><span class="trust-marquee-subtitle clamp-badge-sub">Help whenever you need
+                  it</span></span></div><span class="trust-marquee-separator"></span>
+            <div class="trust-marquee-item"><span class="trust-marquee-icon bg-brand-blue/10 text-[#0E5296]"><svg
+                  class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 8v4l3 2m6-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg></span><span class="trust-marquee-copy"><span class="trust-marquee-title clamp-badge-title">30min
+                  Dispute Resolution</span><span class="trust-marquee-subtitle clamp-badge-sub">Fast, fair next
+                  steps</span></span></div><span class="trust-marquee-separator"></span>
+            <div class="trust-marquee-item"><span class="trust-marquee-icon bg-brand-green/10 text-[#2EA043]"><svg
+                  class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.77 9.77 0 01-4.083-.9L3 20l1.084-3.252A7.6 7.6 0 013 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg></span><span class="trust-marquee-copy"><span
+                  class="trust-marquee-title clamp-badge-title">Dedicated Dispute Room</span><span
+                  class="trust-marquee-subtitle clamp-badge-sub">Every deal, clearly tracked</span></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ================= ULTRA-PREMIUM PAYKUDI MESH GLASS FOOTER ================= -->
+  <footer id="footerSection" class="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden flex items-center">
+
+    <div class="absolute inset-0 z-0 overflow-hidden">
+      <img src="paykudi-contact-photo.jpg" alt="PayKudi Team" class="w-full h-full object-cover object-top" />
+      <div class="absolute inset-0 bg-gradient-to-br from-gray-950/80 via-[#0E5296]/30 to-gray-950/80"></div>
+    </div>
+
+    <div class="w-full max-w-7xl mx-auto relative z-10">
+
+      <div id="footerCardContainer"
+        class="relative overflow-hidden rounded-[24px] sm:rounded-[32px] text-white shadow-2xl border border-white/15 bg-white/5 backdrop-blur-lg reveal-item stagger-1">
+
+        <!-- PANEL 1: Main Overview Footer Content -->
+        <div id="footerMainPanel" class="slide-morph-panel panel-visible p-6 sm:p-8 lg:p-8 relative z-10">
+
+          <div class="max-w-4xl w-full mb-6 sm:mb-8">
+            <h2
+              class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight text-white mb-2 font-heading lg:whitespace-nowrap">
+              Ready to take control of your payments?
+            </h2>
+            <div class="mt-4 sm:mt-5">
+              <p class="text-sm sm:text-base font-medium text-white/85">
+                We want to hear from you, reach out to us.
+              </p>
+              <button onclick="openContactUsModal()"
+                style="padding: clamp(0.65rem, 1.2vw, 0.875rem) clamp(1.25rem, 2.5vw, 1.75rem); font-size: clamp(0.75rem, 1.1vw, 0.875rem); border-radius: clamp(0.5rem, 1.2vw, 0.75rem);"
+                class="mt-3 bg-white hover:bg-gray-100 text-gray-950 font-extrabold transition-all shadow-xl hover:scale-105 cursor-pointer">
+                Contact us
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-5 pt-4 border-t border-white/10 items-start">
+
+            <div class="lg:col-span-5 space-y-4">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-gray-200">Newsletter</h4>
+              <p class="text-xs sm:text-sm text-gray-300 font-medium max-w-sm leading-relaxed">
+                We'd love to share our love for safe social commerce with you in our monthly newsletter.
+              </p>
+
+              <div id="footerNewsletterMorphWrapper"
+                class="relative w-full max-w-sm h-[48px] overflow-hidden rounded-xl sm:rounded-2xl shadow-xl mt-3">
+
+                <button id="footerNewsletterOriginalBtn" onclick="morphFooterNewsletterButton(event)"
+                  class="absolute inset-0 w-full h-full bg-brand-mint hover:bg-brand-mintDark text-brand-dark font-extrabold px-5 rounded-xl sm:rounded-2xl text-xs sm:text-sm cursor-pointer flex items-center justify-center text-center z-10 whitespace-nowrap shadow-lg">
+                  <span>Subscribe to our Newsletter</span>
+                </button>
+
+                <form id="footerNewsletterMorphedForm" onsubmit="handleFooterNewsletterSubmit(event)"
+                  onclick="event.stopPropagation()"
+                  class="hidden absolute inset-0 w-full h-full bg-white p-1 rounded-xl sm:rounded-2xl border border-brand-mint/50 shadow-2xl slide-morph-panel items-center gap-1.5 z-20">
+                  <input type="text" id="footerNewsletterInput" required placeholder="Enter your email address"
+                    oninput="clearFooterNewsletterInputError()"
+                    class="flex-grow h-full px-3.5 text-gray-900 placeholder-gray-400 bg-transparent text-xs sm:text-sm font-medium focus:outline-none rounded-lg min-w-0" />
+
+                  <button type="submit" id="footerNewsletterSubmitArrowBtn" aria-label="Submit newsletter subscription"
+                    class="h-full aspect-square rounded-lg bg-brand-green hover:bg-[#258336] active:bg-[#1e6b2c] text-white flex items-center justify-center font-extrabold shadow-md transition-colors shrink-0 cursor-pointer hover:brightness-95 active:brightness-90 ml-auto">
+                    <svg id="footerNewsletterArrowIcon" class="w-3.5 h-3.5" fill="none" stroke="currentColor"
+                      viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                    </svg>
+                    <svg id="footerNewsletterSpinnerIcon" class="w-3.5 h-3.5 animate-spin hidden" fill="none"
+                      viewBox="0 0 24 24">
+                      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                      <path class="opacity-75" fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                      </path>
+                    </svg>
+                  </button>
+                </form>
+
+                <div id="footerNewsletterMorphedSuccess"
+                  class="hidden absolute inset-0 w-full h-full bg-brand-mint text-brand-dark font-extrabold px-3 rounded-xl sm:rounded-2xl shadow-lg slide-morph-panel items-center justify-center gap-1.5 text-xs sm:text-sm z-30 whitespace-nowrap">
+                  <svg class="w-4 h-4 text-brand-dark shrink-0" style="width: 18px; height: 18px;" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span class="whitespace-nowrap">You're subscribed to PayKudi Newsletter!</span>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8 text-xs sm:text-sm">
+
+              <div class="space-y-3">
+                <h4 class="font-bold text-white text-sm">Home</h4>
+                <ul class="space-y-2 text-gray-300 font-medium">
+                  <li><a href="#heroSection" class="hover:text-brand-mint transition-colors">Overview</a></li>
+                  <li><a href="javascript:void(0)" onclick="openContactUsModal()"
+                      class="hover:text-brand-mint transition-colors">Contact</a></li>
+                </ul>
+              </div>
+
+              <div class="space-y-3">
+                <h4 class="font-bold text-white text-sm">About</h4>
+                <ul class="space-y-2 text-gray-300 font-medium">
+                  <li><a href="#about" class="hover:text-brand-mint transition-colors">Built for Deals</a></li>
+                  <li><a href="#about" class="hover:text-brand-mint transition-colors">Features</a></li>
+                </ul>
+              </div>
+
+              <div class="space-y-3 col-span-2 sm:col-span-1">
+                <h4 class="font-bold text-white text-sm">Community</h4>
+                <ul class="space-y-2 text-gray-300 font-medium">
+                  <li><a href="#community" class="hover:text-brand-mint transition-colors">Founding Members</a></li>
+                  <li><a href="javascript:void(0)" onclick="openContactUsModal()"
+                      class="hover:text-brand-mint transition-colors">Contact Us</a></li>
+                </ul>
+
+                <div class="flex items-center gap-2 pt-3">
+                  <a href="mailto:hello@paykudi.co" aria-label="Email support"
+                    class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-gray-200 hover:text-white flex items-center justify-center transition-colors">
+                    <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                      <path
+                        d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                    </svg>
+                  </a>
+                  <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"
+                    class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-gray-200 hover:text-white flex items-center justify-center transition-colors">
+                    <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                      <path
+                        d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+                    </svg>
+                  </a>
+                  <a href="https://www.instagram.com/usepaykudi?igsh=MXh5c3Z6NmJvNmVtOQ==" target="_blank"
+                    rel="noopener" aria-label="Instagram"
+                    class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-gray-200 hover:text-white flex items-center justify-center transition-colors">
+                    <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                      <path
+                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    </svg>
+                  </a>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div
+            class="pt-4 border-t border-white/10 mt-4 flex flex-wrap items-center justify-center gap-2 text-xs text-gray-400 font-medium text-center">
+            <span>&copy; <span id="year"></span></span>
+            <div class="inline-flex items-center gap-1">
+              <img src="paykudi-logo.png"
+                alt="Paykudi Logo" class="h-4 w-auto object-contain" />
+              <span class="font-extrabold text-white"><span class="text-[#0E5296]">PAY</span><span
+                  class="text-[#2EA043]">KUDI</span><span class="text-[#2EA043]">.</span></span>
+            </div>
+            <span>•</span>
+            <span>Powered by <strong class="text-white">Start<span class="text-[#0E5296]">up.</span></strong></span>
+          </div>
+
+        </div>
+
+
+        <!-- PANEL 2: Contact Us View -->
+        <div id="footerContactPanel"
+          class="footer-contact-panel hidden absolute inset-0 w-full h-full bg-transparent backdrop-blur-sm p-5 sm:p-7 lg:p-8 slide-morph-panel overflow-y-auto z-20 border-0">
+
+          <div class="relative z-10 h-full flex flex-col justify-center space-y-4">
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-6 items-center my-auto">
+
+              <div class="md:col-span-6 flex flex-col justify-between space-y-4 my-auto pl-0">
+                <div>
+                  <h3 class="font-extrabold text-white tracking-tight font-heading"
+                    style="font-size: clamp(1.35rem, 3vw, 1.85rem); line-height: 1.2;">
+                    Contact Us
+                  </h3>
+                  <p class="text-gray-300 font-normal mt-2 leading-relaxed max-w-md"
+                    style="font-size: clamp(0.75rem, 1.2vw, 0.875rem);">
+                    Talk Directly to us, we want to hear you
+                  </p>
+
+                  <div class="flex items-center gap-2.5 mt-4 flex-wrap">
+
+                    <a href="mailto:hello@paykudi.co" aria-label="Email Us"
+                      class="w-10 h-10 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 flex items-center justify-center transition-all duration-300 shadow-lg hover:scale-110 backdrop-blur-md">
+                      <img src="icons8-gmail-logo-120.png" alt="Email" class="w-5 h-5 object-contain" />
+                    </a>
+
+                    <a href="https://www.instagram.com/usepaykudi?igsh=MXh5c3Z6NmJvNmVtOQ==" target="_blank"
+                      rel="noopener" aria-label="Instagram @usepaykudi"
+                      class="w-10 h-10 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 flex items-center justify-center transition-all duration-300 shadow-lg hover:scale-110 backdrop-blur-md">
+                      <img src="icons8-instagram-logo-100.png" alt="Instagram" class="w-5 h-5 object-contain" />
+                    </a>
+
+                    <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"
+                      class="w-10 h-10 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 flex items-center justify-center transition-all duration-300 shadow-lg hover:scale-110 backdrop-blur-md">
+                      <img src="icons8-linkedin-logo-100.png" alt="LinkedIn" class="w-5 h-5 object-contain" />
+                    </a>
+
+                    <a href="https://wa.me/2348123456789" target="_blank" rel="noopener" aria-label="WhatsApp Support"
+                      class="w-10 h-10 rounded-xl bg-white/10 hover:bg-emerald-500/30 border border-white/15 text-emerald-300 hover:text-emerald-200 flex items-center justify-center transition-all duration-300 shadow-lg hover:scale-110 group backdrop-blur-md">
+                      <svg class="w-5 h-5 fill-current transition-transform group-hover:scale-110" viewBox="0 0 24 24">
+                        <path
+                          d="M12.031 2c-5.514 0-9.969 4.456-9.969 9.968 0 1.763.459 3.486 1.332 5.006l-1.394 5.093 5.231-1.371c1.468.802 3.125 1.242 4.799 1.242 5.513 0 9.968-4.456 9.968-9.968 0-5.513-4.455-9.97-9.967-9.97zm0 17.5c-1.488 0-2.949-.395-4.225-1.144l-.303-.178-3.138.823.837-3.061-.196-.312c-.822-1.309-1.256-2.831-1.256-4.39 0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8zm4.386-5.991c-.241-.121-1.428-.704-1.649-.784-.221-.08-.382-.121-.543.121-.161.242-.623.784-.764.945-.141.161-.282.181-.523.061s-1.02-.376-1.943-1.2c-.718-.64-1.202-1.431-1.343-1.672-.141-.242-.015-.373.106-.493.109-.108.242-.282.362-.423.121-.141.161-.242.242-.403.08-.161.04-.302-.02-.423-.06-.121-.543-1.309-.744-1.792-.196-.47-.396-.406-.543-.414h-.463c-.161 0-.423.06-.644.302s-.845.825-.845 2.012c0 1.187.865 2.332.985 2.493.121.161 1.704 2.602 4.129 3.65.577.249 1.028.398 1.38.51.58.184 1.108.158 1.525.096.467-.07 1.428-.584 1.629-1.148.201-.564.201-1.047.141-1.148-.061-.101-.222-.162-.463-.283z" />
+                      </svg>
+                    </a>
+
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="md:col-span-6 bg-white/20 backdrop-blur-2xl text-white shadow-2xl flex flex-col justify-between border border-white/30"
+                style="padding: clamp(1rem, 2vw, 1.5rem); border-radius: clamp(0.875rem, 2vw, 1.25rem); position: relative; min-height: 220px;">
+
+                <div id="contactFormContainer">
+                  <h4 class="font-extrabold text-white font-heading mb-4"
+                    style="font-size: clamp(1.1rem, 2vw, 1.35rem);">
+                    Send us a message
+                  </h4>
+
+                  <form onsubmit="handleContactFormSubmit(event)">
+
+                    <div class="cf-fl-field">
+                      <span class="cf-fl-icon">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                          <circle cx="12" cy="7" r="4" />
+                        </svg>
+                      </span>
+                      <input type="text" id="contactFullName" required placeholder=" " class="cf-fl-input" />
+                      <label class="cf-fl-label" for="contactFullName">Full Name</label>
+                    </div>
+
+                    <div class="cf-fl-field">
+                      <span class="cf-fl-icon">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                          <polyline points="22,6 12,13 2,6" />
+                        </svg>
+                      </span>
+                      <input type="email" id="contactEmailAddr" required placeholder=" " class="cf-fl-input" />
+                      <label class="cf-fl-label" for="contactEmailAddr">Email address</label>
+                    </div>
+
+                    <div class="cf-fl-field cf-textarea">
+                      <span class="cf-fl-icon">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                        </svg>
+                      </span>
+                      <textarea id="contactInquiryMsg" required rows="3" placeholder=" " class="cf-fl-input"></textarea>
+                      <label class="cf-fl-label" for="contactInquiryMsg">About your inquiry</label>
+                    </div>
+
+                    <button type="submit" id="contactModalSubmitBtn"
+                      style="font-size: clamp(0.75rem, 1.1vw, 0.875rem); padding: clamp(0.65rem, 1.2vw, 0.875rem) clamp(1rem, 2vw, 1.5rem); border-radius: clamp(0.5rem, 1.2vw, 0.75rem);"
+                      class="w-full bg-[#0E5296] hover:bg-[#0a3d70] text-white font-extrabold transition-all shadow-lg hover:shadow-xl cursor-pointer mt-1">
+                      Submit
+                    </button>
+                  </form>
+                </div>
+
+                <div id="contactSuccessContainer"
+                  class="absolute inset-0 flex flex-col items-center justify-center text-center space-y-3 p-6"
+                  style="border-radius: clamp(0.875rem, 2vw, 1.25rem); display: none; opacity: 0; transform: translateY(8px);">
+                  <div
+                    class="w-12 h-12 rounded-full bg-[#2EA043] text-white flex items-center justify-center mx-auto shadow-lg border border-white/20 shrink-0">
+                    <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
+                  <h4 class="text-lg font-extrabold text-white font-heading">Message Sent!</h4>
+                  <p class="text-xs text-white/80 font-medium leading-relaxed max-w-xs mx-auto">
+                    Thank you for sharing your valuable insight with PayKudi. We will reach out to you shortly.
+                  </p>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- ================= FEATURE EXPLANATION MODAL ================= -->
+  <div id="featureModal" role="dialog" aria-modal="true" aria-labelledby="featureModalTitle"
+    onclick="handleFeatureModalBackdropClick(event)"
+    class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-gray-900/60 backdrop-blur-sm transition-opacity duration-300">
+    <div id="featureModalContainer"
+      class="bg-white rounded-3xl max-w-md w-full clamp-card-p shadow-2xl relative border border-gray-100 transform transition-all duration-300 scale-95 opacity-0">
+
+      <div class="flex items-center gap-3 mb-4">
+        <div id="featureModalIconWrap"
+          class="w-10 h-10 rounded-xl flex items-center justify-center text-xl font-bold shrink-0">
+          <span id="featureModalIcon">🛡️</span>
+        </div>
+        <div class="flex-grow min-w-0">
+          <h3 id="featureModalTitle" class="clamp-modal-title font-extrabold text-gray-900 font-heading leading-tight">
+            How your payment stays protected
+          </h3>
+        </div>
+      </div>
+
+      <ol id="featureModalList" class="space-y-2.5 clamp-body text-gray-600 font-medium">
+      </ol>
+
+      <div class="mt-6 pt-3.5 border-t border-gray-100">
+        <button onclick="closeFeatureModal()"
+          class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold clamp-btn rounded-2xl transition-colors cursor-pointer text-center">
+          Got it
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+
+    /* ================= SCROLL REVEAL & EXIT OBSERVER ================= */
+    function initScrollReveal() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.querySelectorAll('.reveal-item').forEach(el => el.classList.add('reveal-visible'));
+        return;
+      }
+
+      const revealElements = document.querySelectorAll('.reveal-item');
+      if (!revealElements.length) return;
+
+      const observerOptions = {
+        root: null,
+        rootMargin: '-5% 0px -5% 0px',
+        threshold: [0, 0.15]
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const el = entry.target;
+          const rect = entry.boundingClientRect;
+
+          if (entry.isIntersecting) {
+            el.classList.remove('reveal-exit-up', 'reveal-exit-down');
+            el.classList.add('reveal-visible');
+          } else {
+            if (rect.top < 0) {
+              // Scroll exit upward
+              el.classList.remove('reveal-visible', 'reveal-exit-down');
+              el.classList.add('reveal-exit-up');
+            } else {
+              // Scroll exit downward
+              el.classList.remove('reveal-visible', 'reveal-exit-up');
+              el.classList.add('reveal-exit-down');
+            }
+          }
+        });
+      }, observerOptions);
+
+      revealElements.forEach(el => observer.observe(el));
+    }
+
+    // Mobile Right Side Drawer Panel Functions
+    function openMobileMenu() {
+      const drawer = document.getElementById('mobileMenuDrawer');
+      const backdrop = document.getElementById('mobileMenuBackdrop');
+      if (!drawer || !backdrop) return;
+
+      backdrop.classList.remove('pointer-events-none', 'opacity-0');
+      backdrop.classList.add('opacity-100');
+
+      drawer.classList.remove('translate-x-full', 'opacity-0', 'pointer-events-none');
+      drawer.classList.add('translate-x-0', 'opacity-100', 'pointer-events-auto');
+    }
+
+    function closeMobileMenu() {
+      const drawer = document.getElementById('mobileMenuDrawer');
+      const backdrop = document.getElementById('mobileMenuBackdrop');
+      if (!drawer || !backdrop) return;
+
+      drawer.classList.remove('translate-x-0', 'opacity-100', 'pointer-events-auto');
+      drawer.classList.add('translate-x-full', 'opacity-0', 'pointer-events-none');
+
+      backdrop.classList.remove('opacity-100');
+      backdrop.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    function validateContactInput(input) {
+      const cleanStr = input.trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const phoneDigits = cleanStr.replace(/[\s\-()+]/g, '');
+      const isPhone = phoneDigits.length >= 10 && /^\d+$/.test(phoneDigits);
+      return emailRegex.test(cleanStr) || isPhone;
+    }
+
+    // Community Section Inline Morphing Button Logic
+    let isCommunityMorphed = false;
+    let isCommunitySubmitted = false;
+
+    function morphCommunityButton(e) {
+      if (e) e.stopPropagation();
+      if (isCommunitySubmitted) return;
+
+      const morphedForm = document.getElementById('communityMorphedForm');
+      const inlineInput = document.getElementById('communityInlineInput');
+      if (!morphedForm) return;
+
+      isCommunityMorphed = true;
+      clearCommunityInputError();
+
+      morphedForm.classList.remove('hidden');
+      morphedForm.classList.add('flex');
+      morphedForm.classList.remove('panel-visible');
+
+      void morphedForm.offsetHeight;
+
+      requestAnimationFrame(() => {
+        morphedForm.classList.add('panel-visible');
+        if (inlineInput) inlineInput.focus();
+      });
+    }
+
+    function unmorphCommunityButton() {
+      if (isCommunitySubmitted) return;
+
+      const morphedForm = document.getElementById('communityMorphedForm');
+      const successEl = document.getElementById('communityMorphedSuccess');
+      if (!morphedForm) return;
+
+      isCommunityMorphed = false;
+      clearCommunityInputError();
+
+      const activePanel = (successEl && !successEl.classList.contains('hidden')) ? successEl : morphedForm;
+      const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!isReducedMotion) {
+        activePanel.classList.remove('panel-visible');
+      }
+
+      const duration = isReducedMotion ? 0 : 850;
+      setTimeout(() => {
+        morphedForm.classList.add('hidden');
+        morphedForm.classList.remove('flex', 'panel-visible');
+        if (successEl) {
+          successEl.classList.add('hidden');
+          successEl.classList.remove('flex', 'panel-visible');
+        }
+      }, duration);
+    }
+
+    function clearCommunityInputError() {
+      const morphedForm = document.getElementById('communityMorphedForm');
+      if (morphedForm) {
+        morphedForm.classList.remove('border-red-500', 'ring-2', 'ring-red-400');
+        morphedForm.classList.add('border-brand-mint/40');
+      }
+    }
+
+    async function handleCommunityInlineSubmit(event) {
+      event.preventDefault();
+      const inputEl = document.getElementById('communityInlineInput');
+      const morphedForm = document.getElementById('communityMorphedForm');
+      const successEl = document.getElementById('communityMorphedSuccess');
+      const submitBtn = document.getElementById('communitySubmitArrowBtn');
+      const arrowIcon = document.getElementById('communityArrowIcon');
+      const spinnerIcon = document.getElementById('communitySpinnerIcon');
+
+      if (!inputEl || !morphedForm) return;
+      const contactVal = inputEl.value.trim();
+
+      if (!validateContactInput(contactVal)) {
+        morphedForm.classList.remove('border-brand-mint/40');
+        morphedForm.classList.add('border-red-500', 'ring-2', 'ring-red-400');
+        inputEl.focus();
+        return;
+      }
+
+      clearCommunityInputError();
+
+      if (submitBtn) submitBtn.disabled = true;
+      if (arrowIcon) arrowIcon.classList.add('hidden');
+      if (spinnerIcon) spinnerIcon.classList.remove('hidden');
+
+      try {
+        await Promise.all([
+          fetch('/api/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: contactVal,
+              contact: contactVal,
+              role: 'Community',
+              timestamp: new Date().toISOString()
+            })
+          }).catch(() => { }),
+          new Promise(resolve => setTimeout(resolve, 600))
+        ]);
+      } catch (e) {
+      }
+
+      if (arrowIcon) arrowIcon.classList.remove('hidden');
+      if (spinnerIcon) spinnerIcon.classList.add('hidden');
+      if (submitBtn) submitBtn.disabled = false;
+      isCommunitySubmitted = true;
+
+      triggerCommunityCelebratoryBurst();
+
+      if (successEl) {
+        successEl.classList.remove('hidden');
+        successEl.classList.add('flex');
+        successEl.classList.remove('panel-visible');
+
+        void successEl.offsetHeight;
+
+        requestAnimationFrame(() => {
+          successEl.classList.add('panel-visible');
+        });
+      }
+    }
+
+    function triggerCommunityCelebratoryBurst() {
+      const container = document.getElementById('communityMorphWrapper');
+      if (!container) return;
+
+      const rect = container.getBoundingClientRect();
+      const originX = rect.left + rect.width / 2;
+      const originY = rect.top + rect.height / 2;
+
+      const items = ['🎈', '🌸', '🌺', '🎊', '🎗️', '✨', '🌿', '🌟', '🎈', '🌸', '🎉', '🎈', '🌺', '🎊'];
+      const particleCount = 36;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('span');
+        particle.className = 'community-celebration-particle';
+        particle.innerText = items[Math.floor(Math.random() * items.length)];
+
+        const angle = (Math.random() * 160 - 80) * (Math.PI / 180);
+        const distStart = 35 + Math.random() * 40;
+        const distMid = (window.innerHeight * 0.4) + Math.random() * 100;
+        const distEnd = (window.innerHeight * 0.85) + Math.random() * 200;
+
+        const txStart = Math.sin(angle) * distStart;
+        const tyStart = -Math.cos(angle) * distStart;
+
+        const txMid = Math.sin(angle) * distMid + (Math.sin(i) * 35);
+        const tyMid = -Math.cos(angle) * distMid;
+
+        const txEnd = Math.sin(angle) * distEnd + (Math.cos(i) * 60);
+        const tyEnd = -Math.cos(angle) * distEnd - 80;
+
+        const rotStart = Math.random() * 90 - 45;
+        const rotMid = Math.random() * 270 - 135;
+        const rotEnd = Math.random() * 720 - 360;
+
+        const duration = (4.5 + Math.random() * 2.5).toFixed(2) + 's';
+
+        particle.style.left = `${originX}px`;
+        particle.style.top = `${originY}px`;
+        particle.style.setProperty('--tx-start', `${txStart}px`);
+        particle.style.setProperty('--ty-start', `${tyStart}px`);
+        particle.style.setProperty('--tx-mid', `${txMid}px`);
+        particle.style.setProperty('--ty-mid', `${tyMid}px`);
+        particle.style.setProperty('--tx-end', `${txEnd}px`);
+        particle.style.setProperty('--ty-end', `${tyEnd}px`);
+        particle.style.setProperty('--rot-start', `${rotStart}deg`);
+        particle.style.setProperty('--rot-mid', `${rotMid}deg`);
+        particle.style.setProperty('--rot-end', `${rotEnd}deg`);
+        particle.style.setProperty('--duration', duration);
+
+        document.body.appendChild(particle);
+
+        setTimeout(() => {
+          if (particle && particle.parentNode) {
+            particle.parentNode.removeChild(particle);
+          }
+        }, 7500);
+      }
+    }
+
+    // Hero Section Inline Morphing Button Logic
+    let isHeroMorphed = false;
+    let isHeroSubmitted = false;
+
+    function morphHeroButton(e) {
+      if (e) e.stopPropagation();
+      if (isHeroSubmitted) return;
+
+      const morphedForm = document.getElementById('heroMorphedForm');
+      const inlineInput = document.getElementById('heroInlineInput');
+      if (!morphedForm) return;
+
+      isHeroMorphed = true;
+      clearHeroInputError();
+
+      morphedForm.classList.remove('hidden');
+      morphedForm.classList.add('flex');
+      morphedForm.classList.remove('panel-visible');
+
+      void morphedForm.offsetHeight;
+
+      requestAnimationFrame(() => {
+        morphedForm.classList.add('panel-visible');
+        if (inlineInput) inlineInput.focus();
+      });
+    }
+
+    function unmorphHeroButton() {
+      if (isHeroSubmitted) return;
+
+      const morphedForm = document.getElementById('heroMorphedForm');
+      const successEl = document.getElementById('heroMorphedSuccess');
+      if (!morphedForm) return;
+
+      isHeroMorphed = false;
+      clearHeroInputError();
+
+      const activePanel = (successEl && !successEl.classList.contains('hidden')) ? successEl : morphedForm;
+      const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!isReducedMotion) {
+        activePanel.classList.remove('panel-visible');
+      }
+
+      const duration = isReducedMotion ? 0 : 850;
+      setTimeout(() => {
+        morphedForm.classList.add('hidden');
+        morphedForm.classList.remove('flex', 'panel-visible');
+        if (successEl) {
+          successEl.classList.add('hidden');
+          successEl.classList.remove('flex', 'panel-visible');
+        }
+      }, duration);
+    }
+
+    function clearHeroInputError() {
+      const morphedForm = document.getElementById('heroMorphedForm');
+      if (morphedForm) {
+        morphedForm.classList.remove('border-red-500', 'ring-2', 'ring-red-400');
+        morphedForm.classList.add('border-brand-mint/50');
+      }
+    }
+
+    async function handleHeroInlineSubmit(event) {
+      event.preventDefault();
+      const inputEl = document.getElementById('heroInlineInput');
+      const morphedForm = document.getElementById('heroMorphedForm');
+      const successEl = document.getElementById('heroMorphedSuccess');
+      const submitBtn = document.getElementById('heroSubmitArrowBtn');
+      const arrowIcon = document.getElementById('heroArrowIcon');
+      const spinnerIcon = document.getElementById('heroSpinnerIcon');
+
+      if (!inputEl || !morphedForm) return;
+      const contactVal = inputEl.value.trim();
+
+      if (!validateContactInput(contactVal)) {
+        morphedForm.classList.remove('border-brand-mint/50');
+        morphedForm.classList.add('border-red-500', 'ring-2', 'ring-red-400');
+        inputEl.focus();
+        return;
+      }
+
+      clearHeroInputError();
+
+      if (submitBtn) submitBtn.disabled = true;
+      if (arrowIcon) arrowIcon.classList.add('hidden');
+      if (spinnerIcon) spinnerIcon.classList.remove('hidden');
+
+      try {
+        await Promise.all([
+          fetch('/api/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: contactVal,
+              contact: contactVal,
+              role: 'Update List',
+              timestamp: new Date().toISOString()
+            })
+          }).catch(() => { }),
+          new Promise(resolve => setTimeout(resolve, 600))
+        ]);
+      } catch (e) {
+      }
+
+      if (arrowIcon) arrowIcon.classList.remove('hidden');
+      if (spinnerIcon) spinnerIcon.classList.add('hidden');
+      if (submitBtn) submitBtn.disabled = false;
+      isHeroSubmitted = true;
+
+      triggerCommunityCelebratoryBurst();
+
+      if (successEl) {
+        successEl.classList.remove('hidden');
+        successEl.classList.add('flex');
+        successEl.classList.remove('panel-visible');
+
+        void successEl.offsetHeight;
+
+        requestAnimationFrame(() => {
+          successEl.classList.add('panel-visible');
+        });
+      }
+    }
+
+    // Revert morphed inputs if user clicks outside
+    document.addEventListener('click', (e) => {
+      const commWrap = document.getElementById('communityMorphWrapper');
+      if (isCommunityMorphed && !isCommunitySubmitted && commWrap && !commWrap.contains(e.target)) {
+        unmorphCommunityButton();
+      }
+      const heroWrap = document.getElementById('heroMorphWrapper');
+      if (isHeroMorphed && !isHeroSubmitted && heroWrap && !heroWrap.contains(e.target)) {
+        unmorphHeroButton();
+      }
+      const footWrap = document.getElementById('footerNewsletterMorphWrapper');
+      if (isFooterNewsletterMorphed && !isFooterNewsletterSubmitted && footWrap && !footWrap.contains(e.target)) {
+        unmorphFooterNewsletterButton();
+      }
+    });
+
+    // Footer Newsletter Inline Morphing Button Logic
+    let isFooterNewsletterMorphed = false;
+    let isFooterNewsletterSubmitted = false;
+
+    function morphFooterNewsletterButton(e) {
+      if (e) e.stopPropagation();
+      if (isFooterNewsletterSubmitted) return;
+
+      const morphedForm = document.getElementById('footerNewsletterMorphedForm');
+      const inlineInput = document.getElementById('footerNewsletterInput');
+      if (!morphedForm) return;
+
+      isFooterNewsletterMorphed = true;
+      clearFooterNewsletterInputError();
+
+      morphedForm.classList.remove('hidden');
+      morphedForm.classList.add('flex');
+      morphedForm.classList.remove('panel-visible');
+
+      void morphedForm.offsetHeight;
+
+      requestAnimationFrame(() => {
+        morphedForm.classList.add('panel-visible');
+        if (inlineInput) inlineInput.focus();
+      });
+    }
+
+    function unmorphFooterNewsletterButton() {
+      if (isFooterNewsletterSubmitted) return;
+
+      const morphedForm = document.getElementById('footerNewsletterMorphedForm');
+      const successEl = document.getElementById('footerNewsletterMorphedSuccess');
+      if (!morphedForm) return;
+
+      isFooterNewsletterMorphed = false;
+      clearFooterNewsletterInputError();
+
+      const activePanel = (successEl && !successEl.classList.contains('hidden')) ? successEl : morphedForm;
+      const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!isReducedMotion) {
+        activePanel.classList.remove('panel-visible');
+      }
+
+      const duration = isReducedMotion ? 0 : 850;
+      setTimeout(() => {
+        morphedForm.classList.add('hidden');
+        morphedForm.classList.remove('flex', 'panel-visible');
+        if (successEl) {
+          successEl.classList.add('hidden');
+          successEl.classList.remove('flex', 'panel-visible');
+        }
+      }, duration);
+    }
+
+    function clearFooterNewsletterInputError() {
+      const morphedForm = document.getElementById('footerNewsletterMorphedForm');
+      if (morphedForm) {
+        morphedForm.classList.remove('border-red-500', 'ring-2', 'ring-red-400');
+        morphedForm.classList.add('border-brand-mint/50');
+      }
+    }
+
+    async function handleFooterNewsletterSubmit(e) {
+      e.preventDefault();
+      const inputEl = document.getElementById('footerNewsletterInput');
+      const morphedForm = document.getElementById('footerNewsletterMorphedForm');
+      const successEl = document.getElementById('footerNewsletterMorphedSuccess');
+      const arrowIcon = document.getElementById('footerNewsletterArrowIcon');
+      const spinnerIcon = document.getElementById('footerNewsletterSpinnerIcon');
+      const submitBtn = document.getElementById('footerNewsletterSubmitArrowBtn');
+
+      if (!inputEl || !morphedForm || !successEl) return;
+      const value = inputEl.value.trim();
+
+      if (!validateContactInput(value)) {
+        morphedForm.classList.remove('border-brand-mint/50');
+        morphedForm.classList.add('border-red-500', 'ring-2', 'ring-red-400');
+        inputEl.focus();
+        return;
+      }
+
+      if (arrowIcon) arrowIcon.classList.add('hidden');
+      if (spinnerIcon) spinnerIcon.classList.remove('hidden');
+      if (submitBtn) submitBtn.disabled = true;
+
+      try {
+        await Promise.all([
+          fetch('/api/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: value,
+              contact: value,
+              role: 'Newsletter',
+              timestamp: new Date().toISOString()
+            })
+          }).catch(() => { }),
+          new Promise(resolve => setTimeout(resolve, 600))
+        ]);
+      } catch (err) { }
+
+      isFooterNewsletterSubmitted = true;
+
+      if (arrowIcon) arrowIcon.classList.remove('hidden');
+      if (spinnerIcon) spinnerIcon.classList.add('hidden');
+      if (submitBtn) submitBtn.disabled = false;
+
+      triggerCommunityCelebratoryBurst();
+
+      if (successEl) {
+        successEl.classList.remove('hidden');
+        successEl.classList.add('flex');
+        successEl.classList.remove('panel-visible');
+
+        void successEl.offsetHeight;
+
+        requestAnimationFrame(() => {
+          successEl.classList.add('panel-visible');
+        });
+      }
+    }
+
+    // Inline Footer Contact Panel Logic
+    let _contactInactivityTimer = null;
+    const CONTACT_INACTIVITY_MS = 10000;
+    let isContactFormSubmitted = false;
+
+    function _resetContactInactivityTimer() {
+      clearTimeout(_contactInactivityTimer);
+      _contactInactivityTimer = setTimeout(() => {
+        const panel = document.getElementById('footerContactPanel');
+        if (panel && !panel.classList.contains('hidden')) {
+          slideFooterBackToMain();
+        }
+      }, CONTACT_INACTIVITY_MS);
+    }
+
+    function _attachContactActivityListeners() {
+      const panel = document.getElementById('footerContactPanel');
+      if (!panel) return;
+      ['mousemove', 'mousedown', 'keydown', 'touchstart', 'scroll', 'input'].forEach(evt => {
+        panel.addEventListener(evt, _resetContactInactivityTimer, { passive: true });
+      });
+    }
+
+    function _detachContactActivityListeners() {
+      const panel = document.getElementById('footerContactPanel');
+      if (!panel) return;
+      ['mousemove', 'mousedown', 'keydown', 'touchstart', 'scroll', 'input'].forEach(evt => {
+        panel.removeEventListener(evt, _resetContactInactivityTimer);
+      });
+      clearTimeout(_contactInactivityTimer);
+    }
+
+    function openContactUsModal() {
+      _isContactOpen = true;
+      updateNavbarOnScroll();
+      const contactFooterPanel = document.getElementById('footerContactPanel');
+      const footerCard = document.getElementById('footerCardContainer');
+      const footerMainPanel = document.getElementById('footerMainPanel');
+
+      if (!contactFooterPanel) return;
+
+      const formContainer = document.getElementById('contactFormContainer');
+      const successContainer = document.getElementById('contactSuccessContainer');
+
+      if (isContactFormSubmitted) {
+        if (formContainer) {
+          formContainer.style.display = 'none';
+          formContainer.style.opacity = '0';
+          formContainer.style.pointerEvents = 'none';
+        }
+        if (successContainer) {
+          successContainer.style.display = 'flex';
+          successContainer.style.flexDirection = 'column';
+          successContainer.style.alignItems = 'center';
+          successContainer.style.justifyContent = 'center';
+          successContainer.style.opacity = '1';
+          successContainer.style.transform = 'translateY(0)';
+        }
+      } else {
+        if (formContainer) {
+          formContainer.style.display = '';
+          formContainer.style.opacity = '1';
+          formContainer.style.transform = '';
+          formContainer.style.pointerEvents = '';
+        }
+        if (successContainer) {
+          successContainer.style.display = 'none';
+          successContainer.style.opacity = '0';
+          successContainer.style.transform = 'translateY(8px)';
+        }
+      }
+
+      if (footerCard) {
+        footerCard.classList.add('footer-contact-active');
+        footerCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      if (footerMainPanel) {
+        footerMainPanel.classList.remove('slide-morph-panel-reverse');
+        footerMainPanel.classList.add('slide-morph-panel');
+        footerMainPanel.style.visibility = 'visible';
+        footerMainPanel.classList.remove('panel-visible');
+      }
+
+      contactFooterPanel.classList.remove('slide-morph-panel-reverse');
+      contactFooterPanel.classList.add('slide-morph-panel');
+      contactFooterPanel.classList.remove('hidden');
+      contactFooterPanel.classList.remove('panel-visible');
+
+      void contactFooterPanel.offsetHeight;
+
+      requestAnimationFrame(() => {
+        contactFooterPanel.classList.add('panel-visible');
+      });
+
+      _attachContactActivityListeners();
+      _resetContactInactivityTimer();
+    }
+
+    function slideFooterBackToMain() {
+      _isContactOpen = false;
+      updateNavbarOnScroll();
+      const contactFooterPanel = document.getElementById('footerContactPanel');
+      const footerMainPanel = document.getElementById('footerMainPanel');
+      if (!contactFooterPanel) return;
+
+      _detachContactActivityListeners();
+
+      const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (isReducedMotion) {
+        if (footerMainPanel) {
+          footerMainPanel.classList.remove('slide-morph-panel-reverse');
+          footerMainPanel.classList.add('slide-morph-panel');
+          footerMainPanel.style.visibility = 'visible';
+          footerMainPanel.classList.add('panel-visible');
+        }
+        contactFooterPanel.classList.add('hidden');
+        contactFooterPanel.classList.remove('panel-visible');
+        const footerCardReduced = document.getElementById('footerCardContainer');
+        if (footerCardReduced) footerCardReduced.classList.remove('footer-contact-active');
+        return;
+      }
+
+      contactFooterPanel.classList.remove('slide-morph-panel');
+      contactFooterPanel.classList.add('slide-morph-panel-reverse');
+      void contactFooterPanel.offsetHeight;
+      requestAnimationFrame(() => {
+        contactFooterPanel.classList.remove('panel-visible');
+      });
+
+      if (footerMainPanel) {
+        footerMainPanel.classList.remove('slide-morph-panel');
+        footerMainPanel.classList.add('slide-morph-panel-reverse');
+        footerMainPanel.style.visibility = 'visible';
+        void footerMainPanel.offsetHeight;
+        requestAnimationFrame(() => {
+          footerMainPanel.classList.add('panel-visible');
+        });
+      }
+
+      const duration = 850;
+      setTimeout(() => {
+        contactFooterPanel.classList.add('hidden');
+        contactFooterPanel.classList.remove('panel-visible', 'slide-morph-panel-reverse');
+        contactFooterPanel.classList.add('slide-morph-panel');
+        const footerCard = document.getElementById('footerCardContainer');
+        if (footerCard) footerCard.classList.remove('footer-contact-active');
+      }, duration);
+    }
+
+    function closeContactUsModal() {
+      slideFooterBackToMain();
+    }
+
+    async function handleContactFormSubmit(e) {
+      e.preventDefault();
+      const nameEl = document.getElementById('contactFullName');
+      const emailEl = document.getElementById('contactEmailAddr');
+      const msgEl = document.getElementById('contactInquiryMsg');
+      const formContainer = document.getElementById('contactFormContainer');
+      const successContainer = document.getElementById('contactSuccessContainer');
+      const submitBtn = document.getElementById('contactModalSubmitBtn');
+
+      if (!nameEl || !emailEl || !msgEl) return;
+      const name = nameEl.value.trim();
+      const email = emailEl.value.trim();
+      const message = msgEl.value.trim();
+
+      isContactFormSubmitted = true;
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Sending message...";
+      }
+
+      try {
+        await fetch('/api/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: email,
+            contact: email,
+            role: `Contact Inquiry (${name})`,
+            details: message,
+            timestamp: new Date().toISOString()
+          })
+        }).catch(() => { });
+      } catch (err) { }
+
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Submit";
+      }
+
+      if (formContainer) {
+        formContainer.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+        formContainer.style.opacity = '0';
+        formContainer.style.transform = 'translateY(-6px)';
+        formContainer.style.pointerEvents = 'none';
+      }
+
+      setTimeout(() => {
+        if (formContainer) formContainer.style.display = 'none';
+        if (successContainer) {
+          successContainer.style.display = 'flex';
+          successContainer.style.flexDirection = 'column';
+          successContainer.style.alignItems = 'center';
+          successContainer.style.justifyContent = 'center';
+          successContainer.style.opacity = '0';
+          successContainer.style.transform = 'translateY(8px)';
+          successContainer.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+
+          void successContainer.offsetHeight;
+
+          requestAnimationFrame(() => {
+            successContainer.style.opacity = '1';
+            successContainer.style.transform = 'translateY(0)';
+          });
+        }
+
+        _attachContactActivityListeners();
+        _resetContactInactivityTimer();
+
+      }, 380);
+    }
+
+    // Tracks whether the Contact panel is intentionally open (set by openContactUsModal / slideFooterBackToMain)
+    let _isContactOpen = false;
+
+    // Scroll-adaptive Navigation Links Spy
+    function updateNavbarOnScroll() {
+      const scrollPos = window.scrollY + 220;
+
+      const aboutSec = document.getElementById('about');
+      const communitySec = document.getElementById('community');
+      const footerSec = document.getElementById('footerSection');
+
+      const aboutTop = aboutSec ? aboutSec.offsetTop : 0;
+      const communityTop = communitySec ? communitySec.offsetTop : 0;
+      const footerTop = footerSec ? footerSec.offsetTop : Infinity;
+
+      let activeSection = 'hero';
+
+      if (_isContactOpen) {
+        activeSection = 'contact';
+      } else if (footerSec && scrollPos >= footerTop - 100) {
+        activeSection = 'none'; // in footer, contact not open → nothing highlighted
+      } else if (communitySec && scrollPos >= communityTop - 100) {
+        activeSection = 'community';
+      } else if (aboutSec && scrollPos >= aboutTop - 100) {
+        activeSection = 'about';
+      } else {
+        activeSection = 'hero';
+      }
+
+      const navLinkAbout = document.getElementById('navLinkAbout');
+      const navLinkCommunity = document.getElementById('navLinkCommunity');
+      const navLinkContact = document.getElementById('navLinkContact');
+
+      const inactiveClass = "text-slate-800 hover:text-[#0E5296] font-bold text-xs sm:text-sm tracking-tight transition-colors py-1 relative group";
+      const activeClass = "text-[#0E5296] font-black text-xs sm:text-sm tracking-tight transition-colors py-1 relative group";
+
+      if (navLinkAbout) navLinkAbout.className = (activeSection === 'about') ? activeClass : inactiveClass;
+      if (navLinkCommunity) navLinkCommunity.className = (activeSection === 'community') ? activeClass : inactiveClass;
+      if (navLinkContact) navLinkContact.className = (activeSection === 'contact') ? activeClass + " cursor-pointer" : inactiveClass + " cursor-pointer";
+
+      const mobHero = document.getElementById('mobileLinkHero');
+      const mobAbout = document.getElementById('mobileLinkAbout');
+      const mobCommunity = document.getElementById('mobileLinkCommunity');
+      const mobContact = document.getElementById('mobileLinkContact');
+
+      const resetMob = (el) => {
+        if (!el) return;
+        el.className = "mobile-nav-link block text-base font-bold text-gray-800 hover:text-[#0E5296] transition-colors py-1";
+      };
+
+      resetMob(mobHero);
+      resetMob(mobAbout);
+      resetMob(mobCommunity);
+      resetMob(mobContact);
+
+      if (activeSection === 'hero' && mobHero) {
+        mobHero.className = "mobile-nav-link block text-base font-black text-[#0E5296] py-1 transition-colors";
+      } else if (activeSection === 'about' && mobAbout) {
+        mobAbout.className = "mobile-nav-link block text-base font-black text-[#0E5296] py-1 transition-colors";
+      } else if (activeSection === 'community' && mobCommunity) {
+        mobCommunity.className = "mobile-nav-link block text-base font-black text-[#0E5296] py-1 transition-colors";
+      } else if (activeSection === 'contact' && mobContact) {
+        mobContact.className = "mobile-nav-link block text-base font-black text-[#0E5296] py-1 transition-colors";
+      }
+    }
+
+    // Hero Headline Vertical Infinite Upward Slider Animation
+    function initHeroHeadlineSlider() {
+      const slider = document.getElementById('hero-headline-slider');
+      const viewport = document.querySelector('.hero-headline-viewport');
+      if (!slider || !viewport) return;
+      const items = slider.querySelectorAll('.hero-headline-text');
+      if (items.length < 2) return;
+
+      const numRealItems = items.length - 1;
+      const prefersReducedMotion = window.matchMedia &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      let index = 0;
+      let itemHeights = [];
+      let lastSlotH = null;
+      let resizeTimer = null;
+      let resetTimer = null;
+      let intervalId = null;
+
+      function measureHeights() {
+        const naturalHeights = [];
+        items.forEach(item => {
+          item.style.height = 'auto';
+          naturalHeights.push(Math.max(item.scrollHeight, item.offsetHeight));
+        });
+        const maxH = Math.max(...naturalHeights.slice(0, numRealItems));
+        const slotH = maxH + 12;
+
+        items.forEach(item => {
+          item.style.height = slotH + 'px';
+        });
+
+        const changed = slotH !== lastSlotH;
+        lastSlotH = slotH;
+        if (changed) {
+          itemHeights = new Array(items.length).fill(slotH);
+          viewport.style.height = slotH + 'px';
+          syncViewportAndTrack(false);
+        }
+      }
+
+      function getCumulativeY(targetIdx) {
+        let y = 0;
+        for (let i = 0; i < targetIdx; i++) y += itemHeights[i] || 0;
+        return y;
+      }
+
+      function syncViewportAndTrack(withTransition = true) {
+        const yOffset = getCumulativeY(index);
+        slider.style.transition = withTransition
+          ? 'transform 0.85s cubic-bezier(0.65, 0, 0.35, 1)'
+          : 'none';
+        slider.style.transform = `translateY(-${yOffset}px)`;
+      }
+
+      function tick() {
+        if (!document.body.contains(slider)) { stopInterval(); return; }
+        index++;
+        syncViewportAndTrack(true);
+
+        if (index === numRealItems) {
+          clearTimeout(resetTimer);
+          resetTimer = setTimeout(() => {
+            index = 0;
+            syncViewportAndTrack(false);
+            void slider.offsetHeight;
+          }, 860);
+        }
+      }
+
+      function startInterval() {
+        if (intervalId || prefersReducedMotion) return;
+        intervalId = setInterval(tick, 3600);
+      }
+
+      function stopInterval() {
+        if (intervalId) { clearInterval(intervalId); intervalId = null; }
+        clearTimeout(resetTimer);
+      }
+
+      measureHeights();
+      viewport.style.visibility = 'visible';
+
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(measureHeights);
+      }
+
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(measureHeights, 150);
+      });
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stopInterval();
+        else startInterval();
+      });
+
+      startInterval();
+    }
+
+    // About Cards Interactive Auto-Rotation Logic
+    let currentAboutCardIndex = 0;
+    let cardTimer = null;
+    let hasSwitchedAboutOnScroll = false;
+
+    function switchAboutCard(index) {
+      currentAboutCardIndex = index;
+      const card1 = document.getElementById('aboutCard1');
+      const card2 = document.getElementById('aboutCard2');
+      const dot0 = document.getElementById('cardDot0');
+      const dot1 = document.getElementById('cardDot1');
+
+      if (!card1 || !card2 || !dot0 || !dot1) return;
+
+      if (index === 0) {
+        card1.classList.remove('opacity-0', 'scale-95', 'pointer-events-none', 'z-0', '-translate-x-full');
+        card1.classList.add('opacity-100', 'scale-100', 'translate-x-0', 'z-10');
+
+        card2.classList.remove('opacity-100', 'scale-100', 'translate-x-0', 'z-10');
+        card2.classList.add('opacity-0', 'scale-95', 'translate-x-full', 'pointer-events-none', 'z-0');
+
+        dot0.className = 'w-3 h-3 rounded-full bg-[#0E5296] border-2 border-[#0E5296] shadow-xs cursor-pointer transition-all duration-300 scale-110';
+        dot1.className = 'w-3 h-3 rounded-full bg-transparent border-2 border-gray-300 hover:border-gray-400 cursor-pointer transition-all duration-300';
+      } else {
+        card1.classList.remove('opacity-100', 'scale-100', 'translate-x-0', 'z-10');
+        card1.classList.add('opacity-0', 'scale-95', '-translate-x-full', 'pointer-events-none', 'z-0');
+
+        card2.classList.remove('opacity-0', 'scale-95', 'translate-x-full', 'pointer-events-none', 'z-0');
+        card2.classList.add('opacity-100', 'scale-100', 'translate-x-0', 'z-10');
+
+        dot0.className = 'w-3 h-3 rounded-full bg-transparent border-2 border-gray-300 hover:border-gray-400 cursor-pointer transition-all duration-300';
+        dot1.className = 'w-3 h-3 rounded-full bg-[#2EA043] border-2 border-[#2EA043] shadow-xs cursor-pointer transition-all duration-300 scale-110';
+      }
+      resetCardTimer();
+    }
+
+    function autoRotateCard() {
+      const nextIndex = (currentAboutCardIndex + 1) % 2;
+      switchAboutCard(nextIndex);
+    }
+
+    function resetCardTimer() {
+      if (cardTimer) clearInterval(cardTimer);
+      cardTimer = setInterval(autoRotateCard, 5000);
+    }
+
+    // Scroll-attempt Interceptor for About section
+    (function initAboutScrollInterceptor() {
+      const aboutSec = document.getElementById('about');
+      if (!aboutSec) return;
+
+      let isThrottled = false;
+
+      window.addEventListener('wheel', function (e) {
+        if (hasSwitchedAboutOnScroll || isThrottled) return;
+        const rect = aboutSec.getBoundingClientRect();
+        const isInView = rect.top <= window.innerHeight * 0.45 && rect.bottom >= window.innerHeight * 0.55;
+
+        if (isInView && e.deltaY > 0) {
+          e.preventDefault();
+          isThrottled = true;
+          switchAboutCard(1);
+          hasSwitchedAboutOnScroll = true;
+
+          setTimeout(() => { isThrottled = false; }, 400);
+        }
+      }, { passive: false });
+    })();
+
+    // Feature Explanation Modal Data & Logic
+    const featureModalData = {
+      protection: {
+        icon: '🛡️',
+        iconBg: 'bg-brand-green/10 text-brand-green',
+        title: 'How your payment stays protected',
+        steps: [
+          'Your payment goes through PayKudi, not directly to the seller',
+          'It stays protected until you confirm your order arrived as expected',
+          'If you don\'t respond, it releases automatically after a fair confirmation window so sellers aren\'t left waiting either',
+          'If something\'s wrong, you can raise it before anything releases'
+        ]
+      },
+      dispute: {
+        icon: '⚡',
+        iconBg: 'bg-brand-blue/10 text-brand-blue',
+        title: 'How disputes get resolved',
+        steps: [
+          'Raise an issue right inside your WhatsApp chat',
+          'Our AI reviews the evidence from both sides first',
+          'A trained team member makes the final call before any payment moves',
+          'You\'ll be updated throughout with total transparency'
+        ]
+      },
+      whatsapp: {
+        icon: `<svg class="w-6 h-6 fill-current text-[#25D366]" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>`,
+        iconBg: 'bg-[#25D366]/15',
+        title: 'Everything happens where you already chat',
+        steps: [
+          'No new app to download or account to create',
+          'Start a deal, pay, and confirm delivery all inside WhatsApp',
+          'Works the same way for buyers and sellers, so there\'s nothing new to learn'
+        ]
+      }
+    };
+
+    let lastTappedBadgeElement = null;
+
+    function openFeatureModal(key, triggerElement) {
+      cancelGhostCursorAnimation();
+
+      const modal = document.getElementById('featureModal');
+      const container = document.getElementById('featureModalContainer');
+      const iconWrap = document.getElementById('featureModalIconWrap');
+      const titleEl = document.getElementById('featureModalTitle');
+      const listEl = document.getElementById('featureModalList');
+
+      const data = featureModalData[key];
+      if (!data || !modal || !container) return;
+
+      if (triggerElement) lastTappedBadgeElement = triggerElement;
+
+      iconWrap.className = `w-10 h-10 rounded-xl flex items-center justify-center text-xl font-bold shrink-0 ${data.iconBg}`;
+      iconWrap.innerHTML = data.icon;
+      titleEl.textContent = data.title;
+
+      listEl.innerHTML = data.steps.map((step, idx) => `
+        <li class="flex items-start gap-3">
+          <span class="w-5 h-5 rounded-full bg-brand-mint text-brand-dark flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">${idx + 1}</span>
+          <span class="text-gray-700">${step}</span>
+        </li>
+      `).join('');
+
+      modal.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        container.classList.remove('scale-95', 'opacity-0');
+        container.classList.add('scale-100', 'opacity-100');
+      });
+    }
+
+    function closeFeatureModal() {
+      const modal = document.getElementById('featureModal');
+      const container = document.getElementById('featureModalContainer');
+      if (!modal || !container) return;
+
+      container.classList.remove('scale-100', 'opacity-100');
+      container.classList.add('scale-95', 'opacity-0');
+
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        if (lastTappedBadgeElement) {
+          lastTappedBadgeElement.focus();
+          lastTappedBadgeElement = null;
+        }
+        resumeGhostCursorAnimation();
+      }, 250);
+    }
+
+    function handleFeatureModalBackdropClick(e) {
+      if (e.target.id === 'featureModal') {
+        closeFeatureModal();
+      }
+    }
+
+    // Ghost Cursor Onboarding Tutorial Animation
+    let ghostTimeouts = [];
+    let isGhostCursorPausedForModal = false;
+    let currentGhostBadgeIndex = 0;
+
+    function updateGhostCursorPosOnResize() {
+      const cursor = document.getElementById('ghostCursor');
+      const container = document.getElementById('featureBadgesContainer');
+      const targetBadge = document.getElementById('featureBadge' + (currentGhostBadgeIndex + 1));
+      if (!cursor || !container || !targetBadge) return;
+
+      const cRect = container.getBoundingClientRect();
+      const bRect = targetBadge.getBoundingClientRect();
+      const posX = (bRect.left - cRect.left) + bRect.width / 2;
+      const posY = (bRect.top - cRect.top) + bRect.height / 2;
+
+      cursor.style.transform = `translate3d(${posX}px, ${posY}px, 0)`;
+    }
+
+    function cancelGhostCursorAnimation() {
+      isGhostCursorPausedForModal = true;
+      const cursor = document.getElementById('ghostCursor');
+      if (cursor) {
+        cursor.classList.remove('opacity-100');
+        cursor.classList.add('opacity-0');
+      }
+    }
+
+    function resumeGhostCursorAnimation() {
+      isGhostCursorPausedForModal = false;
+      const cursor = document.getElementById('ghostCursor');
+      if (cursor) {
+        cursor.classList.remove('opacity-0');
+        cursor.classList.add('opacity-100');
+        updateGhostCursorPosOnResize();
+      }
+    }
+
+    function runGhostCursorOnboarding() {
+      const cursor = document.getElementById('ghostCursor');
+      const pulse = document.getElementById('ghostTapPulse');
+      const container = document.getElementById('featureBadgesContainer');
+      const b1 = document.getElementById('featureBadge1');
+      const b2 = document.getElementById('featureBadge2');
+      const b3 = document.getElementById('featureBadge3');
+
+      if (!cursor || !pulse || !container || !b1 || !b2 || !b3) return;
+
+      const badges = [
+        { id: 0, el: b1, pulseBg: 'bg-brand-green' },
+        { id: 1, el: b2, pulseBg: 'bg-brand-blue' },
+        { id: 2, el: b3, pulseBg: 'bg-[#25D366]' }
+      ];
+
+      function moveCursorToBadge(badgeIndex, callback) {
+        currentGhostBadgeIndex = badgeIndex;
+        updateGhostCursorPosOnResize();
+        if (callback) {
+          const t = setTimeout(callback, 750);
+          ghostTimeouts.push(t);
+        }
+      }
+
+      function pulseTapAt(colorClass, callback) {
+        pulse.className = `absolute -top-1 -left-1 w-7 h-7 rounded-full ${colorClass} opacity-75 scale-50 transition-all duration-400 pointer-events-none`;
+        requestAnimationFrame(() => {
+          pulse.classList.remove('opacity-75', 'scale-50');
+          pulse.classList.add('opacity-0', 'scale-150');
+        });
+        if (callback) {
+          const t = setTimeout(callback, 550);
+          ghostTimeouts.push(t);
+        }
+      }
+
+      function cycleSequence() {
+        if (isGhostCursorPausedForModal) {
+          const tRetry = setTimeout(cycleSequence, 2000);
+          ghostTimeouts.push(tRetry);
+          return;
+        }
+
+        cursor.style.display = 'flex';
+        cursor.classList.remove('opacity-0');
+        cursor.classList.add('opacity-100');
+
+        moveCursorToBadge(0, () => {
+          pulseTapAt(badges[0].pulseBg, () => {
+            moveCursorToBadge(1, () => {
+              pulseTapAt(badges[1].pulseBg, () => {
+                moveCursorToBadge(2, () => {
+                  pulseTapAt(badges[2].pulseBg, () => {
+                    const tWait = setTimeout(() => {
+                      cycleSequence();
+                    }, 20000);
+                    ghostTimeouts.push(tWait);
+                  });
+                });
+              });
+            });
+          });
+        });
+      }
+
+      cycleSequence();
+    }
+
+    window.addEventListener('resize', updateGhostCursorPosOnResize);
+    window.addEventListener('orientationchange', updateGhostCursorPosOnResize);
+
+    (function initGhostCursorObserver() {
+      const container = document.getElementById('featureBadgesContainer');
+      if (!container) return;
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              runGhostCursorOnboarding();
+              observer.disconnect();
+            }
+          });
+        }, { threshold: 0.3 });
+        observer.observe(container);
+      } else {
+        setTimeout(runGhostCursorOnboarding, 1000);
+      }
+    })();
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeFeatureModal();
+      }
+    });
+
+    let isScrollTicking = false;
+    window.addEventListener('scroll', () => {
+      if (!isScrollTicking) {
+        requestAnimationFrame(() => {
+          updateNavbarOnScroll();
+          isScrollTicking = false;
+        });
+        isScrollTicking = true;
+      }
+    }, { passive: true });
+
+    function initHeroTypewriterAnimation() {
+      const typingEl = document.getElementById('heroTypingText');
+      if (!typingEl) return;
+
+      const phrases = [
+        "Take control of your payments",
+        "Pay confidently for distance deals",
+        "Zero-risk social commerce"
+      ];
+
+      let phraseIndex = 0;
+      let charIndex = phrases[0].length;
+      let isDeleting = true;
+      let typingSpeed = 2200;
+
+      function type() {
+        const currentPhrase = phrases[phraseIndex];
+
+        if (isDeleting) {
+          charIndex--;
+          typingSpeed = 35;
+        } else {
+          charIndex++;
+          typingSpeed = 85;
+        }
+
+        typingEl.textContent = currentPhrase.substring(0, charIndex);
+
+        if (!isDeleting && charIndex === currentPhrase.length) {
+          typingSpeed = 2200;
+          isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          typingSpeed = 400;
+        }
+
+        setTimeout(type, typingSpeed);
+      }
+
+      setTimeout(type, 2000);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initScrollReveal();
+      updateNavbarOnScroll();
+      initHeroHeadlineSlider();
+      initHeroTypewriterAnimation();
+      resetCardTimer();
+    });
+  </script>
+</body>
+
+</html>

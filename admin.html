@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PayKudi Admin Panel: Survey Analytics & Management</title>
+  <meta name="description" content="PayKudi Admin Dashboard for social commerce survey analytics, sentiment tracking, and user feedback insights." />
+  <link rel="shortcut icon" href="paykudi-favicon.png?v=2">
+  <link rel="icon" type="image/png" href="paykudi-favicon.png?v=2">
+  <link rel="apple-touch-icon" href="paykudi-favicon.png?v=2">
+
+  <!-- Preconnect and Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: {
+              800: '#0f2137',
+              900: '#0b192c',
+              950: '#030712',
+            },
+            growth: {
+              400: '#34d399',
+              500: '#10b981',
+              600: '#059669',
+            },
+            brand: {
+              pay: '#0E5296',
+              kudi: '#2EA043'
+            }
+          },
+          fontFamily: {
+            heading: ['"Plus Jakarta Sans"', 'sans-serif'],
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Prevent rubber-banding / pulling at the end of scroll */
+    html, body {
+      overscroll-behavior: none !important;
+      overscroll-behavior-y: none !important;
+      overscroll-behavior-x: none !important;
+    }
+
+    :root {
+      --bg: #F8F9FA;
+      --surface: #FFFFFF;
+      --surface-2: #F1F3F5;
+      --border: #E9ECEF;
+      --border-strong: #DEE2E6;
+      --text: #0B192C;
+      --text-muted: #4B5563;
+      --text-subtle: #9CA3AF;
+      --accent: #0E5296;
+      --green: #2EA043;
+      --amber: #D97706;
+      --red: #EF4444;
+      --glass: rgba(255, 255, 255, 0.85);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      overscroll-behavior: none !important;
+      overscroll-behavior-y: none !important;
+      overscroll-behavior-x: none !important;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      transition: background-color 0.25s ease, color 0.25s ease;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, .font-heading {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* Exact brand lockup styles copied from index.html */
+    .payment-room-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      min-width: 0;
+      color: #1F2937;
+    }
+
+    .payment-room-brand img {
+      display: block;
+      width: auto;
+      height: 28px;
+      max-width: none;
+      flex: 0 0 auto;
+      object-fit: contain;
+    }
+
+    .payment-room-brand-copy {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      justify-content: center;
+      line-height: 1.05;
+      white-space: nowrap;
+      transform: translateY(1px);
+    }
+
+    .payment-room-brand-name {
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .payment-room-brand-subtitle {
+      margin-top: 1px;
+      font-size: 9px;
+      font-weight: 600;
+      color: #64748B;
+    }
+
+    .brand-pay { color: #0E5296; }
+    html[data-theme="dark"] .brand-pay { color: #42A5F5; }
+    .brand-kudi { color: #2EA043; }
+    html[data-theme="dark"] .brand-kudi { color: #4CAF50; }
+
+    .card-styled {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .card-styled:hover {
+      border-color: var(--border-strong);
+      box-shadow: 0 10px 30px -4px rgba(0, 0, 0, 0.08);
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    .icon-fill {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    /* Chart Animations */
+    .chart-bar-grow {
+      animation: growBar 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      transform-origin: bottom;
+    }
+
+    @keyframes growBar {
+      from { transform: scaleY(0); }
+      to { transform: scaleY(1); }
+    }
+
+    /* Custom Scrollbar */
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background-color: var(--border-strong);
+      border-radius: 99px;
+    }
+
+    /* Active Tab Animation */
+    .tab-content {
+      display: none;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .tab-content.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Clamp Fluid Responsive Utilities for Admin Panel */
+    .clamp-title { font-size: clamp(20px, 3.5vw, 30px); line-height: 1.2; }
+    .clamp-subtitle { font-size: clamp(12px, 1.6vw, 14px); }
+    .clamp-card-title { font-size: clamp(14px, 1.8vw, 16px); }
+    .clamp-metric-num { font-size: clamp(24px, 4vw, 36px); line-height: 1.1; }
+    .clamp-badge { font-size: clamp(10px, 1.3vw, 12px); padding: clamp(2px, 0.4vw, 4px) clamp(8px, 1vw, 12px); }
+    .clamp-body { font-size: clamp(12px, 1.5vw, 14px); line-height: 1.6; }
+    .clamp-caption { font-size: clamp(10px, 1.2vw, 12px); }
+    .clamp-btn { padding: clamp(8px, 1.2vw, 12px) clamp(14px, 2vw, 20px); font-size: clamp(12px, 1.5vw, 14px); }
+    .clamp-logo { height: clamp(32px, 5vw, 44px); }
+    .clamp-card-p { padding: clamp(14px, 2.5vw, 24px); }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col md:flex-row overflow-x-hidden">
+
+  <!-- MOBILE SIDEBAR BACKDROP -->
+  <div id="mobile-sidebar-backdrop" onclick="toggleMobileSidebar()" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 hidden transition-opacity md:hidden"></div>
+
+  <!-- SIDEBAR NAVIGATION (Fixed to Viewport, Non-Scrolling with Body) -->
+  <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-surface border-r border-border flex flex-col transition-transform duration-300 -translate-x-full md:translate-x-0 md:sticky md:top-0 md:h-screen md:z-30 shrink-0 overflow-y-auto custom-scrollbar">
+    <!-- Header Logo Lockup (Aligned to Body Header h-16) -->
+    <div class="h-16 px-4 flex items-center gap-3 border-b border-border shrink-0">
+      <a href="index.html" class="payment-room-brand group" aria-label="PayKudi home" style="text-decoration:none;">
+        <img src="paykudi-logo.png" alt="PAYKUDI Logo" />
+        <span class="payment-room-brand-copy" aria-hidden="true">
+          <span class="payment-room-brand-name"><span class="brand-pay">PAY</span><span class="brand-kudi">KUDI</span><span class="brand-kudi">.</span></span>
+          <span class="payment-room-brand-subtitle">Powered by <strong class="text-slate-800 font-black">Start<span class="text-[#0E5296]">up.</span></strong></span>
+        </span>
+      </a>
+    </div>
+
+    <!-- Sidebar Inner Content (Padding) -->
+    <div class="p-4 flex-1 flex flex-col justify-between space-y-4">
+      <!-- Navigation Links -->
+      <nav class="flex flex-col gap-1.5 font-medium text-sm">
+      <button onclick="switchTab('overview')" id="nav-overview" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-brand-pay bg-brand-pay/10 font-bold transition-all">
+        <span class="material-symbols-outlined icon-fill">dashboard</span>
+        <span>Overview</span>
+      </button>
+
+      <button onclick="switchTab('insights')" id="nav-insights" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-text-muted hover:text-text hover:bg-surface-2 transition-all">
+        <span class="material-symbols-outlined">insights</span>
+        <span>Open-Text Insights</span>
+      </button>
+
+      <button onclick="switchTab('responses')" id="nav-responses" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-text-muted hover:text-text hover:bg-surface-2 transition-all">
+        <span class="material-symbols-outlined">poll</span>
+        <span>Survey Responses</span>
+      </button>
+
+      <a href="index.html" target="_blank" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-text-muted hover:text-text hover:bg-surface-2 transition-all">
+        <span class="material-symbols-outlined">language</span>
+        <span>View Main Site</span>
+      </a>
+
+      <a href="Surveyform.html" target="_blank" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-text-muted hover:text-text hover:bg-surface-2 transition-all">
+        <span class="material-symbols-outlined">assignment</span>
+        <span>View Live Survey</span>
+      </a>
+
+      <button onclick="showToast('Settings panel updated.', 'info')" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-text-muted hover:text-text hover:bg-surface-2 transition-all">
+        <span class="material-symbols-outlined">settings</span>
+        <span>Settings</span>
+      </button>
+    </nav>
+
+    <!-- Footer Signed-in Admin Lockup (Bottom Left Sidebar) -->
+    <div class="pt-3 border-t border-border flex items-center gap-2.5 p-1.5 rounded-xl hover:bg-surface-2 transition-colors cursor-pointer" onclick="showToast('Signed in as Admin Lead', 'info')">
+      <div class="w-8 h-8 rounded-full bg-brand-pay/10 text-brand-pay font-bold flex items-center justify-center text-xs border border-brand-pay/20 flex-shrink-0">
+        AD
+      </div>
+      <div class="flex flex-col leading-tight text-left min-w-0 truncate">
+        <span class="font-heading font-bold text-xs truncate text-text">Admin Team</span>
+        <span class="text-[10px] text-text-muted truncate">admin@paykudi.com</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN DASHBOARD CONTENT AREA -->
+  <div class="flex-1 flex flex-col min-w-0 min-h-screen">
+
+    <!-- TOP BAR -->
+    <header class="sticky top-0 z-30 bg-surface/90 backdrop-blur-md border-b border-border h-16 px-4 md:px-8 flex items-center justify-between gap-4">
+      <!-- Mobile Sidebar Toggle -->
+      <button onclick="toggleMobileSidebar()" class="md:hidden p-2 rounded-lg text-text-muted hover:text-text hover:bg-surface-2 transition-colors">
+        <span class="material-symbols-outlined text-2xl">menu</span>
+      </button>
+
+      <!-- Global Search Input (Searches surveys by email & name) -->
+      <div class="flex-1 max-w-md relative hidden sm:block">
+        <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-text-subtle text-xl">search</span>
+        <input type="text" id="global-search" oninput="handleGlobalSearch(this.value)" placeholder="Search surveys by email or name..." class="w-full pl-10 pr-4 py-2 bg-surface-2 border border-border rounded-xl text-xs font-medium text-text placeholder-text-subtle focus:outline-none focus:border-brand-pay transition-all" />
+      </div>
+
+      <!-- Survey Responses Filters (Shown ONLY in Survey Responses Tab) -->
+      <div id="header-responses-filters" class="hidden items-center gap-2">
+        <select id="sentiment-filter" onchange="filterTable()" class="bg-surface-2 border border-border rounded-xl px-2.5 py-1.5 text-xs font-semibold text-text focus:outline-none focus:border-brand-pay">
+          <option value="ALL">All Sentiments</option>
+          <option value="Excited to try it">Excited to try it</option>
+          <option value="Curious but unsure">Curious but unsure</option>
+          <option value="Skeptical">Skeptical</option>
+          <option value="Not interested">Not interested</option>
+        </select>
+
+        <select id="segment-filter" onchange="filterTable()" class="bg-surface-2 border border-border rounded-xl px-2.5 py-1.5 text-xs font-semibold text-text focus:outline-none focus:border-brand-pay">
+          <option value="ALL">All Segments</option>
+          <option value="Ready Now">Ready Now</option>
+          <option value="Needs Convincing">Needs Convincing</option>
+          <option value="Skeptical">Skeptical</option>
+          <option value="Power User">Power User</option>
+        </select>
+
+        <button onclick="resetTableFilters()" class="text-xs font-bold text-brand-pay hover:underline cursor-pointer px-1">
+          Clear
+        </button>
+
+        <button onclick="exportCSV()" class="bg-gradient-to-r from-brand-pay to-brand-kudi text-white font-heading font-bold text-xs px-3.5 py-1.5 rounded-xl flex items-center gap-1 shadow-sm hover:opacity-90 transition-all cursor-pointer whitespace-nowrap">
+          <span class="material-symbols-outlined text-base">download</span>
+          <span>Export CSV</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- DASHBOARD VIEW CANVAS -->
+    <main class="flex-1 px-4 md:px-8 pt-3 md:pt-4 pb-6 max-w-7xl mx-auto w-full space-y-4">
+
+      <!-- ================================================================= -->
+      <!-- TAB 1: OVERVIEW DASHBOARD -->
+      <!-- ================================================================= -->
+      <div id="tab-overview" class="tab-content active space-y-5 pt-0 mt-0">
+        <!-- Bento Grid 1: Top Metrics Cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          <div class="card-styled p-5 flex flex-col justify-between">
+            <span class="text-xs font-heading font-bold text-text-muted uppercase tracking-wider">Total Responses</span>
+            <div class="mt-2 flex items-baseline justify-between">
+              <span id="metric-total-responses" class="font-heading text-2xl sm:text-3xl font-extrabold text-brand-pay">0</span>
+              <span class="text-[11px] font-bold text-brand-kudi bg-brand-kudi/10 px-2 py-0.5 rounded-full flex items-center gap-0.5">
+                <span class="material-symbols-outlined text-xs">trending_up</span> Live
+              </span>
+            </div>
+            <p class="text-[11px] text-text-subtle mt-3">From Aiven PostgreSQL Storage</p>
+          </div>
+
+          <div class="card-styled p-5 flex flex-col justify-between">
+            <span class="text-xs font-heading font-bold text-text-muted uppercase tracking-wider">Response Rate</span>
+            <div class="mt-2 flex items-baseline justify-between">
+              <span id="metric-response-rate" class="font-heading text-2xl sm:text-3xl font-extrabold text-brand-kudi">0%</span>
+              <span class="text-[11px] font-bold text-text-muted">Goal: 50 Responses</span>
+            </div>
+            <div class="w-full bg-surface-2 rounded-full h-2 mt-3 overflow-hidden">
+              <div id="bar-response-rate" class="bg-brand-kudi h-full rounded-full transition-all duration-1000" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <div class="card-styled p-5 flex flex-col justify-between">
+            <span class="text-xs font-heading font-bold text-text-muted uppercase tracking-wider">Top Currency Tier</span>
+            <div class="mt-2">
+              <span id="metric-top-deal-tier" class="font-heading text-xl sm:text-2xl font-extrabold text-text font-mono">--</span>
+            </div>
+            <p class="text-[11px] text-text-subtle mt-3">Most common deal size chosen</p>
+          </div>
+
+          <div class="card-styled p-5 flex flex-col justify-between">
+            <span class="text-xs font-heading font-bold text-text-muted uppercase tracking-wider">Top Trust Cap</span>
+            <div class="mt-2">
+              <span id="metric-max-trust-cap" class="font-heading text-xl sm:text-2xl font-extrabold text-brand-pay font-mono">--</span>
+            </div>
+            <p class="text-[11px] text-text-subtle mt-3">Most common trust limit chosen</p>
+          </div>
+        </div>
+
+        <!-- Bento Grid 2: Sentiment Bar Chart & Willingness Donut -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+          <!-- Left: Sentiment Chart (col-span-7) -->
+          <div class="lg:col-span-7 card-styled p-6 flex flex-col justify-between h-full">
+            <div class="flex items-center justify-between mb-3 shrink-0">
+              <div>
+                <h3 class="font-heading font-bold text-base text-text">"How does PayKudi make you feel?"</h3>
+                <p class="text-xs text-text-muted">Distribution of buyer &amp; seller reactions</p>
+              </div>
+              <span id="sentiment-total-votes" class="text-xs font-mono font-bold text-brand-pay bg-brand-pay/10 px-2.5 py-1 rounded-lg">0 votes</span>
+            </div>
+
+            <!-- Animated CSS Bar Chart (Fills full height matching right donut card) -->
+            <div class="flex items-end justify-between gap-4 flex-1 pt-2 px-2 min-h-[220px]">
+              <!-- Column 1: Excited -->
+              <div class="flex-1 h-full flex flex-col items-center justify-end gap-1.5 group cursor-pointer" onclick="showToast('Excited to try it', 'success')">
+                <span id="chart-pct-excited" class="text-xs font-bold text-brand-kudi shrink-0">0%</span>
+                <div class="w-full flex-1 bg-surface-2/60 rounded-t-xl flex items-end p-1 overflow-hidden min-h-0">
+                  <div id="chart-bar-excited" class="w-full bg-brand-kudi rounded-t-lg transition-all duration-700 ease-out" style="height: 0%;"></div>
+                </div>
+                <span class="text-xs font-semibold text-text-muted group-hover:text-text transition-colors shrink-0">Excited</span>
+              </div>
+
+              <!-- Column 2: Curious -->
+              <div class="flex-1 h-full flex flex-col items-center justify-end gap-1.5 group cursor-pointer" onclick="showToast('Curious but unsure', 'info')">
+                <span id="chart-pct-curious" class="text-xs font-bold text-brand-pay shrink-0">0%</span>
+                <div class="w-full flex-1 bg-surface-2/60 rounded-t-xl flex items-end p-1 overflow-hidden min-h-0">
+                  <div id="chart-bar-curious" class="w-full bg-brand-pay rounded-t-lg transition-all duration-700 ease-out" style="height: 0%;"></div>
+                </div>
+                <span class="text-xs font-semibold text-text-muted group-hover:text-text transition-colors shrink-0">Curious</span>
+              </div>
+
+              <!-- Column 3: Skeptical -->
+              <div class="flex-1 h-full flex flex-col items-center justify-end gap-1.5 group cursor-pointer" onclick="showToast('Skeptical', 'warning')">
+                <span id="chart-pct-skeptical" class="text-xs font-bold text-amber-500 shrink-0">0%</span>
+                <div class="w-full flex-1 bg-surface-2/60 rounded-t-xl flex items-end p-1 overflow-hidden min-h-0">
+                  <div id="chart-bar-skeptical" class="w-full bg-amber-500 rounded-t-lg transition-all duration-700 ease-out" style="height: 0%;"></div>
+                </div>
+                <span class="text-xs font-semibold text-text-muted group-hover:text-text transition-colors shrink-0">Skeptical</span>
+              </div>
+
+              <!-- Column 4: Uninterested -->
+              <div class="flex-1 h-full flex flex-col items-center justify-end gap-1.5 group cursor-pointer" onclick="showToast('Not interested', 'error')">
+                <span id="chart-pct-uninterested" class="text-xs font-bold text-red-500 shrink-0">0%</span>
+                <div class="w-full flex-1 bg-surface-2/60 rounded-t-xl flex items-end p-1 overflow-hidden min-h-0">
+                  <div id="chart-bar-uninterested" class="w-full bg-red-500 rounded-t-lg transition-all duration-700 ease-out" style="height: 0%;"></div>
+                </div>
+                <span class="text-xs font-semibold text-text-muted group-hover:text-text transition-colors shrink-0">Uninterested</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Vector SVG Donut Chart (col-span-5) -->
+          <div class="lg:col-span-5 card-styled p-6 flex flex-col justify-between items-center text-center h-full">
+            <div class="w-full text-left mb-2">
+              <h3 class="font-heading font-bold text-base text-text">"Would you pay a stranger via PayKudi?"</h3>
+              <p class="text-xs text-text-muted">Escrow adoption willingness breakdown</p>
+            </div>
+
+            <!-- Vector SVG Donut with Central Stats -->
+            <div class="relative w-44 h-44 my-2 flex items-center justify-center">
+              <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                <!-- Track -->
+                <circle cx="50" cy="50" r="38" stroke="var(--surface-2)" stroke-width="12" fill="none" />
+                <!-- Yes (Green) -->
+                <circle id="donut-seg-yes" cx="50" cy="50" r="38" stroke="#2EA043" stroke-width="12" fill="none"
+                  stroke-dasharray="0 238.76" stroke-dashoffset="0" class="transition-all duration-1000 ease-out" />
+                <!-- Maybe (Blue) -->
+                <circle id="donut-seg-maybe" cx="50" cy="50" r="38" stroke="#0E5296" stroke-width="12" fill="none"
+                  stroke-dasharray="0 238.76" stroke-dashoffset="0" class="transition-all duration-1000 ease-out" />
+                <!-- No (Red) -->
+                <circle id="donut-seg-no" cx="50" cy="50" r="38" stroke="#EF4444" stroke-width="12" fill="none"
+                  stroke-dasharray="0 238.76" stroke-dashoffset="0" class="transition-all duration-1000 ease-out" />
+              </svg>
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
+                <span id="donut-yes-pct" class="font-heading font-extrabold text-2xl md:text-3xl text-brand-kudi leading-none">0%</span>
+                <span class="text-[10px] font-extrabold text-text-muted uppercase tracking-wider mt-1">High Trust</span>
+              </div>
+            </div>
+
+            <!-- Legend Breakdown -->
+            <div class="w-full space-y-2 mt-2 text-xs font-semibold">
+              <div class="flex items-center justify-between p-2 rounded-lg bg-surface-2">
+                <span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-brand-kudi"></span> Definite Yes</span>
+                <span id="legend-yes-count" class="font-mono font-bold">0</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-lg bg-surface-2">
+                <span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-brand-pay"></span> Conditional Maybe</span>
+                <span id="legend-maybe-count" class="font-mono font-bold">0</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-lg bg-surface-2">
+                <span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> Resistant No</span>
+                <span id="legend-no-count" class="font-mono font-bold">0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Audience Segmentation Grid -->
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-heading font-bold text-lg text-text">Audience Segmentation</h3>
+            <button onclick="switchTab('responses')" class="text-xs font-bold text-brand-pay hover:underline flex items-center gap-1">
+              View All Respondents <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div onclick="filterTableBySegment('Ready Now')" class="card-styled p-5 cursor-pointer hover:border-brand-kudi active:scale-98">
+              <div class="flex justify-between items-start mb-3">
+                <div class="p-2.5 rounded-xl bg-brand-kudi/10 text-brand-kudi">
+                  <span class="material-symbols-outlined">rocket_launch</span>
+                </div>
+                <span id="segment-ready-count" class="font-heading font-extrabold text-2xl text-text">0</span>
+              </div>
+              <h4 class="font-heading font-bold text-sm text-text">Ready Now</h4>
+              <p class="text-xs text-text-muted mt-1">High intent, excited to try PayKudi.</p>
+            </div>
+
+            <div onclick="filterTableBySegment('Needs Convincing')" class="card-styled p-5 cursor-pointer hover:border-brand-pay active:scale-98">
+              <div class="flex justify-between items-start mb-3">
+                <div class="p-2.5 rounded-xl bg-brand-pay/10 text-brand-pay">
+                  <span class="material-symbols-outlined">psychology_alt</span>
+                </div>
+                <span id="segment-convince-count" class="font-heading font-extrabold text-2xl text-text">0</span>
+              </div>
+              <h4 class="font-heading font-bold text-sm text-text">Needs Convincing</h4>
+              <p class="text-xs text-text-muted mt-1">Curious or conditional maybe buyers.</p>
+            </div>
+
+            <div onclick="filterTableBySegment('Skeptical')" class="card-styled p-5 cursor-pointer hover:border-amber-500 active:scale-98">
+              <div class="flex justify-between items-start mb-3">
+                <div class="p-2.5 rounded-xl bg-amber-500/10 text-amber-500">
+                  <span class="material-symbols-outlined">block</span>
+                </div>
+                <span id="segment-skeptical-count" class="font-heading font-extrabold text-2xl text-text">0</span>
+              </div>
+              <h4 class="font-heading font-bold text-sm text-text">Skeptical</h4>
+              <p class="text-xs text-text-muted mt-1">Unsure or resistant to new payment apps.</p>
+            </div>
+
+            <div onclick="filterTableBySegment('Power User')" class="card-styled p-5 cursor-pointer hover:border-purple-500 active:scale-98">
+              <div class="flex justify-between items-start mb-3">
+                <div class="p-2.5 rounded-xl bg-purple-500/10 text-purple-500">
+                  <span class="material-symbols-outlined">verified</span>
+                </div>
+                <span id="segment-power-count" class="font-heading font-extrabold text-2xl text-text">0</span>
+              </div>
+              <h4 class="font-heading font-bold text-sm text-text">Power Users</h4>
+              <p class="text-xs text-text-muted mt-1">High deal frequency &amp; high trust tiers.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ================================================================= -->
+      <!-- TAB 2: OPEN-TEXT INSIGHTS -->
+      <!-- ================================================================= -->
+      <div id="tab-insights" class="tab-content space-y-5 pt-0 mt-0">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Panel 1: Barriers to Entry -->
+          <div class="card-styled p-6 flex flex-col h-[640px]">
+            <div class="flex justify-between items-start mb-4 pb-3 border-b border-border">
+              <div>
+                <h3 class="font-heading font-bold text-base text-text">Barriers to Entry</h3>
+                <p class="text-xs text-text-muted">"What's stopped you from paying a stranger online before?"</p>
+              </div>
+              <span class="p-2 rounded-xl bg-red-500/10 text-red-500">
+                <span class="material-symbols-outlined">block</span>
+              </span>
+            </div>
+
+            <!-- Raw Quotes Feed (No double border line) -->
+            <div class="flex-1 overflow-hidden flex flex-col pt-2">
+              <span class="text-[11px] font-heading font-bold text-text-subtle uppercase tracking-wider block mb-3">Live Respondent Quotes</span>
+              <div class="overflow-y-auto custom-scrollbar flex-1 pr-1 space-y-3" id="barrier-quotes-stream">
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 2: Trust Builders -->
+          <div class="card-styled p-6 flex flex-col h-[640px]">
+            <div class="flex justify-between items-start mb-4 pb-3 border-b border-border">
+              <div>
+                <h3 class="font-heading font-bold text-base text-text">Trust Builders</h3>
+                <p class="text-xs text-text-muted">Key elements building immediate trust for PayKudi</p>
+              </div>
+              <span class="p-2 rounded-xl bg-brand-kudi/10 text-brand-kudi">
+                <span class="material-symbols-outlined">verified_user</span>
+              </span>
+            </div>
+
+            <!-- Keyword Cloud -->
+            <div class="mb-4">
+              <span class="text-[11px] font-heading font-bold text-text-subtle uppercase tracking-wider block mb-2">Interactive Keyword Cloud</span>
+              <div class="flex flex-wrap gap-2 text-xs font-semibold">
+                <span class="px-3 py-1.5 rounded-full bg-brand-kudi/10 text-brand-kudi border border-brand-kudi/20">Escrow-style Protection</span>
+                <span class="px-3 py-1.5 rounded-full bg-brand-pay/10 text-brand-pay border border-brand-pay/20">WhatsApp Native</span>
+                <span class="px-3 py-1.5 rounded-full bg-purple-500/10 text-purple-500 border border-purple-500/20">AI + Human Dispute Resolution</span>
+              </div>
+            </div>
+
+            <!-- Raw Quotes Feed (No double border line) -->
+            <div class="flex-1 overflow-hidden flex flex-col pt-2">
+              <span class="text-[11px] font-heading font-bold text-text-subtle uppercase tracking-wider block mb-3">Live Respondent Stream</span>
+              <div class="overflow-y-auto custom-scrollbar flex-1 pr-1 space-y-3" id="trust-quotes-stream">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ================================================================= -->
+      <!-- TAB 3: SURVEY RESPONSES TABLE -->
+      <!-- ================================================================= -->
+      <div id="tab-responses" class="tab-content space-y-4 pt-0 mt-0">
+        <!-- Data Table Container -->
+        <div class="card-styled overflow-hidden p-0">
+          <div class="overflow-x-auto custom-scrollbar">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="bg-surface-2 border-b border-border font-heading font-bold text-text-muted uppercase tracking-wider">
+                  <th class="py-3.5 px-4">Date</th>
+                  <th class="py-3.5 px-4">Respondent</th>
+                  <th class="py-3.5 px-4">Reaction</th>
+                  <th class="py-3.5 px-4">Pay Stranger</th>
+                  <th class="py-3.5 px-4 text-right">Trust Tier</th>
+                  <th class="py-3.5 px-4 text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody id="responses-tbody" class="divide-y divide-border/60">
+                <!-- Rows dynamically injected via JS from Aiven DB / LocalStorage -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Table Footer Pagination -->
+          <div class="p-4 bg-surface-2 border-t border-border flex items-center justify-between text-xs text-text-muted">
+            <span>Showing <strong id="showing-count-text" class="text-text">0</strong> responses</span>
+            <div class="flex items-center gap-2">
+              <button onclick="fetchAivenResponses()" class="px-3 py-1.5 rounded-lg bg-surface border border-border hover:bg-border/50 text-text font-semibold flex items-center gap-1 cursor-pointer">
+                <span class="material-symbols-outlined text-sm">refresh</span> Refresh Records
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- CREATE NEW SURVEY MODAL -->
+  <div id="new-survey-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="card-styled max-w-lg w-full p-6 space-y-6 bg-surface shadow-2xl relative">
+      <div class="flex items-center justify-between border-b border-border pb-3">
+        <h3 class="font-heading font-extrabold text-lg text-text">Create New Survey Campaign</h3>
+        <button onclick="closeNewSurveyModal()" class="text-text-muted hover:text-text cursor-pointer"><span class="material-symbols-outlined">close</span></button>
+      </div>
+
+      <div class="space-y-4 text-xs font-medium">
+        <div>
+          <label class="block font-bold text-text mb-1">Campaign Title</label>
+          <input type="text" id="survey-title" placeholder="e.g. Q4 WhatsApp Vendor Trust Assessment" class="w-full p-2.5 bg-surface-2 border border-border rounded-xl text-text focus:outline-none focus:border-brand-pay" />
+        </div>
+
+        <div>
+          <label class="block font-bold text-text mb-1">Target Audience</label>
+          <select class="w-full p-2.5 bg-surface-2 border border-border rounded-xl text-text focus:outline-none focus:border-brand-pay">
+            <option>Instagram Buyers &amp; Shoppers</option>
+            <option>WhatsApp Merchants &amp; Sellers</option>
+            <option>High-Value Electronics Buyers</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-bold text-text mb-1">Primary Question Focus</label>
+          <textarea rows="3" placeholder="Enter your key open-text feedback question..." class="w-full p-2.5 bg-surface-2 border border-border rounded-xl text-text focus:outline-none focus:border-brand-pay"></textarea>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end gap-3 pt-3 border-t border-border">
+        <button onclick="closeNewSurveyModal()" class="px-4 py-2 rounded-xl bg-surface-2 text-text font-bold text-xs cursor-pointer">Cancel</button>
+        <button onclick="submitNewSurvey()" class="px-5 py-2 rounded-xl bg-gradient-to-r from-brand-pay to-brand-kudi text-white font-bold text-xs shadow-md cursor-pointer">Publish Campaign</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESPONDENT DETAIL MODAL -->
+  <div id="respondent-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="card-styled max-w-md w-full p-6 space-y-4 bg-surface shadow-2xl relative">
+      <div class="flex items-center justify-between border-b border-border pb-3">
+        <h3 class="font-heading font-extrabold text-base text-text">Respondent Audit Log</h3>
+        <button onclick="closeRespondentModal()" class="text-text-muted hover:text-text cursor-pointer"><span class="material-symbols-outlined">close</span></button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div><span class="text-text-muted">Submitted At:</span> <strong id="modal-timestamp" class="text-brand-pay font-mono font-bold"></strong></div>
+        <div><span class="text-text-muted">User Email:</span> <strong id="modal-email" class="text-text font-mono"></strong></div>
+        <div><span class="text-text-muted">WhatsApp Phone:</span> <strong id="modal-phone" class="text-text font-mono"></strong></div>
+        <div><span class="text-text-muted">Idea Feeling:</span> <strong id="modal-feeling" class="text-brand-kudi font-bold"></strong></div>
+        <div><span class="text-text-muted">Pay Stranger:</span> <strong id="modal-pay-stranger" class="text-brand-pay font-bold"></strong></div>
+        <div><span class="text-text-muted">Trust Tier:</span> <strong id="modal-trust" class="text-text font-mono font-bold"></strong></div>
+        <div><span class="text-text-muted">Dispute SLA:</span> <strong id="modal-dispute-sla" class="text-text font-semibold"></strong></div>
+        <div class="pt-2 border-t border-border">
+          <span class="text-text-muted block mb-1">What's stopped them before:</span>
+          <p id="modal-quote" class="italic p-3 rounded-xl bg-surface-2 text-text leading-relaxed border border-border"></p>
+        </div>
+      </div>
+
+      <div class="flex justify-end pt-2">
+        <button onclick="closeRespondentModal()" class="px-4 py-2 rounded-xl bg-brand-pay text-white font-bold text-xs cursor-pointer">Close Audit Log</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-12 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="px-4 py-3 rounded-2xl bg-navy-950 text-white shadow-2xl border border-slate-800 flex items-center gap-3 text-xs font-semibold">
+      <span class="material-symbols-outlined text-growth-400 text-lg" id="toast-icon">check_circle</span>
+      <span id="toast-msg">Action completed successfully.</span>
+    </div>
+  </div>
+
+
+  <!-- ================================================================= -->
+  <!-- JAVASCRIPT ENGINE -->
+  <!-- ================================================================= -->
+  <script>
+    let allResponses = [];
+
+    // --- TAB SWITCHER ENGINE ---
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('text-brand-pay', 'bg-brand-pay/10', 'font-bold');
+        btn.classList.add('text-text-muted');
+      });
+
+      const activeTab = document.getElementById('tab-' + tabId);
+      const activeNav = document.getElementById('nav-' + tabId);
+
+      if (activeTab) activeTab.classList.add('active');
+      if (activeNav) {
+        activeNav.classList.add('text-brand-pay', 'bg-brand-pay/10', 'font-bold');
+        activeNav.classList.remove('text-text-muted');
+      }
+
+      // Show header filter controls ONLY on Survey Responses tab
+      const headerFilters = document.getElementById('header-responses-filters');
+      if (headerFilters) {
+        if (tabId === 'responses') {
+          headerFilters.classList.remove('hidden');
+          headerFilters.classList.add('flex');
+        } else {
+          headerFilters.classList.add('hidden');
+          headerFilters.classList.remove('flex');
+        }
+      }
+
+      document.getElementById('sidebar').classList.add('-translate-x-full');
+      document.getElementById('mobile-sidebar-backdrop').classList.add('hidden');
+    }
+
+    // --- MOBILE SIDEBAR DRAWER TOGGLE ---
+    function toggleMobileSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const backdrop = document.getElementById('mobile-sidebar-backdrop');
+      const isHidden = sidebar.classList.contains('-translate-x-full');
+
+      if (isHidden) {
+        sidebar.classList.remove('-translate-x-full');
+        backdrop.classList.remove('hidden');
+      } else {
+        sidebar.classList.add('-translate-x-full');
+        backdrop.classList.add('hidden');
+      }
+    }
+
+    // --- TOAST NOTIFICATIONS ---
+    let toastTimer;
+    function showToast(msg, type = 'success') {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-msg');
+      const toastIcon = document.getElementById('toast-icon');
+
+      if (!toast || !toastMsg) return;
+
+      toastMsg.textContent = msg;
+      if (type === 'error') toastIcon.textContent = 'error';
+      else if (type === 'info') toastIcon.textContent = 'info';
+      else toastIcon.textContent = 'check_circle';
+
+      toast.classList.remove('translate-y-12', 'opacity-0', 'pointer-events-none');
+
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.add('translate-y-12', 'opacity-0', 'pointer-events-none');
+      }, 3000);
+    }
+
+    // --- FETCH RESPONSES FROM AIVEN DB & LOCALSTORAGE ---
+    async function fetchAivenResponses() {
+      showToast('Fetching latest records from Aiven DB...', 'info');
+      let dbData = [];
+      try {
+        const res = await fetch('/api/responses');
+        const resJson = await res.json();
+        if (resJson.success && Array.isArray(resJson.data)) {
+          dbData = resJson.data.map(item => ({
+            id: item.id,
+            timestamp: item.created_at || new Date().toISOString(),
+            email: item.email || 'Anonymous User',
+            phone: item.country_code ? `+${item.country_code} ${item.phone}` : (item.phone || 'N/A'),
+            online_frequency: item.online_frequency || 'N/A',
+            deal_platform: item.deal_platform || 'N/A',
+            deal_value: item.deal_value || 'N/A',
+            what_stopped: item.what_stopped || 'No friction feedback noted',
+            idea_feeling: item.idea_feeling || 'Excited to try it',
+            pay_stranger: item.pay_stranger || 'Yes',
+            trust_amount: item.trust_amount || 'Under ₦10,000',
+            raise_dispute: item.raise_dispute || 'Yes',
+            dispute_sla: item.dispute_sla || 'Same day',
+            send_updates: item.send_updates
+          }));
+          const statusEl = document.getElementById('db-status-badge');
+          if (statusEl) {
+            statusEl.textContent = 'Connected (Aiven DB)';
+            statusEl.className = 'text-growth-500 font-mono font-bold';
+          }
+        }
+      } catch (err) {
+        console.warn('Aiven DB Fetch Fallback to LocalStorage:', err);
+        const statusEl = document.getElementById('db-status-badge');
+        if (statusEl) {
+          statusEl.textContent = 'Offline (Using LocalStorage)';
+          statusEl.className = 'text-amber-500 font-mono font-bold';
+        }
+      }
+
+      // Merge LocalStorage fallback data
+      let localData = [];
+      try {
+        const rawLocal = localStorage.getItem('paykudi_survey_responses');
+        if (rawLocal) {
+          const parsed = JSON.parse(rawLocal);
+          localData = parsed.map((item, idx) => {
+            const d = item.data || item || {};
+            return {
+              id: 'local-' + idx,
+              timestamp: item.timestamp || d.timestamp || new Date().toISOString(),
+              email: d.email || 'Anonymous User',
+              phone: d.country_code ? `+${d.country_code} ${d.phone}` : (d.phone || 'N/A'),
+              online_frequency: d.online_frequency || 'N/A',
+              deal_platform: d.deal_platform || 'N/A',
+              deal_value: d.deal_value || 'N/A',
+              what_stopped: d.what_stopped || 'No friction feedback noted',
+              idea_feeling: d.idea_feeling || 'Excited to try it',
+              pay_stranger: d.pay_stranger || 'Yes',
+              trust_amount: d.trust_amount || 'Under ₦10,000',
+              raise_dispute: d.raise_dispute || 'Yes',
+              dispute_sla: d.dispute_sla || 'Same day',
+              send_updates: d.send_updates === 'on' || d.send_updates === true
+            };
+          });
+        }
+      } catch (e) {}
+
+      allResponses = dbData.length > 0 ? dbData : localData;
+
+      if (!allResponses) allResponses = [];
+
+      renderAnalyticsAndTable();
+      showToast(`Loaded ${allResponses.length} survey responses`, 'success');
+    }
+
+    function renderAnalyticsAndTable() {
+      // 1. Total Responses Count
+      const total = allResponses.length;
+      document.getElementById('metric-total-responses').textContent = total;
+      document.getElementById('sentiment-total-votes').textContent = `${total} votes`;
+      document.getElementById('showing-count-text').textContent = total;
+
+      // 2. Sentiment Breakdown
+      let excited = 0, curious = 0, skeptical = 0, uninterested = 0;
+      let yesCount = 0, maybeCount = 0, noCount = 0;
+      let readyCount = 0, convinceCount = 0, skepSegmentCount = 0, powerCount = 0;
+
+      const barrierQuotes = [];
+      const trustQuotes = [];
+
+      allResponses.forEach((r, idx) => {
+        const feeling = String(r.idea_feeling).toLowerCase();
+        if (feeling.includes('excited')) excited++;
+        else if (feeling.includes('curious')) curious++;
+        else if (feeling.includes('skeptical')) skeptical++;
+        else uninterested++;
+
+        const pay = String(r.pay_stranger).toLowerCase();
+        if (pay.includes('yes')) yesCount++;
+        else if (pay.includes('maybe')) maybeCount++;
+        else noCount++;
+
+        // Segment calculation
+        if (feeling.includes('excited') && pay.includes('yes')) {
+          readyCount++;
+          if (r.trust_amount.includes('50') || r.trust_amount.includes('200')) powerCount++;
+        } else if (feeling.includes('curious') || pay.includes('maybe')) {
+          convinceCount++;
+        } else {
+          skepSegmentCount++;
+        }
+
+        if (r.what_stopped && r.what_stopped.length > 5) {
+          barrierQuotes.push({ quote: r.what_stopped, email: r.email, id: r.id });
+        }
+        if (r.idea_feeling && r.idea_feeling.length > 3) {
+          trustQuotes.push({ quote: `"${r.idea_feeling}" | Willingness: ${r.pay_stranger}`, email: r.email, id: r.id });
+        }
+      });
+
+      // 1. Dynamic Response Rate & Deal Tier Calculation
+      const targetGoal = 50; // Goal of 50 responses
+      const responseRate = Math.min(Math.round((total / targetGoal) * 100), 100);
+      const rateEl = document.getElementById('metric-response-rate');
+      const rateBarEl = document.getElementById('bar-response-rate');
+      if (rateEl) rateEl.textContent = `${responseRate}%`;
+      if (rateBarEl) rateBarEl.style.width = `${responseRate}%`;
+
+      // Calculate Most Popular Deal Value Tier & Trust Cap dynamically
+      const dealValueCounts = {};
+      const trustAmountCounts = {};
+
+      allResponses.forEach((r) => {
+        if (r.deal_value && r.deal_value !== 'N/A') {
+          dealValueCounts[r.deal_value] = (dealValueCounts[r.deal_value] || 0) + 1;
+        }
+        if (r.trust_amount && r.trust_amount !== 'N/A') {
+          trustAmountCounts[r.trust_amount] = (trustAmountCounts[r.trust_amount] || 0) + 1;
+        }
+      });
+
+      const topDealValue = Object.keys(dealValueCounts).reduce((a, b) => dealValueCounts[a] > dealValueCounts[b] ? a : b, null);
+      const topTrustAmount = Object.keys(trustAmountCounts).reduce((a, b) => trustAmountCounts[a] > trustAmountCounts[b] ? a : b, null);
+
+      const dealTierEl = document.getElementById('metric-top-deal-tier');
+      const trustCapEl = document.getElementById('metric-max-trust-cap');
+      if (dealTierEl) dealTierEl.textContent = topDealValue || '--';
+      if (trustCapEl) trustCapEl.textContent = topTrustAmount || '--';
+
+      // 2. Update Sentiment Bars
+      const pExcited = Math.round((excited / total) * 100) || 0;
+      const pCurious = Math.round((curious / total) * 100) || 0;
+      const pSkeptical = Math.round((skeptical / total) * 100) || 0;
+      const pUninterested = Math.round((uninterested / total) * 100) || 0;
+
+      document.getElementById('chart-pct-excited').textContent = `${pExcited}%`;
+      document.getElementById('chart-bar-excited').style.height = total > 0 ? `${pExcited}%` : '0%';
+
+      document.getElementById('chart-pct-curious').textContent = `${pCurious}%`;
+      document.getElementById('chart-bar-curious').style.height = total > 0 ? `${pCurious}%` : '0%';
+
+      document.getElementById('chart-pct-skeptical').textContent = `${pSkeptical}%`;
+      document.getElementById('chart-bar-skeptical').style.height = total > 0 ? `${pSkeptical}%` : '0%';
+
+      document.getElementById('chart-pct-uninterested').textContent = `${pUninterested}%`;
+      document.getElementById('chart-bar-uninterested').style.height = total > 0 ? `${pUninterested}%` : '0%';
+
+      // 3. Vector SVG Donut Chart Calculation
+      const pYes = Math.round((yesCount / total) * 100) || 0;
+      document.getElementById('donut-yes-pct').textContent = `${pYes}%`;
+      document.getElementById('legend-yes-count').textContent = yesCount;
+      document.getElementById('legend-maybe-count').textContent = maybeCount;
+      document.getElementById('legend-no-count').textContent = noCount;
+
+      const circum = 2 * Math.PI * 38; // 238.761
+      const pYesVal = total > 0 ? (yesCount / total) : 0;
+      const pMaybeVal = total > 0 ? (maybeCount / total) : 0;
+      const pNoVal = total > 0 ? (noCount / total) : 0;
+
+      const yesLen = pYesVal * circum;
+      const maybeLen = pMaybeVal * circum;
+      const noLen = pNoVal * circum;
+
+      const segYes = document.getElementById('donut-seg-yes');
+      const segMaybe = document.getElementById('donut-seg-maybe');
+      const segNo = document.getElementById('donut-seg-no');
+
+      if (segYes) {
+        segYes.setAttribute('stroke-dasharray', `${yesLen} ${circum}`);
+        segYes.setAttribute('stroke-dashoffset', `0`);
+      }
+      if (segMaybe) {
+        segMaybe.setAttribute('stroke-dasharray', `${maybeLen} ${circum}`);
+        segMaybe.setAttribute('stroke-dashoffset', `-${yesLen}`);
+      }
+      if (segNo) {
+        segNo.setAttribute('stroke-dasharray', `${noLen} ${circum}`);
+        segNo.setAttribute('stroke-dashoffset', `-${yesLen + maybeLen}`);
+      }
+
+      // 4. Update Audience Segmentation
+      document.getElementById('segment-ready-count').textContent = readyCount;
+      document.getElementById('segment-convince-count').textContent = convinceCount;
+      document.getElementById('segment-skeptical-count').textContent = skepSegmentCount;
+      document.getElementById('segment-power-count').textContent = powerCount;
+
+      // Update Quotes Stream
+      renderQuotesStream('barrier-quotes-stream', barrierQuotes, 'border-red-500');
+      renderQuotesStream('trust-quotes-stream', trustQuotes, 'border-brand-kudi');
+
+      // Populate Data Table
+      renderTableRows(allResponses);
+    }
+
+    function renderQuotesStream(elementId, quotesList, borderClass) {
+      const container = document.getElementById(elementId);
+      if (!container) return;
+
+      if (!quotesList || quotesList.length === 0) {
+        container.innerHTML = `
+          <div class="p-6 rounded-xl bg-surface-2/40 border border-dashed border-border text-center space-y-1 my-auto">
+            <span class="material-symbols-outlined text-text-subtle text-3xl">chat_bubble_outline</span>
+            <p class="text-xs font-semibold text-text-muted">No respondent quotes recorded yet.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = quotesList.slice(0, 10).map((q) => `
+        <div class="p-3.5 rounded-xl bg-surface-2 border-l-4 ${borderClass} text-xs space-y-1">
+          <p class="italic text-text">"${escapeHtml(q.quote)}"</p>
+          <span class="text-[10px] text-text-subtle block">${escapeHtml(q.email)} &bull; Response #${escapeHtml(q.id)}</span>
+        </div>
+      `).join('');
+    }
+
+    function renderTableRows(data) {
+      const tbody = document.getElementById('responses-tbody');
+      if (!tbody) return;
+
+      if (!data || data.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" class="p-12 text-center text-text-muted">
+              <div class="flex flex-col items-center justify-center space-y-1">
+                <span class="material-symbols-outlined text-text-subtle text-3xl">inbox</span>
+                <p class="font-heading font-bold text-sm text-text">No Survey Responses Recorded Yet</p>
+              </div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = data.map(r => {
+        const feeling = r.idea_feeling || 'N/A';
+        let feelingBadge = 'bg-brand-kudi/10 text-brand-kudi border-brand-kudi/20';
+        if (feeling.includes('Curious')) feelingBadge = 'bg-brand-pay/10 text-brand-pay border-brand-pay/20';
+        else if (feeling.includes('Skeptical')) feelingBadge = 'bg-amber-500/10 text-amber-500 border-amber-500/20';
+        else if (feeling.includes('Not')) feelingBadge = 'bg-red-500/10 text-red-500 border-red-500/20';
+
+        const d = new Date(r.timestamp);
+        const isValidDate = !isNaN(d.getTime());
+        const datePart = isValidDate ? d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Today';
+        const timePart = isValidDate ? d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }) : 'Just now';
+
+        return `
+          <tr class="hover:bg-surface-2/60 transition-colors">
+            <td class="py-3.5 px-4">
+              <div class="font-mono text-text font-bold text-[11px]">${escapeHtml(datePart)}</div>
+              <div class="text-[10.5px] text-brand-pay font-mono font-extrabold flex items-center gap-1">
+                <span class="material-symbols-outlined text-[12px]">schedule</span>
+                <span>${escapeHtml(timePart)}</span>
+              </div>
+            </td>
+            <td class="py-3.5 px-4">
+              <div class="font-semibold text-text">${escapeHtml(r.email)}</div>
+              <div class="text-[11px] text-text-subtle font-mono">${escapeHtml(r.phone)}</div>
+            </td>
+            <td class="py-3.5 px-4">
+              <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold border ${feelingBadge}">
+                ${escapeHtml(feeling)}
+              </span>
+            </td>
+            <td class="py-3.5 px-4">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-surface-2 text-text font-semibold">
+                ${escapeHtml(r.pay_stranger)}
+              </span>
+            </td>
+            <td class="py-3.5 px-4 text-right font-mono font-bold text-text">${escapeHtml(sanitizeNaira(r.trust_amount))}</td>
+            <td class="py-3.5 px-4 text-center">
+              <button onclick="viewRespondentModal('${escapeHtml(r.email)}', '${escapeHtml(r.phone)}', '${escapeHtml(r.idea_feeling)}', '${escapeHtml(r.pay_stranger)}', '${escapeHtml(sanitizeNaira(r.trust_amount))}', '${escapeHtml(r.dispute_sla)}', '${escapeHtml(r.what_stopped)}', '${escapeHtml(datePart + ' • ' + timePart)}')" class="p-1.5 rounded-lg text-text-muted hover:text-brand-pay hover:bg-surface-2 cursor-pointer" title="View Audit Log">
+                <span class="material-symbols-outlined text-lg">visibility</span>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function sanitizeNaira(str) {
+      if (str === null || str === undefined) return '';
+      return String(str).replace(/\?/g, '₦');
+    }
+
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // --- TABLE SEARCH & FILTERING ---
+    function filterTable() {
+      const searchInput = document.getElementById('global-search');
+      const searchVal = (searchInput ? searchInput.value : '').toLowerCase();
+      const sentimentVal = document.getElementById('sentiment-filter').value;
+      const segmentVal = document.getElementById('segment-filter').value;
+
+      const filtered = allResponses.filter(r => {
+        const text = `${r.email} ${r.phone} ${r.idea_feeling} ${r.pay_stranger} ${r.trust_amount} ${r.what_stopped}`.toLowerCase();
+        const matchesSearch = !searchVal || text.includes(searchVal);
+        const matchesSentiment = sentimentVal === 'ALL' || String(r.idea_feeling).toLowerCase().includes(sentimentVal.toLowerCase());
+        const matchesSegment = segmentVal === 'ALL' || checkSegmentMatch(r, segmentVal);
+        return matchesSearch && matchesSentiment && matchesSegment;
+      });
+
+      renderTableRows(filtered);
+      document.getElementById('showing-count-text').textContent = filtered.length;
+    }
+
+    function checkSegmentMatch(r, segment) {
+      const feeling = String(r.idea_feeling).toLowerCase();
+      const pay = String(r.pay_stranger).toLowerCase();
+
+      if (segment === 'Ready Now') return feeling.includes('excited') && pay.includes('yes');
+      if (segment === 'Needs Convincing') return feeling.includes('curious') || pay.includes('maybe');
+      if (segment === 'Skeptical') return feeling.includes('skeptical') || pay.includes('no');
+      if (segment === 'Power User') return r.trust_amount.includes('50') || r.trust_amount.includes('200');
+      return true;
+    }
+
+    function filterTableBySegment(segment) {
+      switchTab('responses');
+      document.getElementById('segment-filter').value = segment;
+      filterTable();
+    }
+
+    function resetTableFilters() {
+      const searchInput = document.getElementById('global-search');
+      if (searchInput) searchInput.value = '';
+      document.getElementById('sentiment-filter').value = 'ALL';
+      document.getElementById('segment-filter').value = 'ALL';
+      renderTableRows(allResponses);
+      document.getElementById('showing-count-text').textContent = allResponses.length;
+    }
+
+    function handleGlobalSearch(query) {
+      switchTab('responses');
+      filterTable();
+    }
+
+    // --- MODALS ---
+    function openNewSurveyModal() {
+      document.getElementById('new-survey-modal').classList.remove('hidden');
+      document.getElementById('new-survey-modal').classList.add('flex');
+    }
+
+    function closeNewSurveyModal() {
+      document.getElementById('new-survey-modal').classList.add('hidden');
+      document.getElementById('new-survey-modal').classList.remove('flex');
+    }
+
+    function submitNewSurvey() {
+      const title = document.getElementById('survey-title').value;
+      if (!title) {
+        showToast('Please enter a campaign title', 'error');
+        return;
+      }
+      closeNewSurveyModal();
+      showToast(`Published campaign: "${title}"`, 'success');
+    }
+
+    function viewRespondentModal(email, phone, feeling, payStranger, trust, disputeSla, quote, timeFormatted) {
+      document.getElementById('modal-timestamp').textContent = timeFormatted || 'Just now';
+      document.getElementById('modal-email').textContent = email;
+      document.getElementById('modal-phone').textContent = phone;
+      document.getElementById('modal-feeling').textContent = feeling;
+      document.getElementById('modal-pay-stranger').textContent = payStranger;
+      document.getElementById('modal-trust').textContent = trust;
+      document.getElementById('modal-dispute-sla').textContent = disputeSla;
+      document.getElementById('modal-quote').textContent = quote || 'No friction comments provided.';
+
+      document.getElementById('respondent-modal').classList.remove('hidden');
+      document.getElementById('respondent-modal').classList.add('flex');
+    }
+
+    function closeRespondentModal() {
+      document.getElementById('respondent-modal').classList.add('hidden');
+      document.getElementById('respondent-modal').classList.remove('flex');
+    }
+
+    // --- CSV EXPORT ---
+    function exportCSV() {
+      if (allResponses.length === 0) {
+        showToast('No records available to export', 'error');
+        return;
+      }
+
+      const headers = ['ID', 'Date', 'Email', 'Phone', 'Online Frequency', 'Deal Platform', 'Deal Value', 'Idea Feeling', 'Pay Stranger', 'Trust Amount', 'Raise Dispute', 'Dispute SLA', 'Opt-in Updates', 'What Stopped'];
+      const rows = allResponses.map(r => [
+        r.id,
+        r.timestamp,
+        `"${r.email}"`,
+        `"${r.phone}"`,
+        `"${r.online_frequency}"`,
+        `"${r.deal_platform}"`,
+        `"${r.deal_value}"`,
+        `"${r.idea_feeling}"`,
+        `"${r.pay_stranger}"`,
+        `"${r.trust_amount}"`,
+        `"${r.raise_dispute}"`,
+        `"${r.dispute_sla}"`,
+        r.send_updates ? 'Yes' : 'No',
+        `"${(r.what_stopped || '').replace(/"/g, '""')}"`
+      ]);
+
+      const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', `PayKudi_Survey_Responses_${new Date().toISOString().split('T')[0]}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      showToast('CSV export downloaded successfully', 'success');
+    }
+
+    // --- REAL-TIME WEBSOCKET ENGINE ---
+    let ws = null;
+    let wsReconnectTimer = null;
+
+    function initWebSocket() {
+      if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) {
+        return; // Connection already active
+      }
+
+      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+      const wsUrl = `${protocol}//${window.location.host}`;
+
+      try {
+        ws = new WebSocket(wsUrl);
+
+        ws.onopen = () => {
+          console.log('⚡ Connected to PayKudi Real-Time WebSocket Engine');
+          clearTimeout(wsReconnectTimer);
+          const badge = document.getElementById('db-status-badge');
+          if (badge) {
+            badge.textContent = '● Live WebSocket Sync';
+            badge.className = 'text-growth-500 font-mono font-bold';
+          }
+        };
+
+        ws.onmessage = (event) => {
+          try {
+            const data = JSON.parse(event.data);
+            if (data.type === 'INIT_DATA' && Array.isArray(data.data)) {
+              allResponses = data.data;
+              renderAnalyticsAndTable();
+            } else if (data.type === 'NEW_RESPONSE' && data.record) {
+              allResponses.unshift(data.record);
+              renderAnalyticsAndTable();
+              showToast(`⚡ Real-Time Survey Response from ${data.record.email}!`, 'success');
+            }
+          } catch (e) {
+            console.warn('WS parse error:', e);
+          }
+        };
+
+        ws.onclose = () => {
+          ws = null;
+          const badge = document.getElementById('db-status-badge');
+          if (badge) {
+            badge.textContent = '○ Reconnecting WS...';
+            badge.className = 'text-amber-500 font-mono font-bold';
+          }
+          clearTimeout(wsReconnectTimer);
+          wsReconnectTimer = setTimeout(initWebSocket, 5000);
+        };
+      } catch (err) {
+        console.warn('WS Connection Error:', err);
+      }
+    }
+
+    // --- INITIALIZE ON LOAD ---
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchAivenResponses();
+      initWebSocket();
+    });
+  </script>
+</body>
+
+</html>

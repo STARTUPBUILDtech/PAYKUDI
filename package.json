@@ -1,0 +1,19 @@
+{
+  "name": "paykudi-feedback-survey",
+  "version": "1.0.0",
+  "description": "PayKudi Feedback Survey Application connected to Aiven DB (MySQL / PostgreSQL)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.112.2",
+    "dotenv": "^16.6.1",
+    "mysql2": "^3.23.2",
+    "pg": "^8.23.0",
+    "resend": "^6.18.1",
+    "sharp": "^0.35.3",
+    "ws": "^8.21.3"
+  }
+}

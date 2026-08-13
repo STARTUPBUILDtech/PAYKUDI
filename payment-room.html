@@ -1,0 +1,3670 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Payment Room | Deal #ST-8842 | PAYKUDI</title>
+  <meta name="description" content="Secure payment room for deal tracking and dispute resolution." />
+  <link rel="shortcut icon" href="paykudi-favicon.png?v=2">
+  <link rel="icon" type="image/png" href="paykudi-favicon.png?v=2">
+  <link rel="apple-touch-icon" href="paykudi-favicon.png?v=2">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #F7F7F5;
+      --surface: #FFFFFF;
+      --surface-2: #F1F3F5;
+      --border: #E9ECEF;
+      --border-strong: #DEE2E6;
+      --text: #111827;
+      --text-muted: #4B5563;
+      --text-subtle: #9CA3AF;
+      --accent: #0E5296;
+      --accent-ink: #0A3B6F;
+      --accent-bright: #1E88E5;
+      --brand-pay: #0E5296;
+      --brand-kudi: #2EA043;
+      --blue: #0E5296;
+      --green: #2EA043;
+      --amber: #D97706;
+      --red: #EF4444;
+      --violet: #8B5CF6;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    /* Exact brand lockup styles copied from index.html */
+    .payment-room-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      min-width: 0;
+      color: #1F2937;
+    }
+
+    .payment-room-brand img {
+      display: block;
+      width: auto;
+      height: 28px;
+      max-width: none;
+      flex: 0 0 auto;
+      object-fit: contain;
+    }
+
+    .payment-room-brand-copy {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      justify-content: center;
+      line-height: 1.05;
+      white-space: nowrap;
+      transform: translateY(1px);
+    }
+
+    .payment-room-brand-name {
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .payment-room-brand-subtitle {
+      margin-top: 1px;
+      font-size: 9px;
+      font-weight: 600;
+      color: #64748B;
+    }
+
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #090A0F;
+      --surface: #12141A;
+      --surface-2: #181B22;
+      --border: #222630;
+      --border-strong: #333946;
+      --text: #F4F4F6;
+      --text-muted: #9E9EA8;
+      --text-subtle: #6E707A;
+      --accent: #29B6F6;
+      --accent-ink: #0288D1;
+      --accent-bright: #4FC3F7;
+      --brand-pay: #42A5F5;
+      --brand-kudi: #4CAF50;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      transition: background 0.2s, color 0.2s;
+      line-height: 1.5;
+      font-size: 14px;
+      overflow-x: hidden;
+      padding-bottom: 76px;
+    }
+
+    .brand-pay {
+      color: var(--brand-pay);
+    }
+
+    .brand-kudi {
+      color: var(--brand-kudi);
+    }
+
+    .logo-text {
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .logo-dot {
+      color: var(--accent);
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .ba {
+      background: rgba(14, 82, 150, 0.14);
+      color: var(--brand-pay);
+    }
+
+    .bg {
+      background: rgba(46, 160, 67, 0.14);
+      color: var(--green);
+    }
+
+    .bam {
+      background: rgba(217, 119, 6, 0.14);
+      color: var(--amber);
+    }
+
+    .bp {
+      background: rgba(139, 92, 246, 0.14);
+      color: var(--violet);
+    }
+
+    .br {
+      background: rgba(239, 68, 68, 0.14);
+      color: var(--red);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s;
+      padding: 10px 18px;
+      text-decoration: none;
+    }
+
+    .btn-accent {
+      background: linear-gradient(135deg, var(--brand-pay) 0%, var(--brand-kudi) 100%);
+      color: #ffffff;
+      width: 100%;
+      padding: 12px;
+      font-weight: 700;
+    }
+
+    .btn-accent:hover {
+      opacity: 0.95;
+      transform: translateY(-1px);
+    }
+
+    .btn-g {
+      background: transparent;
+      color: var(--text-muted);
+      padding: 8px 12px;
+    }
+
+    .btn-g:hover {
+      color: var(--text);
+      background: var(--surface-2);
+    }
+
+    .btn-confirm {
+      background: var(--green);
+      color: #fff;
+      padding: 14px 24px;
+      font-size: 15px;
+      border-radius: var(--radius-sm);
+      width: 100%;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn-confirm:hover {
+      opacity: 0.92;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(46, 160, 67, 0.3);
+    }
+
+    .btn-dispute {
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 13px;
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .btn-dispute:hover {
+      border-color: var(--red);
+      color: var(--red);
+      background: rgba(239, 68, 68, 0.05);
+    }
+
+    .field {
+      width: 100%;
+      background: var(--surface-2);
+      border: 1.5px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .field:focus {
+      border-color: var(--brand-pay);
+    }
+
+    .field::placeholder {
+      color: var(--text-subtle);
+    }
+
+    .otp-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .otp-d {
+      flex: 1;
+      height: 54px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: 700;
+      background: var(--surface-2);
+      border: 1.5px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      outline: none;
+      font-family: 'Inter', sans-serif;
+      transition: border-color 0.15s;
+      min-width: 0;
+    }
+
+    .otp-d:focus {
+      border-color: var(--brand-pay);
+    }
+
+    #auth {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+
+    .auth-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 32px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+    }
+
+    .deal-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 11px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-subtle);
+      margin-bottom: 22px;
+    }
+
+    .auth-err {
+      font-size: 12px;
+      color: var(--red);
+      margin-top: 10px;
+      display: none;
+    }
+
+    .demo-box {
+      margin-top: 22px;
+      padding: 14px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+
+    .demo-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .demo-btn {
+      flex: 1;
+      padding: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-strong);
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.15s;
+    }
+
+    .demo-btn:hover {
+      background: var(--brand-pay);
+      color: #fff;
+      border-color: var(--brand-pay);
+    }
+
+    #room {
+      display: none;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .hdr {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      height: 60px;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 12px;
+    }
+
+    .hdr-l {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-shrink: 0;
+    }
+
+    .hdr-m {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .hdr-r {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .role-pill {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(14, 82, 150, 0.14) 0%, rgba(46, 160, 67, 0.14) 100%);
+      border: 1px solid rgba(14, 82, 150, 0.25);
+      color: var(--brand-pay);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: 0 2px 6px rgba(14, 82, 150, 0.08);
+      white-space: nowrap;
+    }
+
+    .tbtn {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      transition: all 0.15s;
+      flex-shrink: 0;
+    }
+
+    .tbtn:hover {
+      color: var(--text);
+    }
+
+    .body {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 20px 16px 36px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .slabel {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-subtle);
+      margin-bottom: 10px;
+    }
+
+    .price {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .pchip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(46, 160, 67, 0.1);
+      border: 1px solid rgba(46, 160, 67, 0.22);
+      color: var(--brand-kudi);
+    }
+
+    .pdot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .tblock {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    .tblock strong {
+      color: var(--text);
+    }
+
+    .frow {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+
+    .frow:last-child {
+      border-bottom: none;
+    }
+
+    .frow .l {
+      color: var(--text-muted);
+    }
+
+    .frow .v {
+      font-weight: 600;
+    }
+
+    .frow.tot .l {
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .frow.tot .v {
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .tl {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .tlr {
+      display: flex;
+      gap: 12px;
+    }
+
+    .tls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 26px;
+      flex-shrink: 0;
+    }
+
+    .tln {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .tln.done {
+      background: var(--green);
+      color: #fff;
+    }
+
+    .tln.active {
+      background: var(--brand-pay);
+      color: #fff;
+      box-shadow: 0 0 0 4px rgba(14, 82, 150, 0.15);
+    }
+
+    .tln.wait {
+      background: var(--surface-2);
+      border: 2px solid var(--border-strong);
+      color: var(--text-subtle);
+    }
+
+    .tlw {
+      width: 2px;
+      flex: 1;
+      min-height: 18px;
+      margin: 3px 0;
+      background: var(--border);
+    }
+
+    .tlw.done {
+      background: var(--green);
+      opacity: 0.35;
+    }
+
+    .tlc {
+      padding-bottom: 18px;
+      flex: 1;
+    }
+
+    .tln-t {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .tln-t.m {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .tlts {
+      font-size: 11px;
+      color: var(--text-subtle);
+      margin-top: 2px;
+    }
+
+    .tlnt {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 5px;
+    }
+
+    .trkchip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 11px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--brand-pay);
+      text-decoration: none;
+      transition: border-color 0.15s;
+    }
+
+    .trkchip:hover {
+      border-color: var(--brand-pay);
+    }
+
+    .evgrid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .evtile {
+      position: relative;
+      aspect-ratio: 1;
+      border-radius: var(--radius-sm);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .evtile:hover {
+      border-color: var(--brand-pay);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    }
+
+    .evtile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .evtile:hover img {
+      transform: scale(1.08);
+    }
+
+    .ev-tag {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 4px 6px;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 600;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .play-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 32px;
+      color: #fff;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+      pointer-events: none;
+    }
+
+    .upzone {
+      border: 2px dashed var(--border-strong);
+      border-radius: var(--radius-sm);
+      padding: 22px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .upzone:hover {
+      border-color: var(--brand-pay);
+      background: rgba(14, 82, 150, 0.03);
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 12px 0;
+    }
+
+    .buyer-only,
+    .seller-only {
+      display: none;
+    }
+
+    @keyframes fu {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .ani {
+      animation: fu 0.3s ease forwards;
+    }
+
+    /* Fluid Scaling System with CSS clamp() */
+    :root {
+      --fz-body: clamp(12px, 0.9vw + 8.5px, 14px);
+      --fz-price: clamp(15px, 1.6vw + 9px, 22px);
+      --fz-deal-title: clamp(12.5px, 1.2vw + 8.5px, 16px);
+      --fz-phone-pill: clamp(9.5px, 0.8vw + 7px, 11.5px);
+      --fz-badge: clamp(9.5px, 0.8vw + 7px, 12px);
+      --fz-slabel: clamp(9.5px, 0.7vw + 7px, 11px);
+      --card-p: clamp(14px, 2vw + 4px, 20px);
+      --img-deal-size: clamp(42px, 5vw + 20px, 54px);
+
+      /* Dispute Form Fluid Scaling Tokens */
+      --fz-dispute-title: clamp(14px, 1.2vw + 9.5px, 17px);
+      --fz-dispute-sub: clamp(11px, 0.8vw + 7.5px, 12.5px);
+      --fz-dispute-label: clamp(11px, 0.8vw + 7.5px, 12.5px);
+      --fz-dispute-input: clamp(12px, 0.8vw + 8px, 14px);
+      --fz-dispute-btn: clamp(12px, 0.8vw + 8px, 14px);
+      --box-upload-size: clamp(60px, 8vw + 28px, 72px);
+    }
+
+    body {
+      font-size: var(--fz-body);
+    }
+
+    .dispute-title {
+      font-size: var(--fz-dispute-title);
+      font-weight: 700;
+      color: var(--red);
+    }
+
+    .dispute-sub {
+      font-size: var(--fz-dispute-sub);
+      color: var(--text-muted);
+    }
+
+    .dispute-label {
+      font-size: var(--fz-dispute-label);
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .dispute-open-title {
+      font-size: clamp(13.5px, 1.1vw + 9px, 16px) !important;
+      font-weight: 700;
+      color: var(--red);
+    }
+
+    .dispute-open-sub {
+      font-size: clamp(10.5px, 0.75vw + 7px, 12px) !important;
+      color: var(--text-muted);
+    }
+
+    .dispute-header-badge {
+      font-size: clamp(9.5px, 0.7vw + 6.5px, 11px) !important;
+      white-space: nowrap !important;
+      flex-shrink: 0;
+      padding: 4px clamp(6px, 1vw, 10px) !important;
+      display: inline-flex !important;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .dispute-timer-text {
+      font-size: clamp(18px, 1.8vw + 10px, 24px) !important;
+      font-weight: 800;
+      color: var(--amber);
+      letter-spacing: 0.04em;
+    }
+
+    /* Expandable Context Pill & Full-Width Modal Box */
+    .context-pill-container {
+      margin-top: 5px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 6px;
+      width: 100%;
+    }
+
+    .context-pill-container.is-expanded {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+
+    .expandable-context-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      max-width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: 999px;
+      padding: 2px clamp(8px, 1vw, 12px);
+      font-size: clamp(10.5px, 0.75vw + 7px, 12px);
+      color: var(--text-muted);
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+      box-sizing: border-box;
+      vertical-align: middle;
+    }
+
+    .expandable-context-pill:hover {
+      border-color: var(--brand-pay);
+      color: var(--text);
+      background: var(--surface-2);
+    }
+
+    .expandable-context-text {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: clamp(160px, 30vw, 320px);
+    }
+
+    .expandable-context-pill.expanded {
+      width: 100% !important;
+      max-width: 100% !important;
+      border-radius: var(--radius-sm) !important;
+      padding: 12px 14px !important;
+      background: var(--surface) !important;
+      border: 1.5px solid var(--brand-pay) !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: stretch !important;
+      margin-top: 2px;
+      box-shadow: 0 4px 14px rgba(14, 82, 150, 0.08);
+    }
+
+    .expandable-context-pill.expanded .expandable-context-text {
+      white-space: pre-wrap !important;
+      overflow-wrap: break-word !important;
+      word-break: break-word !important;
+      overflow: visible !important;
+      text-overflow: clip !important;
+      max-width: 100% !important;
+      line-height: 1.6 !important;
+      color: var(--text) !important;
+      font-size: clamp(11.5px, 0.75vw + 7.5px, 12.5px) !important;
+      font-weight: 500 !important;
+      letter-spacing: 0.01em !important;
+      margin-bottom: 8px;
+    }
+
+    .expandable-context-pill .pill-arrow {
+      font-size: 15px;
+      color: var(--text-subtle);
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .expandable-context-pill.expanded .pill-arrow {
+      transform: rotate(180deg);
+      color: var(--brand-pay);
+      align-self: flex-end !important;
+    }
+
+    .custom-select-wrapper {
+      position: relative;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .custom-select-trigger {
+      width: 100%;
+      background: var(--surface-2);
+      border: 1.5px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      padding: clamp(7px, 1vw, 10px) clamp(10px, 1.2vw, 14px);
+      font-size: clamp(11.5px, 0.8vw + 7.5px, 13px);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      box-sizing: border-box;
+    }
+
+    .custom-select-trigger:hover, .custom-select-wrapper.open .custom-select-trigger {
+      border-color: var(--brand-pay);
+    }
+
+    .custom-select-val {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .custom-select-val.placeholder {
+      color: var(--text-subtle);
+    }
+
+    .custom-select-arrow {
+      font-size: 18px;
+      color: var(--text-muted);
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+      margin-left: 6px;
+    }
+
+    .custom-select-wrapper.open .custom-select-arrow {
+      transform: rotate(180deg);
+      color: var(--brand-pay);
+    }
+
+    .custom-select-options {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      width: 100% !important; /* MATCHES EXACT WIDTH OF INPUT FIELD! */
+      max-width: 100% !important;
+      background: var(--surface);
+      border: 1.5px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+      z-index: 10000;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    .custom-select-wrapper.open .custom-select-options {
+      display: flex;
+      animation: selectDropdownIn 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes selectDropdownIn {
+      from {
+        opacity: 0;
+        transform: translateY(-4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .custom-option {
+      padding: clamp(7px, 0.9vw, 9.5px) clamp(10px, 1.2vw, 14px);
+      font-size: clamp(11px, 0.75vw + 7px, 12.5px);
+      color: var(--text);
+      cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: background 0.12s;
+    }
+
+    .custom-option:hover {
+      background: rgba(14, 82, 150, 0.08);
+      color: var(--brand-pay);
+      font-weight: 600;
+    }
+
+    .btn:disabled, .btn[disabled] {
+      opacity: 0.45 !important;
+      cursor: not-allowed !important;
+      pointer-events: none !important;
+      filter: grayscale(0.5);
+    }
+
+    .custom-option.selected {
+      background: rgba(14, 82, 150, 0.12);
+      color: var(--brand-pay);
+      font-weight: 700;
+    }
+
+    .btn-dispute-submit {
+      font-size: var(--fz-dispute-btn) !important;
+      padding: clamp(8px, 1.2vw, 12px) clamp(16px, 2.5vw, 28px) !important;
+    }
+
+    .card {
+      padding: var(--card-p);
+    }
+
+    .price {
+      font-size: var(--fz-price);
+    }
+
+    .deal-title {
+      font-size: var(--fz-deal-title);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .phone-pill {
+      font-size: var(--fz-phone-pill) !important;
+      font-weight: 600;
+      white-space: nowrap;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: clamp(3px, 0.6vw, 5px) clamp(6px, 1vw, 10px);
+    }
+
+    .phone-pill span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .deal-product-img {
+      width: var(--img-deal-size);
+      height: var(--img-deal-size);
+      border-radius: 10px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .hdr {
+      padding: 0 clamp(8px, 2vw, 20px);
+      gap: clamp(4px, 1.2vw, 12px);
+    }
+
+    .hdr-m {
+      gap: clamp(4px, 1vw, 10px);
+    }
+
+    .dref {
+      font-size: clamp(10.5px, 0.9vw + 7px, 13px);
+      white-space: nowrap;
+    }
+
+    .role-pill {
+      font-size: clamp(10px, 0.8vw + 7px, 12px);
+      padding: 4px clamp(6px, 1vw, 12px);
+      white-space: nowrap;
+    }
+
+    .pchip {
+      font-size: clamp(10px, 0.8vw + 7px, 12px);
+      padding: 4px clamp(6px, 1vw, 12px);
+      white-space: nowrap;
+    }
+
+    .tblock {
+      font-size: clamp(11px, 0.8vw + 7.5px, 12px);
+      padding: clamp(10px, 1.5vw, 14px);
+      display: flex;
+      flex-direction: column;
+      gap: clamp(7px, 0.8vw + 4px, 11px);
+    }
+
+    .tblock-item {
+      line-height: 1.45;
+    }
+
+    .frow {
+      font-size: clamp(11.5px, 0.8vw + 8px, 13px);
+    }
+
+    .tln-t {
+      font-size: clamp(11.5px, 0.8vw + 8px, 13px);
+    }
+
+    @keyframes dotPulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.3;
+        transform: scale(0.75);
+      }
+    }
+
+    .status-dot-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0;
+      padding: 6px 6px;
+      border-radius: 999px;
+      cursor: pointer;
+      max-width: 24px;
+      overflow: hidden;
+      white-space: nowrap;
+      transition: max-width 0.35s cubic-bezier(.4, 0, .2, 1), padding 0.3s ease;
+      user-select: none;
+    }
+
+    .status-dot-pill:hover {
+      max-width: 140px;
+      padding: 4px 12px 4px 8px;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      animation: dotPulse 1.4s infinite ease-in-out;
+    }
+
+    .status-label {
+      opacity: 0;
+      max-width: 0;
+      overflow: hidden;
+      font-weight: 700;
+      font-size: 11px;
+      transition: opacity 0.2s ease 0.08s, max-width 0.35s cubic-bezier(.4, 0, .2, 1), margin 0.2s ease;
+      margin-left: 0;
+    }
+
+    .status-dot-pill:hover .status-label {
+      opacity: 1;
+      max-width: 90px;
+      margin-left: 6px;
+    }
+
+    .dispute-form-wrapper {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, margin-top 0.3s ease;
+    }
+
+    .dispute-form-wrapper.open {
+      max-height: 850px;
+      opacity: 1;
+      margin-top: 14px;
+    }
+
+    .up-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 4px;
+    }
+
+    .up-sq-box {
+      width: 72px;
+      height: 72px;
+      border: 2px dashed var(--border-strong);
+      border-radius: var(--radius-sm);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: var(--surface-2);
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .up-sq-box:hover {
+      border-color: var(--brand-pay);
+      color: var(--brand-pay);
+      background: rgba(14, 82, 150, 0.04);
+    }
+
+    .up-thumb {
+      position: relative;
+      width: 72px;
+      height: 72px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      flex-shrink: 0;
+      background: var(--surface-2);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    }
+
+    .up-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .up-del {
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.75);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      transition: background 0.15s, transform 0.15s;
+      line-height: 1;
+    }
+
+    .up-del:hover {
+      background: var(--red);
+      transform: scale(1.1);
+    }
+
+    .btn-confirm-fab {
+      background: var(--green);
+      color: #ffffff;
+      border: none;
+      border-radius: 30px;
+      height: 52px;
+      padding: 0 15px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(46, 160, 67, 0.35);
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: inherit;
+      white-space: nowrap;
+      overflow: hidden;
+      max-width: calc(100vw - 32px);
+    }
+
+    .btn-confirm-fab .fab-label {
+      max-width: 0;
+      opacity: 0;
+      margin-left: 0;
+      font-size: 13px;
+      font-weight: 700;
+      transition: max-width 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease 0.05s, margin-left 0.25s ease;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .btn-confirm-fab.expanded {
+      padding: 0 20px 0 16px;
+      box-shadow: 0 12px 28px rgba(46, 160, 67, 0.45);
+      max-width: calc(100vw - 32px);
+    }
+
+    .btn-confirm-fab.expanded .fab-label {
+      max-width: 250px;
+      opacity: 1;
+      margin-left: 8px;
+    }
+
+    .btn-edit-acct {
+      background: rgba(14, 82, 150, 0.08);
+      color: var(--brand-pay);
+      border: 1px solid rgba(14, 82, 150, 0.2);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 11.5px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .btn-edit-acct:hover {
+      background: var(--brand-pay);
+      color: #ffffff;
+      border-color: var(--brand-pay);
+      box-shadow: 0 4px 12px rgba(14, 82, 150, 0.25);
+    }
+
+    @keyframes infoPulse {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+        filter: drop-shadow(0 0 0 rgba(14, 82, 150, 0));
+      }
+
+      50% {
+        transform: scale(1.18);
+        opacity: 0.85;
+        filter: drop-shadow(0 0 8px rgba(14, 82, 150, 0.6));
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+        filter: drop-shadow(0 0 0 rgba(14, 82, 150, 0));
+      }
+    }
+
+    .btn-info-blink {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(14, 82, 150, 0.12);
+      color: var(--brand-pay);
+      border: 1px solid var(--brand-pay);
+      cursor: pointer;
+      margin-left: 6px;
+      vertical-align: middle;
+      animation: infoPulse 1.4s infinite ease-in-out;
+      transition: all 0.2s;
+      padding: 0;
+    }
+
+    .btn-info-blink:hover {
+      background: var(--brand-pay);
+      color: #ffffff;
+    }
+
+    .popover-card {
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      max-width: 320px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+      animation: popoverIn 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes popoverIn {
+      from {
+        opacity: 0;
+        transform: translateY(-4px) scale(0.96);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* Custom Paykudi Toast System - Single Line Fluid Pill */
+    .pay-toast-container {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-24px);
+      z-index: 100000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--surface);
+      color: var(--text);
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.22);
+      font-size: clamp(11.5px, 0.8vw + 7px, 13px);
+      font-weight: 600;
+      white-space: nowrap !important;
+      width: max-content;
+      max-width: calc(100vw - 24px);
+      box-sizing: border-box;
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+    }
+
+    .pay-toast-container.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Custom Paykudi Confirm Modal */
+    .pay-modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .pay-modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .pay-modal-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+      transform: scale(0.92);
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .pay-modal-overlay.open .pay-modal-card {
+      transform: scale(1);
+    }
+
+    /* --- SPECIFIC MOBILE RESPONSIVE OVERRIDES --- */
+
+    /* Prevent iOS Safari Auto-Zoom on Form Inputs */
+    @media (max-width: 768px) {
+
+      input:not(.dispute-input),
+      select:not(.dispute-input),
+      textarea:not(.dispute-input),
+      .field:not(.dispute-input),
+      .otp-d {
+        font-size: 16px !important;
+      }
+
+      .dispute-input,
+      select.dispute-input option {
+        font-size: clamp(10.5px, 0.75vw + 6.5px, 12.5px) !important;
+      }
+    }
+
+    /* Mobile Header Cleanup (< 640px) */
+    @media (max-width: 640px) {
+      .hdr {
+        height: 56px;
+        padding: 0 10px;
+        gap: 6px;
+      }
+
+      .hdr-l img {
+        height: 24px !important;
+      }
+
+      .hdr-l .powered-by-sub {
+        display: none !important;
+      }
+
+      .hdr-m {
+        gap: 4px;
+      }
+
+      .dref {
+        font-size: 11px !important;
+      }
+
+      .role-pill {
+        padding: 3px 8px !important;
+        font-size: 10.5px !important;
+      }
+
+      .role-pill .role-pill-name {
+        display: none !important;
+      }
+
+      .tbtn {
+        width: 32px;
+        height: 32px;
+      }
+
+      .tbtn span.btn-reset-txt {
+        display: none !important;
+      }
+    }
+
+    /* Evidence Thumbnail Grid Mobile 2-Columns (< 520px) */
+    @media (max-width: 520px) {
+      .evgrid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+      }
+
+      .evtile {
+        aspect-ratio: 1.1;
+      }
+    }
+
+    /* Popover Cards Centered Screen Overlay on Mobile (< 580px) */
+    @media (max-width: 580px) {
+      .popover-card {
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: calc(100vw - 32px) !important;
+        max-width: 340px !important;
+        z-index: 100000 !important;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45) !important;
+      }
+
+      .auth-card {
+        padding: 24px 18px;
+      }
+    }
+
+    /* Bottom Navigation Tab Bar ("Down Tab") */
+    .bottom-tab-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: calc(60px + env(safe-area-inset-bottom, 0px));
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      z-index: 99998;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06);
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    html[data-theme="dark"] .bottom-tab-bar {
+      background: rgba(18, 20, 26, 0.88);
+      border-top-color: var(--border);
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.35);
+    }
+
+    .tab-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      height: 100%;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-family: inherit;
+      transition: color 0.18s ease, transform 0.15s ease;
+      user-select: none;
+      padding: 6px 0;
+    }
+
+    .tab-item:hover {
+      color: var(--brand-pay);
+    }
+
+    .tab-item.active {
+      color: var(--brand-pay);
+      font-weight: 700;
+    }
+
+    .tab-item.active .tab-icon {
+      font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+      transform: translateY(-1px);
+    }
+
+    .tab-icon {
+      font-size: 22px;
+      transition: transform 0.18s ease;
+    }
+
+    .tab-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+
+    /* Bottom Slide-Up Drawer Cards */
+    .bottom-drawer-card {
+      background: var(--surface);
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      border: 1px solid var(--border);
+      border-bottom: none;
+      padding: 20px 22px;
+      width: 100%;
+      max-width: 540px;
+      max-height: 85vh;
+      overflow-y: auto;
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.25);
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      align-self: flex-end;
+    }
+
+    .pay-modal-overlay.open .bottom-drawer-card {
+      transform: translateY(0);
+    }
+
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+
+    .drawer-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .drawer-close-btn {
+      background: var(--surface-2);
+      border: none;
+      color: var(--text-muted);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .drawer-close-btn:hover {
+      background: var(--border);
+      color: var(--text);
+    }
+
+    /* History & Profile Item Styling */
+    .history-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      margin-bottom: 10px;
+      gap: 12px;
+    }
+
+    .history-item.current {
+      border-color: var(--amber);
+      background: rgba(217, 119, 6, 0.05);
+    }
+
+    .history-item-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .history-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Material Symbols Outlined';
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .history-deal-name {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .history-deal-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .history-amount {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--text);
+      text-align: right;
+    }
+
+    /* Profile Styling */
+    .profile-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px;
+      background: var(--surface-2);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+
+    .profile-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--brand-pay), var(--brand-kudi));
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      flex-shrink: 0;
+    }
+
+    .profile-name {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .profile-phone {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .profile-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .profile-list-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      background: var(--surface-2);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      gap: 10px;
+    }
+
+    .profile-list-item .icon {
+      font-size: 20px;
+      color: var(--brand-pay);
+      flex-shrink: 0;
+    }
+
+    .profile-list-item .title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .profile-list-item .sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- AUTH SCREEN -->
+  <div id="auth">
+    <div class="auth-card">
+      <div style="margin-bottom:24px;" class="flex items-center gap-2">
+        <a href="index.html" class="payment-room-brand group" aria-label="PayKudi home" style="text-decoration:none;">
+          <img src="paykudi-logo.png" alt="PAYKUDI Logo" />
+          <span class="payment-room-brand-copy" aria-hidden="true">
+            <span class="payment-room-brand-name"><span class="brand-pay">PAY</span><span class="brand-kudi">KUDI</span><span class="brand-kudi">.</span></span>
+            <span class="payment-room-brand-subtitle">Powered by <strong class="text-slate-800 font-black">Start<span class="text-[#0E5296]">up.</span></strong></span>
+          </span>
+        </a>
+      </div>
+
+      <div class="deal-chip">
+        <span class="material-symbols-outlined" style="font-size:13px;">tag</span>
+        Deal #ST-8842
+      </div>
+
+      <!-- Step 1: Phone -->
+      <div id="sp">
+        <div style="font-size:19px; font-weight:700; margin-bottom:6px;">Access this deal</div>
+        <div style="font-size:13px; color:var(--text-muted); margin-bottom:22px; line-height:1.55;">
+          Enter the phone number registered on this order. We'll send a one-time code to verify your identity.
+        </div>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <input type="tel" id="ph" class="field" placeholder="+234 800 000 0000" autocomplete="tel" />
+          <button class="btn btn-accent" onclick="sendCode()">Send verification code</button>
+        </div>
+        <div class="auth-err" id="perr">We couldn't match that number to this deal. Please check and try again.</div>
+        <div class="demo-box">
+          <div style="font-size:12px; color:var(--text-muted);">
+            <strong style="color:var(--text);">Demo access</strong>: skip auth and view the room directly.
+          </div>
+          <div class="demo-row">
+            <button class="demo-btn" onclick="enterRoom('buyer')">View as Buyer</button>
+            <button class="demo-btn" onclick="enterRoom('seller')">View as Seller</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: OTP -->
+      <div id="so" style="display:none;">
+        <div style="font-size:19px; font-weight:700; margin-bottom:6px;">Check your messages</div>
+        <div style="font-size:13px; color:var(--text-muted); margin-bottom:22px; line-height:1.55;">
+          We sent a 6-digit code to your number. It expires in 10 minutes.
+          <span style="color:var(--text-subtle); font-size:11px;">(Demo: 123456)</span>
+        </div>
+        <div class="otp-row">
+          <input type="text" maxlength="1" class="otp-d" inputmode="numeric" />
+          <input type="text" maxlength="1" class="otp-d" inputmode="numeric" />
+          <input type="text" maxlength="1" class="otp-d" inputmode="numeric" />
+          <input type="text" maxlength="1" class="otp-d" inputmode="numeric" />
+          <input type="text" maxlength="1" class="otp-d" inputmode="numeric" />
+          <input type="text" maxlength="1" class="otp-d" inputmode="numeric" />
+        </div>
+        <button class="btn btn-accent" onclick="verifyOTP()">Verify and continue</button>
+        <div class="auth-err" id="oerr">That code does not match. Please try again.</div>
+        <div style="margin-top:14px; text-align:center;">
+          <button class="btn btn-g" onclick="goBack()">Back</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROOM SCREEN -->
+  <div id="room">
+    <header class="hdr">
+      <div class="hdr-l">
+        <a href="index.html" class="payment-room-brand group" aria-label="PayKudi home" style="text-decoration:none;">
+          <img src="paykudi-logo.png" alt="PAYKUDI Logo" />
+          <span class="payment-room-brand-copy" aria-hidden="true">
+            <span class="payment-room-brand-name"><span class="brand-pay">PAY</span><span class="brand-kudi">KUDI</span><span class="brand-kudi">.</span></span>
+            <span class="payment-room-brand-subtitle">Powered by <strong class="text-slate-800 font-black">Start<span class="text-[#0E5296]">up.</span></strong></span>
+          </span>
+        </a>
+      </div>
+      <div class="hdr-m">
+        <span class="dref" style="font-size:13px; font-weight:700;">Deal #ST-8842</span>
+        <span class="status-dot-pill bam" id="spill" title="Hover to view deal status">
+          <span class="status-dot" id="sdot" style="background:var(--amber);"></span>
+          <span class="status-label" id="slabel-txt">Shipped</span>
+        </span>
+      </div>
+      <div class="hdr-r">
+        <button class="tbtn" onclick="toggleTheme()" aria-label="Toggle dark mode">
+          <span class="material-symbols-outlined" style="font-size:16px;" id="ticon">dark_mode</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="body">
+
+      <!-- Deal Summary -->
+      <div class="card ani">
+        <div class="slabel">Deal Summary</div>
+        <div style="display:flex; gap:12px; align-items:flex-start; margin-bottom:14px; min-width:0;">
+          <img src="nike-air-max.png" alt="Nike Air Max 2025" class="deal-product-img" />
+          <div style="flex:1; min-width:0;">
+            <div class="deal-title">Nike Air Max 2025</div>
+            <div class="buyer-only" style="margin-top:5px;">
+              <span class="badge ba phone-pill">
+                <span class="material-symbols-outlined" style="font-size:clamp(11px, 1vw + 7px, 13px); flex-shrink:0;">smartphone</span>
+                <span>Your number: +234 803 123 4567</span>
+              </span>
+            </div>
+            <div class="seller-only" style="margin-top:5px;">
+              <span class="badge ba phone-pill">
+                <span class="material-symbols-outlined" style="font-size:clamp(11px, 1vw + 7px, 13px); flex-shrink:0;">smartphone</span>
+                <span>Your number: +234 812 987 6543</span>
+              </span>
+            </div>
+          </div>
+          <div class="price" style="font-size:var(--fz-price); font-weight:800; letter-spacing:-0.03em; flex-shrink:0; white-space:nowrap;">&#x20A6;45,000</div>
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px;">
+          <div class="pchip seller-only"><span class="pdot" style="background:var(--blue);"></span>Buyer: Tunde A.</div>
+          <div class="pchip buyer-only"><span class="pdot" style="background:var(--green);"></span>Seller: Chidi M.
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="slabel" style="margin-bottom:8px;">Terms accepted by both parties</div>
+        <div class="tblock">
+          <div class="tblock-item"><strong>Item:</strong> Nike Air Max 2025, size US 10 (white/black colourway).</div>
+          <div class="tblock-item"><strong>Delivery:</strong> Courier within Lagos, 2&ndash;3 business days.</div>
+          <div class="tblock-item"><strong>Condition:</strong> New, unworn, original box intact and undamaged.</div>
+          <div class="tblock-item"><strong>Issue window:</strong> Buyer must raise dispute within 2hours if any.</div>
+        </div>
+      </div>
+
+      <!-- Payment -->
+      <div class="card ani">
+        <div class="slabel">Payment Breakdown</div>
+        <div class="frow"><span class="l">Item price</span><span class="v">&#x20A6;45,000</span></div>
+        <div class="frow buyer-only"><span class="l"
+            style="padding-left:10px; color:var(--text-muted); font-size:12px;">&bull; Transaction fee
+            (1.5%)</span><span class="v" style="font-size:12px;">&#x20A6;675</span></div>
+        <div class="frow buyer-only"><span class="l"
+            style="padding-left:10px; color:var(--text-muted); font-size:12px;">&bull; Convenience fee</span><span
+            class="v" style="font-size:12px;">&#x20A6;300</span></div>
+        <div class="frow buyer-only"><span class="l" style="font-weight:600;">Total Service fee</span><span class="v"
+            style="font-weight:600; color:var(--brand-pay);">&#x20A6;975</span></div>
+        <div class="frow tot buyer-only"><span class="l">Total Paid</span><span class="v">&#x20A6;45,975</span></div>
+        <div class="frow tot seller-only"><span class="l">Payout Amount</span><span class="v">&#x20A6;45,000</span>
+        </div>
+        <div class="divider"></div>
+        <div style="display:flex; align-items:center; justify-content:space-between;">
+          <span style="font-size:13px; color:var(--text-muted);">Payment status</span>
+          <span class="badge ba buyer-only" id="pay-status-buyer"><span class="material-symbols-outlined"
+              style="font-size:12px;">lock</span> Payment Acknowledged &middot; Secured</span>
+          <span class="badge bg seller-only" id="pay-status-seller"><span class="material-symbols-outlined"
+              style="font-size:12px;">verified</span> Payment Received &middot; Secured</span>
+        </div>
+      </div>
+
+      <!-- Seller Payout Account (Seller Only) -->
+      <div class="card ani seller-only" style="margin-top:-2px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+          <div class="slabel" style="margin-bottom:0;">Payout Bank Account</div>
+          <button class="btn-edit-acct" onclick="toggleAccountEdit()">
+            <span class="material-symbols-outlined" style="font-size:13.5px;">edit_square</span>
+            <span>Edit Account</span>
+          </button>
+        </div>
+
+        <!-- Current Saved Account View -->
+        <div id="acct-view"
+          style="display:flex; align-items:center; justify-content:space-between; background:var(--surface-2); padding:12px 14px; border-radius:var(--radius-sm); border:1px solid var(--border);">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span class="material-symbols-outlined" style="font-size:22px; color:var(--green);">account_balance</span>
+            <div>
+              <div style="font-size:13px; font-weight:700;" id="bank-display">Guaranty Trust Bank (GTB)</div>
+              <div style="font-size:12px; color:var(--text-muted);" id="acct-display">0123456789 &middot; Chidi M.</div>
+            </div>
+          </div>
+          <span class="badge bg" style="font-size:10px;"><span class="material-symbols-outlined"
+              style="font-size:11px;">verified</span> Verified</span>
+        </div>        <!-- Account Edit Form -->
+        <div id="acct-edit"
+          style="display:none; margin-top:10px; background:var(--surface-2); padding:clamp(12px, 1.6vw, 16px); border-radius:var(--radius-sm); border:1px solid var(--border-strong);">
+          <div style="font-size:clamp(12.5px, 0.85vw + 7.5px, 14px); font-weight:700; color:var(--text); margin-bottom:clamp(8px, 1vw, 12px);">Update Payout Account</div>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div>
+              <label
+                style="font-size:clamp(10.5px, 0.75vw + 7px, 12px); font-weight:600; color:var(--text-muted); display:block; margin-bottom:4px;">Select
+                Bank</label>
+              <div class="custom-select-wrapper" id="bank-select-wrapper">
+                <div class="custom-select-trigger" onclick="toggleCustomSelect('bank-select-wrapper')">
+                  <span class="custom-select-val" id="bank-select-val">Guaranty Trust Bank (GTB)</span>
+                  <span class="material-symbols-outlined custom-select-arrow">expand_more</span>
+                </div>
+                <div class="custom-select-options" style="max-height:220px; overflow-y:auto; padding-top:0;">
+                  <div style="position:sticky; top:0; background:var(--surface); padding:8px; border-bottom:1px solid var(--border); z-index:10;">
+                    <input type="text" id="bank-search-input" class="field dispute-input" placeholder="Search bank name..."
+                      oninput="filterBankOptions(this.value)" onclick="event.stopPropagation()"
+                      style="font-size:clamp(11px, 0.75vw + 7px, 12.5px); padding:6px 10px; width:100%; box-sizing:border-box;" />
+                  </div>
+                  <div id="bank-options-list">
+                    <div class="custom-option selected" onclick="selectBankOption('Guaranty Trust Bank (GTB)')">Guaranty Trust Bank (GTB)</div>
+                    <div class="custom-option" onclick="selectBankOption('Access Bank')">Access Bank</div>
+                    <div class="custom-option" onclick="selectBankOption('Access Bank (Diamond)')">Access Bank (Diamond)</div>
+                    <div class="custom-option" onclick="selectBankOption('ALAT by Wema')">ALAT by Wema</div>
+                    <div class="custom-option" onclick="selectBankOption('Carbon')">Carbon</div>
+                    <div class="custom-option" onclick="selectBankOption('Citibank Nigeria')">Citibank Nigeria</div>
+                    <div class="custom-option" onclick="selectBankOption('Dot Microfinance Bank')">Dot Microfinance Bank</div>
+                    <div class="custom-option" onclick="selectBankOption('Ecobank Nigeria')">Ecobank Nigeria</div>
+                    <div class="custom-option" onclick="selectBankOption('FairMoney Microfinance Bank')">FairMoney Microfinance Bank</div>
+                    <div class="custom-option" onclick="selectBankOption('Fidelity Bank')">Fidelity Bank</div>
+                    <div class="custom-option" onclick="selectBankOption('First Bank of Nigeria')">First Bank of Nigeria</div>
+                    <div class="custom-option" onclick="selectBankOption('First City Monument Bank (FCMB)')">First City Monument Bank (FCMB)</div>
+                    <div class="custom-option" onclick="selectBankOption('Globus Bank')">Globus Bank</div>
+                    <div class="custom-option" onclick="selectBankOption('Heritage Bank')">Heritage Bank</div>
+                    <div class="custom-option" onclick="selectBankOption('Jaiz Bank')">Jaiz Bank</div>
+                    <div class="custom-option" onclick="selectBankOption('Keystone Bank')">Keystone Bank</div>
+                    <div class="custom-option" onclick="selectBankOption('Kuda Bank')">Kuda Bank</div>
+                    <div class="custom-option" onclick="selectBankOption('Moniepoint Microfinance Bank')">Moniepoint Microfinance Bank</div>
+                    <div class="custom-option" onclick="selectBankOption('OPay Digital Services')">OPay Digital Services</div>
+                    <div class="custom-option" onclick="selectBankOption('PalmPay')">PalmPay</div>
+                    <div class="custom-option" onclick="selectBankOption('Parallex Bank')">Parallex Bank</div>
+                    <div class="custom-option" onclick="selectBankOption('PiggyVest / Pocket')">PiggyVest / Pocket</div>
+                    <div class="custom-option" onclick="selectBankOption('Polaris Bank')">Polaris Bank</div>
+                    <div class="custom-option" onclick="selectBankOption('PremiumTrust Bank')">PremiumTrust Bank</div>
+                    <div class="custom-option" onclick="selectBankOption('Providus Bank')">Providus Bank</div>
+                    <div class="custom-option" onclick="selectBankOption('Rubies Bank')">Rubies Bank</div>
+                    <div class="custom-option" onclick="selectBankOption('SafeHaven Microfinance Bank')">SafeHaven Microfinance Bank</div>
+                    <div class="custom-option" onclick="selectBankOption('Stanbic IBTC Bank')">Stanbic IBTC Bank</div>
+                    <div class="custom-option" onclick="selectBankOption('Standard Chartered Bank')">Standard Chartered Bank</div>
+                    <div class="custom-option" onclick="selectBankOption('Sterling Bank')">Sterling Bank</div>
+                    <div class="custom-option" onclick="selectBankOption('SunTrust Bank')">SunTrust Bank</div>
+                    <div class="custom-option" onclick="selectBankOption('Taj Bank')">Taj Bank</div>
+                    <div class="custom-option" onclick="selectBankOption('Titan Trust Bank')">Titan Trust Bank</div>
+                    <div class="custom-option" onclick="selectBankOption('Union Bank of Nigeria')">Union Bank of Nigeria</div>
+                    <div class="custom-option" onclick="selectBankOption('United Bank for Africa (UBA)')">United Bank for Africa (UBA)</div>
+                    <div class="custom-option" onclick="selectBankOption('Unity Bank')">Unity Bank</div>
+                    <div class="custom-option" onclick="selectBankOption('VFD Microfinance Bank')">VFD Microfinance Bank</div>
+                    <div class="custom-option" onclick="selectBankOption('Wema Bank')">Wema Bank</div>
+                    <div class="custom-option" onclick="selectBankOption('Zenith Bank')">Zenith Bank</div>
+                  </div>
+                </div>
+                <input type="hidden" id="bank-select" value="Guaranty Trust Bank (GTB)" />
+              </div>
+            </div>
+            <div>
+              <label
+                style="font-size:clamp(10.5px, 0.75vw + 7px, 12px); font-weight:600; color:var(--text-muted); display:block; margin-bottom:4px;">Account
+                Number</label>
+              <input type="text" id="acct-num-input" class="field dispute-input" value="0123456789" maxlength="10"
+                placeholder="10-digit account number" oninput="checkAccountFormChanges()"
+                style="padding:clamp(7px, 1vw, 10px) clamp(10px, 1.2vw, 14px); font-size:clamp(11.5px, 0.75vw + 7px, 13px);" />
+            </div>
+            <div>
+              <label
+                style="font-size:clamp(10.5px, 0.75vw + 7px, 12px); font-weight:600; color:var(--text-muted); display:block; margin-bottom:4px;">Account
+                Name</label>
+              <input type="text" id="acct-name-input" class="field dispute-input" value="Chidi M." placeholder="Account holder name"
+                oninput="checkAccountFormChanges()"
+                style="padding:clamp(7px, 1vw, 10px) clamp(10px, 1.2vw, 14px); font-size:clamp(11.5px, 0.75vw + 7px, 13px);" />
+            </div>
+            <div style="display:flex; justify-content:flex-end; align-items:center; gap:10px; margin-top:6px;">
+              <button type="button" class="btn btn-g" style="padding:clamp(6px, 0.9vw, 9px) clamp(12px, 1.5vw, 16px); font-size:clamp(11px, 0.75vw + 7px, 12.5px); width:auto;"
+                onclick="toggleAccountEdit()">Cancel</button>
+              <button type="button" id="save-acct-btn" class="btn btn-accent" disabled
+                style="padding:clamp(7px, 1vw, 10px) clamp(16px, 2vw, 22px); font-size:clamp(11.5px, 0.8vw + 7.5px, 13px); font-weight:700; width:auto; white-space:nowrap;"
+                onclick="saveAccount()">Save Account</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline -->
+      <div class="card ani">
+        <div class="slabel">Status Timeline</div>
+        <div class="tl" id="tl-list">
+          <div class="tlr">
+            <div class="tls">
+              <div class="tln done"><span class="material-symbols-outlined" style="font-size:12px;">check</span></div>
+              <div class="tlw done"></div>
+            </div>
+            <div class="tlc">
+              <div class="tln-t">Deal created</div>
+              <div class="tlts">Mon 4 Aug &middot; 9:14 AM</div>
+            </div>
+          </div>
+          <div class="tlr">
+            <div class="tls">
+              <div class="tln done"><span class="material-symbols-outlined" style="font-size:12px;">check</span></div>
+              <div class="tlw done"></div>
+            </div>
+            <div class="tlc">
+              <div class="tln-t">Terms accepted by both parties</div>
+              <div class="tlts">Mon 4 Aug &middot; 9:31 AM</div>
+            </div>
+          </div>
+          <div class="tlr">
+            <div class="tls">
+              <div class="tln done"><span class="material-symbols-outlined" style="font-size:12px;">check</span></div>
+              <div class="tlw done"></div>
+            </div>
+            <div class="tlc">
+              <div class="tln-t">Payment secured</div>
+              <div class="tlts">Mon 4 Aug &middot; 10:02 AM</div>
+              <div class="tlnt">&#x20A6;45,975 held in protected account</div>
+            </div>
+          </div>
+          <div class="tlr" id="tl-shipped">
+            <div class="tls">
+              <div class="tln done" id="tln-shipped"><span class="material-symbols-outlined"
+                  style="font-size:12px;">check</span></div>
+              <div class="tlw" id="tlw-shipped"></div>
+            </div>
+            <div class="tlc">
+              <div class="tln-t">Shipped by seller</div>
+              <div class="tlts">Mon 4 Aug &middot; 2:17 PM</div>
+              <div class="tlnt" style="margin-top:7px;"><a class="trkchip" href="#" onclick="return false;"><span
+                    class="material-symbols-outlined" style="font-size:13px;">package_2</span>GIG Logistics &middot;
+                  GIG2208471</a></div>
+            </div>
+          </div>
+          <!-- Dynamic Dispute Node inserted here -->
+          <div id="tl-dispute-slot"></div>
+          <div class="tlr" id="tl-delivery">
+            <div class="tls">
+              <div class="tln wait" id="tln-delivery"><span class="material-symbols-outlined"
+                  style="font-size:12px;">home</span></div>
+              <div class="tlw" id="tlw-delivery"></div>
+            </div>
+            <div class="tlc">
+              <div class="tln-t m" id="tlt-delivery">Delivery confirmed by buyer</div>
+              <div class="tlts" id="tlts-delivery">Pending</div>
+            </div>
+          </div>
+          <div class="tlr" id="tl-funds">
+            <div class="tls">
+              <div class="tln wait" id="tln-funds"><span class="material-symbols-outlined"
+                  style="font-size:12px;">payments</span></div>
+            </div>
+            <div class="tlc" style="padding-bottom:0;">
+              <div class="tln-t m" id="tlt-funds">Funds released to seller</div>
+              <div class="tlts" id="tlts-funds">Pending</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Evidence -->
+      <div class="card ani">
+        <div class="slabel">Evidence on File</div>
+        <div class="evgrid">
+          <div class="evtile"
+            onclick="openLightbox('nike-air-max.png', 'Buyer Reference Screenshot (Uploaded by Buyer)')">
+            <img src="nike-air-max.png" alt="Buyer reference" />
+            <span class="ev-tag">Buyer ref</span>
+          </div>
+          <div class="evtile" onclick="openLightbox('packaging.png', 'Packaging Photo (Uploaded by Seller)')">
+            <img src="packaging.png" alt="Packaging photo" />
+            <span class="ev-tag">Packaging</span>
+          </div>
+          <div class="evtile" onclick="openLightbox('packaging.png', 'Packaging Video (Uploaded by Seller)')">
+            <img src="packaging.png" alt="Packaging video" style="filter: brightness(0.8);" />
+            <span class="material-symbols-outlined play-icon">play_circle</span>
+            <span class="ev-tag">Pack video</span>
+          </div>
+          <div class="evtile"
+            onclick="openLightbox('shipping-label.png', 'GIG Logistics Shipping Label (Uploaded by Seller)')">
+            <img src="shipping-label.png" alt="Shipping label" />
+            <span class="ev-tag">Ship label</span>
+          </div>
+        </div>
+        <div class="seller-only" style="margin-top:14px;">
+          <div class="divider"></div>
+          <div class="slabel" style="margin-bottom:8px;">Add evidence</div>
+          <div class="upzone"><span class="material-symbols-outlined"
+              style="font-size:28px; color:var(--text-subtle);">cloud_upload</span>
+            <div style="font-size:13px; font-weight:600; color:var(--text-muted); margin-top:6px;">Upload photo or video
+            </div>
+            <div style="font-size:11px; color:var(--text-subtle); margin-top:3px;">JPG, PNG, MP4 &middot; max 50 MB
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dispute Card -->
+      <div class="card ani">
+        <!-- State 1: Default / Closed -->
+        <div id="nd">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:4px;">
+            <div class="dispute-label" style="font-size:clamp(12px, 0.8vw + 8px, 14px); font-weight:700;">Have a problem with this order?</div>
+            <button class="btn-dispute" id="dispute-toggle-btn" onclick="toggleDisputeForm()" style="font-size:var(--fz-dispute-btn); flex-shrink:0;">Raise a dispute</button>
+          </div>
+          <div class="dispute-sub" style="line-height:1.5;">Either party can raise a dispute before funds are released.</div>
+        </div>
+
+        <!-- State 2: Interactive Dispute Submission Form -->
+        <div id="df" class="dispute-form-wrapper">
+          <div style="margin-bottom:14px;">
+            <div class="dispute-title">Raise a Dispute</div>
+            <div class="dispute-sub" style="margin-top:2px;">Submit details and evidence for <span
+                class="logo-text" style="font-size:inherit;"><span class="brand-pay">PAY</span><span
+                  class="brand-kudi">KUDI</span></span> team review.</div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <!-- Buyer Dispute Reasons -->
+            <div class="buyer-only">
+              <div style="display:flex; align-items:center; margin-bottom:6px; position:relative;">
+                <label class="dispute-label">Select Dispute Reason</label>
+                <button type="button" class="btn-info-blink" onclick="toggleEvidenceHint(event)"
+                  title="Click for required evidence guidance">
+                  <span class="material-symbols-outlined" style="font-size:13px; pointer-events:none;">info</span>
+                </button>
+                <!-- Info Popover Modal -->
+                <div id="info-popover-buyer" class="popover-card"
+                  style="display:none; position:absolute; top:28px; left:0; z-index:9999; width:290px;">
+                  <div
+                    style="font-size:12px; font-weight:700; color:var(--brand-pay); margin-bottom:4px; display:flex; align-items:center; gap:5px;">
+                    <span class="material-symbols-outlined" style="font-size:15px;">info</span>
+                    <span>Required Evidence Guidance</span>
+                  </div>
+                  <div class="info-popover-text" style="font-size:12px; color:var(--text); line-height:1.5;">
+                    Please select a dispute reason above to view required evidence guidelines.
+                  </div>
+                </div>
+              </div>
+              <div class="custom-select-wrapper" id="buyer-dispute-wrapper">
+                <div class="custom-select-trigger" onclick="toggleCustomSelect('buyer-dispute-wrapper')">
+                  <span class="custom-select-val placeholder" id="buyer-dispute-val">Select Dispute Reason</span>
+                  <span class="material-symbols-outlined custom-select-arrow">expand_more</span>
+                </div>
+                <div class="custom-select-options">
+                  <div class="custom-option" onclick="selectCustomOption('buyer', 'not_received', '📦 Item not received')">📦 Item not received</div>
+                  <div class="custom-option" onclick="selectCustomOption('buyer', 'damaged', '💥 Item arrived damaged')">💥 Item arrived damaged</div>
+                  <div class="custom-option" onclick="selectCustomOption('buyer', 'wrong_item', '⚠️ Item not as described')">⚠️ Item not as described</div>
+                  <div class="custom-option" onclick="selectCustomOption('buyer', 'counterfeit', '🚫 Fake / counterfeit item')">🚫 Fake / counterfeit item</div>
+                  <div class="custom-option" onclick="selectCustomOption('buyer', 'other', '📝 Other (specify below)')">📝 Other (specify below)</div>
+                </div>
+                <input type="hidden" id="buyer-dispute-reason" value="" />
+              </div>
+            </div>
+
+            <!-- Seller Dispute Reasons -->
+            <div class="seller-only">
+              <div style="display:flex; align-items:center; margin-bottom:6px; position:relative;">
+                <label class="dispute-label">Select Dispute Reason</label>
+                <button type="button" class="btn-info-blink" onclick="toggleEvidenceHint(event)"
+                  title="Click for required evidence guidance">
+                  <span class="material-symbols-outlined" style="font-size:13px; pointer-events:none;">info</span>
+                </button>
+                <!-- Info Popover Modal -->
+                <div id="info-popover-seller" class="popover-card"
+                  style="display:none; position:absolute; top:28px; left:0; z-index:9999; width:290px;">
+                  <div
+                    style="font-size:12px; font-weight:700; color:var(--brand-pay); margin-bottom:4px; display:flex; align-items:center; gap:5px;">
+                    <span class="material-symbols-outlined" style="font-size:15px;">info</span>
+                    <span>Required Evidence Guidance</span>
+                  </div>
+                  <div class="info-popover-text" style="font-size:12px; color:var(--text); line-height:1.5;">
+                    Please select a dispute reason above to view required evidence guidelines.
+                  </div>
+                </div>
+              </div>
+              <div class="custom-select-wrapper" id="seller-dispute-wrapper">
+                <div class="custom-select-trigger" onclick="toggleCustomSelect('seller-dispute-wrapper')">
+                  <span class="custom-select-val placeholder" id="seller-dispute-val">Select Dispute Reason</span>
+                  <span class="material-symbols-outlined custom-select-arrow">expand_more</span>
+                </div>
+                <div class="custom-select-options">
+                  <div class="custom-option" onclick="selectCustomOption('seller', 'unresponsive', '📵 Buyer uncommunicative')">📵 Buyer uncommunicative</div>
+                  <div class="custom-option" onclick="selectCustomOption('seller', 'refused_delivery', '🚫 Buyer rejected parcel')">🚫 Buyer rejected parcel</div>
+                  <div class="custom-option" onclick="selectCustomOption('seller', 'false_claim', '❌ False claim by buyer')">❌ False claim by buyer</div>
+                  <div class="custom-option" onclick="selectCustomOption('seller', 'delivered_denied', '📍 Buyer denies delivery')">📍 Buyer denies delivery</div>
+                  <div class="custom-option" onclick="selectCustomOption('seller', 'other', '📝 Other (specify below)')">📝 Other (specify below)</div>
+                </div>
+                <input type="hidden" id="seller-dispute-reason" value="" />
+              </div>
+            </div>
+
+            <!-- Detailed Description Textarea -->
+            <div>
+              <label class="dispute-label" style="display:block; margin-bottom:6px;">Describe What Happened</label>
+              <textarea id="dispute-desc" class="field dispute-input" rows="3"
+                placeholder="Provide full context, dates, conversations, or agreed terms violated..."
+                style="resize:vertical; font-family:'Inter',sans-serif;"></textarea>
+            </div>
+
+            <!-- Upload Evidence Area -->
+            <div>
+              <div style="margin-bottom:6px;">
+                <label class="dispute-label">
+                  Upload Supporting Evidence
+                  <span style="font-size:clamp(9.5px, 0.7vw + 6.5px, 11px); color:var(--text-subtle); font-weight:400; margin-left:4px;">* JPG, PNG,
+                    MP4 &middot; max 2MB each</span>
+                </label>
+              </div>
+              <div class="up-row" style="position:relative;">
+                <div class="up-sq-box" onclick="triggerDisputeUpload(event)" title="Add evidence photo or video">
+                  <span class="material-symbols-outlined" style="font-size:clamp(20px, 2vw + 10px, 24px);">add</span>
+                  <span style="margin-top:2px;">Add File</span>
+                </div>
+                <input type="file" id="dispute-file-input" style="display:none;" multiple
+                  onchange="handleDisputeFileSelect(this)" />
+
+                <div id="upload-popover" class="popover-card"
+                  style="display:none; position:absolute; top:0; left:88px; z-index:9999; width:290px;">
+                  <div
+                    style="font-size:12px; font-weight:700; color:var(--brand-pay); margin-bottom:4px; display:flex; align-items:center; gap:5px;">
+                    <span class="material-symbols-outlined" style="font-size:15px;">verified_user</span>
+                    <span>Required Evidence Proof</span>
+                  </div>
+                  <div id="upload-popover-text"
+                    style="font-size:11.5px; color:var(--text); line-height:1.5; margin-bottom:8px;">
+                    Please upload clear, relevant supporting evidence for your claim.
+                  </div>
+                  <div style="display:flex; justify-content:flex-end; margin-top:8px;">
+                    <button class="btn btn-accent"
+                      style="padding:6px 16px; font-size:11.5px; font-weight:700; width:auto; border-radius:var(--radius-sm);"
+                      onclick="confirmUploadGuidance(event)">
+                      I Understand
+                    </button>
+                  </div>
+                </div>
+
+                <div id="file-preview-list" style="display:flex; flex-wrap:wrap; gap:10px; align-items:center;"></div>
+              </div>
+            </div>
+
+            <div style="display:flex; justify-content:flex-end; margin-top:8px;">
+              <button type="button" class="btn btn-dispute-submit"
+                style="background:var(--red); color:#fff; font-weight:700; border-radius:var(--radius-sm); cursor:pointer;"
+                onclick="submitDispute()">
+                <span class="material-symbols-outlined" style="font-size:clamp(14px, 1vw + 8px, 16px);">gavel</span>
+                Submit Dispute Claim
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- State 3: Dispute Open -->
+        <div id="do" style="display:none;">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:4px; flex-wrap:nowrap;">
+            <div class="dispute-open-title" id="dispute-open-title">Dispute Open &amp; Trail History</div>
+            <span class="badge br dispute-header-badge" id="dispute-header-badge"><span
+                style="width:6px;height:6px;border-radius:50%;background:var(--red);display:inline-block;flex-shrink:0;"></span>
+              <span>Awaiting Response</span></span>
+          </div>
+          <div class="dispute-open-sub" id="dispute-open-sub" style="margin-bottom:14px;">Live audit trail of claims, counter-evidence, and resolution.</div>
+
+          <div class="dispute-trail" style="display:flex; flex-direction:column; gap:12px; margin-bottom:14px;">
+            <div
+              style="background:var(--surface-2); border:1px solid var(--border); border-left:3px solid var(--red); border-radius:var(--radius-sm); padding:14px; font-size:clamp(11px, 0.75vw + 7.5px, 12.5px); line-height:1.65;"
+              id="submitted-summary">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <div
+                  style="font-size:clamp(12px, 0.8vw + 8px, 14px); font-weight:700; color:var(--text); display:flex; align-items:center; gap:6px;">
+                  <span class="material-symbols-outlined" style="font-size:16px; color:var(--red);">gavel</span>
+                  <span>Dispute Claim Raised</span>
+                </div>
+                <span style="font-size:clamp(9.5px, 0.7vw + 6.5px, 11px); color:var(--text-subtle);" id="dispute-trail-1-time">Initial Claim</span>
+              </div>
+              <div><strong>Raised By:</strong> <span id="dispute-raised-by">Buyer (Tunde A.)</span></div>
+              <div><strong>Reason:</strong> <span id="sub-reason">Item arrived damaged or broken</span></div>
+              <div class="context-pill-container">
+                <strong>Context:</strong>
+                <div class="expandable-context-pill" onclick="toggleContextPill(this)" title="Click to expand/collapse full text">
+                  <span class="expandable-context-text" id="dispute-desc-view">Details provided...</span>
+                  <span class="material-symbols-outlined pill-arrow">expand_more</span>
+                </div>
+              </div>
+              <div style="margin-top:6px; font-size:clamp(10px, 0.7vw + 6.5px, 11.5px); color:var(--text-subtle);"><strong>Evidence:</strong> <span
+                  id="dispute-file-count">1 file attachment on record</span></div>
+            </div>
+
+            <div id="dispute-timer-card"
+              style="background:rgba(217,119,6,0.08); border:1px solid rgba(217,119,6,0.25); border-left:3px solid var(--amber); border-radius:var(--radius-sm); padding:14px; text-align:center;">
+              <div style="font-size:clamp(11px, 0.75vw + 7px, 12.5px); font-weight:600; color:var(--text-muted); margin-bottom:4px;"
+                id="dispute-await-banner">
+                Awaiting response from <span id="dispute-other-party" style="font-weight:700; color:var(--text);">Seller
+                  (Chidi M.)</span>
+              </div>
+
+              <div class="dispute-timer-text" id="dispute-timer">
+                01:59:59
+              </div>
+
+              <div style="font-size:clamp(10px, 0.7vw + 6.5px, 11.5px); color:var(--text-subtle); line-height:1.5; max-width:500px; margin:0 auto;"
+                id="dispute-await-desc">
+                The other party has 2 hours to respond or submit counter-evidence. If no response is received before the
+                timer expires, <span class="logo-text" style="font-size:inherit;"><span
+                    class="brand-pay">PAY</span><span class="brand-kudi">KUDI</span></span> auto-resolves the claim
+                based on submitted evidence.
+              </div>
+            </div>
+
+            <div id="counter-in-summary"
+              style="display:none; background:var(--surface-2); border:1px solid var(--border); border-left:3px solid var(--brand-pay); border-radius:var(--radius-sm); padding:clamp(10px, 1.5vw, 14px); font-size:clamp(11px, 0.75vw + 7.5px, 12.5px); line-height:1.65;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <div
+                  style="font-size:clamp(12px, 0.8vw + 8px, 14px); font-weight:700; color:var(--brand-pay); display:flex; align-items:center; gap:6px;">
+                  <span class="material-symbols-outlined"
+                    style="font-size:clamp(14px, 1vw + 8px, 16px); color:var(--brand-pay);">verified</span>
+                  <span id="counter-by-label">Counter-Response Submitted</span>
+                </div>
+                <span style="font-size:clamp(9.5px, 0.7vw + 6.5px, 11px); color:var(--text-subtle);" id="counter-trail-time">Response Trail</span>
+              </div>
+              <div class="context-pill-container">
+                <strong>Explanation:</strong>
+                <div class="expandable-context-pill" onclick="toggleContextPill(this)" title="Click to expand/collapse full text">
+                  <span class="expandable-context-text" id="counter-desc-view">Counter context...</span>
+                  <span class="material-symbols-outlined pill-arrow">expand_more</span>
+                </div>
+              </div>
+              <div style="margin-top:4px; font-size:clamp(10px, 0.7vw + 6.5px, 11.5px); color:var(--text-subtle);"><strong>Counter
+                  Evidence:</strong> <span id="counter-file-count">1 file attachment on record</span></div>
+            </div>
+
+            <div id="both-submitted-banner"
+              style="display:none; background:rgba(46,160,67,0.08); border:1px solid rgba(46,160,67,0.25); border-left:3px solid var(--green); border-radius:var(--radius-sm); padding:clamp(12px, 1.8vw, 18px); text-align:center;">
+              <div
+                style="font-size:clamp(12px, 0.8vw + 8px, 14px); font-weight:700; color:var(--green); margin-bottom:4px; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:6px;">
+                <span class="material-symbols-outlined"
+                  style="font-size:clamp(15px, 1.2vw + 10px, 18px); color:var(--green);">admin_panel_settings</span>
+                <span>PAYKUDI Agent Stepped In &middot; Both Claims Under Review</span>
+              </div>
+              <div
+                style="font-size:clamp(10px, 0.7vw + 6.5px, 11.5px); color:var(--text-subtle); line-height:1.55; max-width:540px; margin:0 auto;">
+                Both parties have submitted full claims and evidence. A dedicated <span class="logo-text"
+                  style="font-size:inherit;"><span class="brand-pay">PAY</span><span
+                    class="brand-kudi">KUDI</span></span> dispute resolution officer is evaluating all proof to reach a
+                final decision within 30 minutes.
+              </div>
+            </div>
+          </div>
+
+          <div id="counter-dispute-section"
+            style="display:none; margin-top:14px; background:var(--surface-2); border:1.5px dashed rgba(217,119,6,0.3); border-radius:var(--radius-sm); padding:clamp(12px, 1.8vw, 18px);">
+            <div
+              style="font-size:clamp(13px, 1vw + 9px, 15.5px); font-weight:700; color:var(--amber); margin-bottom:4px; display:flex; align-items:center; gap:6px;">
+              <span class="material-symbols-outlined" style="font-size:clamp(16px, 1.2vw + 12px, 19px);">gavel</span>
+              <span>Submit Your Counter-Response &amp; Proof</span>
+            </div>
+            <div style="font-size:clamp(11px, 0.75vw + 7.5px, 12.5px); color:var(--text-muted); margin-bottom:12px; line-height:1.5;">
+              The other party has raised a dispute. Upload your counter-evidence and details before the 2-hour timer
+              expires.
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <div>
+                <label class="dispute-label"
+                  style="display:block; margin-bottom:6px;">Your Explanation &amp; Counter-Context</label>
+                <textarea id="counter-desc" class="field dispute-input" rows="3"
+                  placeholder="Provide your counter-explanation or context..."
+                  style="resize:vertical; font-family:'Inter',sans-serif;"></textarea>
+              </div>
+
+              <div>
+                <div style="margin-bottom:6px;">
+                  <label class="dispute-label">
+                    Upload Counter Evidence
+                    <span style="font-size:clamp(9.5px, 0.7vw + 6.5px, 11px); color:var(--text-subtle); font-weight:400; margin-left:4px;">* JPG,
+                      PNG, MP4 &middot; max 2MB each</span>
+                  </label>
+                </div>
+
+                <div class="up-row" style="position:relative;">
+                  <div class="up-sq-box" onclick="triggerCounterUpload(event)"
+                    title="Add counter evidence photo or video"
+                    style="width:clamp(58px, 7vw + 24px, 72px); height:clamp(58px, 7vw + 24px, 72px);">
+                    <span class="material-symbols-outlined" style="font-size:clamp(20px, 2vw + 10px, 24px);">add</span>
+                    <span style="font-size:clamp(9px, 0.6vw + 6.5px, 10.5px); font-weight:600; margin-top:2px;">Add File</span>
+                  </div>
+                  <input type="file" id="counter-file-input" style="display:none;" multiple
+                    onchange="handleCounterFileSelect(this)" />
+
+                  <div id="counter-upload-popover" class="popover-card"
+                    style="display:none; position:absolute; top:0; left:88px; z-index:9999; width:290px;">
+                    <div
+                      style="font-size:12px; font-weight:700; color:var(--brand-pay); margin-bottom:4px; display:flex; align-items:center; gap:5px;">
+                      <span class="material-symbols-outlined" style="font-size:15px;">verified_user</span>
+                      <span>Counter Evidence Guidance</span>
+                    </div>
+                    <div id="counter-upload-popover-text"
+                      style="font-size:11.5px; color:var(--text); line-height:1.5; margin-bottom:8px;">
+                      Please upload clear pre-dispatch videos or photos showing item was intact.
+                    </div>
+                    <div style="display:flex; justify-content:flex-end; margin-top:8px;">
+                      <button type="button" class="btn btn-accent"
+                        style="padding:6px 16px; font-size:11.5px; font-weight:700; width:auto; border-radius:var(--radius-sm);"
+                        onclick="confirmCounterUploadGuidance(event)">
+                        I Understand
+                      </button>
+                    </div>
+                  </div>
+
+                  <div id="counter-preview-list" style="display:flex; flex-wrap:wrap; gap:10px; align-items:center;">
+                  </div>
+                </div>
+              </div>
+
+              <div style="display:flex; justify-content:flex-end; margin-top:4px;">
+                <button type="button" class="btn btn-accent"
+                  style="padding:clamp(9px, 1.2vw, 12px) clamp(18px, 2.5vw, 28px); font-size:clamp(12px, 0.8vw + 8px, 14px); font-weight:700; width:auto;"
+                  onclick="submitCounterResponse()">
+                  Submit Counter-Response
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FAB for Buyer Confirmation -->
+  <div class="buyer-only" id="bbar"
+    style="position:fixed; bottom:calc(72px + env(safe-area-inset-bottom, 0px)); right:clamp(14px, 3.5vw, 24px); z-index:9999;">
+    <button class="btn-confirm-fab" id="fab-btn" onclick="handleFabClick()" title="Confirm delivery & release payment">
+      <span class="material-symbols-outlined" style="font-size:22px;">check_circle</span>
+      <span class="fab-label">Confirm Delivery &amp; Release Payment</span>
+    </button>
+  </div>
+
+  <!-- Lightbox Modal for Evidence Preview -->
+  <div id="lightbox"
+    style="display:none; position:fixed; inset:0; z-index:99999; background:rgba(0,0,0,0.85); backdrop-filter:blur(6px); align-items:center; justify-content:center; padding:20px;"
+    onclick="closeLightbox()">
+    <div
+      style="position:relative; max-width:90vw; max-height:85vh; background:var(--surface); border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); box-shadow:0 20px 40px rgba(0,0,0,0.5); width:100%; max-width:540px;"
+      onclick="event.stopPropagation()">
+      <div
+        style="display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid var(--border); background:var(--surface-2);">
+        <span id="lb-title" style="font-size:13px; font-weight:700; color:var(--text);">Evidence Preview</span>
+        <button onclick="closeLightbox()"
+          style="background:none; border:none; color:var(--text-muted); cursor:pointer; display:flex; align-items:center;">
+          <span class="material-symbols-outlined" style="font-size:20px;">close</span>
+        </button>
+      </div>
+      <div
+        style="padding:16px; display:flex; align-items:center; justify-content:center; max-height:75vh; overflow:auto;">
+        <img id="lb-img" src="" alt="Evidence Full View"
+          style="max-width:100%; max-height:65vh; object-fit:contain; border-radius:8px;" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Paykudi Toast Notification -->
+  <div id="pay-toast" class="pay-toast-container">
+    <span class="material-symbols-outlined" id="toast-icon" style="font-size:20px; color:var(--brand-pay);">info</span>
+    <span id="toast-msg">Notification message</span>
+  </div>
+
+  <!-- Custom Paykudi Confirm Modal -->
+  <div id="pay-confirm-modal" class="pay-modal-overlay" onclick="closeCustomConfirm()">
+    <div class="pay-modal-card" onclick="event.stopPropagation()">
+      <div style="font-size:16px; font-weight:700; color:var(--text); margin-bottom:6px;" id="cmodal-title">Confirm
+        Action</div>
+      <div style="font-size:13px; color:var(--text-muted); line-height:1.6; margin-bottom:20px;" id="cmodal-msg">Are you
+        sure you want to proceed with this action?</div>
+      <div style="display:flex; align-items:center; justify-content:flex-end; gap:10px;">
+        <button class="btn btn-g" style="padding:9px 16px; font-size:13px; width:auto;"
+          onclick="closeCustomConfirm()">Cancel</button>
+        <button class="btn btn-accent" id="cmodal-ok"
+          style="padding:9px 24px; font-size:13px; font-weight:700; width:auto;">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var role = 'buyer';
+    function sendCode() { var p = document.getElementById('ph').value.trim(), e = document.getElementById('perr'); if (p.replace(/\D/g, '').length < 7) { e.style.display = 'block'; return; } e.style.display = 'none'; var l = parseInt(p.replace(/\D/g, '').slice(-1)) || 0; role = l % 2 === 0 ? 'seller' : 'buyer'; document.getElementById('sp').style.display = 'none'; document.getElementById('so').style.display = 'block'; wireOTP(); }
+    function wireOTP() { var ins = document.querySelectorAll('.otp-d'); ins.forEach(function (inp, i) { inp.value = ''; inp.oninput = function () { if (inp.value && i < ins.length - 1) ins[i + 1].focus(); }; inp.onkeydown = function (e) { if (e.key === 'Backspace' && !inp.value && i > 0) ins[i - 1].focus(); }; }); ins[0].focus(); }
+    function verifyOTP() { var code = Array.from(document.querySelectorAll('.otp-d')).map(function (i) { return i.value; }).join(''), e = document.getElementById('oerr'); if (code === '123456') { e.style.display = 'none'; enterRoom(role); } else { e.style.display = 'block'; document.querySelectorAll('.otp-d').forEach(function (i) { i.value = ''; }); document.querySelector('.otp-d').focus(); } }
+    function goBack() { document.getElementById('so').style.display = 'none'; document.getElementById('sp').style.display = 'block'; }
+    function enterRoom(r) {
+      role = r;
+      document.getElementById('auth').style.display = 'none';
+      document.getElementById('room').style.display = 'flex';
+      applyRole();
+      renderRoomFromState();
+    }
+    function applyRole() {
+      var b = document.querySelector('.body');
+      if (b) b.style.paddingBottom = '90px';
+      document.querySelectorAll('.buyer-only').forEach(function (el) { el.style.display = role === 'buyer' ? (el.classList.contains('frow') ? 'flex' : (el.id === 'bbar' ? 'flex' : 'block')) : 'none'; });
+      document.querySelectorAll('.seller-only').forEach(function (el) { el.style.display = role === 'seller' ? (el.classList.contains('frow') ? 'flex' : 'block') : 'none'; });
+
+      var rpill = document.getElementById('rpill');
+      if (rpill) {
+        const icon = `<span class="material-symbols-outlined" style="font-size:15px; color:var(--brand-pay);">account_circle</span>`;
+        rpill.innerHTML = icon + `<span class="role-pill-name">${role === 'buyer' ? 'Tunde A.' : 'Chidi M.'} </span>` + `(${role === 'buyer' ? 'Buyer' : 'Seller'})`;
+      }
+    }
+    function toggleDisputeForm() {
+      var df = document.getElementById('df');
+      var btn = document.getElementById('dispute-toggle-btn');
+      if (df.classList.contains('open')) {
+        df.classList.remove('open');
+        if (btn) btn.textContent = 'Raise a dispute';
+        setTimeout(function () {
+          df.style.display = 'none';
+        }, 400);
+      } else {
+        applyRole();
+        checkOtherReason(role);
+        df.style.display = 'block';
+        if (btn) btn.textContent = 'Cancel';
+        setTimeout(function () {
+          df.classList.add('open');
+        }, 20);
+
+        setTimeout(function () {
+          var card = df.closest('.card');
+          if (card) {
+            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          } else {
+            df.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }, 250);
+      }
+    }
+
+    var evidenceGuidanceMap = {
+      buyer: {
+        not_received: "Please upload waybill receipt, tracking screenshot, or chat history with courier.",
+        damaged: "Please upload clear unboxing photos or video showing item damage and parcel packaging.",
+        wrong_item: "Please upload photos of the item tag, size label, or comparison with original listing.",
+        counterfeit: "Please upload close-up photos of serial numbers, stitching, logos, or authenticity receipts.",
+        other: "Please upload any screenshots, photos, or documents supporting your claim."
+      },
+      seller: {
+        unresponsive: "Please upload a full video recording of your chat history and call logs showing attempts to reach the buyer.",
+        refused_delivery: "Please upload courier return slip, dispatch rider chat, or delivery refusal proof.",
+        false_claim: "Please upload pre-packing photos or videos showing item condition before dispatch.",
+        delivered_denied: "Please upload official courier delivery confirmation slip with recipient signature or code.",
+        other: "Please upload any packaging photos, waybills, or chat history supporting your claim."
+      }
+    };
+
+    function checkOtherReason(roleType) {
+      var selId = roleType === 'buyer' ? 'buyer-dispute-reason' : 'seller-dispute-reason';
+      var sel = document.getElementById(selId);
+      if (!sel) return;
+      var val = sel.value;
+      var hintText = (val && evidenceGuidanceMap[roleType] && evidenceGuidanceMap[roleType][val])
+        ? evidenceGuidanceMap[roleType][val]
+        : "Please select a dispute reason above to view required evidence guidelines.";
+
+      document.querySelectorAll('.info-popover-text').forEach(function (el) {
+        el.textContent = hintText;
+      });
+      var upHint = document.getElementById('upload-popover-text');
+      if (upHint) upHint.textContent = hintText;
+    }
+
+    function toggleEvidenceHint(event) {
+      if (event) event.stopPropagation();
+      checkOtherReason(role);
+
+      var activePopId = role === 'buyer' ? 'info-popover-buyer' : 'info-popover-seller';
+      var pop = document.getElementById(activePopId);
+      if (!pop) return;
+
+      var uploadPop = document.getElementById('upload-popover');
+      if (uploadPop) uploadPop.style.display = 'none';
+
+      if (pop.style.display === 'none' || !pop.style.display) {
+        pop.style.display = 'block';
+      } else {
+        pop.style.display = 'none';
+      }
+    }
+
+    document.addEventListener('click', function (e) {
+      ['info-popover-buyer', 'info-popover-seller', 'upload-popover', 'counter-upload-popover'].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el && el.style.display !== 'none' && !el.contains(e.target)) {
+          el.style.display = 'none';
+        }
+      });
+    });
+
+    var uploadedDisputeFiles = [];
+    var hasConfirmedEvidenceGuidance = false;
+
+    function triggerDisputeUpload(event) {
+      if (event) event.stopPropagation();
+
+      var infoPop = document.getElementById('info-popover-buyer');
+      if (infoPop) infoPop.style.display = 'none';
+      var infoPopSeller = document.getElementById('info-popover-seller');
+      if (infoPopSeller) infoPopSeller.style.display = 'none';
+
+      if (!hasConfirmedEvidenceGuidance) {
+        checkOtherReason(role);
+        var pop = document.getElementById('upload-popover');
+        if (pop) pop.style.display = 'block';
+      } else {
+        document.getElementById('dispute-file-input').click();
+      }
+    }
+
+    function confirmUploadGuidance(event) {
+      if (event) event.stopPropagation();
+      hasConfirmedEvidenceGuidance = true;
+      var pop = document.getElementById('upload-popover');
+      if (pop) pop.style.display = 'none';
+      document.getElementById('dispute-file-input').click();
+    }
+
+    function handleDisputeFileSelect(input) {
+      if (input.files && input.files.length > 0) {
+        for (var i = 0; i < input.files.length; i++) {
+          uploadedDisputeFiles.push(input.files[i]);
+        }
+        renderDisputeThumbnails();
+      }
+    }
+
+    function renderThumbnailsWithOverflow(containerId, fileArray, onRemove) {
+      var container = document.getElementById(containerId);
+      if (!container) return;
+      container.innerHTML = '';
+
+      var maxVisible = 2;
+      var totalFiles = fileArray.length;
+
+      for (var idx = 0; idx < Math.min(totalFiles, maxVisible); idx++) {
+        var file = fileArray[idx];
+        var thumb = document.createElement('div');
+        thumb.className = 'up-thumb';
+        thumb.style.position = 'relative';
+
+        if (file.type && file.type.startsWith('image/')) {
+          var img = document.createElement('img');
+          img.src = URL.createObjectURL(file);
+          thumb.appendChild(img);
+        } else {
+          thumb.innerHTML = '<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; gap:2px;"><span class="material-symbols-outlined" style="font-size:22px; color:var(--brand-pay);">movie</span><span style="font-size:9px; font-weight:600;">Media</span></div>';
+        }
+
+        var delBtn = document.createElement('button');
+        delBtn.className = 'up-del';
+        delBtn.innerHTML = '&#10005;';
+        delBtn.title = 'Remove file';
+        (function (i) {
+          delBtn.onclick = function (e) { e.stopPropagation(); onRemove(i); };
+        })(idx);
+        thumb.appendChild(delBtn);
+
+        if (idx === 1 && totalFiles > 2) {
+          var remaining = totalFiles - 2;
+          var overlay = document.createElement('div');
+          overlay.style.cssText = 'position:absolute; inset:0; background:rgba(0,0,0,0.68); backdrop-filter:blur(2px); border-radius:inherit; display:flex; align-items:center; justify-content:center; color:#ffffff; font-size:16px; font-weight:800; cursor:pointer; z-index:2;';
+          overlay.textContent = '+' + remaining;
+          overlay.title = totalFiles + ' files attached total';
+          overlay.onclick = function (e) {
+            e.stopPropagation();
+            openLightbox(URL.createObjectURL(fileArray[0]), 'Evidence Files (' + totalFiles + ' Attached)');
+          };
+          thumb.appendChild(overlay);
+        }
+
+        container.appendChild(thumb);
+      }
+    }
+
+    function renderDisputeThumbnails() {
+      renderThumbnailsWithOverflow('file-preview-list', uploadedDisputeFiles, removeDisputeFile);
+    }
+
+    function renderCounterThumbnails() {
+      renderThumbnailsWithOverflow('counter-preview-list', uploadedCounterFiles, removeCounterFile);
+    }
+
+    function removeDisputeFile(index) {
+      uploadedDisputeFiles.splice(index, 1);
+      renderDisputeThumbnails();
+    }
+
+    function showToast(msg, type, iconName) {
+      if (!type) type = 'info';
+      var container = document.getElementById('pay-toast');
+      var iconEl = document.getElementById('toast-icon');
+      var msgEl = document.getElementById('toast-msg');
+
+      if (!iconName) {
+        if (type === 'success') iconName = 'check_circle';
+        else if (type === 'error') iconName = 'error';
+        else if (type === 'warning') iconName = 'warning';
+        else iconName = 'info';
+      }
+
+      var colors = {
+        success: 'var(--green)',
+        error: 'var(--red)',
+        warning: 'var(--amber)',
+        info: 'var(--brand-pay)'
+      };
+
+      iconEl.style.color = colors[type] || 'var(--brand-pay)';
+      iconEl.textContent = iconName;
+      msgEl.textContent = msg;
+
+      container.classList.add('show');
+
+      if (window.toastTimer) clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(function () {
+        container.classList.remove('show');
+      }, 3500);
+    }
+
+    function customConfirm(title, message, onConfirm, okText) {
+      var overlay = document.getElementById('pay-confirm-modal');
+      document.getElementById('cmodal-title').textContent = title;
+      document.getElementById('cmodal-msg').textContent = message;
+
+      var okBtn = document.getElementById('cmodal-ok');
+      okBtn.textContent = okText || 'Confirm';
+      okBtn.onclick = function () {
+        closeCustomConfirm();
+        if (onConfirm) onConfirm();
+      };
+
+      overlay.classList.add('open');
+    }
+
+    function closeCustomConfirm() {
+      document.getElementById('pay-confirm-modal').classList.remove('open');
+    }
+
+    function getFormattedNow() {
+      var d = new Date();
+      var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      var dayName = days[d.getDay()];
+      var dayNum = d.getDate();
+      var monthName = months[d.getMonth()];
+      var hours = d.getHours();
+      var mins = d.getMinutes();
+      var ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      mins = mins < 10 ? '0' + mins : mins;
+      return dayName + ' ' + dayNum + ' ' + monthName + ' &middot; ' + hours + ':' + mins + ' ' + ampm;
+    }
+
+    function updateTimelineOnDeliveryConfirmed() {
+      var nowStr = getFormattedNow();
+      var wShipped = document.getElementById('tlw-shipped');
+      if (wShipped) wShipped.className = 'tlw done';
+
+      var nDel = document.getElementById('tln-delivery');
+      if (nDel) {
+        nDel.className = 'tln done';
+        nDel.innerHTML = '<span class="material-symbols-outlined" style="font-size:12px;">check</span>';
+      }
+      var tDel = document.getElementById('tlt-delivery');
+      if (tDel) tDel.className = 'tln-t';
+      var tsDel = document.getElementById('tlts-delivery');
+      if (tsDel) tsDel.innerHTML = nowStr + ' &middot; Verified by buyer';
+      var wDel = document.getElementById('tlw-delivery');
+      if (wDel) wDel.className = 'tlw done';
+
+      var nFunds = document.getElementById('tln-funds');
+      if (nFunds) {
+        nFunds.className = 'tln done';
+        nFunds.innerHTML = '<span class="material-symbols-outlined" style="font-size:12px;">check</span>';
+      }
+      var tFunds = document.getElementById('tlt-funds');
+      if (tFunds) tFunds.className = 'tln-t';
+      var tsFunds = document.getElementById('tlts-funds');
+      if (tsFunds) tsFunds.innerHTML = nowStr + ' &middot; &#x20A6;45,000 paid out to seller';
+    }
+
+    function updateTimelineOnDispute(reasonText) {
+      var nowStr = getFormattedNow();
+      var slot = document.getElementById('tl-dispute-slot');
+
+      var state = getDealState();
+      var disp = state.dispute || {};
+      var raisedByRole = disp.raisedBy || (role === 'buyer' ? 'buyer' : 'seller');
+
+      var statusHTML = '';
+      if (disp.counterClaim) {
+        statusHTML = '<span style="color:var(--green); font-size:12px; font-weight:700; display:inline-flex; align-items:center; gap:4px;"><span class="material-symbols-outlined" style="font-size:14px; color:var(--green);">verified</span> Both claims &amp; proof submitted</span><span class="badge bg" style="font-size:11px; font-weight:700; padding:3px 10px; display:inline-flex; align-items:center; gap:4px;">🔒 Awaiting PAYKUDI Step-In</span>';
+      } else {
+        var awaitingPartyText = '';
+        if (role === raisedByRole) {
+          awaitingPartyText = 'Awaiting response from ' + (disp.otherPartyName || (raisedByRole === 'buyer' ? 'Seller (Chidi M.)' : 'Buyer (Tunde A.)'));
+        } else {
+          var myName = role === 'buyer' ? 'Buyer (Tunde A.)' : 'Seller (Chidi M.)';
+          awaitingPartyText = 'Awaiting response from you (' + myName + ')';
+        }
+        statusHTML = '<span style="color:var(--text-muted); font-size:12px; font-weight:600;">' + awaitingPartyText + '</span><span class="badge bam" style="font-size:11px; font-weight:700; padding:3px 10px; font-variant-numeric:tabular-nums; display:inline-flex; align-items:center;"><span id="tl-timer">01:59:59</span></span>';
+      }
+
+      if (slot) {
+        slot.innerHTML = '<div class="tlr ani"><div class="tls"><div class="tln" style="background:var(--red); color:#fff; border-color:var(--red);"><span class="material-symbols-outlined" style="font-size:12px;">gavel</span></div><div class="tlw"></div></div><div class="tlc"><div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;"><div class="tln-t" style="color:var(--red); font-weight:700;">Dispute raised by ' + (raisedByRole === 'buyer' ? 'Buyer' : 'Seller') + '</div><div class="tlts" style="margin-top:0; white-space:nowrap; flex-shrink:0;">&middot; ' + nowStr + '</div></div><div class="tlts" style="margin-top:3px; color:var(--text-muted);">' + reasonText + '</div><div class="tlnt" style="margin-top:6px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">' + statusHTML + '</div></div></div>';
+      }
+      var wShipped = document.getElementById('tlw-shipped');
+      if (wShipped) wShipped.className = 'tlw done';
+      var tDel = document.getElementById('tlt-delivery');
+      if (tDel) tDel.textContent = 'Delivery status (On Hold for Dispute)';
+    }
+
+    var inMemoryDealState = null;
+
+    function getDealState() {
+      if (inMemoryDealState !== null) {
+        return inMemoryDealState;
+      }
+      try {
+        var s = window.localStorage && window.localStorage.getItem('paykudi_deal_data_v2');
+        if (s) {
+          inMemoryDealState = JSON.parse(s);
+          return inMemoryDealState;
+        }
+      } catch (e) { }
+      inMemoryDealState = {
+        status: 'Shipped',
+        dispute: null
+      };
+      return inMemoryDealState;
+    }
+
+    function setDealState(state) {
+      inMemoryDealState = state;
+      try {
+        if (window.localStorage) {
+          window.localStorage.setItem('paykudi_deal_data_v2', JSON.stringify(state));
+        }
+      } catch (e) { }
+      renderRoomFromState();
+    }
+
+    function resetDealState() {
+      inMemoryDealState = {
+        status: 'Shipped',
+        dispute: null
+      };
+      try {
+        if (window.localStorage) {
+          window.localStorage.removeItem('paykudi_deal_data_v2');
+        }
+      } catch (e) { }
+      showToast('Deal simulation reset to original state.', 'info');
+      renderRoomFromState();
+    }
+
+    try {
+      window.addEventListener('storage', function (e) {
+        if (e && e.key === 'paykudi_deal_data_v2') {
+          try {
+            if (e.newValue) inMemoryDealState = JSON.parse(e.newValue);
+          } catch (err) { }
+          renderRoomFromState();
+        }
+      });
+    } catch (e) { }
+
+    function switchRoleDemo() {
+      role = (role === 'buyer') ? 'seller' : 'buyer';
+      applyRole();
+      renderRoomFromState();
+      showToast('Switched to ' + (role === 'buyer' ? 'Buyer (Tunde A.)' : 'Seller (Chidi M.)') + ' view.', 'info');
+    }
+
+    function renderRoomFromState() {
+      var state = getDealState();
+
+      if (!state.dispute) {
+        document.getElementById('nd').style.display = 'block';
+        document.getElementById('df').style.display = 'none';
+        document.getElementById('do').style.display = 'none';
+
+        document.getElementById('spill').className = 'status-dot-pill bam';
+        document.getElementById('sdot').style.background = 'var(--amber)';
+        document.getElementById('slabel-txt').textContent = 'Shipped';
+
+        var bbar = document.getElementById('bbar');
+        if (bbar) bbar.style.display = role === 'buyer' ? 'flex' : 'none';
+      } else {
+        document.getElementById('nd').style.display = 'none';
+        document.getElementById('df').style.display = 'none';
+        document.getElementById('do').style.display = 'block';
+
+        document.getElementById('spill').className = 'status-dot-pill br';
+        document.getElementById('sdot').style.background = 'var(--red)';
+        document.getElementById('slabel-txt').textContent = 'Dispute Open';
+
+        var bbar = document.getElementById('bbar');
+        if (bbar) bbar.style.display = 'none';
+
+        var disp = state.dispute;
+        document.getElementById('dispute-raised-by').textContent = disp.raisedByName;
+        document.getElementById('sub-reason').textContent = disp.reason;
+        document.getElementById('dispute-desc-view').textContent = disp.desc;
+        document.getElementById('dispute-file-count').textContent = disp.fileCount + ' attachment(s) on record';
+
+        startDisputeTimerFromTimestamp(disp.startTime);
+
+        var isDisputingParty = (role === disp.raisedBy);
+
+        var awaitBannerEl = document.getElementById('dispute-await-banner');
+        var awaitDescEl = document.getElementById('dispute-await-desc');
+
+        if (isDisputingParty) {
+          if (awaitBannerEl) awaitBannerEl.innerHTML = 'Awaiting response from <span style="font-weight:700; color:var(--text);">' + disp.otherPartyName + '</span>';
+          if (awaitDescEl) awaitDescEl.innerHTML = 'The other party has 2 hours to respond or submit counter-evidence. If no response is received before the timer expires, <span class="logo-text" style="font-size:inherit;"><span class="brand-pay">PAY</span><span class="brand-kudi">KUDI</span></span> auto-resolves the claim based on submitted evidence.';
+        } else {
+          var myName = role === 'buyer' ? 'Buyer (Tunde A.)' : 'Seller (Chidi M.)';
+          if (awaitBannerEl) awaitBannerEl.innerHTML = 'Awaiting response from <span style="font-weight:700; color:var(--text);">you (' + myName + ')</span>';
+          if (awaitDescEl) awaitDescEl.innerHTML = 'You have 2 hours to respond or submit counter-evidence. If no response is received before the timer expires, <span class="logo-text" style="font-size:inherit;"><span class="brand-pay">PAY</span><span class="brand-kudi">KUDI</span></span> auto-resolves the claim based on submitted evidence.';
+        }
+
+        var counterSec = document.getElementById('counter-dispute-section');
+
+        if (disp.counterClaim) {
+          var timerCard = document.getElementById('dispute-timer-card');
+          if (timerCard) timerCard.style.display = 'none';
+
+          if (counterSec) counterSec.style.display = 'none';
+
+          var counterInSummary = document.getElementById('counter-in-summary');
+          if (counterInSummary) {
+            counterInSummary.style.display = 'block';
+            var cBy = disp.counterClaim.submittedBy === 'seller' ? 'Seller (Chidi M.)' : 'Buyer (Tunde A.)';
+            var cLabel = document.getElementById('counter-by-label');
+            if (cLabel) cLabel.textContent = 'Counter-Response (' + cBy + ')';
+            var cDesc = document.getElementById('counter-desc-view');
+            if (cDesc) cDesc.textContent = disp.counterClaim.desc;
+            var cFile = document.getElementById('counter-file-count');
+            if (cFile) cFile.textContent = (disp.counterClaim.fileCount || 0) + ' file attachment(s) on record';
+          }
+
+          var bothBanner = document.getElementById('both-submitted-banner');
+          if (bothBanner) bothBanner.style.display = 'block';
+
+          var hBadge = document.getElementById('dispute-header-badge');
+          if (hBadge) {
+            hBadge.className = 'badge bg dispute-header-badge';
+            hBadge.innerHTML = '<span class="material-symbols-outlined" style="font-size:clamp(11px, 0.75vw + 7px, 13px); flex-shrink:0;">verified</span><span>Both Claims Submitted</span>';
+          }
+        } else {
+          var timerCard = document.getElementById('dispute-timer-card');
+          if (timerCard) timerCard.style.display = 'block';
+
+          var counterInSummary = document.getElementById('counter-in-summary');
+          if (counterInSummary) counterInSummary.style.display = 'none';
+
+          var bothBanner = document.getElementById('both-submitted-banner');
+          if (bothBanner) bothBanner.style.display = 'none';
+
+          if (!isDisputingParty) {
+            if (counterSec) counterSec.style.display = 'block';
+          } else {
+            if (counterSec) counterSec.style.display = 'none';
+          }
+
+          var hBadge = document.getElementById('dispute-header-badge');
+          if (hBadge) {
+            hBadge.className = 'badge br dispute-header-badge';
+            hBadge.innerHTML = '<span style="width:6px;height:6px;border-radius:50%;background:var(--red);display:inline-block;flex-shrink:0;"></span><span>Awaiting Response</span>';
+          }
+        }
+
+        updateTimelineOnDispute(disp.reason);
+      }
+    }
+
+    var disputeTimerInterval = null;
+
+    function startDisputeTimerFromTimestamp(startTimeMs) {
+      if (disputeTimerInterval) clearInterval(disputeTimerInterval);
+
+      var timerEl = document.getElementById('dispute-timer');
+      var totalDuration = 2 * 60 * 60 * 1000;
+
+      disputeTimerInterval = setInterval(function () {
+        var elapsed = Date.now() - startTimeMs;
+        var remainingMs = totalDuration - elapsed;
+
+        if (remainingMs <= 0) {
+          clearInterval(disputeTimerInterval);
+          if (timerEl) timerEl.textContent = "00:00:00 (Time Expired)";
+          return;
+        }
+
+        var totalSec = Math.floor(remainingMs / 1000);
+        var h = Math.floor(totalSec / 3600);
+        var m = Math.floor((totalSec % 3600) / 60);
+        var s = totalSec % 60;
+
+        var hStr = h < 10 ? '0' + h : h;
+        var mStr = m < 10 ? '0' + m : m;
+        var sStr = s < 10 ? '0' + s : s;
+        var timerStr = hStr + ':' + mStr + ':' + sStr;
+        if (timerEl) timerEl.textContent = timerStr;
+        var tlTimerEl = document.getElementById('tl-timer');
+        if (tlTimerEl) tlTimerEl.textContent = timerStr;
+      }, 1000);
+    }
+
+    function submitDispute() {
+      var selId = role === 'buyer' ? 'buyer-dispute-reason' : 'seller-dispute-reason';
+      var s = document.getElementById(selId);
+      var descEl = document.getElementById('dispute-desc');
+      var desc = descEl ? descEl.value.trim() : '';
+
+      if (!s || !s.value) {
+        if (s) s.style.borderColor = 'var(--red)';
+        showToast('Please select a dispute reason before submitting.', 'warning');
+        return;
+      } else if (s) {
+        s.style.borderColor = '';
+      }
+
+      if (!desc) {
+        if (descEl) descEl.style.borderColor = 'var(--red)';
+        showToast('Please describe your dispute in detail before submitting.', 'warning');
+        return;
+      } else if (descEl) {
+        descEl.style.borderColor = '';
+      }
+
+      var valDisplay = document.getElementById(role + '-dispute-val');
+      var reasonText = (valDisplay && valDisplay.textContent && !valDisplay.classList.contains('placeholder')) 
+        ? valDisplay.textContent.trim() 
+        : ((s && s.selectedIndex >= 0 && s.options && s.options[s.selectedIndex]) ? s.options[s.selectedIndex].text : (s ? s.value : 'Dispute Raised'));
+
+      var reasonMap = {
+        'not_received': '📦 Item not received',
+        'damaged': '💥 Item arrived damaged',
+        'wrong_item': '⚠️ Item not as described',
+        'counterfeit': '🚫 Fake / counterfeit item',
+        'unresponsive': '📵 Buyer uncommunicative',
+        'refused_delivery': '🚫 Buyer rejected parcel',
+        'false_claim': '❌ False claim by buyer',
+        'delivered_denied': '📍 Buyer denies delivery',
+        'other': '📝 Other'
+      };
+      if (reasonMap[reasonText]) {
+        reasonText = reasonMap[reasonText];
+      }
+
+      var state = getDealState();
+      state.dispute = {
+        raisedBy: role,
+        raisedByName: role === 'buyer' ? 'Buyer (Tunde A.)' : 'Seller (Chidi M.)',
+        otherPartyName: role === 'buyer' ? 'Seller (Chidi M.)' : 'Buyer (Tunde A.)',
+        reason: reasonText,
+        desc: desc,
+        fileCount: uploadedDisputeFiles.length,
+        startTime: Date.now(),
+        counterClaim: null
+      };
+
+      setDealState(state);
+      showToast('Dispute claim submitted successfully.', 'success');
+    }
+
+    var counterEvidenceGuidanceMap = {
+      not_received: "Please upload courier waybill receipt with recipient signature, dispatch rider chat, or official tracking confirmation.",
+      damaged: "Please upload clear pre-dispatch photos or videos showing the item was intact and properly padded before shipping.",
+      wrong_item: "Please upload photos of the item tag, serial number, or pre-shipping packaging photos.",
+      counterfeit: "Please upload proof of purchase from authorized distributor, brand receipt, or serial number verification.",
+      unresponsive: "Please upload screenshots of your chat responses, call history, or proof of parcel delivery acceptance.",
+      refused_delivery: "Please upload chat history with seller or dispatch rider explaining reason for parcel rejection.",
+      false_claim: "Please upload clear photos or unboxing video showing the exact item condition received.",
+      delivered_denied: "Please upload CCTV footage, building guard log, or courier chat confirming non-delivery."
+    };
+
+    var hasConfirmedCounterGuidance = false;
+    var uploadedCounterFiles = [];
+
+    function getCounterGuidanceText() {
+      var state = getDealState();
+      if (!state || !state.dispute) return "Please upload clear photos, videos, or documents supporting your counter-explanation.";
+      var r = (state.dispute.reason || "").toLowerCase();
+
+      if (r.includes('damaged') || r.includes('broken')) return counterEvidenceGuidanceMap.damaged;
+      if (r.includes('not received') || r.includes('courier delay')) return counterEvidenceGuidanceMap.not_received;
+      if (r.includes('wrong') || r.includes('described')) return counterEvidenceGuidanceMap.wrong_item;
+      if (r.includes('fake') || r.includes('counterfeit')) return counterEvidenceGuidanceMap.counterfeit;
+      if (r.includes('uncommunicative') || r.includes('unresponsive')) return counterEvidenceGuidanceMap.unresponsive;
+      if (r.includes('rejected') || r.includes('refused')) return counterEvidenceGuidanceMap.refused_delivery;
+      if (r.includes('false claim')) return counterEvidenceGuidanceMap.false_claim;
+      if (r.includes('delivered but buyer denies')) return counterEvidenceGuidanceMap.delivered_denied;
+
+      return "Please upload clear photos, videos, or documents supporting your counter-explanation.";
+    }
+
+    function triggerCounterUpload(event) {
+      if (event) event.stopPropagation();
+
+      ['info-popover-buyer', 'info-popover-seller', 'upload-popover'].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
+
+      if (!hasConfirmedCounterGuidance) {
+        var hintText = getCounterGuidanceText();
+        var popText = document.getElementById('counter-upload-popover-text');
+        if (popText) popText.textContent = hintText;
+
+        var pop = document.getElementById('counter-upload-popover');
+        if (pop) pop.style.display = 'block';
+      } else {
+        document.getElementById('counter-file-input').click();
+      }
+    }
+
+    function confirmCounterUploadGuidance(event) {
+      if (event) event.stopPropagation();
+      hasConfirmedCounterGuidance = true;
+      var pop = document.getElementById('counter-upload-popover');
+      if (pop) pop.style.display = 'none';
+      document.getElementById('counter-file-input').click();
+    }
+
+    function handleCounterFileSelect(input) {
+      if (input.files && input.files.length > 0) {
+        for (var i = 0; i < input.files.length; i++) {
+          uploadedCounterFiles.push(input.files[i]);
+        }
+        renderCounterThumbnails();
+      }
+    }
+
+    function removeCounterFile(index) {
+      uploadedCounterFiles.splice(index, 1);
+      renderCounterThumbnails();
+    }
+
+    function submitCounterResponse() {
+      var desc = document.getElementById('counter-desc').value.trim();
+      if (!desc) {
+        showToast('Please provide your counter-explanation before submitting.', 'warning');
+        return;
+      }
+
+      var state = getDealState();
+      if (state.dispute) {
+        state.dispute.counterClaim = {
+          submittedBy: role,
+          desc: desc,
+          fileCount: uploadedCounterFiles.length,
+          timestamp: Date.now()
+        };
+        setDealState(state);
+        showToast('Counter-response submitted successfully.', 'success');
+      }
+    }
+
+    function confirmDelivery() {
+      customConfirm(
+        'Confirm Delivery & Release Payment',
+        'Are you sure you have received and inspected the item?\n\nThis will release funds to the seller immediately and cannot be undone.',
+        function () {
+          var b = document.getElementById('bbar');
+          if (b) b.innerHTML = '<div style="background:var(--surface); border:1px solid var(--border); border-radius:30px; padding:10px 18px; box-shadow:0 8px 24px rgba(0,0,0,0.15); display:flex; align-items:center; gap:8px;"><span class="material-symbols-outlined" style="font-size:20px;color:var(--green);">check_circle</span><span style="font-size:12px;font-weight:700;color:var(--green);">Delivery Confirmed</span></div>';
+          document.getElementById('spill').className = 'status-dot-pill bg';
+          document.getElementById('sdot').style.background = 'var(--green)';
+          document.getElementById('slabel-txt').textContent = 'Completed';
+          var pb = document.getElementById('pay-status-buyer');
+          var ps = document.getElementById('pay-status-seller');
+          if (pb) { pb.className = 'badge bp buyer-only'; pb.innerHTML = '<span class="material-symbols-outlined" style="font-size:12px;">payments</span> Paid out to Seller'; }
+          if (ps) { ps.className = 'badge bp seller-only'; ps.innerHTML = '<span class="material-symbols-outlined" style="font-size:12px;">payments</span> Paid out to Seller'; }
+
+          updateTimelineOnDeliveryConfirmed();
+          showToast('Delivery confirmed! Payment has been released to the seller.', 'success');
+        }
+      );
+    }
+
+    var initialBankVal = '';
+    var initialAcctNumVal = '';
+    var initialAcctNameVal = '';
+
+    function toggleAccountEdit() {
+      var e = document.getElementById('acct-edit');
+      if (!e) return;
+      var isOpening = (e.style.display === 'none' || !e.style.display);
+      e.style.display = isOpening ? 'block' : 'none';
+
+      if (isOpening) {
+        var b = document.getElementById('bank-select');
+        var n = document.getElementById('acct-num-input');
+        var a = document.getElementById('acct-name-input');
+        initialBankVal = b ? b.value : '';
+        initialAcctNumVal = n ? n.value.trim() : '';
+        initialAcctNameVal = a ? a.value.trim() : '';
+        checkAccountFormChanges();
+      }
+    }
+
+    function filterBankOptions(query) {
+      var q = (query || '').toLowerCase().trim();
+      var list = document.getElementById('bank-options-list');
+      if (!list) return;
+      var opts = list.querySelectorAll('.custom-option');
+      opts.forEach(function(opt) {
+        var txt = opt.textContent.toLowerCase();
+        opt.style.display = txt.includes(q) ? 'block' : 'none';
+      });
+    }
+
+    function selectBankOption(bankName) {
+      var hiddenInput = document.getElementById('bank-select');
+      var valDisplay = document.getElementById('bank-select-val');
+      var wrapper = document.getElementById('bank-select-wrapper');
+
+      if (hiddenInput) hiddenInput.value = bankName;
+      if (valDisplay) valDisplay.textContent = bankName;
+
+      if (wrapper) {
+        wrapper.querySelectorAll('.custom-option').forEach(function(opt) {
+          if (opt.textContent.trim() === bankName.trim()) opt.classList.add('selected');
+          else opt.classList.remove('selected');
+        });
+        wrapper.classList.remove('open');
+        var parentCard = wrapper.closest('.card');
+        if (parentCard) { parentCard.style.position = ''; parentCard.style.zIndex = ''; }
+      }
+
+      checkAccountFormChanges();
+    }
+
+    function checkAccountFormChanges() {
+      var b = document.getElementById('bank-select');
+      var n = document.getElementById('acct-num-input');
+      var a = document.getElementById('acct-name-input');
+      var saveBtn = document.getElementById('save-acct-btn');
+
+      if (!saveBtn || !b || !n || !a) return;
+
+      var currentBank = b.value;
+      var currentNum = n.value.trim();
+      var currentName = a.value.trim();
+
+      var hasChanged = (currentBank !== initialBankVal) ||
+                       (currentNum !== initialAcctNumVal) ||
+                       (currentName !== initialAcctNameVal);
+
+      var isValidNum = currentNum.length >= 10;
+
+      if (hasChanged && isValidNum) {
+        saveBtn.disabled = false;
+      } else {
+        saveBtn.disabled = true;
+      }
+    }
+
+    function saveAccount() {
+      var b = document.getElementById('bank-select').value;
+      var n = document.getElementById('acct-num-input').value.trim();
+      var a = document.getElementById('acct-name-input').value.trim();
+      if (!n || n.length < 10) { showToast('Please enter a valid 10-digit account number.', 'error'); return; }
+      document.getElementById('bank-display').textContent = b;
+      document.getElementById('acct-display').textContent = n + ' · ' + (a || 'Chidi M.');
+      toggleAccountEdit();
+      showToast('Payout account details saved.', 'success');
+    }
+
+    function handleFabClick() {
+      var fab = document.getElementById('fab-btn');
+      if (!fab) return;
+
+      if (!fab.classList.contains('expanded')) {
+        fab.classList.add('expanded');
+        if (window.fabTimer) clearTimeout(window.fabTimer);
+        window.fabTimer = setTimeout(function () {
+          fab.classList.remove('expanded');
+        }, 4500);
+      } else {
+        confirmDelivery();
+      }
+    }
+
+    document.addEventListener('click', function (e) {
+      var bbar = document.getElementById('bbar');
+      var fab = document.getElementById('fab-btn');
+      if (bbar && fab && !bbar.contains(e.target)) {
+        fab.classList.remove('expanded');
+      }
+    });
+
+    function toggleTheme() {
+      var d = document.documentElement.getAttribute('data-theme') === 'dark';
+      document.documentElement.setAttribute('data-theme', d ? 'light' : 'dark');
+      document.getElementById('ticon').textContent = d ? 'dark_mode' : 'light_mode';
+    }
+
+    function openLightbox(src, title) {
+      document.getElementById('lb-img').src = src;
+      document.getElementById('lb-title').textContent = title || 'Evidence Preview';
+      document.getElementById('lightbox').style.display = 'flex';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').style.display = 'none';
+    }
+
+    function toggleContextPill(el) {
+      if (!el) return;
+      el.classList.toggle('expanded');
+      var container = el.closest('.context-pill-container');
+      if (container) {
+        container.classList.toggle('is-expanded', el.classList.contains('expanded'));
+      }
+    }
+
+    /* Custom Select Component JS Handlers */
+    function toggleCustomSelect(wrapperId) {
+      var target = document.getElementById(wrapperId);
+      if (!target) return;
+      var isOpen = target.classList.contains('open');
+      document.querySelectorAll('.custom-select-wrapper').forEach(function(w) {
+        w.classList.remove('open');
+        var c = w.closest('.card');
+        if (c) { c.style.position = ''; c.style.zIndex = ''; }
+      });
+      if (!isOpen) {
+        target.classList.add('open');
+        var parentCard = target.closest('.card');
+        if (parentCard) {
+          parentCard.style.position = 'relative';
+          parentCard.style.zIndex = '99999';
+        }
+      }
+    }
+
+    function selectCustomOption(r, val, labelText) {
+      var hiddenInput = document.getElementById(r + '-dispute-reason');
+      var valDisplay = document.getElementById(r + '-dispute-val');
+      var wrapper = document.getElementById(r + '-dispute-wrapper');
+      
+      if (hiddenInput) hiddenInput.value = val;
+      if (valDisplay) {
+        valDisplay.textContent = labelText;
+        valDisplay.classList.remove('placeholder');
+      }
+      
+      if (wrapper) {
+        wrapper.querySelectorAll('.custom-option').forEach(function(opt) {
+          if (opt.textContent.trim() === labelText.trim()) {
+            opt.classList.add('selected');
+          } else {
+            opt.classList.remove('selected');
+          }
+        });
+        wrapper.classList.remove('open');
+        var parentCard = wrapper.closest('.card');
+        if (parentCard) { parentCard.style.position = ''; parentCard.style.zIndex = ''; }
+      }
+      
+      if (typeof checkOtherReason === 'function') {
+        checkOtherReason(r);
+      }
+    }
+
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.custom-select-wrapper')) {
+        document.querySelectorAll('.custom-select-wrapper').forEach(function(w) {
+          w.classList.remove('open');
+          var c = w.closest('.card');
+          if (c) { c.style.position = ''; c.style.zIndex = ''; }
+        });
+      }
+    });
+
+    // --- BOTTOM NAVIGATION TAB SYSTEM ---
+    function switchBottomTab(tabName) {
+      document.querySelectorAll('.tab-item').forEach(function(el) {
+        el.classList.remove('active');
+      });
+
+      var activeBtn = document.getElementById('tab-' + tabName);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      if (tabName === 'home') {
+        closeBottomDrawers();
+      } else if (tabName === 'history') {
+        closeBottomDrawers();
+        var overlay = document.getElementById('history-drawer-overlay');
+        if (overlay) overlay.classList.add('open');
+        var tabHist = document.getElementById('tab-history');
+        if (tabHist) tabHist.classList.add('active');
+      } else if (tabName === 'profile') {
+        closeBottomDrawers();
+        var overlay = document.getElementById('profile-drawer-overlay');
+        if (overlay) overlay.classList.add('open');
+        var tabProf = document.getElementById('tab-profile');
+        if (tabProf) tabProf.classList.add('active');
+      }
+    }
+
+    function closeBottomDrawers() {
+      document.querySelectorAll('#history-drawer-overlay, #profile-drawer-overlay').forEach(function(el) {
+        el.classList.remove('open');
+      });
+      document.querySelectorAll('.tab-item').forEach(function(el) {
+        el.classList.remove('active');
+      });
+      var homeTab = document.getElementById('tab-home');
+      if (homeTab) homeTab.classList.add('active');
+    }
+  </script>
+
+  <!-- BOTTOM NAVIGATION TAB BAR ("DOWN TAB") -->
+  <nav class="bottom-tab-bar">
+    <button class="tab-item active" id="tab-home" onclick="switchBottomTab('home')">
+      <span class="material-symbols-outlined tab-icon">home</span>
+      <span class="tab-label">Home</span>
+    </button>
+
+    <button class="tab-item" id="tab-history" onclick="switchBottomTab('history')">
+      <span class="material-symbols-outlined tab-icon">history</span>
+      <span class="tab-label">History</span>
+    </button>
+
+    <button class="tab-item" id="tab-profile" onclick="switchBottomTab('profile')">
+      <span class="material-symbols-outlined tab-icon">person</span>
+      <span class="tab-label">Profile</span>
+    </button>
+  </nav>
+
+  <!-- HISTORY MODAL DRAWER -->
+  <div id="history-drawer-overlay" class="pay-modal-overlay" onclick="closeBottomDrawers()">
+    <div class="bottom-drawer-card" onclick="event.stopPropagation()">
+      <div class="drawer-header">
+        <div class="drawer-title">
+          <span class="material-symbols-outlined style-icon" style="color:var(--brand-pay);">history</span>
+          <span>Transaction History</span>
+        </div>
+        <button class="drawer-close-btn" onclick="closeBottomDrawers()">
+          <span class="material-symbols-outlined" style="font-size:18px;">close</span>
+        </button>
+      </div>
+
+      <div class="drawer-body">
+        <div class="history-item current">
+          <div class="history-item-left">
+            <span class="history-icon" style="background:rgba(217, 119, 6, 0.14); color:var(--amber);">shopping_bag</span>
+            <div>
+              <div class="history-deal-name">Nike Air Max 2025</div>
+              <div class="history-deal-sub">Deal #ST-8842 &bull; Active Order</div>
+            </div>
+          </div>
+          <div class="history-item-right">
+            <div class="history-amount">₦85,000</div>
+            <span class="badge bam" style="font-size:10px;">Shipped</span>
+          </div>
+        </div>
+
+        <div class="history-item">
+          <div class="history-item-left">
+            <span class="history-icon" style="background:rgba(46, 160, 67, 0.14); color:var(--green);">check_circle</span>
+            <div>
+              <div class="history-deal-name">iPhone 15 Pro Max 256GB</div>
+              <div class="history-deal-sub">Deal #ST-7412 &bull; 14 Jan 2026</div>
+            </div>
+          </div>
+          <div class="history-item-right">
+            <div class="history-amount">₦1,450,000</div>
+            <span class="badge bg" style="font-size:10px;">Completed</span>
+          </div>
+        </div>
+
+        <div class="history-item">
+          <div class="history-item-left">
+            <span class="history-icon" style="background:rgba(46, 160, 67, 0.14); color:var(--green);">check_circle</span>
+            <div>
+              <div class="history-deal-name">MacBook Air M3 16GB</div>
+              <div class="history-deal-sub">Deal #ST-6109 &bull; 28 Dec 2025</div>
+            </div>
+          </div>
+          <div class="history-item-right">
+            <div class="history-amount">₦1,890,000</div>
+            <span class="badge bg" style="font-size:10px;">Completed</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROFILE MODAL DRAWER -->
+  <div id="profile-drawer-overlay" class="pay-modal-overlay" onclick="closeBottomDrawers()">
+    <div class="bottom-drawer-card" onclick="event.stopPropagation()">
+      <div class="drawer-header">
+        <div class="drawer-title">
+          <span class="material-symbols-outlined" style="color:var(--brand-pay);">account_circle</span>
+          <span>User Profile</span>
+        </div>
+        <button class="drawer-close-btn" onclick="closeBottomDrawers()">
+          <span class="material-symbols-outlined" style="font-size:18px;">close</span>
+        </button>
+      </div>
+
+      <div class="drawer-body">
+        <!-- Profile User Avatar & Info Card -->
+        <div class="profile-card">
+          <div class="profile-avatar">
+            <span class="material-symbols-outlined">person</span>
+          </div>
+          <div class="profile-info">
+            <div class="profile-name">John Doe</div>
+            <div class="profile-phone">+234 803 123 4567</div>
+            <span class="badge bg" style="font-size:10px;"><span class="material-symbols-outlined" style="font-size:12px;">verified</span> Verified Buyer</span>
+          </div>
+        </div>
+
+        <!-- Profile Details List -->
+        <div class="profile-list">
+          <div class="profile-list-item">
+            <span class="material-symbols-outlined icon">verified_user</span>
+            <div class="item-text">
+              <div class="title">Escrow Trust Rating</div>
+              <div class="sub">100% Satisfied Deals (3/3)</div>
+            </div>
+            <span class="badge bg" style="font-size:11px;">100%</span>
+          </div>
+
+          <div class="profile-list-item">
+            <span class="material-symbols-outlined icon">account_balance</span>
+            <div class="item-text">
+              <div class="title">Refund Bank Account</div>
+              <div class="sub">Kuda Bank &bull; **** 4892</div>
+            </div>
+            <button class="btn-edit-acct" onclick="showPayToast('Bank details updated', 'success')">Edit</button>
+          </div>
+
+          <div class="profile-list-item">
+            <span class="material-symbols-outlined icon">shield</span>
+            <div class="item-text">
+              <div class="title">Security &amp; PIN</div>
+              <div class="sub">2-Factor WhatsApp OTP Active</div>
+            </div>
+            <span class="badge ba" style="font-size:11px;">Active</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
