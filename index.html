@@ -42,10 +42,32 @@
   </script>
 
   <style>
+    html,
     body {
       font-family: 'Inter', sans-serif;
       color: #1F2937;
       background-color: #FFFFFF;
+      overscroll-behavior: none;
+      overscroll-behavior-y: none;
+    }
+
+    .liquid-nav-header {
+      position: sticky;
+      top: 0;
+      z-index: 100005;
+      background-color: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    @media (max-width: 767px) {
+      #mobileMenuBtn {
+        position: fixed !important;
+        top: 8px;
+        right: 14px;
+        z-index: 100005 !important;
+      }
     }
 
     h1,
@@ -100,19 +122,44 @@
       display: block;
     }
 
-    /* Hero Background Video/Photo Mobile Framing (Ensures all group members are framed on mobile) */
+    /* Responsive Hero Background Video & Photo Framing Across Screen Sizes */
     .hero-bg-media {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
+      min-width: 100%;
+      min-height: 100%;
       object-fit: cover;
       object-position: center center;
+      transition: object-position 0.3s ease, transform 0.3s ease;
+      will-change: transform;
     }
 
+    /* Mobile Phones */
     @media (max-width: 640px) {
       .hero-bg-media {
         object-fit: cover;
-        object-position: 50% 20%;
-        transform: scale(1.0);
+        object-position: 50% 25%;
+        transform: scale(1.05);
+      }
+    }
+
+    /* Tablets & Medium Screens */
+    @media (min-width: 641px) and (max-width: 1024px) {
+      .hero-bg-media {
+        object-fit: cover;
+        object-position: 50% 30%;
+        transform: scale(1.02);
+      }
+    }
+
+    /* Ultra-wide Monitors */
+    @media (min-width: 1536px) {
+      .hero-bg-media {
+        object-fit: cover;
+        object-position: 50% 35%;
       }
     }
 
@@ -314,10 +361,16 @@
     .payment-room-brand img {
       display: block;
       width: auto;
-      height: 28px;
+      height: 40px;
       max-width: none;
       flex: 0 0 auto;
       object-fit: contain;
+    }
+
+    @media (min-width: 640px) {
+      .payment-room-brand img {
+        height: 46px;
+      }
     }
 
     .payment-room-brand-copy {
@@ -689,7 +742,8 @@
 
     /* Smooth Static Gradient Background for About Section */
     .about-gradient-bg {
-      background: linear-gradient(180deg, #F8FAFC 0%, rgba(14, 82, 150, 0.03) 45%, rgba(46, 160, 67, 0.03) 75%, #F8FAFC 100%);
+      background-color: #FFFFFF;
+      background: linear-gradient(180deg, #F8FAFC 0%, rgba(14, 82, 150, 0.03) 45%, rgba(46, 160, 67, 0.03) 75%, #F8FAFC 100%), #FFFFFF;
     }
 
     /* ── Contact Form: floating label ── */
@@ -789,13 +843,7 @@
       <div class="flex items-center shrink-0 min-w-0">
         <a href="#heroSection" onclick="slideFooterBackToMain()" class="payment-room-brand group"
           aria-label="PayKudi home" style="text-decoration:none;">
-          <img src="paykudi-logo.png" alt="PAYKUDI Logo" />
-          <span class="payment-room-brand-copy" aria-hidden="true">
-            <span class="payment-room-brand-name"><span class="brand-pay">PAY</span><span
-                class="brand-kudi">KUDI</span><span class="brand-kudi">.</span></span>
-            <span class="payment-room-brand-subtitle">Powered by <strong class="text-slate-800 font-black">Start<span
-                  class="text-[#0E5296]">up.</span></strong></span>
-          </span>
+          <img src="paykudi-logo.png" alt="payKudi Logo" />
         </a>
       </div>
 
@@ -828,13 +876,19 @@
         </nav>
 
         <div class="nav-actions flex items-center gap-2.5 shrink-0">
-          <button id="mobileMenuBtn" onclick="openMobileMenu()"
-            class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-lg text-slate-700 hover:text-[#0E5296] hover:bg-slate-100 transition-colors cursor-pointer shrink-0"
+          <button id="mobileMenuBtn" onclick="toggleMobileMenu()"
+            class="md:hidden relative inline-flex items-center justify-center w-11 h-11 rounded-xl text-slate-800 hover:text-[#0E5296] active:text-[#0E5296] transition-colors cursor-pointer shrink-0 z-[100005]"
             aria-label="Toggle menu">
-            <svg width="24" height="24" class="block" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-              aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+            <div id="mobileMenuIconWrapper" class="relative w-6 h-6 transition-transform duration-500 ease-in-out transform rotate-0">
+              <!-- Hamburger Menu Icon -->
+              <svg id="menuIconHamburger" class="w-6 h-6 absolute inset-0 transition-all duration-400 ease-in-out transform rotate-0 scale-100 opacity-100" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+              <!-- Close 'X' Icon -->
+              <svg id="menuIconClose" class="w-6 h-6 absolute inset-0 transition-all duration-400 ease-in-out transform -rotate-90 scale-50 opacity-0 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </div>
           </button>
         </div>
       </div>
@@ -852,23 +906,20 @@
     class="fixed top-0 right-0 bottom-0 w-80 max-w-[85vw] bg-white/85 backdrop-blur-2xl p-7 shadow-2xl z-[100000] flex flex-col justify-between transform translate-x-full opacity-0 pointer-events-none transition-all duration-300 ease-in-out border-l border-white/60">
 
     <div>
-      <div class="flex items-center justify-between pb-6 mb-6">
+      <div class="flex items-center justify-between min-h-[44px] pb-4 mb-6">
         <a href="#heroSection" onclick="closeMobileMenu(); slideFooterBackToMain();" class="payment-room-brand shrink-0"
           aria-label="PayKudi home" style="text-decoration:none;">
-          <img src="paykudi-logo.png" alt="PAYKUDI Logo" />
-          <span class="payment-room-brand-copy" aria-hidden="true">
-            <span class="payment-room-brand-name"><span class="brand-pay">PAY</span><span
-                class="brand-kudi">KUDI</span><span class="brand-kudi">.</span></span>
-            <span class="payment-room-brand-subtitle">Powered by <strong class="text-slate-800 font-black">Start<span
-                  class="text-[#0E5296]">up.</span></strong></span>
-          </span>
+          <img src="paykudi-logo.png" alt="payKudi Logo" />
         </a>
 
+        <!-- Animated Spinning 'X' Close Button inside Drawer Header -->
         <button onclick="closeMobileMenu()" aria-label="Close menu"
-          class="w-10 h-10 rounded-full bg-gray-100/90 text-gray-700 hover:bg-gray-200 hover:text-gray-900 flex items-center justify-center transition-colors cursor-pointer shrink-0">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
-          </svg>
+          class="relative inline-flex items-center justify-center w-11 h-11 rounded-xl text-slate-800 hover:text-[#0E5296] active:text-[#0E5296] transition-colors cursor-pointer shrink-0 group">
+          <div id="drawerCloseIconWrapper" class="relative w-6 h-6 transition-transform duration-500 ease-in-out transform rotate-0">
+            <svg class="w-6 h-6 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </div>
         </button>
       </div>
 
@@ -895,23 +946,23 @@
 
       <div class="flex items-center gap-3">
         <a href="mailto:hello@paykudi.co" aria-label="Email Us"
-          class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors shrink-0">
+          class="w-10 h-10 rounded-full bg-gray-100 hover:opacity-75 active:opacity-60 flex items-center justify-center transition-opacity shrink-0">
           <img src="icons8-gmail-logo-120.png" alt="Email" class="w-5 h-5 object-contain" />
         </a>
         <a href="http://linkedin.com/company/startupbuild/" target="_blank" rel="noopener" aria-label="LinkedIn"
-          class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors shrink-0">
+          class="w-10 h-10 rounded-full bg-gray-100 hover:opacity-75 active:opacity-60 flex items-center justify-center transition-opacity shrink-0">
           <img src="icons8-linkedin-logo-100.png" alt="LinkedIn" class="w-5 h-5 object-contain" />
         </a>
         <a href="https://www.instagram.com/usepaykudi?igsh=MXh5c3Z6NmJvNmVtOQ==" target="_blank" rel="noopener"
           aria-label="Instagram"
-          class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors shrink-0">
+          class="w-10 h-10 rounded-full bg-gray-100 hover:opacity-75 active:opacity-60 flex items-center justify-center transition-opacity shrink-0">
           <img src="icons8-instagram-logo-100.png" alt="Instagram" class="w-5 h-5 object-contain" />
         </a>
       </div>
     </div>
 
     <div class="pt-4 flex items-center gap-1.5 text-[11px] font-medium text-gray-500">
-      <img src="paykudi-logo.png" alt="Paykudi Logo" class="h-4 w-auto object-contain" />
+      <img src="paykudi-logo.png" alt="Paykudi Logo" class="h-6 w-auto object-contain" />
       <span>•</span>
       <span>Take control of your payments</span>
     </div>
@@ -1052,7 +1103,8 @@
 
 
     <!-- ================= ABOUT / POSSIBILITIES SECTION ================= -->
-    <section id="about" class="py-20 about-gradient-bg relative overflow-hidden">
+    <div class="bg-brand-dark relative z-10">
+      <section id="about" class="py-20 about-gradient-bg relative overflow-hidden rounded-b-[64px] sm:rounded-b-[96px] lg:rounded-b-[128px] xl:rounded-b-[150px] shadow-2xl">
 
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
@@ -1254,6 +1306,7 @@
 
       </div>
     </section>
+  </div>
 
 
     <!-- ================= COMMUNITY SECTION ================= -->
@@ -1614,9 +1667,7 @@
             class="pt-4 border-t border-white/10 mt-4 flex flex-wrap items-center justify-center gap-2 text-xs text-gray-400 font-medium text-center">
             <span>&copy; <span id="year"></span></span>
             <div class="inline-flex items-center gap-1">
-              <img src="paykudi-logo.png" alt="Paykudi Logo" class="h-4 w-auto object-contain" />
-              <span class="font-extrabold text-white"><span class="text-[#0E5296]">PAY</span><span
-                  class="text-[#2EA043]">KUDI</span><span class="text-[#2EA043]">.</span></span>
+              <img src="paykudi-logo.png" alt="Paykudi Logo" class="h-6 w-auto object-contain brightness-0 invert opacity-90" />
             </div>
             <span>•</span>
             <span>Powered by <strong class="text-white">Start<span class="text-[#0E5296]">up.</span></strong></span>
@@ -1838,10 +1889,44 @@
     }
 
     // Mobile Right Side Drawer Panel Functions
+    let isMobileMenuOpen = false;
+
+    function toggleMobileMenu() {
+      if (isMobileMenuOpen) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
+    }
+
     function openMobileMenu() {
       const drawer = document.getElementById('mobileMenuDrawer');
       const backdrop = document.getElementById('mobileMenuBackdrop');
+      const iconWrapper = document.getElementById('mobileMenuIconWrapper');
+      const drawerIconWrapper = document.getElementById('drawerCloseIconWrapper');
+      const hamburger = document.getElementById('menuIconHamburger');
+      const closeIcon = document.getElementById('menuIconClose');
+
       if (!drawer || !backdrop) return;
+      isMobileMenuOpen = true;
+
+      // 180deg Spin & Morph Hamburger into 'X'
+      if (iconWrapper) {
+        iconWrapper.classList.remove('rotate-0');
+        iconWrapper.classList.add('rotate-180');
+      }
+      if (drawerIconWrapper) {
+        drawerIconWrapper.classList.remove('rotate-0');
+        drawerIconWrapper.classList.add('rotate-180');
+      }
+      if (hamburger) {
+        hamburger.classList.remove('rotate-0', 'scale-100', 'opacity-100');
+        hamburger.classList.add('rotate-90', 'scale-50', 'opacity-0', 'pointer-events-none');
+      }
+      if (closeIcon) {
+        closeIcon.classList.remove('-rotate-90', 'scale-50', 'opacity-0', 'pointer-events-none');
+        closeIcon.classList.add('rotate-0', 'scale-100', 'opacity-100');
+      }
 
       backdrop.classList.remove('pointer-events-none', 'opacity-0');
       backdrop.classList.add('opacity-100');
@@ -1853,7 +1938,31 @@
     function closeMobileMenu() {
       const drawer = document.getElementById('mobileMenuDrawer');
       const backdrop = document.getElementById('mobileMenuBackdrop');
+      const iconWrapper = document.getElementById('mobileMenuIconWrapper');
+      const drawerIconWrapper = document.getElementById('drawerCloseIconWrapper');
+      const hamburger = document.getElementById('menuIconHamburger');
+      const closeIcon = document.getElementById('menuIconClose');
+
       if (!drawer || !backdrop) return;
+      isMobileMenuOpen = false;
+
+      // Reverse 180deg Spin & Morph 'X' back into Hamburger
+      if (iconWrapper) {
+        iconWrapper.classList.remove('rotate-180');
+        iconWrapper.classList.add('rotate-0');
+      }
+      if (drawerIconWrapper) {
+        drawerIconWrapper.classList.remove('rotate-180');
+        drawerIconWrapper.classList.add('rotate-0');
+      }
+      if (hamburger) {
+        hamburger.classList.remove('rotate-90', 'scale-50', 'opacity-0', 'pointer-events-none');
+        hamburger.classList.add('rotate-0', 'scale-100', 'opacity-100');
+      }
+      if (closeIcon) {
+        closeIcon.classList.remove('rotate-0', 'scale-100', 'opacity-100');
+        closeIcon.classList.add('-rotate-90', 'scale-50', 'opacity-0', 'pointer-events-none');
+      }
 
       drawer.classList.remove('translate-x-0', 'opacity-100', 'pointer-events-auto');
       drawer.classList.add('translate-x-full', 'opacity-0', 'pointer-events-none');
@@ -2549,6 +2658,11 @@
     let _isContactOpen = false;
 
     // Scroll-adaptive Navigation Links Spy
+    function getSectionDocTop(el) {
+      if (!el) return Infinity;
+      return el.getBoundingClientRect().top + window.scrollY;
+    }
+
     function updateNavbarOnScroll() {
       const scrollPos = window.scrollY + 220;
 
@@ -2556,9 +2670,9 @@
       const communitySec = document.getElementById('community');
       const footerSec = document.getElementById('footerSection');
 
-      const aboutTop = aboutSec ? aboutSec.offsetTop : 0;
-      const communityTop = communitySec ? communitySec.offsetTop : 0;
-      const footerTop = footerSec ? footerSec.offsetTop : Infinity;
+      const aboutTop = getSectionDocTop(aboutSec);
+      const communityTop = getSectionDocTop(communitySec);
+      const footerTop = footerSec ? getSectionDocTop(footerSec) : Infinity;
 
       let activeSection = 'hero';
 
