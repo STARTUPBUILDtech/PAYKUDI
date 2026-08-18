@@ -97,11 +97,14 @@
       border-color: #EBE3D5 !important;
     }
     html.light .glass-card, html.light .card {
-      background: #FFFFFF !important;
-      border-color: #EBE3D5 !important;
+      background: rgba(255, 255, 255, 0.45) !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+      border-color: rgba(235, 227, 213, 0.8) !important;
     }
     html.light header {
-      background-color: rgba(250, 247, 242, 0.95) !important;
+      background-color: rgba(250, 247, 242, 0.75) !important;
+      backdrop-filter: blur(16px) !important;
       border-color: #EBE3D5 !important;
     }
     html.light main, html.light .app-shell-bg, html.light .block.md\:hidden {
@@ -109,37 +112,80 @@
       background-image: linear-gradient(180deg, #FAF7F2 0%, #F4EFE6 100%) !important;
     }
     html.light nav.fixed {
-      background-color: rgba(255, 255, 255, 0.95) !important;
+      background-color: rgba(255, 255, 255, 0.75) !important;
+      backdrop-filter: blur(16px) !important;
       border-color: #EBE3D5 !important;
     }
 
-    /* Dark Mode Specific Theming (PayKudi Signature Brand Dark Green) */
+    /* Filter Popovers, Dropdowns & Modals MUST be 100% Solid Opaque */
+    html.light [id$="-dropdown-menu"], 
+    html.light .dropdown-menu, 
+    html.light #modal-content, 
+    html.light .modal-card,
+    html.light .popover-card {
+      background-color: #FFFFFF !important;
+      background: #FFFFFF !important;
+      opacity: 1 !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.08) !important;
+    }
+
+    /* Dark Mode Specific Theming (Obsidian Black + Emerald Green Accents) */
     html.dark {
-      --bg: #0A1E13;
-      --surface: #112B1D;
-      --surface-2: #173826;
-      --border: rgba(46, 160, 67, 0.22);
-      --border-strong: rgba(46, 160, 67, 0.4);
+      --bg: #060A08;
+      --surface: rgba(10, 22, 15, 0.65);
+      --surface-2: rgba(15, 32, 22, 0.65);
+      --border: rgba(46, 160, 67, 0.25);
+      --border-strong: rgba(46, 160, 67, 0.45);
       --text: #FFFFFF;
       --text-muted: #CBD5E1;
       --text-subtle: #A7F3D0;
     }
 
     html.dark aside {
-      background-color: #07170E !important;
+      background-color: #040705 !important;
+      backdrop-filter: blur(20px) !important;
       border-color: rgba(46, 160, 67, 0.2) !important;
     }
     html.dark .glass-card, html.dark .card {
-      background-color: #112B1D !important;
-      border-color: rgba(46, 160, 67, 0.22) !important;
+      background-color: rgba(10, 22, 15, 0.65) !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+      border-color: rgba(46, 160, 67, 0.25) !important;
       color: #FFFFFF !important;
     }
+
+    html.dark [id$="-dropdown-menu"], 
+    html.dark .dropdown-menu, 
+    html.dark #modal-content, 
+    html.dark .modal-card,
+    html.dark .popover-card {
+      background-color: #08100B !important;
+      background: #08100B !important;
+      opacity: 1 !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(46, 160, 67, 0.3) !important;
+    }
+
+    /* Filter Button Triggers & Inner Spans inside Search Pill MUST be Transparent */
+    [id*="-dropdown-btn"],
+    [id*="-dropdown-label"],
+    [id*="-dropdown-arrow"],
+    [id*="-dropdown-wrap"] {
+      background: transparent !important;
+      background-color: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
     html.dark header {
-      background-color: rgba(10, 30, 19, 0.95) !important;
+      background-color: rgba(6, 10, 8, 0.85) !important;
+      backdrop-filter: blur(16px) !important;
       border-color: rgba(46, 160, 67, 0.2) !important;
     }
-    html.dark main, html.dark .app-shell-bg, html.dark .bg-\[\#F7FAF8\] {
-      background-color: #0A1E13 !important;
+    html.dark main, html.dark .app-shell-bg, html.dark .bg-\[\#F7FAF8\], html.dark .bg-\[\#FAF7F2\] {
+      background-color: #060A08 !important;
     }
 
     /* All Text writings in Dark Mode Turn Pure White & Crisp Light */
@@ -163,38 +209,72 @@
     html.dark .text-gray-400 {
       color: #CBD5E1 !important;
     }
-    html.dark .bg-white {
-      background-color: #112B1D !important;
-    }
     html.dark .bg-gray-50, html.dark .bg-gray-50\/80 {
-      background-color: #0E2419 !important;
+      background-color: rgba(10, 22, 15, 0.6) !important;
+      backdrop-filter: blur(12px) !important;
     }
     html.dark .bg-gray-100, html.dark .bg-gray-200 {
-      background-color: #0E2419 !important;
+      background-color: rgba(10, 22, 15, 0.6) !important;
       color: #E2E8F0 !important;
     }
     html.dark .hover\:bg-gray-50:hover, html.dark .hover\:bg-gray-100:hover {
-      background-color: #183C28 !important;
+      background-color: rgba(20, 45, 30, 0.75) !important;
     }
     html.dark .border-gray-200, html.dark .border-gray-200\/80, html.dark .border-gray-200\/90, html.dark .border-gray-200\/60, html.dark .border-gray-100 {
-      border-color: rgba(46, 160, 67, 0.2) !important;
+      border-color: rgba(46, 160, 67, 0.25) !important;
     }
     html.dark .sticky {
-      background-color: rgba(10, 30, 19, 0.95) !important;
+      background-color: rgba(6, 10, 8, 0.85) !important;
+      backdrop-filter: blur(16px) !important;
     }
-    html.dark [class*="bg-\[#F7FAF8\]"], html.dark .bg-\[\#F7FAF8\]\/95 {
-      background-color: rgba(10, 30, 19, 0.95) !important;
+    html.dark [class*="bg-\[#F7FAF8\]"], html.dark [class*="bg-\[#FAF7F2\]"], html.dark .bg-\[\#FAF7F2\]\/95 {
+      background-color: rgba(6, 10, 8, 0.95) !important;
+    }
+    html.dark .flex.items-center.bg-white.rounded-full,
+    html.dark .bg-white.rounded-full,
+    html.dark div.bg-white.border.border-gray-200.rounded-full {
+      background-color: rgba(10, 22, 15, 0.85) !important;
+      border-color: rgba(46, 160, 67, 0.3) !important;
+    }
+    html.dark input[type="text"] {
+      color: #FFFFFF !important;
+    }
+    html.dark input::placeholder {
+      color: #CBD5E1 !important;
     }
     html.dark .pr-tab-btn:not(.bg-brand-blue) {
-      background-color: #0E2419 !important;
+      background-color: #08100B !important;
       color: #E2E8F0 !important;
       border: 1px solid rgba(46, 160, 67, 0.25) !important;
     }
     html.dark [id$="-custom-dropdown-menu"], html.dark [id$="-dropdown-menu"], html.dark .popover-card {
-      background-color: #0D2418 !important;
+      background-color: #08100B !important;
       border-color: rgba(46, 160, 67, 0.35) !important;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6) !important;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8) !important;
       color: #FFFFFF !important;
+    }
+
+    /* Active Bottom Navigation Label & Icon Colors in Light & Dark Mode */
+    .nav-bottom-link.text-brand-blue,
+    .nav-bottom-link.text-brand-blue > span:not(#m-pr-nav-badge),
+    .nav-bottom-link.text-brand-blue .material-symbols-outlined,
+    html.light .nav-bottom-link.text-brand-blue,
+    html.light .nav-bottom-link.text-brand-blue > span:not(#m-pr-nav-badge) {
+      color: #0E5296 !important;
+    }
+
+    html.dark .nav-bottom-link.text-brand-blue,
+    html.dark .nav-bottom-link.text-brand-blue > span:not(#m-pr-nav-badge),
+    html.dark .nav-bottom-link.text-brand-blue .material-symbols-outlined {
+      color: #38BDF8 !important;
+    }
+
+    /* Badge Numbers MUST ALWAYS Be White & Visible */
+    #m-pr-nav-badge,
+    #d-pr-nav-badge {
+      background-color: #0E5296 !important;
+      color: #FFFFFF !important;
+      font-weight: 800 !important;
     }
     html.dark .m-opt-item, html.dark .d-opt-item {
       color: #FFFFFF !important;
@@ -240,41 +320,44 @@
       font-family: 'Hanken Grotesk', sans-serif;
     }
 
-    /* Balanced Desktop Sizing */
+    /* Balanced Desktop Sizing with clamp() Fluid Scaling */
     @media (min-width: 768px) {
       .fluid-sidebar {
-        width: 16.5rem;
+        width: clamp(15rem, 16.5vw, 16.5rem);
       }
       .fluid-main {
-        margin-left: 16.5rem;
-        padding: 1.25rem 2rem;
+        margin-left: clamp(15rem, 16.5vw, 16.5rem);
+        padding: clamp(0.75rem, 1.5vw + 0.2rem, 1.75rem) clamp(1rem, 2vw + 0.2rem, 2.25rem);
       }
       .fluid-title-lg {
-        font-size: 1.3rem;
+        font-size: clamp(1.15rem, 1.2vw + 0.85rem, 1.5rem);
         line-height: 1.25;
       }
       .fluid-title-md {
-        font-size: 1.05rem;
+        font-size: clamp(0.95rem, 0.8vw + 0.75rem, 1.2rem);
         line-height: 1.3;
       }
       .fluid-balance-text {
-        font-size: 2.25rem;
-        line-height: 1.1;
+        font-size: clamp(2rem, 3.2vw + 1rem, 3.5rem);
+        line-height: 1.05;
+        font-weight: 900 !important;
       }
       .fluid-stat-val {
-        font-size: 1.3rem;
+        font-size: clamp(1.05rem, 1vw + 0.75rem, 1.35rem);
         line-height: 1.2;
       }
       .fluid-card-padding {
-        padding: 1.1rem 1.35rem;
+        padding: clamp(0.75rem, 1.2vw + 0.4rem, 1.35rem);
       }
       .fluid-gap {
-        gap: 1rem;
+        gap: clamp(0.5rem, 1.2vw + 0.2rem, 1rem);
       }
     }
 
     .glass-card {
-      background: #ffffff;
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(16, 43, 27, 0.08);
       transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -282,8 +365,8 @@
     /* Exact Payment Room CSS Tokens & Classes from Deal Room */
     :root {
       --bg: #F7F7F5;
-      --surface: #FFFFFF;
-      --surface-2: #F1F3F5;
+      --surface: rgba(255, 255, 255, 0.45);
+      --surface-2: rgba(241, 243, 245, 0.55);
       --border: #E9ECEF;
       --border-strong: #DEE2E6;
       --text: #111827;
@@ -319,6 +402,8 @@
 
     .card {
       background: var(--surface);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: var(--card-p);
@@ -1008,19 +1093,22 @@
       box-shadow: 0 12px 25px -5px rgba(16, 43, 27, 0.08);
     }
 
-    .vault-gradient {
-      background: linear-gradient(135deg, #102B1B 0%, #0A1C12 55%, #0E5296 100%);
-      border: 1px solid rgba(199, 247, 195, 0.2);
+    html.light .vault-gradient, .vault-gradient {
+      background: linear-gradient(135deg, #071F13 0%, #092B1B 35%, #0B457D 85%, #0E5496 100%) !important;
+      border: none !important;
+      outline: none !important;
+      box-shadow: 0 14px 35px -8px rgba(10, 33, 22, 0.22) !important;
+    }
+
+    html.dark .vault-gradient {
+      background: linear-gradient(135deg, #030805 0%, #061A10 35%, #08345E 85%, #0B4885 100%) !important;
+      border: none !important;
+      outline: none !important;
+      box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.8) !important;
     }
 
     .vault-shine {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 80% 20%, rgba(199, 247, 195, 0.12) 0%, transparent 65%);
-      pointer-events: none;
+      display: none !important;
     }
 
     .deco-tr-glow {
@@ -1294,16 +1382,16 @@
     }
   </style>
 </head>
-<body class="m-0 p-0 text-brand-dark bg-[#F7FAF8] selection:bg-brand-blue selection:text-white font-sans h-dvh overflow-hidden">
+<body class="m-0 p-0 text-brand-dark bg-[#FAF7F2] selection:bg-brand-blue selection:text-white font-sans h-dvh overflow-hidden">
 
   <!-- ========================================== -->
   <!-- MOBILE & MINI VIEW (< 768px / md:hidden)   -->
   <!-- ========================================== -->
-  <div class="block md:hidden h-dvh overflow-hidden bg-[#F7FAF8] text-brand-dark relative">
+  <div class="block md:hidden h-dvh overflow-hidden bg-[#FAF7F2] text-brand-dark relative">
     <div class="w-full max-w-[clamp(420px,95vw,768px)] mx-auto flex flex-col h-dvh overflow-hidden relative">
 
       <!-- Mobile Sticky Glass Header (Fixed Across All Views) -->
-      <header class="flex-none bg-[#F7FAF8]/95 dark:bg-[#080C0A]/95 backdrop-blur-md z-40 px-4 py-3 flex justify-between items-center border-b border-gray-200/80 dark:border-white/10 shadow-xs">
+      <header class="flex-none bg-[#FAF7F2]/95 dark:bg-[#080C0A]/95 backdrop-blur-md z-40 px-4 py-3 flex justify-between items-center border-b border-gray-200/80 dark:border-white/10 shadow-xs">
         <button onclick="switchView('home')" class="flex items-center">
           <img src="paykudi-logo.png" alt="PayKudi" style="height: 40px; max-height: 40px; width: auto;" class="h-[40px] max-h-[40px] w-auto object-contain dark:hidden" />
           <img src="logodarkmode.png" alt="PayKudi" style="height: 40px; max-height: 40px; width: auto;" class="h-[40px] max-h-[40px] w-auto object-contain hidden dark:block" />
@@ -1315,11 +1403,6 @@
             <span class="material-symbols-outlined text-[18px] text-amber-500 dark:hidden">light_mode</span>
             <span class="material-symbols-outlined text-[18px] text-blue-400 hidden dark:inline">dark_mode</span>
           </button>
-
-          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-500/10 text-brand-green border border-emerald-500/20 font-heading whitespace-nowrap">
-            <i class="fa-brands fa-whatsapp text-emerald-600 text-xs"></i>
-            +234 812 345 6789
-          </span>
         </div>
       </header>
 
@@ -1341,12 +1424,12 @@
               </div>
 
               <!-- Auto Withdraw Toggle -->
-              <label class="flex items-center gap-1.5 cursor-pointer bg-white/10 hover:bg-white/20 px-2.5 py-0.5 rounded-full border border-white/15 backdrop-blur-md transition-all">
-                <span class="w-1.5 h-1.5 rounded-full bg-brand-green animate-pulse" id="m-auto-withdraw-dot"></span>
-                <span class="text-[10px] font-semibold text-gray-200 font-heading">Auto-Withdraw</span>
-                <div class="relative inline-block w-7 h-3.5 ml-0.5">
+              <label class="flex items-center gap-1.5 cursor-pointer bg-white/10 hover:bg-white/20 px-2.5 py-0.5 rounded-full border border-white/15 backdrop-blur-md transition-all select-none">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-green animate-pulse flex-shrink-0" id="m-auto-withdraw-dot"></span>
+                <span class="text-[10px] font-semibold text-gray-200 font-heading whitespace-nowrap">Auto-Withdraw</span>
+                <div class="relative inline-flex items-center flex-shrink-0">
                   <input type="checkbox" id="m-auto-withdraw-toggle" onchange="toggleAutoWithdraw(this)" class="sr-only peer" checked>
-                  <div class="w-7 h-3.5 bg-red-500 peer-focus:outline-none rounded-full peer peer-checked:bg-brand-green peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[1px] after:left-[1px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all"></div>
+                  <div class="w-7 h-4 bg-red-500/80 peer-focus:outline-none rounded-full peer peer-checked:bg-brand-green after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-all after:shadow-sm peer-checked:after:translate-x-3"></div>
                 </div>
               </label>
             </div>
@@ -1354,7 +1437,7 @@
             <!-- Amount Row with Eye Icon Side-by-Side -->
             <div class="my-2">
               <div class="flex items-center gap-3">
-                <h2 id="mobile-balance-text" class="text-3xl font-extrabold tracking-tight font-heading text-white transition-all duration-300">₦2,500,000.00</h2>
+                <h2 id="mobile-balance-text" class="text-4xl sm:text-5xl font-black tracking-tight font-heading text-white transition-all duration-300 drop-shadow-sm">₦2,500,000.00</h2>
                 <button onclick="toggleBalanceVisibility()" class="text-brand-mint hover:text-white transition-colors p-1 flex items-center" title="Toggle visibility">
                   <span id="mobile-eye-icon" class="material-symbols-outlined text-[24px]">visibility</span>
                 </button>
@@ -1463,7 +1546,7 @@
       <!-- VIEW 2: ACTIVITIES MOBILE (STICKY METRICS & CONTROLS + SCROLLABLE LIST) -->
       <div id="m-view-activity" class="view-panel flex-1 flex flex-col overflow-hidden hidden">
         <!-- Fixed Top Controls -->
-        <div class="flex-none bg-[#F7FAF8] z-30 px-4 pt-3 pb-2 space-y-3">
+        <div class="flex-none bg-[#FAF7F2] z-30 px-4 pt-3 pb-2 space-y-3">
           <!-- 3 Metric Cards Section -->
           <section class="grid grid-cols-3 gap-2.5">
             <div class="bg-brand-dark text-white rounded-2xl p-3.5 h-24 flex flex-col justify-between relative overflow-hidden shadow-md press-effect">
@@ -1520,8 +1603,8 @@
 
                 <!-- Integrated Filter Button & Dropdown Inside Search Bar -->
                 <div class="relative text-left flex-shrink-0" id="m-custom-dropdown-wrap">
-                  <button type="button" onclick="toggleCustomDropdown('mobile')" id="m-custom-dropdown-btn" class="inline-flex items-center gap-1 bg-gray-50 hover:bg-gray-100 border border-gray-200/80 rounded-full px-2 py-0.5 text-[10.5px] font-semibold text-brand-dark focus:outline-none font-heading shadow-2xs cursor-pointer transition-all">
-                    <span class="material-symbols-outlined text-[12px] text-gray-600">tune</span>
+                  <button type="button" onclick="toggleCustomDropdown('mobile')" id="m-custom-dropdown-btn" class="inline-flex items-center gap-1 hover:bg-gray-100 dark:hover:bg-white/10 rounded-full px-2 py-0.5 text-[10.5px] font-semibold text-brand-dark focus:outline-none font-heading cursor-pointer transition-all">
+                    <span class="material-symbols-outlined text-[13px] text-gray-600">tune</span>
                     <span id="m-custom-dropdown-label">Filter</span>
                     <span id="m-filter-badge" class="hidden w-3.5 h-3.5 rounded-full bg-brand-blue text-white text-[8.5px] font-extrabold items-center justify-center leading-none">0</span>
                   </button>
@@ -2190,19 +2273,22 @@
         <div class="card bg-white border border-gray-200/90 rounded-3xl p-5 shadow-xs relative overflow-hidden sticky -top-3 z-30 bg-white/95 backdrop-blur-md">
           <div class="flex items-center justify-between gap-3">
             <div class="flex items-center gap-3.5 min-w-0 flex-1">
-              <div class="w-12 h-12 min-w-[48px] min-h-[48px] rounded-2xl bg-gradient-to-br from-brand-blue to-emerald-600 text-white flex items-center justify-center text-base font-black shadow-md font-heading flex-shrink-0">
-                MV
+              <div class="w-14 h-14 min-w-[56px] min-h-[56px] rounded-full border-2 border-brand-green/50 p-0.5 shadow-md flex-shrink-0 overflow-hidden bg-gradient-to-br from-brand-blue to-emerald-600 flex items-center justify-center">
+                <img src="paykudi-contact-photo.jpg" alt="Marcus Vance" class="w-full h-full object-cover object-top rounded-full" style="image-rendering: smooth; image-rendering: -webkit-optimize-contrast;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                <div class="w-full h-full rounded-full items-center justify-center text-white font-black text-base font-heading hidden">MV</div>
               </div>
               <div class="min-w-0 flex-1">
-                <h3 class="text-base font-extrabold text-brand-dark font-heading truncate">Marcus Vance</h3>
-                <p class="text-xs font-semibold text-gray-600 flex items-center gap-1 mt-0.5">
-                  <i class="fa-brands fa-whatsapp text-emerald-600 text-xs"></i>
-                  <span>+234 812 345 6789</span>
-                </p>
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <h3 class="text-base font-extrabold text-brand-dark font-heading truncate">Marcus Vance</h3>
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30 font-heading whitespace-nowrap flex-shrink-0 tracking-tight">
+                    <i class="fa-brands fa-whatsapp text-emerald-600 text-[11px]"></i>
+                    <span class="font-black">+234 812 345 6789</span>
+                  </span>
+                </div>
                 <div id="m-profile-email-container" class="mt-1">
-                  <button onclick="openActionModal('Edit Profile', event)" class="inline-flex items-center gap-1 text-[10.5px] font-bold text-amber-700 bg-amber-50 hover:bg-amber-100 border border-amber-200/80 px-2 py-0.5 rounded-md transition-all font-heading cursor-pointer">
-                    <span class="material-symbols-outlined text-[13px]">mail</span>
-                    <span>+ Add Email (For Email Login)</span>
+                  <button onclick="openActionModal('Edit Profile', event)" class="inline-flex items-center gap-1 text-[10.5px] font-bold text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-500/15 hover:bg-amber-100 dark:hover:bg-amber-500/25 border border-amber-300/80 dark:border-amber-500/30 px-2.5 py-1 rounded-md transition-all font-heading cursor-pointer whitespace-nowrap max-w-full">
+                    <span class="material-symbols-outlined text-[13px] flex-shrink-0">mail</span>
+                    <span class="whitespace-nowrap truncate">+ Add Email (For Email Login)</span>
                   </button>
                 </div>
               </div>
@@ -2219,8 +2305,8 @@
           <div>
             <div class="flex items-center justify-between">
               <h3 class="text-sm font-bold text-brand-dark font-heading">Payout Accounts</h3>
-              <button onclick="openActionModal('Payout Account')" class="px-2.5 py-1 rounded-xl bg-brand-blue/10 hover:bg-brand-blue/20 text-brand-blue text-xs font-bold font-heading flex items-center gap-1 cursor-pointer flex-shrink-0 transition-all">
-                <span class="material-symbols-outlined text-[16px]">add_circle</span>
+              <button onclick="openActionModal('Payout Account')" class="px-2 py-0.5 rounded-full bg-brand-blue/10 hover:bg-brand-blue/20 text-brand-blue text-[10px] font-extrabold font-heading flex items-center gap-1 cursor-pointer flex-shrink-0 transition-all">
+                <span class="material-symbols-outlined text-[13px]">add_circle</span>
                 <span>Add New</span>
               </button>
             </div>
@@ -2379,7 +2465,10 @@
           <span class="text-[10px] font-heading">Payment Room</span>
         </button>
         <button onclick="switchView('profile')" id="m-nav-profile" class="nav-bottom-link text-gray-500 hover:text-brand-blue flex flex-col items-center gap-0.5 transition-colors" data-target="profile">
-          <span class="material-symbols-outlined text-[24px]">person</span>
+          <div class="flex items-center gap-1">
+            <span class="material-symbols-outlined text-[22px]">person</span>
+            <i class="fa-brands fa-whatsapp text-emerald-500 text-[12px]"></i>
+          </div>
           <span class="text-[10px] font-heading">Profile</span>
         </button>
       </nav>
@@ -2391,62 +2480,61 @@
   <!-- ========================================== -->
   <!-- DESKTOP VIEW (>= 768px / hidden md:flex)  -->
   <!-- ========================================== -->
-  <div class="hidden md:flex min-h-screen w-full bg-[#F7FAF8] text-brand-dark relative font-sans h-dvh overflow-hidden">
+  <div class="hidden md:flex min-h-screen w-full bg-[#FAF7F2] text-brand-dark relative font-sans h-dvh overflow-hidden">
 
     <!-- Desktop SideNavBar (Kuda-Spaced Navigation) -->
-    <aside class="fluid-sidebar fixed left-0 top-0 h-dvh bg-white dark:bg-[#0D1310] border-r border-gray-200/80 dark:border-white/10 p-6 flex flex-col justify-between z-40 shadow-sm transition-colors duration-300">
+    <aside class="fluid-sidebar fixed left-0 top-0 h-dvh bg-white dark:bg-[#0D1310] border-r border-gray-200/80 dark:border-white/10 p-4 sm:p-4.5 flex flex-col justify-between z-40 shadow-sm transition-colors duration-300">
       <div>
-        <!-- Sidebar Header with Logo & WhatsApp Number -->
-        <div class="px-0 py-2 mb-8 flex items-center justify-between gap-2">
+        <!-- Sidebar Header with Logo -->
+        <div class="px-0 py-2 mb-6 flex items-center justify-between gap-1.5 min-w-0">
           <button onclick="switchView('home')" class="flex-shrink-0 cursor-pointer">
-            <img src="paykudi-logo.png" alt="PayKudi" style="height: 40px; max-height: 40px; width: auto;" class="h-[40px] max-h-[40px] w-auto object-contain dark:hidden" />
-            <img src="logodarkmode.png" alt="PayKudi" style="height: 40px; max-height: 40px; width: auto;" class="h-[40px] max-h-[40px] w-auto object-contain hidden dark:block" />
+            <img src="paykudi-logo.png" alt="PayKudi" style="height: 38px; max-height: 38px; width: auto;" class="h-[38px] max-h-[38px] w-auto object-contain dark:hidden" />
+            <img src="logodarkmode.png" alt="PayKudi" style="height: 38px; max-height: 38px; width: auto;" class="h-[38px] max-h-[38px] w-auto object-contain hidden dark:block" />
           </button>
-          <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10.5px] font-semibold bg-emerald-500/10 text-brand-green border border-emerald-500/20 font-heading whitespace-nowrap flex-shrink-0">
-            <i class="fa-brands fa-whatsapp text-emerald-600 text-[11px]"></i>
-            +234 812 345 6789
-          </span>
         </div>
         
         <!-- Generously Spaced Navigation Links -->
-        <nav class="space-y-4">
-          <button onclick="switchView('home')" class="nav-sidebar-link w-full flex items-center gap-3.5 bg-brand-blue text-white rounded-2xl px-4 py-3.5 font-semibold shadow-md transition-all duration-200 font-heading cursor-pointer" data-target="home">
-            <span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">dashboard</span>
-            <span class="text-xs font-semibold">Dashboard</span>
+        <nav class="space-y-3">
+          <button onclick="switchView('home')" class="nav-sidebar-link w-full flex items-center gap-3 bg-brand-blue text-white rounded-2xl px-3.5 py-3 font-semibold shadow-md transition-all duration-200 font-heading cursor-pointer whitespace-nowrap min-w-0" data-target="home">
+            <span class="material-symbols-outlined text-[20px] flex-shrink-0" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+            <span class="text-xs font-semibold whitespace-nowrap truncate">Dashboard</span>
           </button>
-          <button onclick="switchView('activity')" class="nav-sidebar-link w-full flex items-center gap-3.5 text-gray-700 dark:text-gray-300 hover:bg-brand-blue/10 hover:text-brand-blue dark:hover:bg-white/5 dark:hover:text-white rounded-2xl px-4 py-3.5 transition-all duration-200 font-medium font-heading cursor-pointer" data-target="activity">
-            <span class="material-symbols-outlined text-[22px]">analytics</span>
-            <span class="text-xs font-semibold">Activity</span>
+          <button onclick="switchView('activity')" class="nav-sidebar-link w-full flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:bg-brand-blue/10 hover:text-brand-blue dark:hover:bg-white/5 dark:hover:text-white rounded-2xl px-3.5 py-3 transition-all duration-200 font-medium font-heading cursor-pointer whitespace-nowrap min-w-0" data-target="activity">
+            <span class="material-symbols-outlined text-[20px] flex-shrink-0">analytics</span>
+            <span class="text-xs font-semibold whitespace-nowrap truncate">Activity</span>
           </button>
-          <button onclick="switchView('notifications')" class="nav-sidebar-link w-full flex items-center justify-between text-gray-700 dark:text-gray-300 hover:bg-brand-blue/10 hover:text-brand-blue dark:hover:bg-white/5 dark:hover:text-white rounded-2xl px-4 py-3.5 transition-all duration-200 font-medium font-heading cursor-pointer" data-target="notifications">
-            <div class="flex items-center gap-3.5">
-              <span class="material-symbols-outlined text-[22px]">payments</span>
-              <span class="text-xs font-semibold">Payment Room</span>
+          <button onclick="switchView('notifications')" class="nav-sidebar-link w-full flex items-center justify-between gap-2 text-gray-700 dark:text-gray-300 hover:bg-brand-blue/10 hover:text-brand-blue dark:hover:bg-white/5 dark:hover:text-white rounded-2xl px-3.5 py-3 transition-all duration-200 font-medium font-heading cursor-pointer whitespace-nowrap min-w-0" data-target="notifications">
+            <div class="flex items-center gap-3 min-w-0 flex-1">
+              <span class="material-symbols-outlined text-[20px] flex-shrink-0">payments</span>
+              <span class="text-xs font-semibold whitespace-nowrap truncate">Payment Room</span>
             </div>
-            <span id="d-pr-nav-badge" class="bg-brand-blue text-white font-extrabold text-[10px] w-5 h-5 rounded-full flex items-center justify-center shadow-xs">2</span>
+            <span id="d-pr-nav-badge" class="bg-brand-blue text-white font-extrabold text-[10px] w-5 h-5 rounded-full flex items-center justify-center shadow-xs flex-shrink-0">2</span>
           </button>
-          <button onclick="switchView('profile')" class="nav-sidebar-link w-full flex items-center gap-3.5 text-gray-700 dark:text-gray-300 hover:bg-brand-blue/10 hover:text-brand-blue dark:hover:bg-white/5 dark:hover:text-white rounded-2xl px-4 py-3.5 transition-all duration-200 font-medium font-heading cursor-pointer" data-target="profile">
-            <span class="material-symbols-outlined text-[22px]">person</span>
-            <span class="text-xs font-semibold">Account Profile</span>
+          <button onclick="switchView('profile')" class="nav-sidebar-link w-full flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:bg-brand-blue/10 hover:text-brand-blue dark:hover:bg-white/5 dark:hover:text-white rounded-2xl px-3.5 py-3 transition-all duration-200 font-medium font-heading cursor-pointer whitespace-nowrap min-w-0" data-target="profile">
+            <div class="flex items-center gap-1.5 flex-shrink-0">
+              <span class="material-symbols-outlined text-[20px]">person</span>
+              <i class="fa-brands fa-whatsapp text-emerald-500 text-sm"></i>
+            </div>
+            <span class="text-xs font-semibold whitespace-nowrap truncate">Account Profile</span>
           </button>
         </nav>
       </div>
 
       <!-- Bottom Actions: Help & Support + Theme Changer -->
-      <div class="space-y-3 pt-4 border-t border-gray-100 dark:border-white/10">
-        <button onclick="switchView('help')" class="nav-sidebar-link w-full flex items-center gap-3.5 text-gray-600 dark:text-gray-400 hover:text-brand-blue dark:hover:text-white px-4 py-2.5 rounded-xl transition-all font-medium text-xs font-heading cursor-pointer" data-target="help">
-          <span class="material-symbols-outlined text-[20px]">contact_support</span>
-          <span>Help & Support</span>
+      <div class="space-y-2.5 pt-3">
+        <button onclick="switchView('help')" class="nav-sidebar-link w-full flex items-center gap-3 text-gray-600 dark:text-gray-400 hover:text-brand-blue dark:hover:text-white px-3.5 py-2.5 rounded-xl transition-all font-medium text-xs font-heading cursor-pointer whitespace-nowrap min-w-0" data-target="help">
+          <span class="material-symbols-outlined text-[20px] flex-shrink-0">contact_support</span>
+          <span class="whitespace-nowrap truncate">Help & Support</span>
         </button>
 
         <!-- Theme Changer Toggle -->
-        <button onclick="toggleTheme()" id="d-theme-toggle-btn" class="w-full flex items-center justify-between bg-gray-50 hover:bg-gray-100 dark:bg-white/5 dark:hover:bg-white/10 border border-gray-200/80 dark:border-white/10 px-3.5 py-2.5 rounded-2xl transition-all font-heading text-xs cursor-pointer">
-          <div class="flex items-center gap-2.5 text-brand-dark dark:text-gray-200 font-semibold">
-            <span class="material-symbols-outlined text-[18px] text-amber-500 dark:hidden">light_mode</span>
-            <span class="material-symbols-outlined text-[18px] text-blue-400 hidden dark:inline">dark_mode</span>
-            <span id="d-theme-toggle-label">Dark Theme</span>
+        <button onclick="toggleTheme()" id="d-theme-toggle-btn" class="w-full flex items-center justify-between bg-gray-50 hover:bg-gray-100 dark:bg-white/5 dark:hover:bg-white/10 border border-gray-200/80 dark:border-white/10 px-3 py-2.5 rounded-2xl transition-all font-heading text-xs cursor-pointer whitespace-nowrap min-w-0">
+          <div class="flex items-center gap-2 text-brand-dark dark:text-gray-200 font-semibold min-w-0 truncate">
+            <span class="material-symbols-outlined text-[18px] text-amber-500 dark:hidden flex-shrink-0">light_mode</span>
+            <span class="material-symbols-outlined text-[18px] text-blue-400 hidden dark:inline flex-shrink-0">dark_mode</span>
+            <span id="d-theme-toggle-label" class="truncate">Dark Theme</span>
           </div>
-          <div class="relative w-8 h-4.5 bg-gray-300 dark:bg-brand-blue rounded-full transition-colors flex items-center px-0.5">
+          <div class="relative w-8 h-4.5 bg-gray-300 dark:bg-brand-blue rounded-full transition-colors flex items-center px-0.5 flex-shrink-0">
             <div class="w-3.5 h-3.5 bg-white rounded-full transition-transform transform translate-x-0 dark:translate-x-3.5 shadow-sm"></div>
           </div>
         </button>
@@ -2454,61 +2542,61 @@
     </aside>
 
     <!-- Desktop Main Content Area (Unified SPA Panel Container) -->
-    <main class="fluid-main flex-1 relative h-dvh flex flex-col overflow-hidden bg-[#F7FAF8]">
+    <main class="fluid-main flex-1 relative h-dvh flex flex-col overflow-hidden bg-[#FAF7F2]">
       
       <!-- DESKTOP VIEW 1: HOME -->
       <div id="d-view-home" class="view-panel flex-1 overflow-y-auto max-w-6xl w-full mx-auto space-y-5 pt-3 pb-8 px-2 custom-scroll">
         <!-- Desktop Auto-Sliding Balance & Protected Hero Card -->
-        <section class="vault-gradient rounded-3xl p-6 text-white relative overflow-hidden shadow-vault">
+        <section class="vault-gradient rounded-3xl p-[clamp(1rem,1.8vw+0.5rem,1.75rem)] text-white relative overflow-hidden shadow-vault">
           <div class="vault-shine"></div>
           
-          <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-            <div>
-              <div class="flex items-center gap-3 mb-3 flex-wrap">
-                <span class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-brand-green/20 text-brand-mint border border-brand-green/30 flex items-center gap-2 font-heading">
+          <div class="relative z-10 flex flex-col xl:flex-row justify-between items-start xl:items-center gap-4">
+            <div class="min-w-0">
+              <div class="flex items-center gap-2.5 mb-3 flex-wrap">
+                <span class="px-3 py-1 rounded-full text-[clamp(10.5px,0.4vw+8px,12px)] font-semibold bg-brand-green/20 text-brand-mint border border-brand-green/30 flex items-center gap-2 font-heading">
                   <span id="d-slide-tag" class="transition-all duration-300">Your PayKudi Balance</span>
                   <button onclick="showSlideInfo()" class="text-gray-300 hover:text-white transition-colors flex items-center" title="Balance Info">
                     <span class="material-symbols-outlined text-[16px]">info</span>
                   </button>
                 </span>
                 
-                <label class="flex items-center gap-2 cursor-pointer bg-white/10 hover:bg-white/15 px-3 py-1 rounded-full border border-white/20 backdrop-blur-md transition-all">
-                  <span class="w-2 h-2 rounded-full bg-brand-green animate-pulse" id="d-auto-withdraw-dot"></span>
-                  <span class="text-xs font-semibold text-gray-100 font-heading">Auto-Withdraw</span>
-                  <div class="relative inline-block w-9 h-5 ml-1">
+                <label class="flex items-center gap-2 cursor-pointer bg-white/10 hover:bg-white/15 px-3 py-1 rounded-full border border-white/20 backdrop-blur-md transition-all select-none">
+                  <span class="w-2 h-2 rounded-full bg-brand-green animate-pulse flex-shrink-0" id="d-auto-withdraw-dot"></span>
+                  <span class="text-[clamp(10.5px,0.4vw+8px,12px)] font-semibold text-gray-100 font-heading whitespace-nowrap">Auto-Withdraw</span>
+                  <div class="relative inline-flex items-center flex-shrink-0">
                     <input type="checkbox" id="d-auto-withdraw-toggle" onchange="toggleAutoWithdraw(this)" class="sr-only peer" checked>
-                    <div class="w-9 h-5 bg-red-500 peer-focus:outline-none rounded-full peer peer-checked:bg-brand-green peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all"></div>
+                    <div class="w-9 h-5 bg-red-500/80 peer-focus:outline-none rounded-full peer peer-checked:bg-brand-green after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all after:shadow-sm peer-checked:after:translate-x-4"></div>
                   </div>
                 </label>
               </div>
 
-              <div class="flex items-center gap-4">
-                <h2 id="desktop-balance-text" class="fluid-balance-text font-extrabold tracking-tight font-heading text-white transition-all duration-300">₦2,500,000.00</h2>
-                <button onclick="toggleBalanceVisibility()" class="text-brand-mint hover:text-white transition-colors p-1 flex items-center" title="Toggle visibility">
-                  <span id="desktop-eye-icon" class="material-symbols-outlined text-[26px]">visibility</span>
+              <div class="flex items-center gap-3">
+                <h2 id="desktop-balance-text" class="fluid-balance-text font-extrabold tracking-tight font-heading text-white transition-all duration-300 truncate">₦2,500,000.00</h2>
+                <button onclick="toggleBalanceVisibility()" class="text-brand-mint hover:text-white transition-colors p-1 flex items-center flex-shrink-0" title="Toggle visibility">
+                  <span id="desktop-eye-icon" class="material-symbols-outlined text-[clamp(20px,1.5vw+12px,26px)]">visibility</span>
                 </button>
               </div>
 
               <!-- 2 Slide Indicator Dots (Active Dot Filled) -->
-              <div class="flex items-center gap-2 mt-3">
+              <div class="flex items-center gap-2 mt-2.5">
                 <button onclick="setBalanceSlide(0)" id="d-dot-0" class="w-2.5 h-2.5 rounded-full bg-white scale-110 shadow-sm transition-all duration-300" title="Available Balance"></button>
                 <button onclick="setBalanceSlide(1)" id="d-dot-1" class="w-2.5 h-2.5 rounded-full bg-white/30 transition-all duration-300" title="Protected Balance"></button>
               </div>
             </div>
 
             <!-- Action Buttons Desktop -->
-            <div class="flex flex-wrap gap-3 w-full md:w-auto">
-              <button onclick="openActionModal('Withdraw Money')" class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-brand-green hover:bg-emerald-600 text-white rounded-2xl py-3 px-5 text-xs font-semibold shadow-md transition-all hover:-translate-y-0.5 press-effect font-heading">
-                <span class="material-symbols-outlined text-[18px]">outbox</span>
-                Withdraw Money
+            <div class="flex flex-wrap gap-2.5 sm:gap-3 w-full xl:w-auto flex-shrink-0">
+              <button onclick="openActionModal('Withdraw Money')" class="flex-1 xl:flex-none flex items-center justify-center gap-2 bg-brand-green hover:bg-emerald-600 text-white rounded-2xl py-2.5 sm:py-3 px-[clamp(0.5rem,0.8vw+0.25rem,1.15rem)] text-[clamp(10.5px,0.4vw+8px,12.5px)] font-semibold shadow-md transition-all hover:-translate-y-0.5 press-effect font-heading whitespace-nowrap min-w-0">
+                <span class="material-symbols-outlined text-[18px] flex-shrink-0">outbox</span>
+                <span>Withdraw Money</span>
               </button>
-              <button onclick="openActionModal('Request Payment')" class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white rounded-2xl py-3 px-5 text-xs font-semibold backdrop-blur-md transition-all hover:-translate-y-0.5 press-effect font-heading">
-                <span class="material-symbols-outlined text-[18px]">call_received</span>
-                Request
+              <button onclick="openActionModal('Request Payment')" class="flex-1 xl:flex-none flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white rounded-2xl py-2.5 sm:py-3 px-[clamp(0.5rem,0.8vw+0.25rem,1.15rem)] text-[clamp(10.5px,0.4vw+8px,12.5px)] font-semibold backdrop-blur-md transition-all hover:-translate-y-0.5 press-effect font-heading whitespace-nowrap min-w-0">
+                <span class="material-symbols-outlined text-[18px] flex-shrink-0">call_received</span>
+                <span>Request</span>
               </button>
-              <button onclick="openActionModal('Add Funds')" class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white rounded-2xl py-3 px-5 text-xs font-semibold backdrop-blur-md transition-all hover:-translate-y-0.5 press-effect font-heading">
-                <span class="material-symbols-outlined text-[18px]">add_circle</span>
-                Top Up
+              <button onclick="openActionModal('Add Funds')" class="flex-1 xl:flex-none flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white rounded-2xl py-2.5 sm:py-3 px-[clamp(0.5rem,0.8vw+0.25rem,1.15rem)] text-[clamp(10.5px,0.4vw+8px,12.5px)] font-semibold backdrop-blur-md transition-all hover:-translate-y-0.5 press-effect font-heading whitespace-nowrap min-w-0">
+                <span class="material-symbols-outlined text-[18px] flex-shrink-0">add_circle</span>
+                <span>Top Up</span>
               </button>
             </div>
           </div>
@@ -2517,30 +2605,30 @@
         <!-- Desktop Quick Actions Cards -->
         <section>
           <h3 class="fluid-title-md font-bold text-brand-dark font-heading mb-3.5">Quick Actions</h3>
-          <div class="grid grid-cols-4 fluid-gap">
-            <button onclick="window.open('https://wa.me/2348123456789', '_blank')" class="bg-brand-green text-white rounded-2xl p-4 flex flex-col items-start justify-between h-28 md:h-30 hover:bg-emerald-700 transition-all shadow-md hover:-translate-y-0.5 press-effect">
-              <span class="material-symbols-outlined text-[24px] p-2 bg-white/20 rounded-xl">support_agent</span>
-              <p class="font-bold text-xs md:text-sm font-heading whitespace-nowrap text-white">Chat with Us</p>
+          <div class="grid grid-cols-2 min-[900px]:grid-cols-4 fluid-gap">
+            <button onclick="window.open('https://wa.me/2348123456789', '_blank')" class="bg-brand-green text-white rounded-2xl p-[clamp(0.6rem,0.8vw+0.25rem,0.95rem)] flex flex-col items-start justify-between h-28 md:h-30 hover:bg-emerald-700 transition-all shadow-md hover:-translate-y-0.5 press-effect min-w-0 overflow-hidden">
+              <span class="material-symbols-outlined text-[clamp(18px,1.5vw+12px,24px)] p-1.5 sm:p-2 bg-white/20 rounded-xl flex-shrink-0">support_agent</span>
+              <p class="font-bold text-[clamp(10.5px,0.45vw+7.5px,13px)] font-heading leading-tight text-white text-left break-words w-full">Chat with Us</p>
             </button>
 
-            <button onclick="openActionModal('Request Payment')" class="bg-brand-blue text-white rounded-2xl p-4 flex flex-col items-start justify-between h-28 md:h-30 hover:bg-blue-800 transition-all shadow-md hover:-translate-y-0.5 press-effect">
-              <span class="material-symbols-outlined text-[24px] p-2 bg-white/20 rounded-xl">call_received</span>
-              <p class="font-bold text-xs md:text-sm font-heading whitespace-nowrap text-white">Request Payment</p>
+            <button onclick="openActionModal('Request Payment')" class="bg-brand-blue text-white rounded-2xl p-[clamp(0.6rem,0.8vw+0.25rem,0.95rem)] flex flex-col items-start justify-between h-28 md:h-30 hover:bg-blue-800 transition-all shadow-md hover:-translate-y-0.5 press-effect min-w-0 overflow-hidden">
+              <span class="material-symbols-outlined text-[clamp(18px,1.5vw+12px,24px)] p-1.5 sm:p-2 bg-white/20 rounded-xl flex-shrink-0">call_received</span>
+              <p class="font-bold text-[clamp(10.5px,0.45vw+7.5px,13px)] font-heading leading-tight text-white text-left break-words w-full">Request Payment</p>
             </button>
 
-            <button onclick="openActionModal('Generate Payment Link')" class="bg-purple-700 text-white rounded-2xl p-4 flex flex-col items-start justify-between h-28 md:h-30 hover:bg-purple-800 transition-all shadow-md hover:-translate-y-0.5 press-effect">
-              <span class="material-symbols-outlined text-[24px] p-2 bg-white/20 rounded-xl">link</span>
-              <p class="font-bold text-xs md:text-sm font-heading whitespace-nowrap text-white">Payment Link</p>
+            <button onclick="openActionModal('Generate Payment Link')" class="bg-purple-700 text-white rounded-2xl p-[clamp(0.6rem,0.8vw+0.25rem,0.95rem)] flex flex-col items-start justify-between h-28 md:h-30 hover:bg-purple-800 transition-all shadow-md hover:-translate-y-0.5 press-effect min-w-0 overflow-hidden">
+              <span class="material-symbols-outlined text-[clamp(18px,1.5vw+12px,24px)] p-1.5 sm:p-2 bg-white/20 rounded-xl flex-shrink-0">link</span>
+              <p class="font-bold text-[clamp(10.5px,0.45vw+7.5px,13px)] font-heading leading-tight text-white text-left break-words w-full">Payment Link</p>
             </button>
 
-            <button onclick="openActionModal('Payout Account')" class="bg-brand-dark text-white rounded-2xl p-4 flex flex-col items-start justify-between h-28 md:h-30 hover:bg-black transition-all shadow-md hover:-translate-y-0.5 press-effect relative overflow-hidden">
-              <div class="flex justify-between items-center w-full">
-                <span class="material-symbols-outlined text-[24px] p-2 bg-white/20 rounded-xl">account_balance</span>
-                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9.5px] font-bold bg-emerald-500/20 text-brand-mint border border-emerald-400/30 font-heading">
-                  <i class="fa-solid fa-circle-check text-[10px]"></i> Verified
+            <button onclick="openActionModal('Payout Account')" class="bg-brand-dark text-white rounded-2xl p-[clamp(0.6rem,0.8vw+0.25rem,0.95rem)] flex flex-col items-start justify-between h-28 md:h-30 hover:bg-black transition-all shadow-md hover:-translate-y-0.5 press-effect relative overflow-hidden min-w-0">
+              <div class="flex justify-between items-center w-full min-w-0 gap-1">
+                <span class="material-symbols-outlined text-[clamp(18px,1.5vw+12px,24px)] p-1.5 sm:p-2 bg-white/20 rounded-xl flex-shrink-0">account_balance</span>
+                <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[clamp(8px,0.3vw+6.5px,9.5px)] font-bold bg-emerald-500/20 text-brand-mint border border-emerald-400/30 font-heading flex-shrink-0 truncate max-w-[55%]">
+                  <i class="fa-solid fa-circle-check text-[9px]"></i> <span class="truncate">Verified</span>
                 </span>
               </div>
-              <p class="font-bold text-xs md:text-sm font-heading whitespace-nowrap text-white">Payout Account</p>
+              <p class="font-bold text-[clamp(10.5px,0.45vw+7.5px,13px)] font-heading leading-tight text-white text-left break-words w-full">Payout Account</p>
             </button>
           </div>
         </section>
@@ -2650,7 +2738,7 @@
 
                   <!-- Integrated Filter Button & Dropdown Inside Search Bar -->
                   <div class="relative inline-block text-left flex-shrink-0" id="d-custom-dropdown-wrap">
-                    <button type="button" onclick="toggleCustomDropdown('desktop')" id="d-custom-dropdown-btn" class="inline-flex items-center gap-1.5 bg-gray-50 hover:bg-gray-100 border border-gray-200/80 rounded-full px-2.5 py-1 text-xs font-semibold text-brand-dark focus:outline-none font-heading shadow-2xs cursor-pointer transition-all">
+                    <button type="button" onclick="toggleCustomDropdown('desktop')" id="d-custom-dropdown-btn" class="inline-flex items-center gap-1 hover:bg-gray-100 dark:hover:bg-white/10 rounded-full px-2.5 py-0.5 text-xs font-semibold text-brand-dark focus:outline-none font-heading cursor-pointer transition-all">
                       <span class="material-symbols-outlined text-[14px] text-gray-600">tune</span>
                       <span id="d-custom-dropdown-label">Filter</span>
                       <span id="d-filter-badge" class="hidden w-4 h-4 rounded-full bg-brand-blue text-white text-[9.5px] font-extrabold items-center justify-center leading-none">0</span>
@@ -2779,22 +2867,26 @@
         <!-- TOP PROFILE BANNER CARD -->
         <div class="card bg-white border border-gray-200/90 rounded-3xl p-6 shadow-xs flex items-center justify-between gap-6 sticky top-0 z-30 bg-white/95 backdrop-blur-md">
           <div class="flex items-center gap-5 min-w-0">
-            <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-brand-blue to-emerald-600 text-white flex items-center justify-center text-3xl font-black shadow-lg font-heading flex-shrink-0">
-              MV
+            <div class="w-20 h-20 min-w-[80px] min-h-[80px] rounded-full border-2 border-brand-green/50 p-0.5 shadow-lg flex-shrink-0 overflow-hidden bg-gradient-to-br from-brand-blue to-emerald-600 flex items-center justify-center">
+              <img src="paykudi-contact-photo.jpg" alt="Marcus Vance" class="w-full h-full object-cover object-top rounded-full" style="image-rendering: smooth; image-rendering: -webkit-optimize-contrast;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <div class="w-full h-full rounded-full items-center justify-center text-white font-black text-2xl font-heading hidden">MV</div>
             </div>
             <div class="min-w-0">
-              <h2 class="text-2xl font-extrabold text-brand-dark font-heading">Marcus Vance</h2>
-              <p class="text-sm font-medium text-gray-600 flex items-center gap-2 mt-1 flex-wrap">
-                <i class="fa-brands fa-whatsapp text-emerald-600 text-sm"></i>
-                <span class="font-bold">+234 812 345 6789</span>
-                <span class="text-gray-300">•</span>
+              <div class="flex items-center gap-2.5 flex-wrap">
+                <h2 class="text-2xl font-extrabold text-brand-dark font-heading">Marcus Vance</h2>
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10.5px] font-extrabold bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30 font-heading whitespace-nowrap flex-shrink-0 tracking-tight">
+                  <i class="fa-brands fa-whatsapp text-emerald-600 text-[11.5px]"></i>
+                  <span class="font-black">+234 812 345 6789</span>
+                </span>
+              </div>
+              <div class="mt-1 flex items-center gap-2">
                 <span id="d-profile-email-container">
-                  <button onclick="openActionModal('Edit Profile', event)" class="inline-flex items-center gap-1 text-xs font-bold text-amber-700 bg-amber-50 hover:bg-amber-100 border border-amber-200/80 px-2.5 py-0.5 rounded-md transition-all font-heading cursor-pointer">
-                    <span class="material-symbols-outlined text-[14px]">mail</span>
-                    <span>+ Add Email (For Email Login)</span>
+                  <button onclick="openActionModal('Edit Profile', event)" class="inline-flex items-center gap-1 text-xs font-bold text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-500/15 hover:bg-amber-100 dark:hover:bg-amber-500/25 border border-amber-300/80 dark:border-amber-500/30 px-2.5 py-1 rounded-md transition-all font-heading cursor-pointer whitespace-nowrap">
+                    <span class="material-symbols-outlined text-[14px] flex-shrink-0">mail</span>
+                    <span class="whitespace-nowrap">+ Add Email (For Email Login)</span>
                   </button>
                 </span>
-              </p>
+              </div>
             </div>
           </div>
 
@@ -2815,9 +2907,9 @@
               <div class="border-b border-gray-100 pb-3">
                 <div class="flex items-center justify-between">
                   <h3 class="text-base font-bold text-brand-dark font-heading">Payout Accounts</h3>
-                  <button onclick="openActionModal('Payout Account')" class="bg-brand-green text-white px-4 py-1.5 rounded-xl text-xs font-bold font-heading flex items-center gap-1.5 hover:bg-emerald-600 transition-all shadow-xs cursor-pointer">
-                    <span class="material-symbols-outlined text-[16px]">add_circle</span>
-                    <span>Add Account</span>
+                  <button onclick="openActionModal('Payout Account')" class="bg-brand-green text-white px-2.5 py-0.5 rounded-full text-[10.5px] font-extrabold font-heading flex items-center gap-1 hover:bg-emerald-600 transition-all shadow-xs cursor-pointer">
+                    <span class="material-symbols-outlined text-[14px]">add_circle</span>
+                    <span>Add New</span>
                   </button>
                 </div>
                 <p class="text-xs text-gray-500 mt-0.5">Bank accounts for seller payouts and buyer refunds.</p>
@@ -3590,10 +3682,13 @@
       // Update Desktop Sidebar active highlighting
       const sidebarLinks = document.querySelectorAll('.nav-sidebar-link');
       sidebarLinks.forEach(link => {
-        if (link.getAttribute('data-target') === targetView) {
-          link.className = "nav-sidebar-link w-full flex items-center gap-3.5 bg-brand-blue text-white rounded-2xl px-4 py-3.5 font-semibold shadow-md transition-all duration-200 font-heading cursor-pointer";
+        const isSelected = (link.getAttribute('data-target') === targetView);
+        const isNotifications = (link.getAttribute('data-target') === 'notifications');
+        const justifyClass = isNotifications ? 'justify-between' : '';
+        if (isSelected) {
+          link.className = `nav-sidebar-link w-full flex items-center ${justifyClass} gap-3 bg-brand-blue text-white rounded-2xl px-3.5 py-3 font-semibold shadow-md transition-all duration-200 font-heading cursor-pointer whitespace-nowrap min-w-0`;
         } else {
-          link.className = "nav-sidebar-link w-full flex items-center gap-3.5 text-gray-700 dark:text-gray-300 hover:bg-brand-blue/10 hover:text-brand-blue dark:hover:bg-white/5 dark:hover:text-white rounded-2xl px-4 py-3.5 transition-all duration-200 font-medium font-heading cursor-pointer";
+          link.className = `nav-sidebar-link w-full flex items-center ${justifyClass} gap-3 text-gray-700 dark:text-gray-300 hover:bg-brand-blue/10 hover:text-brand-blue dark:hover:bg-white/5 dark:hover:text-white rounded-2xl px-3.5 py-3 transition-all duration-200 font-medium font-heading cursor-pointer whitespace-nowrap min-w-0`;
         }
       });
 
@@ -3973,7 +4068,7 @@
     ];
 
     let isBalanceVisible = true;
-    const hiddenBalance = "••••••••";
+    const hiddenBalance = "₦••••••••";
     let activeSlideIndex = 0;
 
     function setBalanceSlide(index) {
@@ -5274,11 +5369,11 @@
             ? '<span class="px-2 py-0.5 rounded-full text-[9.5px] font-extrabold bg-brand-green text-white font-heading">ACTIVE</span>'
             : '<button onclick="selectProfilePayoutAccount(' + idx + ')" class="px-2.5 py-1 rounded-xl bg-brand-blue/10 hover:bg-brand-blue/20 text-brand-blue text-[10.5px] font-bold font-heading transition-all cursor-pointer">Set Active</button>';
 
-          var bgClass = isActive ? 'bg-emerald-50/80 border-emerald-300/80' : 'bg-gray-50/80 border-gray-200/80';
+          var bgClass = isActive ? 'bg-emerald-50/80 dark:bg-emerald-950/40 border-emerald-300/80 dark:border-emerald-500/40' : 'bg-gray-50/80 dark:bg-white/5 border-gray-200/80 dark:border-white/10';
 
           return '<div class="p-3.5 ' + bgClass + ' border rounded-2xl flex items-center justify-between transition-all">' +
             '<div class="flex items-center gap-3 min-w-0 flex-1 pr-2">' +
-              '<span class="w-9 h-9 rounded-xl bg-white border border-gray-200 text-brand-dark flex items-center justify-center text-sm font-bold flex-shrink-0 shadow-xs">' +
+              '<span class="w-9 h-9 rounded-xl bg-white/40 dark:bg-white/10 border border-gray-200/80 dark:border-white/10 text-brand-dark dark:text-emerald-400 flex items-center justify-center text-sm font-bold flex-shrink-0 shadow-xs">' +
                 '<span class="material-symbols-outlined text-[18px]">account_balance</span>' +
               '</span>' +
               '<div class="min-w-0 flex-1">' +
