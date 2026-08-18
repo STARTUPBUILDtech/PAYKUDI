@@ -237,6 +237,13 @@
     html.dark [class*="bg-\[#F7FAF8\]"], html.dark [class*="bg-\[#FAF7F2\]"], html.dark .bg-\[\#FAF7F2\]\/95 {
       background-color: rgba(6, 10, 8, 0.95) !important;
     }
+    html.light div[class*="bg-white/60"],
+    html.light .flex.items-center.bg-white.rounded-full,
+    html.light .bg-white.rounded-full {
+      background-color: rgba(255, 255, 255, 0.6) !important;
+      backdrop-filter: blur(12px) !important;
+      border-color: rgba(225, 217, 203, 0.9) !important;
+    }
     html.dark .flex.items-center.bg-white.rounded-full,
     html.dark .bg-white.rounded-full,
     html.dark div.bg-white.border.border-gray-200.rounded-full {
@@ -254,10 +261,37 @@
       color: #E2E8F0 !important;
       border: 1px solid rgba(46, 160, 67, 0.25) !important;
     }
-    html.dark [id$="-custom-dropdown-menu"], html.dark [id$="-dropdown-menu"], html.dark .popover-card {
-      background-color: #08100B !important;
-      border-color: rgba(46, 160, 67, 0.35) !important;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8) !important;
+    /* Filter Dropdown Styling matching Main Body Background & Floating High Z-Index */
+    [id$="-custom-dropdown-wrap"],
+    [id*="custom-dropdown-wrap"] {
+      position: relative !important;
+      z-index: 99999 !important;
+    }
+
+    [id$="-custom-dropdown-menu"],
+    [id*="custom-dropdown-menu"],
+    [id$="-dropdown-menu"],
+    .popover-card {
+      z-index: 999999 !important;
+      position: absolute !important;
+    }
+
+    html.light [id$="-custom-dropdown-menu"],
+    html.light [id*="custom-dropdown-menu"],
+    html.light [id$="-dropdown-menu"] {
+      background-color: #FAF7F2 !important;
+      border: 1px solid #E2D9C8 !important;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.14) !important;
+      color: #1E293B !important;
+    }
+
+    html.dark [id$="-custom-dropdown-menu"],
+    html.dark [id*="custom-dropdown-menu"],
+    html.dark [id$="-dropdown-menu"],
+    html.dark .popover-card {
+      background-color: #060A08 !important;
+      border: 1px solid rgba(46, 160, 67, 0.35) !important;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.85) !important;
       color: #FFFFFF !important;
     }
 
@@ -1093,11 +1127,27 @@
       display: none !important;
     }
 
-    .glass-card:hover {
-      background: #ffffff;
-      border-color: rgba(46, 160, 67, 0.25);
-      transform: translateY(-2px);
-      box-shadow: 0 12px 25px -5px rgba(16, 43, 27, 0.08);
+    /* Stable Cards with Tap Highlight (No Shaking / Movement) */
+    .glass-card, .card, div[onclick], button {
+      transition: background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease !important;
+    }
+
+    .glass-card:hover, .card:hover, div[onclick]:hover, button:hover {
+      transform: none !important;
+    }
+
+    .glass-card:active, .card:active, div[onclick]:active {
+      transform: none !important;
+      background-color: rgba(14, 82, 150, 0.06) !important;
+    }
+
+    html.dark .glass-card:active, html.dark .card:active, html.dark div[onclick]:active {
+      transform: none !important;
+      background-color: rgba(255, 255, 255, 0.08) !important;
+    }
+
+    .press-effect:active, .press-effect:hover {
+      transform: none !important;
     }
 
     html.light .vault-gradient, .vault-gradient {
@@ -1400,8 +1450,8 @@
       <!-- Mobile Sticky Glass Header (Fixed Across All Views) -->
       <header class="flex-none bg-[#FAF7F2]/95 dark:bg-[#080C0A]/95 backdrop-blur-md z-40 px-3.5 py-1.5 flex justify-between items-center border-b border-gray-200/80 dark:border-white/10 shadow-xs">
         <button onclick="switchView('home')" class="flex items-center">
-          <img src="paykudi-logo.png" alt="PayKudi" style="height: 40px; max-height: 40px; width: auto;" class="h-[40px] max-h-[40px] w-auto object-contain dark:hidden" />
-          <img src="logodarkmode.png" alt="PayKudi" style="height: 40px; max-height: 40px; width: auto;" class="h-[40px] max-h-[40px] w-auto object-contain hidden dark:block" />
+          <img src="paykudi-logo.png" alt="PayKudi" style="height: 22px; max-height: 22px; width: auto;" class="h-[22px] max-h-[22px] w-auto object-contain dark:hidden" />
+          <img src="logodarkmode.png" alt="PayKudi" style="height: 22px; max-height: 22px; width: auto;" class="h-[22px] max-h-[22px] w-auto object-contain hidden dark:block" />
         </button>
 
         <div class="flex items-center gap-2">
@@ -1514,10 +1564,10 @@
             </button>
           </div>
 
-          <div class="flex flex-col gap-2.5">
-            <div onclick="switchView('activity')" class="glass-card rounded-2xl p-3.5 flex items-center justify-between shadow-sm press-effect cursor-pointer">
+          <div class="glass-card rounded-2xl overflow-hidden border border-gray-200/90 dark:border-white/15 divide-y divide-gray-200 dark:divide-white/20 shadow-xs">
+            <div onclick="switchView('activity')" class="p-3.5 flex items-center justify-between hover:bg-gray-50/60 dark:hover:bg-white/5 transition-all cursor-pointer">
               <div class="flex items-center gap-3 min-w-0 flex-1 pr-2">
-                <div class="w-11 h-11 rounded-xl bg-red-50 text-red-600 flex items-center justify-center text-base border border-red-200/60 flex-shrink-0">
+                <div class="w-10 h-10 rounded-xl bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 flex items-center justify-center text-sm border border-red-200/60 dark:border-red-500/20 flex-shrink-0">
                   <i class="fa-solid fa-arrow-up"></i>
                 </div>
                 <div class="min-w-0 flex-1">
@@ -1531,9 +1581,9 @@
               </div>
             </div>
 
-            <div onclick="switchView('activity')" class="glass-card rounded-2xl p-3.5 flex items-center justify-between shadow-sm press-effect cursor-pointer">
+            <div onclick="switchView('activity')" class="p-3.5 flex items-center justify-between hover:bg-gray-50/60 dark:hover:bg-white/5 transition-all cursor-pointer">
               <div class="flex items-center gap-3 min-w-0 flex-1 pr-2">
-                <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-base border border-emerald-200/60 flex-shrink-0">
+                <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-sm border border-emerald-200/60 dark:border-emerald-500/20 flex-shrink-0">
                   <i class="fa-solid fa-arrow-down"></i>
                 </div>
                 <div class="min-w-0 flex-1">
@@ -1604,13 +1654,13 @@
 
             <!-- Integrated Search Bar with Filter inside -->
             <div class="relative max-w-[245px] sm:max-w-[270px] flex-1 min-w-0 ml-auto">
-              <div class="flex items-center bg-white border border-gray-200 rounded-full pl-2.5 pr-1 py-1 shadow-xs focus-within:ring-2 focus-within:ring-brand-blue/20 focus-within:border-brand-blue transition-all">
+              <div class="flex items-center bg-white/60 dark:bg-black/40 backdrop-blur-md border border-gray-200/80 dark:border-white/10 rounded-full pl-2.5 pr-1 py-1 shadow-xs focus-within:ring-2 focus-within:ring-brand-blue/20 focus-within:border-brand-blue transition-all">
                 <span class="material-symbols-outlined text-gray-400 text-[14px] flex-shrink-0">search</span>
                 <input type="text" id="m-activity-search" oninput="filterActivities('mobile')" placeholder="Search activities" class="w-full min-w-0 bg-transparent border-0 pl-1.5 pr-1 py-0.5 text-[11px] font-medium text-brand-dark placeholder-gray-400 focus:outline-none focus:ring-0" />
 
                 <!-- Integrated Filter Button & Dropdown Inside Search Bar -->
                 <div class="relative text-left flex-shrink-0" id="m-custom-dropdown-wrap">
-                  <button type="button" onclick="toggleCustomDropdown('mobile')" id="m-custom-dropdown-btn" class="inline-flex items-center gap-1 hover:bg-gray-100 dark:hover:bg-white/10 rounded-full px-2 py-0.5 text-[10.5px] font-semibold text-brand-dark focus:outline-none font-heading cursor-pointer transition-all">
+                  <button type="button" onclick="toggleCustomDropdown('mobile')" id="m-custom-dropdown-btn" class="inline-flex items-center gap-1 bg-transparent hover:bg-black/5 dark:hover:bg-white/10 rounded-full px-2 py-0.5 text-[10.5px] font-semibold text-brand-dark focus:outline-none font-heading cursor-pointer transition-all">
                     <span class="material-symbols-outlined text-[13px] text-gray-600">tune</span>
                     <span id="m-custom-dropdown-label">Filter</span>
                     <span id="m-filter-badge" class="hidden w-3.5 h-3.5 rounded-full bg-brand-blue text-white text-[8.5px] font-extrabold items-center justify-center leading-none">0</span>
@@ -1668,52 +1718,54 @@
         </div>
 
         <!-- Scrollable Activities List Only -->
-        <div class="flex-1 overflow-y-auto px-4 pt-3 pb-24 space-y-2.5 custom-scroll">
-          <div data-type="buying" data-date="2026-08-14" class="m-tx-item relative overflow-hidden glass-card bg-white rounded-2xl p-3.5 flex items-center justify-between border border-gray-200/90 shadow-xs hover:shadow-md hover:border-brand-blue/40 transition-all cursor-pointer">
-            <div class="flex items-center gap-3 min-w-0 flex-1 pr-2">
-              <div class="w-11 h-11 rounded-xl bg-red-50 text-red-600 flex items-center justify-center text-base border border-red-200/60 flex-shrink-0">
-                <i class="fa-solid fa-arrow-up"></i>
+        <div class="flex-1 overflow-y-auto px-4 pt-3 pb-24 custom-scroll">
+          <div class="glass-card rounded-2xl overflow-hidden border border-gray-200/90 dark:border-white/15 divide-y divide-gray-200 dark:divide-white/20 shadow-xs">
+            <div data-type="buying" data-date="2026-08-14" class="m-tx-item p-3.5 flex items-center justify-between hover:bg-gray-50/60 dark:hover:bg-white/5 transition-all cursor-pointer">
+              <div class="flex items-center gap-3 min-w-0 flex-1 pr-2">
+                <div class="w-10 h-10 rounded-xl bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 flex items-center justify-center text-sm border border-red-200/60 dark:border-red-500/20 flex-shrink-0">
+                  <i class="fa-solid fa-arrow-up"></i>
+                </div>
+                <div class="min-w-0 flex-1">
+                  <p class="text-sm font-bold text-brand-dark font-heading truncate">Payment Sent</p>
+                  <p class="text-[10.5px] text-gray-400 font-medium mt-0.5 whitespace-nowrap">Today, 2:30 PM</p>
+                </div>
               </div>
-              <div class="min-w-0 flex-1">
-                <p class="text-sm font-bold text-brand-dark font-heading truncate">Payment Sent</p>
-                <p class="text-[10.5px] text-gray-400 font-medium mt-0.5 whitespace-nowrap">Today, 2:30 PM</p>
+              <div class="flex items-center gap-2 flex-shrink-0 pr-1">
+                <p class="text-sm font-extrabold text-red-600 font-heading text-right">-₦25,000.00</p>
+                <span class="material-symbols-outlined text-gray-400 text-[18px]">chevron_right</span>
               </div>
             </div>
-            <div class="flex items-center gap-2 flex-shrink-0 pr-1">
-              <p class="text-sm font-extrabold text-red-600 font-heading text-right">-₦25,000.00</p>
-              <span class="material-symbols-outlined text-gray-400 text-[18px]">chevron_right</span>
-            </div>
-          </div>
 
-          <div data-type="selling" data-date="2026-08-14" class="m-tx-item relative overflow-hidden glass-card bg-white rounded-2xl p-3.5 flex items-center justify-between border border-gray-200/90 shadow-xs hover:shadow-md hover:border-brand-blue/40 transition-all cursor-pointer">
-            <div class="flex items-center gap-3 min-w-0 flex-1 pr-2">
-              <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-base border border-emerald-200/60 flex-shrink-0">
-                <i class="fa-solid fa-arrow-down"></i>
+            <div data-type="selling" data-date="2026-08-14" class="m-tx-item p-3.5 flex items-center justify-between hover:bg-gray-50/60 dark:hover:bg-white/5 transition-all cursor-pointer">
+              <div class="flex items-center gap-3 min-w-0 flex-1 pr-2">
+                <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-sm border border-emerald-200/60 dark:border-emerald-500/20 flex-shrink-0">
+                  <i class="fa-solid fa-arrow-down"></i>
+                </div>
+                <div class="min-w-0 flex-1">
+                  <p class="text-sm font-bold text-brand-dark font-heading truncate">Payment Received</p>
+                  <p class="text-[10.5px] text-gray-400 font-medium mt-0.5 whitespace-nowrap">Today, 11:15 AM</p>
+                </div>
               </div>
-              <div class="min-w-0 flex-1">
-                <p class="text-sm font-bold text-brand-dark font-heading truncate">Payment Received</p>
-                <p class="text-[10.5px] text-gray-400 font-medium mt-0.5 whitespace-nowrap">Today, 11:15 AM</p>
+              <div class="flex items-center gap-2 flex-shrink-0 pr-1">
+                <p class="text-sm font-extrabold text-brand-green font-heading text-right">+₦450,000.00</p>
+                <span class="material-symbols-outlined text-gray-400 text-[18px]">chevron_right</span>
               </div>
             </div>
-            <div class="flex items-center gap-2 flex-shrink-0 pr-1">
-              <p class="text-sm font-extrabold text-brand-green font-heading text-right">+₦450,000.00</p>
-              <span class="material-symbols-outlined text-gray-400 text-[18px]">chevron_right</span>
-            </div>
-          </div>
 
-          <div data-type="withdrawn" data-date="2026-08-13" class="m-tx-item relative overflow-hidden glass-card bg-white rounded-2xl p-3.5 flex items-center justify-between border border-gray-200/90 shadow-xs hover:shadow-md hover:border-brand-blue/40 transition-all cursor-pointer">
-            <div class="flex items-center gap-3 min-w-0 flex-1 pr-2">
-              <div class="w-11 h-11 rounded-xl bg-gray-100 text-gray-700 flex items-center justify-center text-base border border-gray-200/60 flex-shrink-0">
-                <i class="fa-solid fa-building-columns"></i>
+            <div data-type="withdrawn" data-date="2026-08-13" class="m-tx-item p-3.5 flex items-center justify-between hover:bg-gray-50/60 dark:hover:bg-white/5 transition-all cursor-pointer">
+              <div class="flex items-center gap-3 min-w-0 flex-1 pr-2">
+                <div class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-gray-200 flex items-center justify-center text-sm border border-gray-200/60 dark:border-white/10 flex-shrink-0">
+                  <i class="fa-solid fa-building-columns"></i>
+                </div>
+                <div class="min-w-0 flex-1">
+                  <p class="text-sm font-bold text-brand-dark font-heading truncate">Withdrawal</p>
+                  <p class="text-[10.5px] text-gray-400 font-medium mt-0.5 whitespace-nowrap">Yesterday, 4:10 PM</p>
+                </div>
               </div>
-              <div class="min-w-0 flex-1">
-                <p class="text-sm font-bold text-brand-dark font-heading truncate">Withdrawal</p>
-                <p class="text-[10.5px] text-gray-400 font-medium mt-0.5 whitespace-nowrap">Yesterday, 4:10 PM</p>
+              <div class="flex items-center gap-2 flex-shrink-0 pr-1">
+                <p class="text-sm font-extrabold text-brand-dark font-heading text-right">-₦1,200,000.00</p>
+                <span class="material-symbols-outlined text-gray-400 text-[18px]">chevron_right</span>
               </div>
-            </div>
-            <div class="flex items-center gap-2 flex-shrink-0 pr-1">
-              <p class="text-sm font-extrabold text-brand-dark font-heading text-right">-₦1,200,000.00</p>
-              <span class="material-symbols-outlined text-gray-400 text-[18px]">chevron_right</span>
             </div>
           </div>
         </div>
@@ -1750,13 +1802,13 @@
 
             <!-- Integrated Search Bar with Filter inside (Payment Room) -->
             <div class="relative max-w-[245px] sm:max-w-[270px] flex-1 min-w-0 ml-auto">
-              <div class="flex items-center bg-white border border-gray-200 rounded-full pl-2.5 pr-1 py-1 shadow-xs focus-within:ring-2 focus-within:ring-brand-blue/20 focus-within:border-brand-blue transition-all">
+              <div class="flex items-center bg-white/60 dark:bg-black/40 backdrop-blur-md border border-gray-200/80 dark:border-white/10 rounded-full pl-2.5 pr-1 py-1 shadow-xs focus-within:ring-2 focus-within:ring-brand-blue/20 focus-within:border-brand-blue transition-all">
                 <span class="material-symbols-outlined text-gray-400 text-[14px] flex-shrink-0">search</span>
                 <input type="text" id="m-pr-search" oninput="filterPaymentRooms('mobile')" placeholder="Search activities" class="w-full min-w-0 bg-transparent border-0 pl-1.5 pr-1 py-0.5 text-[11px] font-medium text-brand-dark placeholder-gray-400 focus:outline-none focus:ring-0" />
 
                 <!-- Integrated Filter Button & Dropdown Inside Search Bar -->
                 <div class="relative text-left flex-shrink-0" id="m-pr-custom-dropdown-wrap">
-                  <button type="button" onclick="togglePRCustomDropdown('mobile')" id="m-pr-custom-dropdown-btn" class="inline-flex items-center gap-1 bg-gray-50 hover:bg-gray-100 border border-gray-200/80 rounded-full px-2 py-0.5 text-[10.5px] font-semibold text-brand-dark focus:outline-none font-heading shadow-2xs cursor-pointer transition-all">
+                  <button type="button" onclick="togglePRCustomDropdown('mobile')" id="m-pr-custom-dropdown-btn" class="inline-flex items-center gap-1 bg-transparent hover:bg-black/5 dark:hover:bg-white/10 rounded-full px-2 py-0.5 text-[10.5px] font-semibold text-brand-dark focus:outline-none font-heading cursor-pointer transition-all">
                     <span class="material-symbols-outlined text-[12px] text-gray-600">tune</span>
                     <span id="m-pr-custom-dropdown-label">Filter</span>
                     <span id="m-pr-filter-badge" class="hidden w-3.5 h-3.5 rounded-full bg-brand-blue text-white text-[8.5px] font-extrabold items-center justify-center leading-none">0</span>
@@ -1809,41 +1861,41 @@
         </div>
 
         <!-- MOBILE DETAIL VIEW (Initially Hidden) -->
-        <div id="m-pr-detail" class="space-y-4 max-w-3xl mx-auto w-full hidden">
-          <!-- Back Button Header (Unscrollable Seamless Bar) -->
-          <div class="sticky -top-4 z-30 pt-2 pb-1.5 flex items-center justify-between">
-            <button type="button" onclick="closePRDetail()" class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-blue dark:text-brand-mint bg-brand-blue/10 dark:bg-emerald-500/15 hover:bg-brand-blue/20 dark:hover:bg-emerald-500/25 border border-transparent dark:border-emerald-500/30 px-3.5 py-2 rounded-xl transition-all font-heading cursor-pointer">
-              <span class="material-symbols-outlined text-[16px]">arrow_back</span>
-              <span>Back to Payment Rooms</span>
-            </button>
-          </div>
+        <div id="m-pr-detail" class="space-y-3.5 w-full max-w-full mx-auto hidden">
           
-          <!-- 1. DEAL HEADER CARD -->
-          <div class="card bg-white border border-gray-200/90 rounded-2xl p-4 shadow-xs space-y-3">
-            <div class="flex items-center justify-between gap-2 border-b border-gray-100 pb-2.5">
+          <!-- 1. UNSCROLLABLE TOP HEADER AREA (DEAL HEADER + PRODUCT INFO - SHIFTED UPWARD) -->
+          <div class="-mt-4 sticky -top-4 z-30 bg-[#FAF7F2] dark:bg-[#080C0A] -mx-4 px-4 pt-1.5 pb-2 space-y-2 border-b border-gray-200/90 dark:border-white/15 shadow-2xs">
+            <!-- Top Line: Back Arrow Button BEFORE Deal Number + Switch Role + Status Pill -->
+            <div class="flex items-center justify-between gap-2">
               <div class="flex items-center gap-2 flex-wrap min-w-0">
-                <span class="text-xs font-extrabold text-brand-dark font-heading whitespace-nowrap">Deal #ST-8842</span>
+                <!-- Back Arrow Button BEFORE Deal # -->
+                <button type="button" onclick="closePRDetail()" class="w-7 h-7 rounded-full bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 text-brand-dark dark:text-gray-200 flex items-center justify-center transition-all cursor-pointer flex-shrink-0" title="Back to Payment Rooms">
+                  <span class="material-symbols-outlined text-[17px]">arrow_back</span>
+                </button>
                 
-                <button onclick="switchRoleDemo()" class="text-[10px] font-bold text-brand-blue bg-brand-blue/10 hover:bg-brand-blue/20 px-2.5 py-1 rounded-xl transition-all font-heading flex items-center gap-1 flex-shrink-0 whitespace-nowrap">
+                <span class="text-sm font-extrabold text-brand-dark font-heading whitespace-nowrap">Deal #ST-8842</span>
+                
+                <button onclick="switchRoleDemo()" class="text-[10.5px] font-bold text-brand-blue bg-brand-blue/10 hover:bg-brand-blue/20 px-2.5 py-0.5 rounded-xl transition-all font-heading flex items-center gap-1 flex-shrink-0 whitespace-nowrap cursor-pointer">
                   <span class="material-symbols-outlined text-[13px]">published_with_changes</span>
                   <span>Switch to <span id="m-role-demo-txt" class="font-extrabold text-brand-blue">Seller</span></span>
                 </button>
               </div>
 
-              <!-- Status Badge (Swapped to Right): Blinking dot by default, expands on tap -->
+              <!-- Status Badge -->
               <button onclick="toggleStatusPill(this)" id="spill" title="Tap to view status" class="status-dot-pill inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-amber-500/15 text-amber-800 border border-amber-500/30 font-heading whitespace-nowrap flex-shrink-0 cursor-pointer">
                 <span id="sdot" class="status-dot w-2 h-2 rounded-full bg-amber-600"></span>
                 <span id="slabel-txt" class="status-label-txt hidden text-[10px] font-extrabold text-amber-800">Shipped</span>
               </button>
             </div>
 
-            <div class="flex gap-3 items-center">
-              <img src="nike-air-max.png" alt="Nike Air Max 2025" class="deal-product-img w-14 h-14 rounded-xl object-cover border border-gray-200 flex-shrink-0" />
+            <!-- Product Row -->
+            <div class="flex gap-3.5 items-center">
+              <img src="nike-air-max.png" alt="Nike Air Max 2025" class="deal-product-img w-14 h-14 rounded-xl object-cover border border-gray-200/80 dark:border-white/10 flex-shrink-0" />
               <div class="flex-1 min-w-0">
                 <h4 class="deal-title font-bold text-base text-brand-dark font-heading truncate">Nike Air Max 2025</h4>
               </div>
               <div class="text-right flex-shrink-0">
-                <span class="price text-lg font-extrabold text-brand-dark font-heading">₦45,000</span>
+                <span class="price text-xl font-black text-brand-dark font-heading">₦45,000</span>
               </div>
             </div>
           </div>
@@ -1883,12 +1935,13 @@
             </div>
           </div>
 
-          <!-- 3. PAYMENT BREAKDOWN CARD -->
+          <!-- 3. PAYMENT BREAKDOWN CARD (UNBOXED HORIZONTALLY ALIGNED PAYMENT PROTECTED) -->
           <div class="card bg-white border border-gray-200/90 rounded-2xl p-4 shadow-xs space-y-2.5">
-            <div class="flex items-center justify-between">
-              <div class="slabel text-xs font-bold text-gray-500 uppercase tracking-wider font-heading">Payment Breakdown</div>
-              <span class="pchip buyer-only text-[10px] font-bold bg-emerald-50 text-brand-green border border-emerald-200 px-2.5 py-0.5 rounded-full inline-flex items-center gap-1 font-heading">
-                <span class="material-symbols-outlined text-[13px] text-brand-green">verified_user</span> Payment Protected
+            <div class="flex items-center justify-between gap-2 border-b border-gray-100 dark:border-white/10 pb-2 mb-1">
+              <div class="slabel text-xs font-bold text-gray-500 uppercase tracking-wider font-heading whitespace-nowrap">Payment Breakdown</div>
+              <span class="buyer-only inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400 font-heading whitespace-nowrap" style="background:none !important; border:none !important; padding:0 !important; border-radius:0 !important; box-shadow:none !important;">
+                <span class="material-symbols-outlined text-[14px] text-emerald-600 dark:text-emerald-400">verified_user</span>
+                <span>Payment Protected</span>
               </span>
             </div>
             
@@ -2495,8 +2548,8 @@
         <!-- Sidebar Header with Logo -->
         <div class="px-0 py-0.5 mb-2 flex items-center justify-between gap-1.5 min-w-0">
           <button onclick="switchView('home')" class="flex-shrink-0 cursor-pointer">
-            <img src="paykudi-logo.png" alt="PayKudi" style="height: 38px; max-height: 38px; width: auto;" class="h-[38px] max-h-[38px] w-auto object-contain dark:hidden" />
-            <img src="logodarkmode.png" alt="PayKudi" style="height: 38px; max-height: 38px; width: auto;" class="h-[38px] max-h-[38px] w-auto object-contain hidden dark:block" />
+            <img src="paykudi-logo.png" alt="PayKudi" style="height: 22px; max-height: 22px; width: auto;" class="h-[22px] max-h-[22px] w-auto object-contain dark:hidden" />
+            <img src="logodarkmode.png" alt="PayKudi" style="height: 22px; max-height: 22px; width: auto;" class="h-[22px] max-h-[22px] w-auto object-contain hidden dark:block" />
           </button>
         </div>
         
@@ -2649,10 +2702,10 @@
             </button>
           </div>
 
-          <div class="space-y-2">
-            <div onclick="switchView('activity')" class="glass-card rounded-xl p-3 flex items-center justify-between shadow-xs hover:shadow-sm transition-all cursor-pointer">
+          <div class="glass-card rounded-2xl overflow-hidden border border-gray-200/90 dark:border-white/15 divide-y divide-gray-200 dark:divide-white/20 shadow-xs">
+            <div onclick="switchView('activity')" class="p-3 flex items-center justify-between hover:bg-gray-50/60 dark:hover:bg-white/5 transition-all cursor-pointer">
               <div class="flex items-center gap-3 min-w-0 flex-1 pr-2">
-                <div class="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center text-base border border-red-200/60 flex-shrink-0">
+                <div class="w-9 h-9 rounded-xl bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 flex items-center justify-center text-xs border border-red-200/60 dark:border-red-500/20 flex-shrink-0">
                   <i class="fa-solid fa-arrow-up"></i>
                 </div>
                 <div class="min-w-0 flex-1">
@@ -2666,9 +2719,9 @@
               </div>
             </div>
 
-            <div onclick="switchView('activity')" class="glass-card rounded-xl p-3 flex items-center justify-between shadow-xs hover:shadow-sm transition-all cursor-pointer">
+            <div onclick="switchView('activity')" class="p-3 flex items-center justify-between hover:bg-gray-50/60 dark:hover:bg-white/5 transition-all cursor-pointer">
               <div class="flex items-center gap-3 min-w-0 flex-1 pr-2">
-                <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-base border border-emerald-200/60 flex-shrink-0">
+                <div class="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xs border border-emerald-200/60 dark:border-emerald-500/20 flex-shrink-0">
                   <i class="fa-solid fa-arrow-down"></i>
                 </div>
                 <div class="min-w-0 flex-1">
@@ -2688,7 +2741,7 @@
       <!-- DESKTOP VIEW 2: ACTIVITIES (FIXED METRICS & CONTROLS + SCROLLABLE LIST) -->
       <div id="d-view-activity" class="view-panel flex-1 flex flex-col overflow-hidden hidden">
         <!-- Fixed Top Section -->
-        <div class="flex-none max-w-6xl w-full mx-auto space-y-4 pt-3 pb-3 px-2">
+        <div class="flex-none max-w-6xl w-full mx-auto space-y-4 pt-3 pb-3 px-2 relative z-30">
           <section class="grid grid-cols-3 fluid-gap">
             <div class="bg-brand-dark text-white rounded-2xl fluid-card-padding flex flex-col justify-between relative overflow-hidden shadow-card press-effect">
               <div class="deco-tr-glow"></div>
@@ -2739,13 +2792,13 @@
             <div class="flex items-center gap-2.5">
               <!-- Integrated Search Bar with Filter Inside -->
               <div class="relative w-72">
-                <div class="flex items-center bg-white border border-gray-200 rounded-full pl-3 pr-1 py-1 shadow-xs focus-within:ring-2 focus-within:ring-brand-blue/20 focus-within:border-brand-blue transition-all">
+                <div class="flex items-center bg-white/60 dark:bg-black/40 backdrop-blur-md border border-gray-200/80 dark:border-white/10 rounded-full pl-3 pr-1 py-1 shadow-xs focus-within:ring-2 focus-within:ring-brand-blue/20 focus-within:border-brand-blue transition-all">
                   <span class="material-symbols-outlined text-gray-400 text-[16px] flex-shrink-0">search</span>
                   <input type="text" id="d-activity-search" oninput="filterActivities('desktop')" placeholder="Search activities" class="w-full min-w-0 bg-transparent border-0 pl-2 pr-1.5 py-0.5 text-xs font-medium text-brand-dark placeholder-gray-400 focus:outline-none focus:ring-0" />
 
                   <!-- Integrated Filter Button & Dropdown Inside Search Bar -->
                   <div class="relative inline-block text-left flex-shrink-0" id="d-custom-dropdown-wrap">
-                    <button type="button" onclick="toggleCustomDropdown('desktop')" id="d-custom-dropdown-btn" class="inline-flex items-center gap-1 hover:bg-gray-100 dark:hover:bg-white/10 rounded-full px-2.5 py-0.5 text-xs font-semibold text-brand-dark focus:outline-none font-heading cursor-pointer transition-all">
+                    <button type="button" onclick="toggleCustomDropdown('desktop')" id="d-custom-dropdown-btn" class="inline-flex items-center gap-1 bg-transparent hover:bg-black/5 dark:hover:bg-white/10 rounded-full px-2.5 py-0.5 text-xs font-semibold text-brand-dark focus:outline-none font-heading cursor-pointer transition-all">
                       <span class="material-symbols-outlined text-[14px] text-gray-600">tune</span>
                       <span id="d-custom-dropdown-label">Filter</span>
                       <span id="d-filter-badge" class="hidden w-4 h-4 rounded-full bg-brand-blue text-white text-[9.5px] font-extrabold items-center justify-center leading-none">0</span>
@@ -2805,52 +2858,54 @@
         </div>
 
         <!-- Scrollable List Only -->
-        <div class="flex-1 overflow-y-auto max-w-6xl w-full mx-auto px-2 pb-8 space-y-3 custom-scroll">
-          <div data-type="buying" data-date="2026-08-14" class="d-tx-item relative overflow-hidden glass-card bg-white rounded-2xl p-3.5 flex items-center justify-between border border-gray-200/90 shadow-xs hover:shadow-md hover:border-brand-blue/40 transition-all cursor-pointer">
-            <div class="flex items-center gap-3.5 min-w-0 flex-1 pr-2">
-              <div class="w-12 h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center text-lg border border-red-200/60 flex-shrink-0">
-                <i class="fa-solid fa-arrow-up"></i>
+        <div class="flex-1 overflow-y-auto max-w-6xl w-full mx-auto px-2 pb-8 custom-scroll">
+          <div class="glass-card rounded-2xl overflow-hidden border border-gray-200/90 dark:border-white/15 divide-y divide-gray-200 dark:divide-white/20 shadow-xs">
+            <div data-type="buying" data-date="2026-08-14" class="d-tx-item p-3.5 flex items-center justify-between hover:bg-gray-50/60 dark:hover:bg-white/5 transition-all cursor-pointer">
+              <div class="flex items-center gap-3.5 min-w-0 flex-1 pr-2">
+                <div class="w-11 h-11 rounded-xl bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 flex items-center justify-center text-base border border-red-200/60 dark:border-red-500/20 flex-shrink-0">
+                  <i class="fa-solid fa-arrow-up"></i>
+                </div>
+                <div class="min-w-0 flex-1">
+                  <p class="text-sm font-bold text-brand-dark font-heading truncate">Payment Sent</p>
+                  <p class="text-[10.5px] text-gray-400 font-medium mt-0.5 whitespace-nowrap">Today, 2:30 PM</p>
+                </div>
               </div>
-              <div class="min-w-0 flex-1">
-                <p class="text-sm font-bold text-brand-dark font-heading truncate">Payment Sent</p>
-                <p class="text-[10.5px] text-gray-400 font-medium mt-0.5 whitespace-nowrap">Today, 2:30 PM</p>
+              <div class="flex items-center gap-2.5 flex-shrink-0 pr-1">
+                <p class="text-sm font-extrabold text-red-600 font-heading text-right">-₦25,000.00</p>
+                <span class="material-symbols-outlined text-gray-400 text-[20px]">chevron_right</span>
               </div>
             </div>
-            <div class="flex items-center gap-2.5 flex-shrink-0 pr-1">
-              <p class="text-sm font-extrabold text-red-600 font-heading text-right">-₦25,000.00</p>
-              <span class="material-symbols-outlined text-gray-400 text-[20px]">chevron_right</span>
-            </div>
-          </div>
 
-          <div data-type="selling" data-date="2026-08-14" class="d-tx-item relative overflow-hidden glass-card bg-white rounded-2xl p-3.5 flex items-center justify-between border border-gray-200/90 shadow-xs hover:shadow-md hover:border-brand-blue/40 transition-all cursor-pointer">
-            <div class="flex items-center gap-3.5 min-w-0 flex-1 pr-2">
-              <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg border border-emerald-200/60 flex-shrink-0">
-                <i class="fa-solid fa-arrow-down"></i>
+            <div data-type="selling" data-date="2026-08-14" class="d-tx-item p-3.5 flex items-center justify-between hover:bg-gray-50/60 dark:hover:bg-white/5 transition-all cursor-pointer">
+              <div class="flex items-center gap-3.5 min-w-0 flex-1 pr-2">
+                <div class="w-11 h-11 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-base border border-emerald-200/60 dark:border-emerald-500/20 flex-shrink-0">
+                  <i class="fa-solid fa-arrow-down"></i>
+                </div>
+                <div class="min-w-0 flex-1">
+                  <p class="text-sm font-bold text-brand-dark font-heading truncate">Payment Received</p>
+                  <p class="text-[10.5px] text-gray-400 font-medium mt-0.5 whitespace-nowrap">Today, 11:15 AM</p>
+                </div>
               </div>
-              <div class="min-w-0 flex-1">
-                <p class="text-sm font-bold text-brand-dark font-heading truncate">Payment Received</p>
-                <p class="text-[10.5px] text-gray-400 font-medium mt-0.5 whitespace-nowrap">Today, 11:15 AM</p>
+              <div class="flex items-center gap-2.5 flex-shrink-0 pr-1">
+                <p class="text-sm font-extrabold text-brand-green font-heading text-right">+₦450,000.00</p>
+                <span class="material-symbols-outlined text-gray-400 text-[20px]">chevron_right</span>
               </div>
             </div>
-            <div class="flex items-center gap-2.5 flex-shrink-0 pr-1">
-              <p class="text-sm font-extrabold text-brand-green font-heading text-right">+₦450,000.00</p>
-              <span class="material-symbols-outlined text-gray-400 text-[20px]">chevron_right</span>
-            </div>
-          </div>
 
-          <div data-type="withdrawn" data-date="2026-08-13" class="d-tx-item relative overflow-hidden glass-card bg-white rounded-2xl p-3.5 flex items-center justify-between border border-gray-200/90 shadow-xs hover:shadow-md hover:border-brand-blue/40 transition-all cursor-pointer">
-            <div class="flex items-center gap-3.5 min-w-0 flex-1 pr-2">
-              <div class="w-12 h-12 rounded-xl bg-gray-100 text-gray-700 flex items-center justify-center text-lg border border-gray-200/60 flex-shrink-0">
-                <i class="fa-solid fa-building-columns"></i>
+            <div data-type="withdrawn" data-date="2026-08-13" class="d-tx-item p-3.5 flex items-center justify-between hover:bg-gray-50/60 dark:hover:bg-white/5 transition-all cursor-pointer">
+              <div class="flex items-center gap-3.5 min-w-0 flex-1 pr-2">
+                <div class="w-11 h-11 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-gray-200 flex items-center justify-center text-base border border-gray-200/60 dark:border-white/10 flex-shrink-0">
+                  <i class="fa-solid fa-building-columns"></i>
+                </div>
+                <div class="min-w-0 flex-1">
+                  <p class="text-sm font-bold text-brand-dark font-heading truncate">Withdrawal</p>
+                  <p class="text-[10.5px] text-gray-400 font-medium mt-0.5 whitespace-nowrap">Yesterday, 4:10 PM</p>
+                </div>
               </div>
-              <div class="min-w-0 flex-1">
-                <p class="text-sm font-bold text-brand-dark font-heading truncate">Withdrawal</p>
-                <p class="text-[10.5px] text-gray-400 font-medium mt-0.5 whitespace-nowrap">Yesterday, 4:10 PM</p>
+              <div class="flex items-center gap-2.5 flex-shrink-0 pr-1">
+                <p class="text-sm font-extrabold text-brand-dark font-heading text-right">-₦1,200,000.00</p>
+                <span class="material-symbols-outlined text-gray-400 text-[20px]">chevron_right</span>
               </div>
-            </div>
-            <div class="flex items-center gap-2.5 flex-shrink-0 pr-1">
-              <p class="text-sm font-extrabold text-brand-dark font-heading text-right">-₦1,200,000.00</p>
-              <span class="material-symbols-outlined text-gray-400 text-[20px]">chevron_right</span>
             </div>
           </div>
         </div>
@@ -3081,13 +3136,13 @@
 
             <!-- Integrated Search Bar with Filter Inside (Payment Room Desktop) -->
             <div class="relative w-72">
-              <div class="flex items-center bg-white border border-gray-200 rounded-full pl-3 pr-1 py-1 shadow-xs focus-within:ring-2 focus-within:ring-brand-blue/20 focus-within:border-brand-blue transition-all">
+              <div class="flex items-center bg-white/60 dark:bg-black/40 backdrop-blur-md border border-gray-200/80 dark:border-white/10 rounded-full pl-3 pr-1 py-1 shadow-xs focus-within:ring-2 focus-within:ring-brand-blue/20 focus-within:border-brand-blue transition-all">
                 <span class="material-symbols-outlined text-gray-400 text-[16px] flex-shrink-0">search</span>
                 <input type="text" id="d-pr-search" oninput="filterPaymentRooms('desktop')" placeholder="Search activities" class="w-full min-w-0 bg-transparent border-0 pl-2 pr-1.5 py-0.5 text-xs font-medium text-brand-dark placeholder-gray-400 focus:outline-none focus:ring-0" />
 
                 <!-- Integrated Filter Button & Dropdown Inside Search Bar -->
                 <div class="relative inline-block text-left flex-shrink-0" id="d-pr-custom-dropdown-wrap">
-                  <button type="button" onclick="togglePRCustomDropdown('desktop')" id="d-pr-custom-dropdown-btn" class="inline-flex items-center gap-1.5 bg-gray-50 hover:bg-gray-100 border border-gray-200/80 rounded-full px-2.5 py-1 text-xs font-semibold text-brand-dark focus:outline-none font-heading shadow-2xs cursor-pointer transition-all">
+                  <button type="button" onclick="togglePRCustomDropdown('desktop')" id="d-pr-custom-dropdown-btn" class="inline-flex items-center gap-1.5 bg-transparent hover:bg-black/5 dark:hover:bg-white/10 rounded-full px-2.5 py-1 text-xs font-semibold text-brand-dark focus:outline-none font-heading cursor-pointer transition-all">
                     <span class="material-symbols-outlined text-[14px] text-gray-600">tune</span>
                     <span id="d-pr-custom-dropdown-label">Filter</span>
                     <span id="d-pr-filter-badge" class="hidden w-4 h-4 rounded-full bg-brand-blue text-white text-[9.5px] font-extrabold items-center justify-center leading-none">0</span>
@@ -3141,50 +3196,50 @@
         </div>
 
         <!-- DESKTOP DETAIL VIEW (Initially Hidden) -->
-        <div id="d-pr-detail" class="space-y-4 max-w-6xl mx-auto w-full hidden">
-          <!-- Back Button Header (Unscrollable Seamless Bar) -->
-          <div class="sticky -top-4 z-30 pt-2 pb-2 flex items-center justify-between">
-            <button type="button" onclick="closePRDetail()" class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-blue dark:text-brand-mint bg-brand-blue/10 dark:bg-emerald-500/15 hover:bg-brand-blue/20 dark:hover:bg-emerald-500/25 border border-transparent dark:border-emerald-500/30 px-4 py-2 rounded-xl transition-all font-heading cursor-pointer shadow-xs">
-              <span class="material-symbols-outlined text-[18px]">arrow_back</span>
-              <span>Back to Payment Rooms</span>
-            </button>
-          </div>
-
-          <!-- Two Column Layout: Left Column 60%, Right Column 40% -->
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 max-w-6xl mx-auto w-full items-start">
+        <div id="d-pr-detail" class="space-y-4 w-full max-w-full mx-auto hidden">
           
-          <!-- LEFT COLUMN (60% / col-span-7) -->
-          <div class="lg:col-span-7 space-y-3.5">
-            
-            <!-- 1. DEAL HEADER CARD (Horizontal Layout) -->
-            <div class="card bg-white border border-gray-200/90 rounded-2xl p-5 shadow-xs space-y-4">
-              <div class="flex items-center justify-between gap-3 border-b border-gray-100 pb-3">
-                <div class="flex items-center gap-2 flex-wrap min-w-0">
-                  <span class="text-sm font-extrabold text-brand-dark font-heading whitespace-nowrap">Deal #ST-8842</span>
-                  
-                  <button onclick="switchRoleDemo()" class="text-xs font-bold text-brand-blue bg-brand-blue/10 hover:bg-brand-blue/20 px-3 py-1.5 rounded-xl transition-all font-heading flex items-center gap-1.5 flex-shrink-0">
-                    <span class="material-symbols-outlined text-[16px]">published_with_changes</span>
-                    <span>Switch Perspective (<span id="d-role-demo-txt" class="font-extrabold text-brand-blue">Seller</span>)</span>
-                  </button>
-                </div>
+          <!-- 1. UNSCROLLABLE TOP HEADER AREA (DEAL HEADER + PRODUCT INFO - SHIFTED UPWARD) -->
+          <div class="-mt-4 sticky -top-4 z-30 bg-[#FAF7F2] dark:bg-[#080C0A] -mx-8 px-8 pt-1.5 pb-2.5 space-y-2.5 border-b border-gray-200/90 dark:border-white/15 shadow-2xs">
+            <!-- Top Line: Back Arrow Button BEFORE Deal Number + Switch Role + Status Pill -->
+            <div class="flex items-center justify-between gap-3">
+              <div class="flex items-center gap-3 flex-wrap min-w-0">
+                <!-- Back Arrow Button BEFORE Deal # -->
+                <button type="button" onclick="closePRDetail()" class="w-8 h-8 rounded-full bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 text-brand-dark dark:text-gray-200 flex items-center justify-center transition-all cursor-pointer flex-shrink-0 shadow-xs" title="Back to Payment Rooms">
+                  <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                </button>
 
-                <!-- Status Badge (Swapped to Right): Blinking dot by default, expands on tap -->
-                <button onclick="toggleStatusPill(this)" id="d-spill" title="Tap to view status" class="status-dot-pill inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-500/15 text-amber-700 border border-amber-500/25 font-heading whitespace-nowrap flex-shrink-0 cursor-pointer">
-                  <span id="d-sdot" class="status-dot w-2 h-2 rounded-full bg-amber-500"></span>
-                  <span id="d-slabel-txt" class="status-label-txt hidden text-xs font-extrabold text-amber-800">Shipped</span>
+                <span class="text-base font-extrabold text-brand-dark font-heading whitespace-nowrap">Deal #ST-8842</span>
+                
+                <button onclick="switchRoleDemo()" class="text-xs font-bold text-brand-blue bg-brand-blue/10 hover:bg-brand-blue/20 px-3 py-1 rounded-xl transition-all font-heading flex items-center gap-1.5 flex-shrink-0 cursor-pointer">
+                  <span class="material-symbols-outlined text-[16px]">published_with_changes</span>
+                  <span>Switch Perspective (<span id="d-role-demo-txt" class="font-extrabold text-brand-blue">Seller</span>)</span>
                 </button>
               </div>
 
-              <div class="flex gap-4 items-center">
-                <img src="nike-air-max.png" alt="Nike Air Max 2025" class="deal-product-img w-20 h-20 rounded-2xl object-cover border border-gray-200 flex-shrink-0" />
-                <div class="flex-1 min-w-0">
-                  <h4 class="deal-title font-bold text-xl text-brand-dark font-heading truncate">Nike Air Max 2025</h4>
-                </div>
-                <div class="text-right flex-shrink-0">
-                  <span class="price text-2xl font-extrabold text-brand-dark font-heading">₦45,000</span>
-                </div>
+              <!-- Status Badge -->
+              <button onclick="toggleStatusPill(this)" id="d-spill" title="Tap to view status" class="status-dot-pill inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-500/15 text-amber-700 border border-amber-500/25 font-heading whitespace-nowrap flex-shrink-0 cursor-pointer">
+                <span id="d-sdot" class="status-dot w-2 h-2 rounded-full bg-amber-500"></span>
+                <span id="d-slabel-txt" class="status-label-txt hidden text-xs font-extrabold text-amber-800">Shipped</span>
+              </button>
+            </div>
+
+            <!-- Product Row -->
+            <div class="flex gap-4 items-center">
+              <img src="nike-air-max.png" alt="Nike Air Max 2025" class="deal-product-img w-16 h-16 rounded-2xl object-cover border border-gray-200/80 dark:border-white/10 flex-shrink-0" />
+              <div class="flex-1 min-w-0">
+                <h4 class="deal-title font-bold text-xl text-brand-dark font-heading truncate">Nike Air Max 2025</h4>
+              </div>
+              <div class="text-right flex-shrink-0">
+                <span class="price text-2xl font-black text-brand-dark font-heading">₦45,000</span>
               </div>
             </div>
+          </div>
+
+          <!-- Two Column Layout: Left Column 60%, Right Column 40% -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 w-full items-start">
+          
+          <!-- LEFT COLUMN (60% / col-span-7) -->
+          <div class="lg:col-span-7 space-y-3.5">
 
             <!-- 2. AGREED TERMS & CONDITIONS CARD -->
             <div id="d-terms-card" class="card bg-white border border-gray-200/90 rounded-2xl p-5 shadow-xs space-y-3.5">
@@ -3337,13 +3392,14 @@
 
           <!-- RIGHT COLUMN / SIDEBAR (40% / col-span-5) -->
           <div class="lg:col-span-5 space-y-3.5 sticky top-4">
-            
+
             <!-- 5. PAYMENT BREAKDOWN CARD -->
             <div class="card bg-white border border-gray-200/90 rounded-2xl p-5 shadow-xs space-y-3">
-              <div class="flex items-center justify-between">
-                <div class="slabel text-xs font-bold text-gray-500 uppercase tracking-wider font-heading">Payment Breakdown</div>
-                <span class="pchip buyer-only text-xs font-bold bg-emerald-50 text-brand-green border border-emerald-200 px-3 py-0.5 rounded-full inline-flex items-center gap-1 font-heading">
-                  <span class="material-symbols-outlined text-[14px] text-brand-green">verified_user</span> Payment Protected
+              <div class="flex items-center justify-between gap-2 border-b border-gray-100 dark:border-white/10 pb-2 mb-1">
+                <div class="slabel text-xs font-bold text-gray-500 uppercase tracking-wider font-heading whitespace-nowrap">Payment Breakdown</div>
+                <span class="buyer-only inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400 font-heading whitespace-nowrap" style="background:none !important; border:none !important; padding:0 !important; border-radius:0 !important; box-shadow:none !important;">
+                  <span class="material-symbols-outlined text-[15px] text-emerald-600 dark:text-emerald-400">verified_user</span>
+                  <span>Payment Protected</span>
                 </span>
               </div>
               
@@ -4005,19 +4061,19 @@
         var html = activeDeals.map(function(d) {
           var isBuying = (d.typeLabel === 'Buying');
           var badgeStyle = isBuying
-            ? 'bg-blue-500/15 text-brand-blue border-b border-l border-blue-500/30'
-            : 'bg-purple-500/15 text-purple-700 border-b border-l border-purple-500/30';
+            ? 'bg-blue-500/15 text-brand-blue border-b border-l border-blue-500/30 dark:bg-blue-400/20 dark:text-blue-300'
+            : 'bg-purple-500/15 text-purple-700 border-b border-l border-purple-500/30 dark:bg-purple-400/20 dark:text-purple-300';
 
-          return '<div onclick="openPRDetail(\'' + d.id + '\')" class="relative overflow-hidden glass-card bg-white rounded-2xl p-3.5 flex items-center justify-between border border-gray-200/90 shadow-xs hover:shadow-md hover:border-brand-blue/40 transition-all cursor-pointer">' +
+          return '<div onclick="openPRDetail(\'' + d.id + '\')" class="relative overflow-hidden glass-card rounded-2xl p-3.5 flex items-center justify-between border border-gray-200/90 dark:border-white/15 shadow-xs hover:border-brand-blue/40 transition-all cursor-pointer">' +
             '<!-- Top Right Corner Badge (Buying / Selling) -->' +
             '<span class="absolute top-0 right-0 ' + badgeStyle + ' text-[9px] font-extrabold px-2.5 py-0.5 rounded-bl-xl rounded-tr-2xl font-heading tracking-wider uppercase">' + d.typeLabel + '</span>' +
             '<div class="flex items-center gap-3 min-w-0 flex-1 pr-2">' +
-              '<div class="relative w-11 h-11 rounded-xl bg-gray-100 flex-shrink-0 overflow-hidden border border-gray-200">' +
+              '<div class="relative w-11 h-11 rounded-xl bg-gray-100 dark:bg-white/10 flex-shrink-0 overflow-hidden border border-gray-200/80 dark:border-white/10">' +
                 '<img src="' + d.img + '" alt="' + d.title + '" class="w-full h-full object-cover" />' +
               '</div>' +
               '<div class="min-w-0 flex-1">' +
                 '<p class="text-sm font-bold text-brand-dark font-heading truncate">' + d.title + '</p>' +
-                '<p class="text-[10px] text-gray-400 font-medium mt-0.5 whitespace-nowrap">' + d.dateText + '</p>' +
+                '<p class="text-[10.5px] text-gray-400 font-medium mt-0.5 whitespace-nowrap">' + d.dateText + '</p>' +
               '</div>' +
             '</div>' +
             '<div class="flex items-center gap-2 flex-shrink-0 pt-2 pr-1">' +
@@ -4027,7 +4083,7 @@
           '</div>';
         }).join('');
 
-        container.innerHTML = html;
+        container.innerHTML = '<div class="flex flex-col gap-1.5">' + html + '</div>';
       });
     }
 
