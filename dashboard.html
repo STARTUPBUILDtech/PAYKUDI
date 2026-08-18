@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html class="dark" lang="en">
+<html class="light" lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
   <title>PayKudi - All-in-One Dashboard</title>
   <link rel="shortcut icon" href="paykudi-favicon.png?v=2">
   <link rel="icon" type="image/png" href="paykudi-favicon.png?v=2">
   
   <script>
-    // Early theme initialization (Default is Dark/Black)
+    // Early theme initialization (Default is Light)
     (function() {
-      const savedTheme = localStorage.getItem('paykudi-theme') || 'dark';
+      const savedTheme = localStorage.getItem('paykudi-theme') || 'light';
       if (savedTheme === 'dark') {
         document.documentElement.classList.add('dark');
         document.documentElement.classList.remove('light');
@@ -89,6 +90,12 @@
       height: 100dvh;
       overflow: hidden;
       overscroll-behavior: none;
+    }
+
+    /* Disable automatic mobile link underlines on phone and account numbers */
+    a[href^="tel"], a[href^="tel:"], a[href^="mailto"], .font-heading, span, p, a {
+      text-decoration: none !important;
+      -webkit-text-decoration: none !important;
     }
 
     /* Light Mode Specific Theming (Warm Cream Background with White Surfaces) */
@@ -1391,7 +1398,7 @@
     <div class="w-full max-w-[clamp(420px,95vw,768px)] mx-auto flex flex-col h-dvh overflow-hidden relative">
 
       <!-- Mobile Sticky Glass Header (Fixed Across All Views) -->
-      <header class="flex-none bg-[#FAF7F2]/95 dark:bg-[#080C0A]/95 backdrop-blur-md z-40 px-4 py-3 flex justify-between items-center border-b border-gray-200/80 dark:border-white/10 shadow-xs">
+      <header class="flex-none bg-[#FAF7F2]/95 dark:bg-[#080C0A]/95 backdrop-blur-md z-40 px-3.5 py-1.5 flex justify-between items-center border-b border-gray-200/80 dark:border-white/10 shadow-xs">
         <button onclick="switchView('home')" class="flex items-center">
           <img src="paykudi-logo.png" alt="PayKudi" style="height: 40px; max-height: 40px; width: auto;" class="h-[40px] max-h-[40px] w-auto object-contain dark:hidden" />
           <img src="logodarkmode.png" alt="PayKudi" style="height: 40px; max-height: 40px; width: auto;" class="h-[40px] max-h-[40px] w-auto object-contain hidden dark:block" />
@@ -1399,15 +1406,15 @@
 
         <div class="flex items-center gap-2">
           <!-- Mobile Theme Toggle Button -->
-          <button onclick="toggleTheme()" class="w-8 h-8 rounded-full flex items-center justify-center bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-white/10 shadow-2xs hover:scale-105 transition-all cursor-pointer" title="Toggle Theme">
-            <span class="material-symbols-outlined text-[18px] text-amber-500 dark:hidden">light_mode</span>
-            <span class="material-symbols-outlined text-[18px] text-blue-400 hidden dark:inline">dark_mode</span>
+          <button onclick="toggleTheme()" class="w-7 h-7 rounded-full flex items-center justify-center bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-white/10 shadow-2xs hover:scale-105 transition-all cursor-pointer" title="Toggle Theme">
+            <span class="material-symbols-outlined text-[16px] text-amber-500 dark:hidden">light_mode</span>
+            <span class="material-symbols-outlined text-[16px] text-blue-400 hidden dark:inline">dark_mode</span>
           </button>
         </div>
       </header>
 
       <!-- VIEW 1: HOME MOBILE -->
-      <div id="m-view-home" class="view-panel flex-1 overflow-y-auto px-4 pt-4 pb-24 space-y-5 custom-scroll">
+      <div id="m-view-home" class="view-panel flex-1 overflow-y-auto px-4 pt-2 pb-24 space-y-4 custom-scroll">
         <!-- Mobile Balance Vault Card -->
         <section class="relative vault-gradient text-white rounded-3xl p-6 shadow-vault overflow-hidden press-effect">
           <div class="vault-shine"></div>
@@ -2273,7 +2280,7 @@
         <div class="card bg-white border border-gray-200/90 rounded-3xl p-5 shadow-xs relative overflow-hidden sticky -top-3 z-30 bg-white/95 backdrop-blur-md">
           <div class="flex items-center justify-between gap-3">
             <div class="flex items-center gap-3.5 min-w-0 flex-1">
-              <div class="w-14 h-14 min-w-[56px] min-h-[56px] rounded-full border-2 border-brand-green/50 p-0.5 shadow-md flex-shrink-0 overflow-hidden bg-gradient-to-br from-brand-blue to-emerald-600 flex items-center justify-center">
+              <div class="w-14 h-14 min-w-[56px] min-h-[56px] rounded-full flex-shrink-0 overflow-hidden flex items-center justify-center">
                 <img src="paykudi-contact-photo.jpg" alt="Marcus Vance" class="w-full h-full object-cover object-top rounded-full" style="image-rendering: smooth; image-rendering: -webkit-optimize-contrast;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
                 <div class="w-full h-full rounded-full items-center justify-center text-white font-black text-base font-heading hidden">MV</div>
               </div>
@@ -2486,7 +2493,7 @@
     <aside class="fluid-sidebar fixed left-0 top-0 h-dvh bg-white dark:bg-[#0D1310] border-r border-gray-200/80 dark:border-white/10 p-4 sm:p-4.5 flex flex-col justify-between z-40 shadow-sm transition-colors duration-300">
       <div>
         <!-- Sidebar Header with Logo -->
-        <div class="px-0 py-2 mb-6 flex items-center justify-between gap-1.5 min-w-0">
+        <div class="px-0 py-0.5 mb-2 flex items-center justify-between gap-1.5 min-w-0">
           <button onclick="switchView('home')" class="flex-shrink-0 cursor-pointer">
             <img src="paykudi-logo.png" alt="PayKudi" style="height: 38px; max-height: 38px; width: auto;" class="h-[38px] max-h-[38px] w-auto object-contain dark:hidden" />
             <img src="logodarkmode.png" alt="PayKudi" style="height: 38px; max-height: 38px; width: auto;" class="h-[38px] max-h-[38px] w-auto object-contain hidden dark:block" />
@@ -2494,23 +2501,23 @@
         </div>
         
         <!-- Generously Spaced Navigation Links -->
-        <nav class="space-y-3">
-          <button onclick="switchView('home')" class="nav-sidebar-link w-full flex items-center gap-3 bg-brand-blue text-white rounded-2xl px-3.5 py-3 font-semibold shadow-md transition-all duration-200 font-heading cursor-pointer whitespace-nowrap min-w-0" data-target="home">
+        <nav class="space-y-2">
+          <button onclick="switchView('home')" class="nav-sidebar-link w-full flex items-center gap-3 bg-brand-blue text-white rounded-2xl px-3.5 py-2.5 font-semibold shadow-md transition-all duration-200 font-heading cursor-pointer whitespace-nowrap min-w-0" data-target="home">
             <span class="material-symbols-outlined text-[20px] flex-shrink-0" style="font-variation-settings: 'FILL' 1;">dashboard</span>
             <span class="text-xs font-semibold whitespace-nowrap truncate">Dashboard</span>
           </button>
-          <button onclick="switchView('activity')" class="nav-sidebar-link w-full flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:bg-brand-blue/10 hover:text-brand-blue dark:hover:bg-white/5 dark:hover:text-white rounded-2xl px-3.5 py-3 transition-all duration-200 font-medium font-heading cursor-pointer whitespace-nowrap min-w-0" data-target="activity">
+          <button onclick="switchView('activity')" class="nav-sidebar-link w-full flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:bg-brand-blue/10 hover:text-brand-blue dark:hover:bg-white/5 dark:hover:text-white rounded-2xl px-3.5 py-2.5 transition-all duration-200 font-medium font-heading cursor-pointer whitespace-nowrap min-w-0" data-target="activity">
             <span class="material-symbols-outlined text-[20px] flex-shrink-0">analytics</span>
             <span class="text-xs font-semibold whitespace-nowrap truncate">Activity</span>
           </button>
-          <button onclick="switchView('notifications')" class="nav-sidebar-link w-full flex items-center justify-between gap-2 text-gray-700 dark:text-gray-300 hover:bg-brand-blue/10 hover:text-brand-blue dark:hover:bg-white/5 dark:hover:text-white rounded-2xl px-3.5 py-3 transition-all duration-200 font-medium font-heading cursor-pointer whitespace-nowrap min-w-0" data-target="notifications">
+          <button onclick="switchView('notifications')" class="nav-sidebar-link w-full flex items-center justify-between gap-2 text-gray-700 dark:text-gray-300 hover:bg-brand-blue/10 hover:text-brand-blue dark:hover:bg-white/5 dark:hover:text-white rounded-2xl px-3.5 py-2.5 transition-all duration-200 font-medium font-heading cursor-pointer whitespace-nowrap min-w-0" data-target="notifications">
             <div class="flex items-center gap-3 min-w-0 flex-1">
               <span class="material-symbols-outlined text-[20px] flex-shrink-0">payments</span>
               <span class="text-xs font-semibold whitespace-nowrap truncate">Payment Room</span>
             </div>
             <span id="d-pr-nav-badge" class="bg-brand-blue text-white font-extrabold text-[10px] w-5 h-5 rounded-full flex items-center justify-center shadow-xs flex-shrink-0">2</span>
           </button>
-          <button onclick="switchView('profile')" class="nav-sidebar-link w-full flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:bg-brand-blue/10 hover:text-brand-blue dark:hover:bg-white/5 dark:hover:text-white rounded-2xl px-3.5 py-3 transition-all duration-200 font-medium font-heading cursor-pointer whitespace-nowrap min-w-0" data-target="profile">
+          <button onclick="switchView('profile')" class="nav-sidebar-link w-full flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:bg-brand-blue/10 hover:text-brand-blue dark:hover:bg-white/5 dark:hover:text-white rounded-2xl px-3.5 py-2.5 transition-all duration-200 font-medium font-heading cursor-pointer whitespace-nowrap min-w-0" data-target="profile">
             <div class="flex items-center gap-1.5 flex-shrink-0">
               <span class="material-symbols-outlined text-[20px]">person</span>
               <i class="fa-brands fa-whatsapp text-emerald-500 text-sm"></i>
@@ -2521,14 +2528,14 @@
       </div>
 
       <!-- Bottom Actions: Help & Support + Theme Changer -->
-      <div class="space-y-2.5 pt-3">
-        <button onclick="switchView('help')" class="nav-sidebar-link w-full flex items-center gap-3 text-gray-600 dark:text-gray-400 hover:text-brand-blue dark:hover:text-white px-3.5 py-2.5 rounded-xl transition-all font-medium text-xs font-heading cursor-pointer whitespace-nowrap min-w-0" data-target="help">
+      <div class="space-y-2 pt-2">
+        <button onclick="switchView('help')" class="nav-sidebar-link w-full flex items-center gap-3 text-gray-600 dark:text-gray-400 hover:text-brand-blue dark:hover:text-white px-3.5 py-2 rounded-xl transition-all font-medium text-xs font-heading cursor-pointer whitespace-nowrap min-w-0" data-target="help">
           <span class="material-symbols-outlined text-[20px] flex-shrink-0">contact_support</span>
           <span class="whitespace-nowrap truncate">Help & Support</span>
         </button>
 
         <!-- Theme Changer Toggle -->
-        <button onclick="toggleTheme()" id="d-theme-toggle-btn" class="w-full flex items-center justify-between bg-gray-50 hover:bg-gray-100 dark:bg-white/5 dark:hover:bg-white/10 border border-gray-200/80 dark:border-white/10 px-3 py-2.5 rounded-2xl transition-all font-heading text-xs cursor-pointer whitespace-nowrap min-w-0">
+        <button onclick="toggleTheme()" id="d-theme-toggle-btn" class="w-full flex items-center justify-between bg-gray-50 hover:bg-gray-100 dark:bg-white/5 dark:hover:bg-white/10 border border-gray-200/80 dark:border-white/10 px-3 py-2 rounded-2xl transition-all font-heading text-xs cursor-pointer whitespace-nowrap min-w-0">
           <div class="flex items-center gap-2 text-brand-dark dark:text-gray-200 font-semibold min-w-0 truncate">
             <span class="material-symbols-outlined text-[18px] text-amber-500 dark:hidden flex-shrink-0">light_mode</span>
             <span class="material-symbols-outlined text-[18px] text-blue-400 hidden dark:inline flex-shrink-0">dark_mode</span>
@@ -2545,7 +2552,7 @@
     <main class="fluid-main flex-1 relative h-dvh flex flex-col overflow-hidden bg-[#FAF7F2]">
       
       <!-- DESKTOP VIEW 1: HOME -->
-      <div id="d-view-home" class="view-panel flex-1 overflow-y-auto max-w-6xl w-full mx-auto space-y-5 pt-3 pb-8 px-2 custom-scroll">
+      <div id="d-view-home" class="view-panel flex-1 overflow-y-auto max-w-6xl w-full mx-auto space-y-4 pt-1.5 pb-8 px-2 custom-scroll">
         <!-- Desktop Auto-Sliding Balance & Protected Hero Card -->
         <section class="vault-gradient rounded-3xl p-[clamp(1rem,1.8vw+0.5rem,1.75rem)] text-white relative overflow-hidden shadow-vault">
           <div class="vault-shine"></div>
@@ -2867,7 +2874,7 @@
         <!-- TOP PROFILE BANNER CARD -->
         <div class="card bg-white border border-gray-200/90 rounded-3xl p-6 shadow-xs flex items-center justify-between gap-6 sticky top-0 z-30 bg-white/95 backdrop-blur-md">
           <div class="flex items-center gap-5 min-w-0">
-            <div class="w-20 h-20 min-w-[80px] min-h-[80px] rounded-full border-2 border-brand-green/50 p-0.5 shadow-lg flex-shrink-0 overflow-hidden bg-gradient-to-br from-brand-blue to-emerald-600 flex items-center justify-center">
+            <div class="w-20 h-20 min-w-[80px] min-h-[80px] rounded-full flex-shrink-0 overflow-hidden flex items-center justify-center">
               <img src="paykudi-contact-photo.jpg" alt="Marcus Vance" class="w-full h-full object-cover object-top rounded-full" style="image-rendering: smooth; image-rendering: -webkit-optimize-contrast;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
               <div class="w-full h-full rounded-full items-center justify-center text-white font-black text-2xl font-heading hidden">MV</div>
             </div>
@@ -5420,9 +5427,9 @@
       alert('Switched active payout account to verified account: ' + current.bank + ' (' + current.acct + ').');
     }
 
-    // Theme Switcher Management (Default is Black/Dark)
+    // Theme Switcher Management (Default is Light)
     function initTheme() {
-      const savedTheme = localStorage.getItem('paykudi-theme') || 'dark';
+      const savedTheme = localStorage.getItem('paykudi-theme') || 'light';
       setTheme(savedTheme);
     }
 
