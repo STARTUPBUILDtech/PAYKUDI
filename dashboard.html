@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="light" lang="en">
+<html class="dark" lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -7,6 +7,20 @@
   <link rel="shortcut icon" href="paykudi-favicon.png?v=2">
   <link rel="icon" type="image/png" href="paykudi-favicon.png?v=2">
   
+  <script>
+    // Early theme initialization (Default is Dark/Black)
+    (function() {
+      const savedTheme = localStorage.getItem('paykudi-theme') || 'dark';
+      if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
+      } else {
+        document.documentElement.classList.add('light');
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   
@@ -29,7 +43,7 @@
               dark: '#102B1B',
               mint: '#C7F7C3',
               mintDark: '#A3E89E',
-              lightBg: '#F7FAF8',
+              lightBg: '#FBF8F2',
             },
             surfaceDark: "#102B1B",
             textMain: "#102B1B",
@@ -53,17 +67,167 @@
   </script>
   
   <style>
+    /* Default Dark Mode (PayKudi Brand Dark Green Theme) */
+    html.dark, html.dark body {
+      background-color: #0A1E13 !important;
+      color: #F3F4F6 !important;
+    }
+
+    /* Warm Soft Cream Light Theme (Matching Kuda & Desktop Warm Cream) */
+    html.light, html.light body {
+      background-color: #FAF7F2 !important;
+      background-image: linear-gradient(180deg, #FAF7F2 0%, #F4EFE6 100%) !important;
+      color: #102B1B !important;
+    }
+
     html, body {
-      background-color: #F7FAF8 !important;
       margin: 0;
       padding: 0;
       font-family: 'Inter', sans-serif;
-      color: #102B1B;
       -webkit-font-smoothing: antialiased;
       scroll-behavior: smooth;
       height: 100dvh;
       overflow: hidden;
-      overscroll-behavior: none; /* stop rubber-band scroll chaining to the page shell */
+      overscroll-behavior: none;
+    }
+
+    /* Light Mode Specific Theming (Warm Cream Background with White Surfaces) */
+    html.light aside {
+      background-color: #FAF7F2 !important;
+      border-color: #EBE3D5 !important;
+    }
+    html.light .glass-card, html.light .card {
+      background: #FFFFFF !important;
+      border-color: #EBE3D5 !important;
+    }
+    html.light header {
+      background-color: rgba(250, 247, 242, 0.95) !important;
+      border-color: #EBE3D5 !important;
+    }
+    html.light main, html.light .app-shell-bg, html.light .block.md\:hidden {
+      background-color: #FAF7F2 !important;
+      background-image: linear-gradient(180deg, #FAF7F2 0%, #F4EFE6 100%) !important;
+    }
+    html.light nav.fixed {
+      background-color: rgba(255, 255, 255, 0.95) !important;
+      border-color: #EBE3D5 !important;
+    }
+
+    /* Dark Mode Specific Theming (PayKudi Signature Brand Dark Green) */
+    html.dark {
+      --bg: #0A1E13;
+      --surface: #112B1D;
+      --surface-2: #173826;
+      --border: rgba(46, 160, 67, 0.22);
+      --border-strong: rgba(46, 160, 67, 0.4);
+      --text: #FFFFFF;
+      --text-muted: #CBD5E1;
+      --text-subtle: #A7F3D0;
+    }
+
+    html.dark aside {
+      background-color: #07170E !important;
+      border-color: rgba(46, 160, 67, 0.2) !important;
+    }
+    html.dark .glass-card, html.dark .card {
+      background-color: #112B1D !important;
+      border-color: rgba(46, 160, 67, 0.22) !important;
+      color: #FFFFFF !important;
+    }
+    html.dark header {
+      background-color: rgba(10, 30, 19, 0.95) !important;
+      border-color: rgba(46, 160, 67, 0.2) !important;
+    }
+    html.dark main, html.dark .app-shell-bg, html.dark .bg-\[\#F7FAF8\] {
+      background-color: #0A1E13 !important;
+    }
+
+    /* All Text writings in Dark Mode Turn Pure White & Crisp Light */
+    html.dark h1, html.dark h2, html.dark h3, html.dark h4, html.dark h5, html.dark h6 {
+      color: #FFFFFF !important;
+    }
+    html.dark .font-heading, html.dark .font-display {
+      color: #FFFFFF;
+    }
+    html.dark .text-brand-dark, 
+    html.dark .text-black, 
+    html.dark .text-gray-900, 
+    html.dark .text-gray-800 {
+      color: #FFFFFF !important;
+    }
+    html.dark .text-gray-700, 
+    html.dark .text-gray-600 {
+      color: #E2E8F0 !important;
+    }
+    html.dark .text-gray-500, 
+    html.dark .text-gray-400 {
+      color: #CBD5E1 !important;
+    }
+    html.dark .bg-white {
+      background-color: #112B1D !important;
+    }
+    html.dark .bg-gray-50, html.dark .bg-gray-50\/80 {
+      background-color: #0E2419 !important;
+    }
+    html.dark .bg-gray-100, html.dark .bg-gray-200 {
+      background-color: #0E2419 !important;
+      color: #E2E8F0 !important;
+    }
+    html.dark .hover\:bg-gray-50:hover, html.dark .hover\:bg-gray-100:hover {
+      background-color: #183C28 !important;
+    }
+    html.dark .border-gray-200, html.dark .border-gray-200\/80, html.dark .border-gray-200\/90, html.dark .border-gray-200\/60, html.dark .border-gray-100 {
+      border-color: rgba(46, 160, 67, 0.2) !important;
+    }
+    html.dark .sticky {
+      background-color: rgba(10, 30, 19, 0.95) !important;
+    }
+    html.dark [class*="bg-\[#F7FAF8\]"], html.dark .bg-\[\#F7FAF8\]\/95 {
+      background-color: rgba(10, 30, 19, 0.95) !important;
+    }
+    html.dark .pr-tab-btn:not(.bg-brand-blue) {
+      background-color: #0E2419 !important;
+      color: #E2E8F0 !important;
+      border: 1px solid rgba(46, 160, 67, 0.25) !important;
+    }
+    html.dark [id$="-custom-dropdown-menu"], html.dark [id$="-dropdown-menu"], html.dark .popover-card {
+      background-color: #0D2418 !important;
+      border-color: rgba(46, 160, 67, 0.35) !important;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6) !important;
+      color: #FFFFFF !important;
+    }
+    html.dark .m-opt-item, html.dark .d-opt-item {
+      color: #FFFFFF !important;
+    }
+    html.dark .m-tx-item, html.dark .d-tx-item {
+      color: #FFFFFF !important;
+    }
+    html.dark .nav-sidebar-link:not(.bg-brand-blue) {
+      color: #E2E8F0 !important;
+    }
+    html.dark .nav-sidebar-link:not(.bg-brand-blue):hover {
+      color: #FFFFFF !important;
+      background-color: rgba(46, 160, 67, 0.18) !important;
+    }
+    html.dark .bg-brand-dark {
+      background-color: #07180F !important;
+      border: 1px solid rgba(46, 160, 67, 0.25) !important;
+    }
+    html.dark input, html.dark textarea, html.dark select {
+      color: #FFFFFF !important;
+    }
+    html.dark input::placeholder, html.dark textarea::placeholder {
+      color: #94A3B8 !important;
+      opacity: 0.8;
+    }
+    html.dark nav.fixed {
+      background-color: rgba(10, 30, 19, 0.95) !important;
+      border-color: rgba(46, 160, 67, 0.25) !important;
+    }
+    html.dark #modal-content {
+      background-color: #0D2418 !important;
+      border: 1px solid rgba(46, 160, 67, 0.3) !important;
+      color: #FFFFFF !important;
     }
 
     /* Contain overscroll inside individual scrollable panels so bounce
@@ -1139,12 +1303,19 @@
     <div class="w-full max-w-[clamp(420px,95vw,768px)] mx-auto flex flex-col h-dvh overflow-hidden relative">
 
       <!-- Mobile Sticky Glass Header (Fixed Across All Views) -->
-      <header class="flex-none bg-[#F7FAF8]/95 backdrop-blur-md z-40 px-4 py-3 flex justify-between items-center border-b border-gray-200/80 shadow-xs">
+      <header class="flex-none bg-[#F7FAF8]/95 dark:bg-[#080C0A]/95 backdrop-blur-md z-40 px-4 py-3 flex justify-between items-center border-b border-gray-200/80 dark:border-white/10 shadow-xs">
         <button onclick="switchView('home')" class="flex items-center">
-          <img src="paykudi-logo.png" alt="PayKudi" style="height: 40px; max-height: 40px; width: auto;" class="h-[40px] max-h-[40px] w-auto object-contain" />
+          <img src="paykudi-logo.png" alt="PayKudi" style="height: 40px; max-height: 40px; width: auto;" class="h-[40px] max-h-[40px] w-auto object-contain dark:hidden" />
+          <img src="logodarkmode.png" alt="PayKudi" style="height: 40px; max-height: 40px; width: auto;" class="h-[40px] max-h-[40px] w-auto object-contain hidden dark:block" />
         </button>
 
         <div class="flex items-center gap-2">
+          <!-- Mobile Theme Toggle Button -->
+          <button onclick="toggleTheme()" class="w-8 h-8 rounded-full flex items-center justify-center bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-white/10 shadow-2xs hover:scale-105 transition-all cursor-pointer" title="Toggle Theme">
+            <span class="material-symbols-outlined text-[18px] text-amber-500 dark:hidden">light_mode</span>
+            <span class="material-symbols-outlined text-[18px] text-blue-400 hidden dark:inline">dark_mode</span>
+          </button>
+
           <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-500/10 text-brand-green border border-emerald-500/20 font-heading whitespace-nowrap">
             <i class="fa-brands fa-whatsapp text-emerald-600 text-xs"></i>
             +234 812 345 6789
@@ -1292,7 +1463,7 @@
       <!-- VIEW 2: ACTIVITIES MOBILE (STICKY METRICS & CONTROLS + SCROLLABLE LIST) -->
       <div id="m-view-activity" class="view-panel flex-1 flex flex-col overflow-hidden hidden">
         <!-- Fixed Top Controls -->
-        <div class="flex-none bg-[#F7FAF8] z-30 px-4 pt-3 pb-3 space-y-3 border-b border-gray-200/60 shadow-xs">
+        <div class="flex-none bg-[#F7FAF8] z-30 px-4 pt-3 pb-2 space-y-3">
           <!-- 3 Metric Cards Section -->
           <section class="grid grid-cols-3 gap-2.5">
             <div class="bg-brand-dark text-white rounded-2xl p-3.5 h-24 flex flex-col justify-between relative overflow-hidden shadow-md press-effect">
@@ -1337,42 +1508,71 @@
             </div>
           </section>
 
-          <!-- Filter & Search Controls Mobile -->
-          <div class="flex flex-col gap-2.5">
-            <!-- Row 1: Heading + Dropdown Inline -->
-            <div class="flex items-center justify-between gap-1.5">
-              <h2 class="text-base font-bold text-brand-dark font-heading flex-shrink-0 ml-1.5">Activities</h2>
+          <!-- Filter & Search Controls Mobile (Search Bar with Integrated Filter Inside) -->
+          <div class="flex items-center justify-between gap-1.5">
+            <h2 class="text-base font-bold text-brand-dark font-heading flex-shrink-0 ml-1 sm:ml-2">Activities</h2>
 
-              <div class="flex items-center gap-1.5 flex-1 justify-end">
-                <!-- Custom PayKudi Theme Mobile Dropdown -->
-                <div class="relative text-left" id="m-custom-dropdown-wrap">
-                  <button type="button" onclick="toggleCustomDropdown('mobile')" id="m-custom-dropdown-btn" class="inline-flex items-center justify-between gap-1.5 bg-white border border-gray-200/90 rounded-xl px-3 py-1.5 text-xs font-semibold text-brand-dark hover:bg-gray-50/80 focus:outline-none focus:ring-2 focus:ring-brand-blue/20 font-heading shadow-xs cursor-pointer w-40">
-                    <span id="m-custom-dropdown-label" class="truncate">All Activities</span>
-                    <span class="material-symbols-outlined text-[16px] text-gray-500 transition-transform duration-200" id="m-custom-dropdown-arrow">expand_more</span>
+            <!-- Integrated Search Bar with Filter inside -->
+            <div class="relative max-w-[245px] sm:max-w-[270px] flex-1 min-w-0 ml-auto">
+              <div class="flex items-center bg-white border border-gray-200 rounded-full pl-2.5 pr-1 py-1 shadow-xs focus-within:ring-2 focus-within:ring-brand-blue/20 focus-within:border-brand-blue transition-all">
+                <span class="material-symbols-outlined text-gray-400 text-[14px] flex-shrink-0">search</span>
+                <input type="text" id="m-activity-search" oninput="filterActivities('mobile')" placeholder="Search activities" class="w-full min-w-0 bg-transparent border-0 pl-1.5 pr-1 py-0.5 text-[11px] font-medium text-brand-dark placeholder-gray-400 focus:outline-none focus:ring-0" />
+
+                <!-- Integrated Filter Button & Dropdown Inside Search Bar -->
+                <div class="relative text-left flex-shrink-0" id="m-custom-dropdown-wrap">
+                  <button type="button" onclick="toggleCustomDropdown('mobile')" id="m-custom-dropdown-btn" class="inline-flex items-center gap-1 bg-gray-50 hover:bg-gray-100 border border-gray-200/80 rounded-full px-2 py-0.5 text-[10.5px] font-semibold text-brand-dark focus:outline-none font-heading shadow-2xs cursor-pointer transition-all">
+                    <span class="material-symbols-outlined text-[12px] text-gray-600">tune</span>
+                    <span id="m-custom-dropdown-label">Filter</span>
+                    <span id="m-filter-badge" class="hidden w-3.5 h-3.5 rounded-full bg-brand-blue text-white text-[8.5px] font-extrabold items-center justify-center leading-none">0</span>
                   </button>
 
-                  <div id="m-custom-dropdown-menu" class="hidden absolute right-0 mt-1 w-40 rounded-xl bg-white border border-gray-200/90 shadow-2xl z-50 overflow-hidden p-1.5 space-y-1">
-                    <button onclick="selectCustomType('mobile', 'all', 'All Activities')" id="m-opt-all" class="m-opt-item w-full text-left px-2.5 py-1.5 text-xs font-bold rounded-lg bg-brand-blue text-white transition-all">
-                      All Activities
+                  <div id="m-custom-dropdown-menu" class="hidden absolute right-0 mt-2 w-52 rounded-2xl bg-white border border-gray-200/90 shadow-2xl z-50 overflow-hidden p-2.5 space-y-1.5">
+                    <div class="px-1.5 py-0.5 flex items-center justify-between border-b border-gray-100 pb-1.5 mb-1">
+                      <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider font-heading">Filter Activity</span>
+                      <button type="button" onclick="clearCustomFilters('mobile', event)" id="m-filter-reset-btn" class="text-[11px] font-bold text-brand-blue hover:underline cursor-pointer">Reset</button>
+                    </div>
+                    <button type="button" onclick="toggleCustomFilterOption('mobile', 'buying', event)" id="m-opt-buying" class="m-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-gray-50 transition-all cursor-pointer">
+                      <span class="flex items-center gap-2">
+                        <span class="w-4 h-4 rounded-md border border-gray-300 flex items-center justify-center text-white text-[10px] transition-colors" id="m-chk-buying">
+                          <i class="fa-solid fa-check hidden"></i>
+                        </span>
+                        <span>Payment Sent</span>
+                      </span>
                     </button>
-                    <button onclick="selectCustomType('mobile', 'buying', 'Payment Sent')" id="m-opt-buying" class="m-opt-item w-full text-left px-2.5 py-1.5 text-xs font-semibold rounded-lg text-brand-dark hover:bg-brand-blue/10 hover:text-brand-blue transition-all">
-                      Payment Sent
+                    <button type="button" onclick="toggleCustomFilterOption('mobile', 'selling', event)" id="m-opt-selling" class="m-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-gray-50 transition-all cursor-pointer">
+                      <span class="flex items-center gap-2">
+                        <span class="w-4 h-4 rounded-md border border-gray-300 flex items-center justify-center text-white text-[10px] transition-colors" id="m-chk-selling">
+                          <i class="fa-solid fa-check hidden"></i>
+                        </span>
+                        <span>Payment Received</span>
+                      </span>
                     </button>
-                    <button onclick="selectCustomType('mobile', 'selling', 'Payment Received')" id="m-opt-selling" class="m-opt-item w-full text-left px-2.5 py-1.5 text-xs font-semibold rounded-lg text-brand-dark hover:bg-brand-blue/10 hover:text-brand-blue transition-all">
-                      Payment Received
+                    <button type="button" onclick="toggleCustomFilterOption('mobile', 'withdrawn', event)" id="m-opt-withdrawn" class="m-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-gray-50 transition-all cursor-pointer">
+                      <span class="flex items-center gap-2">
+                        <span class="w-4 h-4 rounded-md border border-gray-300 flex items-center justify-center text-white text-[10px] transition-colors" id="m-chk-withdrawn">
+                          <i class="fa-solid fa-check hidden"></i>
+                        </span>
+                        <span>Withdrawals</span>
+                      </span>
                     </button>
-                    <button onclick="selectCustomType('mobile', 'withdrawn', 'Withdrawals')" id="m-opt-withdrawn" class="m-opt-item w-full text-left px-2.5 py-1.5 text-xs font-semibold rounded-lg text-brand-dark hover:bg-brand-blue/10 hover:text-brand-blue transition-all">
-                      Withdrawals
-                    </button>
+
+                    <!-- Manual Date Filter with Live Stationary Guides -->
+                    <div class="pt-1.5 border-t border-gray-100 px-1">
+                      <label class="text-[9.5px] font-bold text-gray-400 uppercase tracking-wider font-heading block mb-1">Filter by Date</label>
+                      <div class="flex items-center bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-xl px-2.5 py-1.5 focus-within:ring-1 focus-within:ring-brand-blue focus-within:border-brand-blue transition-all">
+                        <span class="material-symbols-outlined text-[14px] text-gray-400 mr-2 pointer-events-none flex-shrink-0">calendar_month</span>
+                        <div class="flex items-center text-[11px] font-medium text-brand-dark">
+                          <input type="text" id="m-act-day" maxlength="2" placeholder="DD" oninput="handleDateSegmentInput('m-act', 'day', 'mobile', 'activity')" onkeydown="handleDateSegmentKeydown(event, 'm-act', 'day')" class="w-[17px] text-left bg-transparent border-0 p-0 text-[11px] font-semibold text-brand-dark placeholder-gray-400 focus:outline-none focus:ring-0 leading-none" />
+                          <span class="text-gray-400 font-medium select-none px-0.5">-</span>
+                          <input type="text" id="m-act-month" maxlength="2" placeholder="MM" oninput="handleDateSegmentInput('m-act', 'month', 'mobile', 'activity')" onkeydown="handleDateSegmentKeydown(event, 'm-act', 'month')" class="w-[20px] text-left bg-transparent border-0 p-0 text-[11px] font-semibold text-brand-dark placeholder-gray-400 focus:outline-none focus:ring-0 leading-none" />
+                          <span class="text-gray-400 font-medium select-none px-0.5">-</span>
+                          <input type="text" id="m-act-year" maxlength="4" placeholder="YYYY" oninput="handleDateSegmentInput('m-act', 'year', 'mobile', 'activity')" onkeydown="handleDateSegmentKeydown(event, 'm-act', 'year')" class="w-[32px] text-left bg-transparent border-0 p-0 text-[11px] font-semibold text-brand-dark placeholder-gray-400 focus:outline-none focus:ring-0 leading-none" />
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-
-            <!-- Row 2: Full-Width Search Bar Below -->
-            <div class="relative">
-              <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-[18px]">search</span>
-              <input type="text" id="m-activity-search" oninput="filterActivities('mobile')" placeholder="Search activities" class="w-full bg-white border border-gray-200/90 rounded-xl pl-9 pr-3.5 py-2 text-xs font-medium text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-blue/20 shadow-xs" />
             </div>
           </div>
         </div>
@@ -1446,28 +1646,71 @@
         
         <!-- MOBILE LANDING LIST -->
         <div id="m-pr-landing" class="max-w-3xl mx-auto w-full space-y-4">
-          <!-- Top Grouping Tabs & Color Legend (Unscrollable Sticky Header) -->
-          <div class="sticky -top-4 z-30 bg-[#F7FAF8]/95 backdrop-blur-md pt-1 pb-2.5 -mx-4 px-4 flex items-center justify-between gap-2 border-b border-gray-200/60 mb-1">
-            <div class="flex items-center gap-2">
-              <button id="m-tab-ongoing" onclick="switchPRTab('ongoing')" class="pr-tab-btn px-3.5 py-1.5 rounded-xl font-heading text-xs font-bold transition-all bg-brand-blue text-white shadow-sm flex items-center gap-1.5 cursor-pointer">
+          <!-- Top Grouping Tabs & Integrated Search/Filter (Unscrollable Seamless Header) -->
+          <div class="sticky -top-4 z-30 pt-1 pb-2.5 flex items-center justify-between gap-2 mb-1">
+            <div class="flex items-center gap-1.5 flex-shrink-0">
+              <button id="m-tab-ongoing" onclick="switchPRTab('ongoing')" class="pr-tab-btn px-3 py-1.5 rounded-xl font-heading text-xs font-bold transition-all bg-brand-blue text-white shadow-sm flex items-center gap-1.5 cursor-pointer">
                 <span>Ongoing</span>
                 <span class="px-1.5 py-0.5 rounded-full text-[10px] font-extrabold bg-white/20 text-white" id="m-cnt-ongoing">2</span>
               </button>
-              <button id="m-tab-fulfilled" onclick="switchPRTab('fulfilled')" class="pr-tab-btn px-3.5 py-1.5 rounded-xl font-heading text-xs font-bold transition-all bg-gray-100 text-gray-600 hover:bg-gray-200 flex items-center gap-1.5 cursor-pointer">
+              <button id="m-tab-fulfilled" onclick="switchPRTab('fulfilled')" class="pr-tab-btn px-3 py-1.5 rounded-xl font-heading text-xs font-bold transition-all bg-gray-100 dark:bg-[#0E2419] text-gray-600 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-[#173826] border border-transparent dark:border-white/10 flex items-center gap-1.5 cursor-pointer">
                 <span>Fulfilled</span>
               </button>
             </div>
 
-            <!-- Color Guide Legend -->
-            <div class="flex items-center gap-2 text-[10px] font-bold font-heading text-gray-600 bg-gray-50 px-2.5 py-1 rounded-xl border border-gray-200/80">
-              <span class="inline-flex items-center gap-1">
-                <span class="w-2 h-2 rounded-full bg-brand-blue"></span>
-                <span class="text-brand-dark">Buying</span>
-              </span>
-              <span class="inline-flex items-center gap-1">
-                <span class="w-2 h-2 rounded-full bg-purple-600"></span>
-                <span class="text-brand-dark">Selling</span>
-              </span>
+            <!-- Integrated Search Bar with Filter inside (Payment Room) -->
+            <div class="relative max-w-[245px] sm:max-w-[270px] flex-1 min-w-0 ml-auto">
+              <div class="flex items-center bg-white border border-gray-200 rounded-full pl-2.5 pr-1 py-1 shadow-xs focus-within:ring-2 focus-within:ring-brand-blue/20 focus-within:border-brand-blue transition-all">
+                <span class="material-symbols-outlined text-gray-400 text-[14px] flex-shrink-0">search</span>
+                <input type="text" id="m-pr-search" oninput="filterPaymentRooms('mobile')" placeholder="Search activities" class="w-full min-w-0 bg-transparent border-0 pl-1.5 pr-1 py-0.5 text-[11px] font-medium text-brand-dark placeholder-gray-400 focus:outline-none focus:ring-0" />
+
+                <!-- Integrated Filter Button & Dropdown Inside Search Bar -->
+                <div class="relative text-left flex-shrink-0" id="m-pr-custom-dropdown-wrap">
+                  <button type="button" onclick="togglePRCustomDropdown('mobile')" id="m-pr-custom-dropdown-btn" class="inline-flex items-center gap-1 bg-gray-50 hover:bg-gray-100 border border-gray-200/80 rounded-full px-2 py-0.5 text-[10.5px] font-semibold text-brand-dark focus:outline-none font-heading shadow-2xs cursor-pointer transition-all">
+                    <span class="material-symbols-outlined text-[12px] text-gray-600">tune</span>
+                    <span id="m-pr-custom-dropdown-label">Filter</span>
+                    <span id="m-pr-filter-badge" class="hidden w-3.5 h-3.5 rounded-full bg-brand-blue text-white text-[8.5px] font-extrabold items-center justify-center leading-none">0</span>
+                  </button>
+
+                  <div id="m-pr-custom-dropdown-menu" class="hidden absolute right-0 mt-2 w-52 rounded-2xl bg-white border border-gray-200/90 shadow-2xl z-50 overflow-hidden p-2.5 space-y-1.5">
+                    <div class="px-1.5 py-0.5 flex items-center justify-between border-b border-gray-100 pb-1.5 mb-1">
+                      <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider font-heading">Filter Role</span>
+                      <button type="button" onclick="clearPRCustomFilters('mobile', event)" id="m-pr-filter-reset-btn" class="text-[11px] font-bold text-brand-blue hover:underline cursor-pointer">Reset</button>
+                    </div>
+                    <button type="button" onclick="togglePRCustomFilterOption('mobile', 'Buying', event)" id="m-pr-opt-buying" class="m-pr-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-gray-50 transition-all cursor-pointer">
+                      <span class="flex items-center gap-2">
+                        <span class="w-4 h-4 rounded-md border border-gray-300 flex items-center justify-center text-white text-[10px] transition-colors" id="m-pr-chk-buying">
+                          <i class="fa-solid fa-check hidden"></i>
+                        </span>
+                        <span>Buying</span>
+                      </span>
+                    </button>
+                    <button type="button" onclick="togglePRCustomFilterOption('mobile', 'Selling', event)" id="m-pr-opt-selling" class="m-pr-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-gray-50 transition-all cursor-pointer">
+                      <span class="flex items-center gap-2">
+                        <span class="w-4 h-4 rounded-md border border-gray-300 flex items-center justify-center text-white text-[10px] transition-colors" id="m-pr-chk-selling">
+                          <i class="fa-solid fa-check hidden"></i>
+                        </span>
+                        <span>Selling</span>
+                      </span>
+                    </button>
+
+                    <!-- Manual Date Filter with Live Stationary Guides -->
+                    <div class="pt-1.5 border-t border-gray-100 px-1">
+                      <label class="text-[9.5px] font-bold text-gray-400 uppercase tracking-wider font-heading block mb-1">Filter by Date</label>
+                      <div class="flex items-center bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-xl px-2.5 py-1.5 focus-within:ring-1 focus-within:ring-brand-blue focus-within:border-brand-blue transition-all">
+                        <span class="material-symbols-outlined text-[14px] text-gray-400 mr-2 pointer-events-none flex-shrink-0">calendar_month</span>
+                        <div class="flex items-center text-[11px] font-medium text-brand-dark">
+                          <input type="text" id="m-pr-date-day" maxlength="2" placeholder="DD" oninput="handleDateSegmentInput('m-pr-date', 'day', 'mobile', 'pr')" onkeydown="handleDateSegmentKeydown(event, 'm-pr-date', 'day')" class="w-[17px] text-left bg-transparent border-0 p-0 text-[11px] font-semibold text-brand-dark placeholder-gray-400 focus:outline-none focus:ring-0 leading-none" />
+                          <span class="text-gray-400 font-medium select-none px-0.5">-</span>
+                          <input type="text" id="m-pr-date-month" maxlength="2" placeholder="MM" oninput="handleDateSegmentInput('m-pr-date', 'month', 'mobile', 'pr')" onkeydown="handleDateSegmentKeydown(event, 'm-pr-date', 'month')" class="w-[20px] text-left bg-transparent border-0 p-0 text-[11px] font-semibold text-brand-dark placeholder-gray-400 focus:outline-none focus:ring-0 leading-none" />
+                          <span class="text-gray-400 font-medium select-none px-0.5">-</span>
+                          <input type="text" id="m-pr-date-year" maxlength="4" placeholder="YYYY" oninput="handleDateSegmentInput('m-pr-date', 'year', 'mobile', 'pr')" onkeydown="handleDateSegmentKeydown(event, 'm-pr-date', 'year')" class="w-[32px] text-left bg-transparent border-0 p-0 text-[11px] font-semibold text-brand-dark placeholder-gray-400 focus:outline-none focus:ring-0 leading-none" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -1477,9 +1720,9 @@
 
         <!-- MOBILE DETAIL VIEW (Initially Hidden) -->
         <div id="m-pr-detail" class="space-y-4 max-w-3xl mx-auto w-full hidden">
-          <!-- Back Button Header (Unscrollable Sticky Bar) -->
-          <div class="sticky -top-4 z-30 bg-[#F7FAF8]/95 backdrop-blur-md pt-2 pb-1.5 -mx-4 px-4 flex items-center justify-between">
-            <button type="button" onclick="closePRDetail()" class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-blue bg-brand-blue/10 hover:bg-brand-blue/20 px-3.5 py-2 rounded-xl transition-all font-heading cursor-pointer">
+          <!-- Back Button Header (Unscrollable Seamless Bar) -->
+          <div class="sticky -top-4 z-30 pt-2 pb-1.5 flex items-center justify-between">
+            <button type="button" onclick="closePRDetail()" class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-blue dark:text-brand-mint bg-brand-blue/10 dark:bg-emerald-500/15 hover:bg-brand-blue/20 dark:hover:bg-emerald-500/25 border border-transparent dark:border-emerald-500/30 px-3.5 py-2 rounded-xl transition-all font-heading cursor-pointer">
               <span class="material-symbols-outlined text-[16px]">arrow_back</span>
               <span>Back to Payment Rooms</span>
             </button>
@@ -1988,15 +2231,15 @@
         </div>
 
         <!-- 3. BECOME A VERIFIED SELLER CARD -->
-        <div class="card bg-white border border-gray-200/90 rounded-3xl p-5 shadow-xs space-y-3.5 relative overflow-hidden" id="m-seller-card">
+        <div class="card bg-white border border-gray-200/90 rounded-3xl pt-3 pb-4 px-5 shadow-xs space-y-3 relative overflow-hidden" id="m-seller-card">
           <!-- Topmost Right Corner Tile Badge -->
           <span class="absolute top-0 right-0 bg-amber-500/15 text-amber-700 border-b border-l border-amber-500/30 text-[9.5px] font-extrabold px-3 py-0.5 rounded-bl-2xl rounded-tr-3xl font-heading tracking-wider uppercase">Unverified</span>
 
-          <div class="cursor-pointer pt-1" onclick="toggleVerifiedSellerCard('m')">
-            <div class="flex items-center justify-between gap-3 pr-20">
+          <div class="cursor-pointer -mt-1" onclick="toggleVerifiedSellerCard('m')">
+            <div class="flex items-center justify-between gap-3">
               <div class="min-w-0 flex-1">
-                <h3 class="text-sm font-bold text-brand-dark font-heading truncate">Become a Verified Seller</h3>
-                <p class="text-[10.5px] text-gray-500 mt-0.5">Complete verification to enjoy Verified Seller benefits.</p>
+                <h3 class="text-sm font-bold text-brand-dark font-heading -mt-1">Become a Verified Seller</h3>
+                <p class="text-[10.5px] text-gray-500 mt-1 whitespace-nowrap">Complete verification to enjoy Verified Seller benefits.</p>
               </div>
               <span class="material-symbols-outlined text-[22px] text-gray-400 transition-transform duration-200 flex-shrink-0" id="m-seller-card-arrow">expand_more</span>
             </div>
@@ -2150,47 +2393,62 @@
   <!-- ========================================== -->
   <div class="hidden md:flex min-h-screen w-full bg-[#F7FAF8] text-brand-dark relative font-sans h-dvh overflow-hidden">
 
-    <!-- Desktop SideNavBar -->
-    <aside class="fluid-sidebar fixed left-0 top-0 h-dvh bg-white border-r border-gray-200/80 p-5 flex flex-col justify-between z-40 shadow-sm">
+    <!-- Desktop SideNavBar (Kuda-Spaced Navigation) -->
+    <aside class="fluid-sidebar fixed left-0 top-0 h-dvh bg-white dark:bg-[#0D1310] border-r border-gray-200/80 dark:border-white/10 p-6 flex flex-col justify-between z-40 shadow-sm transition-colors duration-300">
       <div>
-        <!-- Sidebar Header with Logo & WhatsApp Number side-by-side -->
-        <div class="px-0 py-2 mb-6 flex items-center justify-between gap-2">
-          <button onclick="switchView('home')" class="flex-shrink-0">
-            <img src="paykudi-logo.png" alt="PayKudi" style="height: 38px; max-height: 38px; width: auto;" class="h-[38px] max-h-[38px] w-auto object-contain" />
+        <!-- Sidebar Header with Logo & WhatsApp Number -->
+        <div class="px-0 py-2 mb-8 flex items-center justify-between gap-2">
+          <button onclick="switchView('home')" class="flex-shrink-0 cursor-pointer">
+            <img src="paykudi-logo.png" alt="PayKudi" style="height: 40px; max-height: 40px; width: auto;" class="h-[40px] max-h-[40px] w-auto object-contain dark:hidden" />
+            <img src="logodarkmode.png" alt="PayKudi" style="height: 40px; max-height: 40px; width: auto;" class="h-[40px] max-h-[40px] w-auto object-contain hidden dark:block" />
           </button>
-          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-brand-green border border-emerald-500/20 font-heading whitespace-nowrap flex-shrink-0">
+          <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10.5px] font-semibold bg-emerald-500/10 text-brand-green border border-emerald-500/20 font-heading whitespace-nowrap flex-shrink-0">
             <i class="fa-brands fa-whatsapp text-emerald-600 text-[11px]"></i>
             +234 812 345 6789
           </span>
         </div>
         
-        <nav class="space-y-1.5">
-          <button onclick="switchView('home')" class="nav-sidebar-link w-full flex items-center gap-3 bg-brand-blue text-white rounded-2xl px-3.5 py-3 font-semibold shadow-md transition-all duration-200 font-heading" data-target="home">
-            <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+        <!-- Generously Spaced Navigation Links -->
+        <nav class="space-y-4">
+          <button onclick="switchView('home')" class="nav-sidebar-link w-full flex items-center gap-3.5 bg-brand-blue text-white rounded-2xl px-4 py-3.5 font-semibold shadow-md transition-all duration-200 font-heading cursor-pointer" data-target="home">
+            <span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">dashboard</span>
             <span class="text-xs font-semibold">Dashboard</span>
           </button>
-          <button onclick="switchView('activity')" class="nav-sidebar-link w-full flex items-center gap-3 text-gray-700 hover:bg-brand-blue/5 hover:text-brand-blue rounded-2xl px-3.5 py-3 transition-all duration-200 font-medium font-heading" data-target="activity">
-            <span class="material-symbols-outlined text-[20px]">analytics</span>
+          <button onclick="switchView('activity')" class="nav-sidebar-link w-full flex items-center gap-3.5 text-gray-700 dark:text-gray-300 hover:bg-brand-blue/10 hover:text-brand-blue dark:hover:bg-white/5 dark:hover:text-white rounded-2xl px-4 py-3.5 transition-all duration-200 font-medium font-heading cursor-pointer" data-target="activity">
+            <span class="material-symbols-outlined text-[22px]">analytics</span>
             <span class="text-xs font-semibold">Activity</span>
           </button>
-          <button onclick="switchView('notifications')" class="nav-sidebar-link w-full flex items-center justify-between text-gray-700 hover:bg-brand-blue/5 hover:text-brand-blue rounded-2xl px-3.5 py-3 transition-all duration-200 font-medium font-heading" data-target="notifications">
-            <div class="flex items-center gap-3">
-              <span class="material-symbols-outlined text-[20px]">payments</span>
+          <button onclick="switchView('notifications')" class="nav-sidebar-link w-full flex items-center justify-between text-gray-700 dark:text-gray-300 hover:bg-brand-blue/10 hover:text-brand-blue dark:hover:bg-white/5 dark:hover:text-white rounded-2xl px-4 py-3.5 transition-all duration-200 font-medium font-heading cursor-pointer" data-target="notifications">
+            <div class="flex items-center gap-3.5">
+              <span class="material-symbols-outlined text-[22px]">payments</span>
               <span class="text-xs font-semibold">Payment Room</span>
             </div>
             <span id="d-pr-nav-badge" class="bg-brand-blue text-white font-extrabold text-[10px] w-5 h-5 rounded-full flex items-center justify-center shadow-xs">2</span>
           </button>
-          <button onclick="switchView('profile')" class="nav-sidebar-link w-full flex items-center gap-3 text-gray-700 hover:bg-brand-blue/5 hover:text-brand-blue rounded-2xl px-3.5 py-3 transition-all duration-200 font-medium font-heading" data-target="profile">
-            <span class="material-symbols-outlined text-[20px]">person</span>
+          <button onclick="switchView('profile')" class="nav-sidebar-link w-full flex items-center gap-3.5 text-gray-700 dark:text-gray-300 hover:bg-brand-blue/10 hover:text-brand-blue dark:hover:bg-white/5 dark:hover:text-white rounded-2xl px-4 py-3.5 transition-all duration-200 font-medium font-heading cursor-pointer" data-target="profile">
+            <span class="material-symbols-outlined text-[22px]">person</span>
             <span class="text-xs font-semibold">Account Profile</span>
           </button>
         </nav>
       </div>
 
-      <div>
-        <button onclick="switchView('help')" class="nav-sidebar-link w-full flex items-center gap-3 text-gray-600 hover:text-brand-blue px-3.5 py-2.5 rounded-xl transition-all font-medium text-xs font-heading" data-target="help">
+      <!-- Bottom Actions: Help & Support + Theme Changer -->
+      <div class="space-y-3 pt-4 border-t border-gray-100 dark:border-white/10">
+        <button onclick="switchView('help')" class="nav-sidebar-link w-full flex items-center gap-3.5 text-gray-600 dark:text-gray-400 hover:text-brand-blue dark:hover:text-white px-4 py-2.5 rounded-xl transition-all font-medium text-xs font-heading cursor-pointer" data-target="help">
           <span class="material-symbols-outlined text-[20px]">contact_support</span>
           <span>Help & Support</span>
+        </button>
+
+        <!-- Theme Changer Toggle -->
+        <button onclick="toggleTheme()" id="d-theme-toggle-btn" class="w-full flex items-center justify-between bg-gray-50 hover:bg-gray-100 dark:bg-white/5 dark:hover:bg-white/10 border border-gray-200/80 dark:border-white/10 px-3.5 py-2.5 rounded-2xl transition-all font-heading text-xs cursor-pointer">
+          <div class="flex items-center gap-2.5 text-brand-dark dark:text-gray-200 font-semibold">
+            <span class="material-symbols-outlined text-[18px] text-amber-500 dark:hidden">light_mode</span>
+            <span class="material-symbols-outlined text-[18px] text-blue-400 hidden dark:inline">dark_mode</span>
+            <span id="d-theme-toggle-label">Dark Theme</span>
+          </div>
+          <div class="relative w-8 h-4.5 bg-gray-300 dark:bg-brand-blue rounded-full transition-colors flex items-center px-0.5">
+            <div class="w-3.5 h-3.5 bg-white rounded-full transition-transform transform translate-x-0 dark:translate-x-3.5 shadow-sm"></div>
+          </div>
         </button>
       </div>
     </aside>
@@ -2379,43 +2637,72 @@
             </div>
           </section>
 
-          <!-- Activities Header & Filters -->
-          <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-gray-200/60 pb-3">
-            <h2 class="fluid-title-md font-bold text-brand-dark font-heading">Activities</h2>
+          <!-- Activities Header & Filters on one line -->
+          <div class="flex items-center justify-between gap-3 pb-1">
+            <h2 class="fluid-title-md font-bold text-brand-dark font-heading flex-shrink-0 ml-2">Activities</h2>
 
-            <div class="flex flex-wrap items-center gap-2.5">
-              <!-- Search Bar Box -->
-              <div class="relative">
-                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-[18px]">search</span>
-                <input type="text" id="d-activity-search" oninput="filterActivities('desktop')" placeholder="Search activities" class="w-64 bg-white border border-gray-200/90 rounded-lg pl-9 pr-3 py-2 text-xs font-medium text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue shadow-xs" />
-              </div>
+            <div class="flex items-center gap-2.5">
+              <!-- Integrated Search Bar with Filter Inside -->
+              <div class="relative w-72">
+                <div class="flex items-center bg-white border border-gray-200 rounded-full pl-3 pr-1 py-1 shadow-xs focus-within:ring-2 focus-within:ring-brand-blue/20 focus-within:border-brand-blue transition-all">
+                  <span class="material-symbols-outlined text-gray-400 text-[16px] flex-shrink-0">search</span>
+                  <input type="text" id="d-activity-search" oninput="filterActivities('desktop')" placeholder="Search activities" class="w-full min-w-0 bg-transparent border-0 pl-2 pr-1.5 py-0.5 text-xs font-medium text-brand-dark placeholder-gray-400 focus:outline-none focus:ring-0" />
 
-              <!-- Manual Date Input Box -->
-              <div class="relative">
-                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-[18px]">calendar_today</span>
-                <input type="text" id="d-activity-date" oninput="filterActivities('desktop')" placeholder="DD-MM-YYYY" class="w-36 bg-white border border-gray-200/90 rounded-lg pl-9 pr-3 py-2 text-xs font-medium text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue shadow-xs" />
-              </div>
+                  <!-- Integrated Filter Button & Dropdown Inside Search Bar -->
+                  <div class="relative inline-block text-left flex-shrink-0" id="d-custom-dropdown-wrap">
+                    <button type="button" onclick="toggleCustomDropdown('desktop')" id="d-custom-dropdown-btn" class="inline-flex items-center gap-1.5 bg-gray-50 hover:bg-gray-100 border border-gray-200/80 rounded-full px-2.5 py-1 text-xs font-semibold text-brand-dark focus:outline-none font-heading shadow-2xs cursor-pointer transition-all">
+                      <span class="material-symbols-outlined text-[14px] text-gray-600">tune</span>
+                      <span id="d-custom-dropdown-label">Filter</span>
+                      <span id="d-filter-badge" class="hidden w-4 h-4 rounded-full bg-brand-blue text-white text-[9.5px] font-extrabold items-center justify-center leading-none">0</span>
+                      <span class="material-symbols-outlined text-[14px] text-gray-400 transition-transform duration-200" id="d-custom-dropdown-arrow">expand_more</span>
+                    </button>
 
-              <!-- Custom PayKudi Theme Dropdown -->
-              <div class="relative inline-block text-left" id="d-custom-dropdown-wrap">
-                <button type="button" onclick="toggleCustomDropdown('desktop')" id="d-custom-dropdown-btn" class="inline-flex items-center justify-between gap-2.5 bg-white border border-gray-200/90 rounded-xl px-3.5 py-2 text-xs font-semibold text-brand-dark hover:bg-gray-50/80 focus:outline-none focus:ring-2 focus:ring-brand-blue/20 font-heading shadow-xs cursor-pointer w-44">
-                  <span id="d-custom-dropdown-label">All Activities</span>
-                  <span class="material-symbols-outlined text-[16px] text-gray-500 transition-transform duration-200" id="d-custom-dropdown-arrow">expand_more</span>
-                </button>
+                    <div id="d-custom-dropdown-menu" class="hidden absolute right-0 mt-2 w-52 rounded-2xl bg-white border border-gray-200/90 shadow-2xl z-50 overflow-hidden p-2.5 space-y-1.5">
+                      <div class="px-1.5 py-0.5 flex items-center justify-between border-b border-gray-100 pb-1.5 mb-1">
+                        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider font-heading">Filter Activity</span>
+                        <button type="button" onclick="clearCustomFilters('desktop', event)" id="d-filter-reset-btn" class="text-[11px] font-bold text-brand-blue hover:underline cursor-pointer">Reset</button>
+                      </div>
+                      <button type="button" onclick="toggleCustomFilterOption('desktop', 'buying', event)" id="d-opt-buying" class="d-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-gray-50 transition-all cursor-pointer">
+                        <span class="flex items-center gap-2">
+                          <span class="w-4 h-4 rounded-md border border-gray-300 flex items-center justify-center text-white text-[10px] transition-colors" id="d-chk-buying">
+                            <i class="fa-solid fa-check hidden"></i>
+                          </span>
+                          <span>Payment Sent</span>
+                        </span>
+                      </button>
+                      <button type="button" onclick="toggleCustomFilterOption('desktop', 'selling', event)" id="d-opt-selling" class="d-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-gray-50 transition-all cursor-pointer">
+                        <span class="flex items-center gap-2">
+                          <span class="w-4 h-4 rounded-md border border-gray-300 flex items-center justify-center text-white text-[10px] transition-colors" id="d-chk-selling">
+                            <i class="fa-solid fa-check hidden"></i>
+                          </span>
+                          <span>Payment Received</span>
+                        </span>
+                      </button>
+                      <button type="button" onclick="toggleCustomFilterOption('desktop', 'withdrawn', event)" id="d-opt-withdrawn" class="d-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-gray-50 transition-all cursor-pointer">
+                        <span class="flex items-center gap-2">
+                          <span class="w-4 h-4 rounded-md border border-gray-300 flex items-center justify-center text-white text-[10px] transition-colors" id="d-chk-withdrawn">
+                            <i class="fa-solid fa-check hidden"></i>
+                          </span>
+                          <span>Withdrawals</span>
+                        </span>
+                      </button>
 
-                <div id="d-custom-dropdown-menu" class="hidden absolute right-0 mt-1 w-44 rounded-xl bg-white border border-gray-200/90 shadow-2xl z-50 overflow-hidden p-1.5 space-y-1">
-                  <button onclick="selectCustomType('desktop', 'all', 'All Activities')" id="d-opt-all" class="d-opt-item w-full text-left px-3 py-2 text-xs font-bold rounded-lg bg-brand-blue text-white transition-all">
-                    All Activities
-                  </button>
-                  <button onclick="selectCustomType('desktop', 'buying', 'Payment Sent')" id="d-opt-buying" class="d-opt-item w-full text-left px-3 py-2 text-xs font-semibold rounded-lg text-brand-dark hover:bg-brand-blue/10 hover:text-brand-blue transition-all">
-                    Payment Sent
-                  </button>
-                  <button onclick="selectCustomType('desktop', 'selling', 'Payment Received')" id="d-opt-selling" class="d-opt-item w-full text-left px-3 py-2 text-xs font-semibold rounded-lg text-brand-dark hover:bg-brand-blue/10 hover:text-brand-blue transition-all">
-                    Payment Received
-                  </button>
-                  <button onclick="selectCustomType('desktop', 'withdrawn', 'Withdrawals')" id="d-opt-withdrawn" class="d-opt-item w-full text-left px-3 py-2 text-xs font-semibold rounded-lg text-brand-dark hover:bg-brand-blue/10 hover:text-brand-blue transition-all">
-                    Withdrawals
-                  </button>
+                      <!-- Manual Date Filter with Live Stationary Guides -->
+                      <div class="pt-1.5 border-t border-gray-100 px-1">
+                        <label class="text-[9.5px] font-bold text-gray-400 uppercase tracking-wider font-heading block mb-1">Filter by Date</label>
+                        <div class="flex items-center bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-xl px-2.5 py-1.5 focus-within:ring-1 focus-within:ring-brand-blue focus-within:border-brand-blue transition-all">
+                          <span class="material-symbols-outlined text-[14px] text-gray-400 mr-2 pointer-events-none flex-shrink-0">calendar_month</span>
+                          <div class="flex items-center text-[11px] font-medium text-brand-dark">
+                            <input type="text" id="d-act-day" maxlength="2" placeholder="DD" oninput="handleDateSegmentInput('d-act', 'day', 'desktop', 'activity')" onkeydown="handleDateSegmentKeydown(event, 'd-act', 'day')" class="w-[17px] text-left bg-transparent border-0 p-0 text-[11px] font-semibold text-brand-dark placeholder-gray-400 focus:outline-none focus:ring-0 leading-none" />
+                            <span class="text-gray-400 font-medium select-none px-0.5">-</span>
+                            <input type="text" id="d-act-month" maxlength="2" placeholder="MM" oninput="handleDateSegmentInput('d-act', 'month', 'desktop', 'activity')" onkeydown="handleDateSegmentKeydown(event, 'd-act', 'month')" class="w-[20px] text-left bg-transparent border-0 p-0 text-[11px] font-semibold text-brand-dark placeholder-gray-400 focus:outline-none focus:ring-0 leading-none" />
+                            <span class="text-gray-400 font-medium select-none px-0.5">-</span>
+                            <input type="text" id="d-act-year" maxlength="4" placeholder="YYYY" oninput="handleDateSegmentInput('d-act', 'year', 'desktop', 'activity')" onkeydown="handleDateSegmentKeydown(event, 'd-act', 'year')" class="w-[32px] text-left bg-transparent border-0 p-0 text-[11px] font-semibold text-brand-dark placeholder-gray-400 focus:outline-none focus:ring-0 leading-none" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -2540,15 +2827,15 @@
             </div>
 
             <!-- BECOME A VERIFIED SELLER CARD -->
-            <div class="card bg-white border border-gray-200/90 rounded-3xl p-6 shadow-xs space-y-4 relative overflow-hidden" id="d-seller-card">
+            <div class="card bg-white border border-gray-200/90 rounded-3xl pt-3.5 pb-5 px-6 shadow-xs space-y-3.5 relative overflow-hidden" id="d-seller-card">
               <!-- Topmost Right Corner Tile Badge -->
               <span class="absolute top-0 right-0 bg-amber-500/15 text-amber-700 border-b border-l border-amber-500/30 text-[10px] font-extrabold px-3.5 py-1 rounded-bl-2xl rounded-tr-3xl font-heading tracking-wider uppercase">Unverified</span>
 
-              <div class="cursor-pointer pt-1" onclick="toggleVerifiedSellerCard('d')">
-                <div class="flex items-center justify-between gap-3 pr-24">
+              <div class="cursor-pointer -mt-1" onclick="toggleVerifiedSellerCard('d')">
+                <div class="flex items-center justify-between gap-3">
                   <div class="min-w-0 flex-1">
-                    <h3 class="text-base font-bold text-brand-dark font-heading truncate">Become a Verified Seller</h3>
-                    <p class="text-xs text-gray-500 mt-0.5">Complete verification to enjoy Verified Seller benefits.</p>
+                    <h3 class="text-base font-bold text-brand-dark font-heading -mt-1">Become a Verified Seller</h3>
+                    <p class="text-xs text-gray-500 mt-1 whitespace-nowrap">Complete verification to enjoy Verified Seller benefits.</p>
                   </div>
                   <span class="material-symbols-outlined text-[24px] text-gray-400 transition-transform duration-200 flex-shrink-0" id="d-seller-card-arrow">expand_more</span>
                 </div>
@@ -2681,28 +2968,72 @@
         
         <!-- DESKTOP LANDING LIST -->
         <div id="d-pr-landing" class="max-w-6xl mx-auto w-full space-y-4">
-          <!-- Top Grouping Tabs & Color Legend (Unscrollable Sticky Header) -->
-          <div class="sticky -top-4 z-30 bg-[#F7FAF8]/95 backdrop-blur-md pt-1 pb-3 -mx-4 px-4 flex items-center justify-between gap-3 border-b border-gray-200/60 mb-1">
-            <div class="flex items-center gap-3">
+          <!-- Top Grouping Tabs & Search/Filter (Unscrollable Seamless Header) -->
+          <div class="sticky -top-4 z-30 pt-1 pb-3 flex items-center justify-between gap-3 mb-1">
+            <div class="flex items-center gap-3 flex-shrink-0">
               <button id="d-tab-ongoing" onclick="switchPRTab('ongoing')" class="pr-tab-btn px-5 py-2.5 rounded-xl font-heading text-xs font-bold transition-all bg-brand-blue text-white shadow-sm flex items-center gap-2.5 cursor-pointer">
                 <span>Ongoing</span>
                 <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-white/20 text-white" id="d-cnt-ongoing">2</span>
               </button>
-              <button id="d-tab-fulfilled" onclick="switchPRTab('fulfilled')" class="pr-tab-btn px-5 py-2.5 rounded-xl font-heading text-xs font-bold transition-all bg-gray-100 text-gray-600 hover:bg-gray-200 flex items-center gap-2.5 cursor-pointer">
+              <button id="d-tab-fulfilled" onclick="switchPRTab('fulfilled')" class="pr-tab-btn px-5 py-2.5 rounded-xl font-heading text-xs font-bold transition-all bg-gray-100 dark:bg-[#0E2419] text-gray-600 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-[#173826] border border-transparent dark:border-white/10 flex items-center gap-2.5 cursor-pointer">
                 <span>Fulfilled</span>
               </button>
             </div>
 
-            <!-- Color Guide Legend -->
-            <div class="flex items-center gap-3 text-xs font-bold font-heading text-gray-600 bg-gray-50 px-3 py-1.5 rounded-xl border border-gray-200/80">
-              <span class="inline-flex items-center gap-1.5">
-                <span class="w-2.5 h-2.5 rounded-full bg-brand-blue"></span>
-                <span class="text-brand-dark">Buying</span>
-              </span>
-              <span class="inline-flex items-center gap-1.5">
-                <span class="w-2.5 h-2.5 rounded-full bg-purple-600"></span>
-                <span class="text-brand-dark">Selling</span>
-              </span>
+            <!-- Integrated Search Bar with Filter Inside (Payment Room Desktop) -->
+            <div class="relative w-72">
+              <div class="flex items-center bg-white border border-gray-200 rounded-full pl-3 pr-1 py-1 shadow-xs focus-within:ring-2 focus-within:ring-brand-blue/20 focus-within:border-brand-blue transition-all">
+                <span class="material-symbols-outlined text-gray-400 text-[16px] flex-shrink-0">search</span>
+                <input type="text" id="d-pr-search" oninput="filterPaymentRooms('desktop')" placeholder="Search activities" class="w-full min-w-0 bg-transparent border-0 pl-2 pr-1.5 py-0.5 text-xs font-medium text-brand-dark placeholder-gray-400 focus:outline-none focus:ring-0" />
+
+                <!-- Integrated Filter Button & Dropdown Inside Search Bar -->
+                <div class="relative inline-block text-left flex-shrink-0" id="d-pr-custom-dropdown-wrap">
+                  <button type="button" onclick="togglePRCustomDropdown('desktop')" id="d-pr-custom-dropdown-btn" class="inline-flex items-center gap-1.5 bg-gray-50 hover:bg-gray-100 border border-gray-200/80 rounded-full px-2.5 py-1 text-xs font-semibold text-brand-dark focus:outline-none font-heading shadow-2xs cursor-pointer transition-all">
+                    <span class="material-symbols-outlined text-[14px] text-gray-600">tune</span>
+                    <span id="d-pr-custom-dropdown-label">Filter</span>
+                    <span id="d-pr-filter-badge" class="hidden w-4 h-4 rounded-full bg-brand-blue text-white text-[9.5px] font-extrabold items-center justify-center leading-none">0</span>
+                    <span class="material-symbols-outlined text-[14px] text-gray-400 transition-transform duration-200" id="d-pr-custom-dropdown-arrow">expand_more</span>
+                  </button>
+
+                  <div id="d-pr-custom-dropdown-menu" class="hidden absolute right-0 mt-2 w-52 rounded-2xl bg-white border border-gray-200/90 shadow-2xl z-50 overflow-hidden p-2.5 space-y-1.5">
+                    <div class="px-1.5 py-0.5 flex items-center justify-between border-b border-gray-100 pb-1.5 mb-1">
+                      <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider font-heading">Filter Role</span>
+                      <button type="button" onclick="clearPRCustomFilters('desktop', event)" id="d-pr-filter-reset-btn" class="text-[11px] font-bold text-brand-blue hover:underline cursor-pointer">Reset</button>
+                    </div>
+                    <button type="button" onclick="togglePRCustomFilterOption('desktop', 'Buying', event)" id="d-pr-opt-buying" class="d-pr-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-gray-50 transition-all cursor-pointer">
+                      <span class="flex items-center gap-2">
+                        <span class="w-4 h-4 rounded-md border border-gray-300 flex items-center justify-center text-white text-[10px] transition-colors" id="d-pr-chk-buying">
+                          <i class="fa-solid fa-check hidden"></i>
+                        </span>
+                        <span>Buying</span>
+                      </span>
+                    </button>
+                    <button type="button" onclick="togglePRCustomFilterOption('desktop', 'Selling', event)" id="d-pr-opt-selling" class="d-pr-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-gray-50 transition-all cursor-pointer">
+                      <span class="flex items-center gap-2">
+                        <span class="w-4 h-4 rounded-md border border-gray-300 flex items-center justify-center text-white text-[10px] transition-colors" id="d-pr-chk-selling">
+                          <i class="fa-solid fa-check hidden"></i>
+                        </span>
+                        <span>Selling</span>
+                      </span>
+                    </button>
+
+                    <!-- Manual Date Filter with Live Stationary Guides -->
+                    <div class="pt-1.5 border-t border-gray-100 px-1">
+                      <label class="text-[9.5px] font-bold text-gray-400 uppercase tracking-wider font-heading block mb-1">Filter by Date</label>
+                      <div class="flex items-center bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-xl px-2.5 py-1.5 focus-within:ring-1 focus-within:ring-brand-blue focus-within:border-brand-blue transition-all">
+                        <span class="material-symbols-outlined text-[14px] text-gray-400 mr-2 pointer-events-none flex-shrink-0">calendar_month</span>
+                        <div class="flex items-center text-[11px] font-medium text-brand-dark">
+                          <input type="text" id="d-pr-date-day" maxlength="2" placeholder="DD" oninput="handleDateSegmentInput('d-pr-date', 'day', 'desktop', 'pr')" onkeydown="handleDateSegmentKeydown(event, 'd-pr-date', 'day')" class="w-[17px] text-left bg-transparent border-0 p-0 text-[11px] font-semibold text-brand-dark placeholder-gray-400 focus:outline-none focus:ring-0 leading-none" />
+                          <span class="text-gray-400 font-medium select-none px-0.5">-</span>
+                          <input type="text" id="d-pr-date-month" maxlength="2" placeholder="MM" oninput="handleDateSegmentInput('d-pr-date', 'month', 'desktop', 'pr')" onkeydown="handleDateSegmentKeydown(event, 'd-pr-date', 'month')" class="w-[20px] text-left bg-transparent border-0 p-0 text-[11px] font-semibold text-brand-dark placeholder-gray-400 focus:outline-none focus:ring-0 leading-none" />
+                          <span class="text-gray-400 font-medium select-none px-0.5">-</span>
+                          <input type="text" id="d-pr-date-year" maxlength="4" placeholder="YYYY" oninput="handleDateSegmentInput('d-pr-date', 'year', 'desktop', 'pr')" onkeydown="handleDateSegmentKeydown(event, 'd-pr-date', 'year')" class="w-[32px] text-left bg-transparent border-0 p-0 text-[11px] font-semibold text-brand-dark placeholder-gray-400 focus:outline-none focus:ring-0 leading-none" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -2712,9 +3043,9 @@
 
         <!-- DESKTOP DETAIL VIEW (Initially Hidden) -->
         <div id="d-pr-detail" class="space-y-4 max-w-6xl mx-auto w-full hidden">
-          <!-- Back Button Header (Unscrollable Sticky Bar) -->
-          <div class="sticky -top-4 z-30 bg-[#F7FAF8]/95 backdrop-blur-md pt-2 pb-2 -mx-4 px-4 flex items-center justify-between">
-            <button type="button" onclick="closePRDetail()" class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-blue bg-brand-blue/10 hover:bg-brand-blue/20 px-4 py-2 rounded-xl transition-all font-heading cursor-pointer shadow-xs">
+          <!-- Back Button Header (Unscrollable Seamless Bar) -->
+          <div class="sticky -top-4 z-30 pt-2 pb-2 flex items-center justify-between">
+            <button type="button" onclick="closePRDetail()" class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-blue dark:text-brand-mint bg-brand-blue/10 dark:bg-emerald-500/15 hover:bg-brand-blue/20 dark:hover:bg-emerald-500/25 border border-transparent dark:border-emerald-500/30 px-4 py-2 rounded-xl transition-all font-heading cursor-pointer shadow-xs">
               <span class="material-symbols-outlined text-[18px]">arrow_back</span>
               <span>Back to Payment Rooms</span>
             </button>
@@ -3260,9 +3591,9 @@
       const sidebarLinks = document.querySelectorAll('.nav-sidebar-link');
       sidebarLinks.forEach(link => {
         if (link.getAttribute('data-target') === targetView) {
-          link.className = "nav-sidebar-link w-full flex items-center gap-3 bg-brand-blue text-white rounded-2xl px-3.5 py-3 font-semibold shadow-md transition-all duration-200 font-heading";
+          link.className = "nav-sidebar-link w-full flex items-center gap-3.5 bg-brand-blue text-white rounded-2xl px-4 py-3.5 font-semibold shadow-md transition-all duration-200 font-heading cursor-pointer";
         } else {
-          link.className = "nav-sidebar-link w-full flex items-center gap-3 text-gray-700 hover:bg-brand-blue/5 hover:text-brand-blue rounded-2xl px-3.5 py-3 transition-all duration-200 font-medium font-heading";
+          link.className = "nav-sidebar-link w-full flex items-center gap-3.5 text-gray-700 dark:text-gray-300 hover:bg-brand-blue/10 hover:text-brand-blue dark:hover:bg-white/5 dark:hover:text-white rounded-2xl px-4 py-3.5 transition-all duration-200 font-medium font-heading cursor-pointer";
         }
       });
 
@@ -3309,7 +3640,8 @@
         statusText: "Shipped",
         badgeBg: "bg-amber-500/15 text-amber-800 border-amber-500/30",
         dotBg: "bg-amber-500 animate-pulse",
-        dateText: "Mon 4 Aug • 2:17 PM"
+        dateText: "Mon 4 Aug • 2:17 PM",
+        isoDate: "2026-08-04"
       },
       {
         id: "ST-8843",
@@ -3321,7 +3653,8 @@
         statusText: "Payment Secured",
         badgeBg: "bg-blue-500/15 text-blue-700 border-blue-500/30",
         dotBg: "bg-blue-500 animate-pulse",
-        dateText: "Mon 4 Aug • 10:02 AM"
+        dateText: "Mon 4 Aug • 10:02 AM",
+        isoDate: "2026-08-04"
       },
       {
         id: "ST-8840",
@@ -3333,15 +3666,190 @@
         statusText: "Fulfilled & Released",
         badgeBg: "bg-emerald-500/15 text-emerald-800 border-emerald-500/30",
         dotBg: "bg-emerald-500",
-        dateText: "Sun 3 Aug • 4:30 PM"
+        dateText: "Sun 3 Aug • 4:30 PM",
+        isoDate: "2026-08-03"
       }
     ];
+
+    var activePRFiltersMobile = new Set();
+    var activePRFiltersDesktop = new Set();
+
+    function togglePRCustomDropdown(view) {
+      const isMobile = view === 'mobile';
+      const menu = document.getElementById(isMobile ? 'm-pr-custom-dropdown-menu' : 'd-pr-custom-dropdown-menu');
+      const arrow = document.getElementById(isMobile ? 'm-pr-custom-dropdown-arrow' : 'd-pr-custom-dropdown-arrow');
+
+      if (menu) {
+        const isHidden = menu.classList.contains('hidden');
+        document.querySelectorAll('[id$="-pr-custom-dropdown-menu"]').forEach(m => m.classList.add('hidden'));
+        document.querySelectorAll('[id$="-pr-custom-dropdown-arrow"]').forEach(a => a.style.transform = 'rotate(0deg)');
+
+        if (isHidden) {
+          menu.classList.remove('hidden');
+          if (arrow) arrow.style.transform = 'rotate(180deg)';
+        }
+      }
+    }
+
+    function togglePRCustomFilterOption(view, value, evt) {
+      if (evt && typeof evt.stopPropagation === 'function') evt.stopPropagation();
+      const isMobile = view === 'mobile';
+      const filters = isMobile ? activePRFiltersMobile : activePRFiltersDesktop;
+
+      if (filters.has(value)) {
+        filters.delete(value);
+      } else {
+        filters.add(value);
+      }
+
+      updatePRFilterUI(view);
+      renderPaymentRoomsList();
+    }
+
+    function handleDateSegmentKeydown(e, prefix, segment) {
+      const el = document.getElementById(prefix + '-' + segment);
+      if (e.key === 'Backspace' && el && el.value === '') {
+        if (segment === 'month') {
+          const prev = document.getElementById(prefix + '-day');
+          if (prev) { prev.focus(); prev.select(); }
+        } else if (segment === 'year') {
+          const prev = document.getElementById(prefix + '-month');
+          if (prev) { prev.focus(); prev.select(); }
+        }
+      }
+    }
+
+    function handleDateSegmentInput(prefix, segment, view, type) {
+      const dayEl = document.getElementById(prefix + '-day');
+      const monthEl = document.getElementById(prefix + '-month');
+      const yearEl = document.getElementById(prefix + '-year');
+
+      if (segment === 'day' && dayEl) {
+        let val = dayEl.value.replace(/\D/g, '');
+        if (val.length === 1 && parseInt(val, 10) > 3) {
+          dayEl.value = '0' + val;
+          if (monthEl) { monthEl.focus(); monthEl.select(); }
+        } else if (val.length >= 2) {
+          let num = parseInt(val, 10);
+          if (num > 31) num = 31;
+          if (num === 0) num = 1;
+          dayEl.value = num < 10 ? ('0' + num) : ('' + num);
+          if (monthEl) { monthEl.focus(); monthEl.select(); }
+        } else {
+          dayEl.value = val;
+        }
+      } else if (segment === 'month' && monthEl) {
+        let val = monthEl.value.replace(/\D/g, '');
+        if (val.length === 1 && parseInt(val, 10) > 1) {
+          monthEl.value = '0' + val;
+          if (yearEl) { yearEl.focus(); yearEl.select(); }
+        } else if (val.length >= 2) {
+          let num = parseInt(val, 10);
+          if (num > 12) num = 12;
+          if (num === 0) num = 1;
+          monthEl.value = num < 10 ? ('0' + num) : ('' + num);
+          if (yearEl) { yearEl.focus(); yearEl.select(); }
+        } else {
+          monthEl.value = val;
+        }
+      } else if (segment === 'year' && yearEl) {
+        let val = yearEl.value.replace(/\D/g, '').slice(0, 4);
+        yearEl.value = val;
+      }
+
+      if (type === 'activity') {
+        updateFilterUI(view);
+        filterActivities(view);
+      } else {
+        updatePRFilterUI(view);
+        renderPaymentRoomsList();
+      }
+    }
+
+    function getSegmentDateVal(prefix) {
+      const day = document.getElementById(prefix + '-day')?.value || '';
+      const month = document.getElementById(prefix + '-month')?.value || '';
+      const year = document.getElementById(prefix + '-year')?.value || '';
+      
+      if (!day && !month && !year) return '';
+      if (day && month && year) return day + '-' + month + '-' + year;
+      if (day && month) return day + '-' + month;
+      if (day) return day;
+      return [day, month, year].filter(Boolean).join('-');
+    }
+
+    function clearDateSegments(prefix) {
+      ['day', 'month', 'year'].forEach(s => {
+        const el = document.getElementById(prefix + '-' + s);
+        if (el) el.value = '';
+      });
+    }
+
+    function clearPRCustomFilters(view, evt) {
+      if (evt && typeof evt.stopPropagation === 'function') evt.stopPropagation();
+      const isMobile = view === 'mobile';
+      const filters = isMobile ? activePRFiltersMobile : activePRFiltersDesktop;
+      filters.clear();
+      clearDateSegments(isMobile ? 'm-pr-date' : 'd-pr-date');
+      updatePRFilterUI(view);
+      renderPaymentRoomsList();
+    }
+
+    function updatePRFilterUI(view) {
+      const isMobile = view === 'mobile';
+      const filters = isMobile ? activePRFiltersMobile : activePRFiltersDesktop;
+      const prefix = isMobile ? 'm-pr' : 'd-pr';
+      const badge = document.getElementById(prefix + '-filter-badge');
+      const dateVal = getSegmentDateVal(isMobile ? 'm-pr-date' : 'd-pr-date');
+      const hasDate = !!dateVal;
+
+      const totalCount = filters.size + (hasDate ? 1 : 0);
+
+      if (badge) {
+        if (totalCount > 0) {
+          badge.textContent = totalCount;
+          badge.classList.remove('hidden');
+          badge.classList.add('flex');
+        } else {
+          badge.classList.add('hidden');
+          badge.classList.remove('flex');
+        }
+      }
+
+      ['buying', 'selling'].forEach(typeKey => {
+        const val = typeKey === 'buying' ? 'Buying' : 'Selling';
+        const chk = document.getElementById(prefix + '-chk-' + typeKey);
+        const opt = document.getElementById(prefix + '-opt-' + typeKey);
+        if (chk && opt) {
+          const icon = chk.querySelector('i');
+          if (filters.has(val)) {
+            chk.className = "w-4 h-4 rounded-md bg-brand-blue border border-brand-blue flex items-center justify-center text-white text-[10px] transition-colors";
+            if (icon) icon.classList.remove('hidden');
+            opt.classList.add('bg-brand-blue/5', 'text-brand-blue');
+          } else {
+            chk.className = "w-4 h-4 rounded-md border border-gray-300 flex items-center justify-center text-white text-[10px] transition-colors";
+            if (icon) icon.classList.add('hidden');
+            opt.classList.remove('bg-brand-blue/5', 'text-brand-blue');
+          }
+        }
+      });
+    }
+
+    function filterPaymentRooms(view) {
+      renderPaymentRoomsList();
+    }
 
     function renderPaymentRoomsList() {
       var ongoingItems = prDealsList.filter(function(d) { return d.category === 'ongoing'; });
       var fulfilledItems = prDealsList.filter(function(d) { return d.category === 'fulfilled'; });
 
       ['m-', 'd-'].forEach(function(p) {
+        var isMobile = (p === 'm-');
+        var filters = isMobile ? activePRFiltersMobile : activePRFiltersDesktop;
+        var searchInput = document.getElementById(isMobile ? 'm-pr-search' : 'd-pr-search');
+        var searchVal = (searchInput ? searchInput.value : '').toLowerCase().trim();
+        var dateVal = getSegmentDateVal(isMobile ? 'm-pr-date' : 'd-pr-date');
+
         var cntOngoing = document.getElementById(p + 'cnt-ongoing');
         if (cntOngoing) cntOngoing.textContent = ongoingItems.length;
 
@@ -3353,12 +3861,12 @@
         if (tabO && tabF) {
           if (currentPRTab === 'ongoing') {
             tabO.className = "pr-tab-btn px-3.5 py-1.5 rounded-xl font-heading text-xs font-bold transition-all bg-brand-blue text-white shadow-sm flex items-center gap-1.5 cursor-pointer";
-            tabF.className = "pr-tab-btn px-3.5 py-1.5 rounded-xl font-heading text-xs font-bold transition-all bg-gray-100 text-gray-600 hover:bg-gray-200 flex items-center gap-1.5 cursor-pointer";
+            tabF.className = "pr-tab-btn px-3.5 py-1.5 rounded-xl font-heading text-xs font-bold transition-all bg-gray-100 dark:bg-[#0E2419] text-gray-600 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-[#173826] border border-transparent dark:border-white/10 flex items-center gap-1.5 cursor-pointer";
             if (cntOngoing) cntOngoing.className = "px-1.5 py-0.5 rounded-full text-[10px] font-extrabold bg-white/20 text-white";
           } else {
             tabF.className = "pr-tab-btn px-3.5 py-1.5 rounded-xl font-heading text-xs font-bold transition-all bg-brand-blue text-white shadow-sm flex items-center gap-1.5 cursor-pointer";
-            tabO.className = "pr-tab-btn px-3.5 py-1.5 rounded-xl font-heading text-xs font-bold transition-all bg-gray-100 text-gray-600 hover:bg-gray-200 flex items-center gap-1.5 cursor-pointer";
-            if (cntOngoing) cntOngoing.className = "px-1.5 py-0.5 rounded-full text-[10px] font-extrabold bg-gray-200 text-gray-700";
+            tabO.className = "pr-tab-btn px-3.5 py-1.5 rounded-xl font-heading text-xs font-bold transition-all bg-gray-100 dark:bg-[#0E2419] text-gray-600 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-[#173826] border border-transparent dark:border-white/10 flex items-center gap-1.5 cursor-pointer";
+            if (cntOngoing) cntOngoing.className = "px-1.5 py-0.5 rounded-full text-[10px] font-extrabold bg-gray-200 dark:bg-white/10 text-gray-700 dark:text-gray-300";
           }
         }
 
@@ -3366,16 +3874,41 @@
         if (!container) return;
 
         var activeDeals = currentPRTab === 'ongoing' ? ongoingItems : fulfilledItems;
+
+        // Filter by role (Buying / Selling)
+        if (filters.size > 0) {
+          activeDeals = activeDeals.filter(function(d) { return filters.has(d.typeLabel); });
+        }
+
+        // Filter by search query
+        if (searchVal) {
+          activeDeals = activeDeals.filter(function(d) {
+            var fullText = (d.title + ' ' + d.price + ' ' + d.id + ' ' + d.dateText + ' ' + d.typeLabel).toLowerCase();
+            return fullText.includes(searchVal);
+          });
+        }
+
+        // Filter by manual date text (DD-MM-YYYY or general date)
+        if (dateVal) {
+          activeDeals = activeDeals.filter(function(d) {
+            return checkDateMatch(d.isoDate, d.dateText, dateVal);
+          });
+        }
+
         if (activeDeals.length === 0) {
-          container.innerHTML = '<div class="p-8 text-center bg-white rounded-2xl border border-gray-200/80 text-gray-500 text-xs">No ' + currentPRTab + ' payment rooms found.</div>';
+          container.innerHTML = '<div class="p-8 text-center bg-white rounded-2xl border border-gray-200/80 text-gray-500 text-xs">No matching payment rooms found.</div>';
           return;
         }
 
         var html = activeDeals.map(function(d) {
           var isBuying = (d.typeLabel === 'Buying');
-          var accentBarBg = isBuying ? 'bg-brand-blue' : 'bg-purple-600';
+          var badgeStyle = isBuying
+            ? 'bg-blue-500/15 text-brand-blue border-b border-l border-blue-500/30'
+            : 'bg-purple-500/15 text-purple-700 border-b border-l border-purple-500/30';
 
           return '<div onclick="openPRDetail(\'' + d.id + '\')" class="relative overflow-hidden glass-card bg-white rounded-2xl p-3.5 flex items-center justify-between border border-gray-200/90 shadow-xs hover:shadow-md hover:border-brand-blue/40 transition-all cursor-pointer">' +
+            '<!-- Top Right Corner Badge (Buying / Selling) -->' +
+            '<span class="absolute top-0 right-0 ' + badgeStyle + ' text-[9px] font-extrabold px-2.5 py-0.5 rounded-bl-xl rounded-tr-2xl font-heading tracking-wider uppercase">' + d.typeLabel + '</span>' +
             '<div class="flex items-center gap-3 min-w-0 flex-1 pr-2">' +
               '<div class="relative w-11 h-11 rounded-xl bg-gray-100 flex-shrink-0 overflow-hidden border border-gray-200">' +
                 '<img src="' + d.img + '" alt="' + d.title + '" class="w-full h-full object-cover" />' +
@@ -3385,12 +3918,10 @@
                 '<p class="text-[10px] text-gray-400 font-medium mt-0.5 whitespace-nowrap">' + d.dateText + '</p>' +
               '</div>' +
             '</div>' +
-            '<div class="flex items-center gap-2 flex-shrink-0 pr-1">' +
+            '<div class="flex items-center gap-2 flex-shrink-0 pt-2 pr-1">' +
               '<p class="text-sm font-extrabold text-brand-dark font-heading text-right">' + d.price + '</p>' +
               '<span class="material-symbols-outlined text-gray-400 text-[18px]">chevron_right</span>' +
             '</div>' +
-            '<!-- Right Corner Color Accent Indicator Strip (Buying = Blue, Selling = Purple) -->' +
-            '<div class="absolute top-0 right-0 bottom-0 w-1.5 ' + accentBarBg + ' rounded-r-2xl"></div>' +
           '</div>';
         }).join('');
 
@@ -3524,9 +4055,9 @@
       });
     }
 
-    // Custom Dropdown State Management
-    let currentSelectedTypeDesktop = 'all';
-    let currentSelectedTypeMobile = 'all';
+    // Custom Dropdown Multi-Select Filter State
+    var activeFiltersMobile = new Set();
+    var activeFiltersDesktop = new Set();
 
     function toggleCustomDropdown(view) {
       const isMobile = view === 'mobile';
@@ -3545,49 +4076,110 @@
       }
     }
 
-    function selectCustomType(view, value, label) {
+    function toggleCustomFilterOption(view, value, evt) {
+      if (evt && typeof evt.stopPropagation === 'function') evt.stopPropagation();
       const isMobile = view === 'mobile';
-      const prefix = isMobile ? 'm' : 'd';
+      const filters = isMobile ? activeFiltersMobile : activeFiltersDesktop;
 
-      if (isMobile) {
-        currentSelectedTypeMobile = value;
-        const lbl = document.getElementById('m-custom-dropdown-label');
-        if (lbl) lbl.innerText = label;
+      if (filters.has(value)) {
+        filters.delete(value);
       } else {
-        currentSelectedTypeDesktop = value;
-        const lbl = document.getElementById('d-custom-dropdown-label');
-        if (lbl) lbl.innerText = label;
+        filters.add(value);
       }
 
-      // Reset all options to default state
-      document.querySelectorAll(`.${prefix}-opt-item`).forEach(opt => {
-        opt.className = `${prefix}-opt-item w-full text-left px-3 py-2 text-xs font-semibold rounded-lg text-brand-dark hover:bg-brand-blue/10 hover:text-brand-blue transition-all`;
-      });
-
-      // Highlight active selected option in Brand Blue
-      const activeOpt = document.getElementById(`${prefix}-opt-${value}`);
-      if (activeOpt) {
-        activeOpt.className = `${prefix}-opt-item w-full text-left px-3 py-2 text-xs font-bold rounded-lg bg-brand-blue text-white transition-all`;
-      }
-
-      toggleCustomDropdown(view);
+      updateFilterUI(view);
       filterActivities(view);
+    }
+
+    function onDateFilterChange(view) {
+      updateFilterUI(view);
+      filterActivities(view);
+    }
+
+    function clearCustomFilters(view, evt) {
+      if (evt && typeof evt.stopPropagation === 'function') evt.stopPropagation();
+      const isMobile = view === 'mobile';
+      const filters = isMobile ? activeFiltersMobile : activeFiltersDesktop;
+      filters.clear();
+      clearDateSegments(isMobile ? 'm-act' : 'd-act');
+      updateFilterUI(view);
+      filterActivities(view);
+    }
+
+    function updateFilterUI(view) {
+      const isMobile = view === 'mobile';
+      const filters = isMobile ? activeFiltersMobile : activeFiltersDesktop;
+      const prefix = isMobile ? 'm' : 'd';
+      const badge = document.getElementById(prefix + '-filter-badge');
+      const dateVal = getSegmentDateVal(isMobile ? 'm-act' : 'd-act');
+      const hasDate = !!dateVal;
+
+      const totalCount = filters.size + (hasDate ? 1 : 0);
+
+      if (badge) {
+        if (totalCount > 0) {
+          badge.textContent = totalCount;
+          badge.classList.remove('hidden');
+          badge.classList.add('flex');
+        } else {
+          badge.classList.add('hidden');
+          badge.classList.remove('flex');
+        }
+      }
+
+      ['buying', 'selling', 'withdrawn'].forEach(type => {
+        const chk = document.getElementById(prefix + '-chk-' + type);
+        const opt = document.getElementById(prefix + '-opt-' + type);
+        if (chk && opt) {
+          const icon = chk.querySelector('i');
+          if (filters.has(type)) {
+            chk.className = "w-4 h-4 rounded-md bg-brand-blue border border-brand-blue flex items-center justify-center text-white text-[10px] transition-colors";
+            if (icon) icon.classList.remove('hidden');
+            opt.classList.add('bg-brand-blue/5', 'text-brand-blue');
+          } else {
+            chk.className = "w-4 h-4 rounded-md border border-gray-300 flex items-center justify-center text-white text-[10px] transition-colors";
+            if (icon) icon.classList.add('hidden');
+            opt.classList.remove('bg-brand-blue/5', 'text-brand-blue');
+          }
+        }
+      });
     }
 
     // Close custom dropdowns on click outside
     document.addEventListener('click', (e) => {
-      if (!e.target.closest('#d-custom-dropdown-wrap') && !e.target.closest('#m-custom-dropdown-wrap')) {
+      if (!e.target.closest('#d-custom-dropdown-wrap') && !e.target.closest('#m-custom-dropdown-wrap') && !e.target.closest('#d-pr-custom-dropdown-wrap') && !e.target.closest('#m-pr-custom-dropdown-wrap')) {
         document.querySelectorAll('[id$="-custom-dropdown-menu"]').forEach(m => m.classList.add('hidden'));
         document.querySelectorAll('[id$="-custom-dropdown-arrow"]').forEach(a => a.style.transform = 'rotate(0deg)');
       }
     });
 
+    function checkDateMatch(isoDate, text, query) {
+      if (!query) return true;
+      var q = query.toLowerCase().trim().replace(/\//g, '-');
+      var iso = (isoDate || '').toLowerCase().trim();
+      var txt = (text || '').toLowerCase();
+      
+      // Convert iso YYYY-MM-DD to DD-MM-YYYY
+      var dmy = '';
+      if (iso && iso.indexOf('-') > -1) {
+        var parts = iso.split('-');
+        if (parts.length === 3) {
+          dmy = parts[2] + '-' + parts[1] + '-' + parts[0]; // e.g. 14-08-2026
+        }
+      }
+
+      if (dmy && dmy.includes(q)) return true;
+      if (iso && iso.includes(q)) return true;
+      if (txt && txt.includes(q)) return true;
+      return false;
+    }
+
     // Search, Dropdown & Date Filtering
     function filterActivities(view) {
       const isMobile = view === 'mobile';
-      const typeVal = isMobile ? currentSelectedTypeMobile : currentSelectedTypeDesktop;
+      const filters = isMobile ? activeFiltersMobile : activeFiltersDesktop;
       const searchVal = (document.getElementById(isMobile ? "m-activity-search" : "d-activity-search")?.value || "").toLowerCase();
-      const dateVal = (document.getElementById(isMobile ? "m-activity-date" : "d-activity-date")?.value || "").toLowerCase();
+      const dateVal = getSegmentDateVal(isMobile ? 'm-act' : 'd-act');
 
       const items = document.querySelectorAll(isMobile ? ".m-tx-item" : ".d-tx-item");
 
@@ -3596,9 +4188,9 @@
         const itemDate = (item.getAttribute("data-date") || "").toLowerCase();
         const itemText = item.innerText.toLowerCase();
 
-        const matchesType = typeVal === "all" || itemType === typeVal;
+        const matchesType = (filters.size === 0) || filters.has(itemType);
         const matchesSearch = !searchVal || itemText.includes(searchVal);
-        const matchesDate = !dateVal || itemDate.includes(dateVal) || itemText.includes(dateVal);
+        const matchesDate = checkDateMatch(itemDate, itemText, dateVal);
 
         if (matchesType && matchesSearch && matchesDate) {
           item.style.display = "flex";
@@ -4733,7 +5325,40 @@
       alert('Switched active payout account to verified account: ' + current.bank + ' (' + current.acct + ').');
     }
 
+    // Theme Switcher Management (Default is Black/Dark)
+    function initTheme() {
+      const savedTheme = localStorage.getItem('paykudi-theme') || 'dark';
+      setTheme(savedTheme);
+    }
+
+    function setTheme(theme) {
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
+        localStorage.setItem('paykudi-theme', 'dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light');
+        localStorage.setItem('paykudi-theme', 'light');
+      }
+      updateThemeToggleUI();
+    }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.contains('dark');
+      setTheme(isDark ? 'light' : 'dark');
+    }
+
+    function updateThemeToggleUI() {
+      const isDark = document.documentElement.classList.contains('dark');
+      const label = document.getElementById('d-theme-toggle-label');
+      if (label) {
+        label.textContent = isDark ? 'Dark Theme' : 'Light Theme';
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
+      initTheme();
       renderProfilePayoutAccounts();
     });
 
