@@ -1290,97 +1290,147 @@
     }
 
     /* =========================================================================
-       COMPACT MOBILE PAYMENT ROOM ACTIVITIES (NO SCROLLING ON SMALL SCREENS)
+       FLUID CLAMP() RESPONSIVE SCALING FOR PAYMENT ROOM ACTIVITIES
+       - Scales down smoothly on small mobile screens to fit without scrolling
+       - Scales up generously on larger phones, tablets, and desktop displays
     ========================================================================= */
-    @media (max-width: 640px) {
+    /* =========================================================================
+       FLUID CLAMP() RESPONSIVE SCALING FOR PAYMENT ROOM ACTIVITIES
+       - Scales down smoothly on small mobile screens to fit without scrolling
+       - Scales up generously on larger phones, tablets, and desktop displays
+    ========================================================================= */
+    @media (max-width: 767px) {
+      #m-view-notifications:has(#m-pr-detail:not(.hidden)) {
+        padding-bottom: 0.25rem !important;
+        overflow-y: hidden !important;
+      }
+      #m-pr-detail {
+        height: 100% !important;
+        max-height: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+      }
+      #m-pr-detail.hidden {
+        display: none !important;
+      }
       #m-pr-detail .pr-sub-screen {
         max-width: 100% !important;
-        padding-bottom: 0.5rem !important;
+        padding-bottom: 0.25rem !important;
+        height: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+      }
+      #m-pr-detail .pr-sub-screen.hidden {
+        display: none !important;
       }
       #m-pr-detail .sticky.top-0 {
-        padding-top: 0.25rem !important;
-        padding-bottom: 0.25rem !important;
-        margin-bottom: 0.4rem !important;
+        padding-top: clamp(0.15rem, 0.6vh, 0.45rem) !important;
+        padding-bottom: clamp(0.15rem, 0.6vh, 0.45rem) !important;
+        margin-bottom: clamp(0.2rem, 0.8vh, 0.5rem) !important;
       }
       #m-pr-detail .sticky.top-0 h2 {
-        font-size: 0.825rem !important;
+        font-size: clamp(0.8rem, 2.2vw + 0.3rem, 1rem) !important;
       }
       #m-pr-detail .buyer-only,
       #m-pr-detail .seller-only {
-        padding-left: 0.5rem !important;
-        padding-right: 0.5rem !important;
+        padding-left: clamp(0.25rem, 1.2vw, 0.75rem) !important;
+        padding-right: clamp(0.25rem, 1.2vw, 0.75rem) !important;
+        flex: 1 1 auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
       }
       #m-pr-detail .buyer-only.space-y-4 > :not([hidden]) ~ :not([hidden]),
       #m-pr-detail .seller-only.space-y-4 > :not([hidden]) ~ :not([hidden]),
       #m-pr-detail .space-y-4 > :not([hidden]) ~ :not([hidden]) {
         --tw-space-y-reverse: 0 !important;
-        margin-top: 0.45rem !important;
+        margin-top: clamp(0.3rem, 1vh + 0.05rem, 0.75rem) !important;
         margin-bottom: 0 !important;
       }
       #m-pr-detail .rounded-2xl {
-        border-radius: 0.75rem !important;
-        padding: 0.5rem 0.65rem !important;
+        border-radius: clamp(0.65rem, 1.8vw, 0.85rem) !important;
+        padding: clamp(0.35rem, 1.5vw + 0.1rem, 0.75rem) !important;
       }
       #m-pr-detail .disp-deal-price {
-        font-size: 1.15rem !important;
-        line-height: 1.15 !important;
+        font-size: clamp(1.1rem, 3.2vw + 0.4rem, 1.5rem) !important;
+        line-height: 1.1 !important;
       }
       #m-pr-detail .awaiting-countdown-badge {
-        width: 1.6rem !important;
-        height: 1.6rem !important;
-        font-size: 0.6rem !important;
+        width: clamp(1.45rem, 4vw, 1.85rem) !important;
+        height: clamp(1.45rem, 4vw, 1.85rem) !important;
+        font-size: clamp(0.55rem, 1.2vw + 0.25rem, 0.7rem) !important;
       }
       #m-pr-detail .space-y-3 > :not([hidden]) ~ :not([hidden]) {
         --tw-space-y-reverse: 0 !important;
-        margin-top: 0.25rem !important;
+        margin-top: clamp(0.15rem, 0.6vh + 0.02rem, 0.45rem) !important;
         margin-bottom: 0 !important;
       }
       #m-pr-detail h3 {
-        font-size: 0.675rem !important;
-        margin-bottom: 0.25rem !important;
-        letter-spacing: 0.04em !important;
+        font-size: clamp(0.625rem, 1.5vw + 0.25rem, 0.75rem) !important;
+        margin-bottom: clamp(0.15rem, 0.5vh, 0.4rem) !important;
+        letter-spacing: 0.03em !important;
       }
       #m-pr-detail .text-\[11\.5px\] {
-        font-size: 0.625rem !important;
+        font-size: clamp(0.58rem, 1.2vw + 0.25rem, 0.7rem) !important;
         line-height: 1 !important;
       }
       #m-pr-detail .text-\[13\.5px\] {
-        font-size: 0.725rem !important;
-        line-height: 1.2 !important;
+        font-size: clamp(0.68rem, 1.4vw + 0.3rem, 0.8rem) !important;
+        line-height: 1.15 !important;
       }
       #m-pr-detail .payment-made-cta-btn,
       #m-pr-detail button.h-\[50px\],
-      #m-pr-detail .h-\[50px\] {
-        height: 2.5rem !important;
-        min-height: 2.5rem !important;
-        border-radius: 0.75rem !important;
-        font-size: 0.725rem !important;
+      #m-pr-detail .h-\[50px\],
+      #m-pr-detail .primary-action-btn {
+        height: clamp(2.35rem, 4.8vh + 0.3rem, 3rem) !important;
+        min-height: clamp(2.35rem, 4.8vh + 0.3rem, 3rem) !important;
+        border-radius: clamp(0.65rem, 1.8vw, 0.85rem) !important;
+        font-size: clamp(0.68rem, 1.4vw + 0.3rem, 0.825rem) !important;
         padding-top: 0 !important;
         padding-bottom: 0 !important;
       }
       #m-pr-detail .pt-2,
       #m-pr-detail .mt-6 {
-        margin-top: 0.45rem !important;
-        margin-bottom: 0.15rem !important;
+        margin-top: clamp(0.25rem, 0.8vh + 0.05rem, 0.65rem) !important;
+        margin-bottom: clamp(0.08rem, 0.3vh, 0.2rem) !important;
       }
       #m-pr-detail .mt-3 {
-        margin-top: 0.25rem !important;
-        margin-bottom: 0.1rem !important;
+        margin-top: clamp(0.15rem, 0.5vh, 0.45rem) !important;
+        margin-bottom: clamp(0.05rem, 0.2vh, 0.15rem) !important;
       }
       #m-pr-detail .mb-3,
       #m-pr-detail .mb-3\.5 {
-        margin-bottom: 0.25rem !important;
+        margin-bottom: clamp(0.15rem, 0.5vh, 0.4rem) !important;
       }
       #m-pr-detail .w-6.h-6 {
-        width: 1.35rem !important;
-        height: 1.35rem !important;
-        font-size: 0.55rem !important;
+        width: clamp(1.2rem, 3.2vw, 1.5rem) !important;
+        height: clamp(1.2rem, 3.2vw, 1.5rem) !important;
+        font-size: clamp(0.5rem, 1vw + 0.2rem, 0.65rem) !important;
       }
       #m-pr-detail .w-6.h-6 span {
-        font-size: 0.65rem !important;
+        font-size: clamp(0.58rem, 1.2vw + 0.25rem, 0.72rem) !important;
       }
       #m-pr-detail span.font-heading.leading-tight {
-        font-size: 0.525rem !important;
+        font-size: clamp(0.48rem, 1vw + 0.2rem, 0.6rem) !important;
+      }
+    }
+
+    /* Desktop Fluid Sizing for Payment Room Components */
+    @media (min-width: 768px) {
+      #d-pr-detail .disp-deal-price {
+        font-size: clamp(1.5rem, 1.6vw + 0.6rem, 2.25rem) !important;
+      }
+      #d-pr-detail .primary-action-btn,
+      #d-pr-detail .payment-made-cta-btn {
+        height: clamp(2.75rem, 2.2vw + 1rem, 3.5rem) !important;
+        font-size: clamp(0.8rem, 0.4vw + 0.65rem, 0.95rem) !important;
+      }
+      #d-pr-detail .lg\:col-span-6:last-child {
+        height: clamp(660px, 78vh, 760px) !important;
+        min-height: clamp(660px, 78vh, 760px) !important;
+        max-height: clamp(660px, 78vh, 760px) !important;
       }
     }
   </style>
