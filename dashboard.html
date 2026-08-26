@@ -1288,152 +1288,214 @@
         font-size: 8.5px !important;
       }
     }
-
-    /* =========================================================================
-       FLUID CLAMP() RESPONSIVE SCALING FOR PAYMENT ROOM ACTIVITIES
-       - Scales down smoothly on small mobile screens to fit without scrolling
-       - Scales up generously on larger phones, tablets, and desktop displays
-    ========================================================================= */
-    /* =========================================================================
-       FLUID CLAMP() RESPONSIVE SCALING FOR PAYMENT ROOM ACTIVITIES
-       - Scales down smoothly on small mobile screens to fit without scrolling
-       - Scales up generously on larger phones, tablets, and desktop displays
-    ========================================================================= */
-    @media (max-width: 767px) {
-      #m-view-notifications:has(#m-pr-detail:not(.hidden)) {
-        padding-bottom: 0.25rem !important;
-        overflow-y: hidden !important;
+      /* ================================================================
+         PAYMENT ROOM: SHARED FLUID VIEWPORT SYSTEM
+         Both the mobile and desktop state screens keep their existing
+         markup and router.  These scoped rules make them consume one
+         responsive scale instead of relying on separate layouts.
+      ================================================================= */
+      #m-pr-detail,
+      #d-pr-detail {
+        --pr-space: clamp(0.5rem, 1.25vw, 1rem);
+        --pr-gap: clamp(0.45rem, 1.1vh, 0.95rem);
+        --pr-card-padding: clamp(0.7rem, 1.4vw, 0.95rem);
+        --pr-radius: clamp(0.85rem, 1.5vw, 1rem);
+        --pr-title-size: clamp(0.875rem, 1vw + 0.5rem, 1rem);
+        --pr-body-size: clamp(0.75rem, 0.45vw + 0.62rem, 0.875rem);
+        --pr-small-size: clamp(0.625rem, 0.35vw + 0.54rem, 0.7rem);
+        --pr-icon-size: clamp(1rem, 1.5vw, 1.25rem);
+        --pr-action-height: clamp(2.75rem, 6.5vh, 3.125rem);
+        min-width: 0;
       }
-      #m-pr-detail {
-        height: 100% !important;
-        max-height: 100% !important;
-        display: flex !important;
-        flex-direction: column !important;
+
+      /* The detail panel is an application viewport; the room itself does
+         not become a long document.  Chat, Help, receipts and forms retain
+         their own existing overlays/drawers for secondary content. */
+      #m-view-notifications:has(#m-pr-detail:not(.hidden)),
+      #d-pr-detail {
         overflow: hidden !important;
       }
-      #m-pr-detail.hidden {
-        display: none !important;
-      }
-      #m-pr-detail .pr-sub-screen {
-        max-width: 100% !important;
-        padding-bottom: 0.25rem !important;
-        height: 100% !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: space-between !important;
-      }
-      #m-pr-detail .pr-sub-screen.hidden {
-        display: none !important;
-      }
-      #m-pr-detail .sticky.top-0 {
-        padding-top: clamp(0.15rem, 0.6vh, 0.45rem) !important;
-        padding-bottom: clamp(0.15rem, 0.6vh, 0.45rem) !important;
-        margin-bottom: clamp(0.2rem, 0.8vh, 0.5rem) !important;
-      }
-      #m-pr-detail .sticky.top-0 h2 {
-        font-size: clamp(0.8rem, 2.2vw + 0.3rem, 1rem) !important;
-      }
-      #m-pr-detail .buyer-only,
-      #m-pr-detail .seller-only {
-        padding-left: clamp(0.25rem, 1.2vw, 0.75rem) !important;
-        padding-right: clamp(0.25rem, 1.2vw, 0.75rem) !important;
-        flex: 1 1 auto !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: space-between !important;
-      }
-      #m-pr-detail .buyer-only.space-y-4 > :not([hidden]) ~ :not([hidden]),
-      #m-pr-detail .seller-only.space-y-4 > :not([hidden]) ~ :not([hidden]),
-      #m-pr-detail .space-y-4 > :not([hidden]) ~ :not([hidden]) {
-        --tw-space-y-reverse: 0 !important;
-        margin-top: clamp(0.3rem, 1vh + 0.05rem, 0.75rem) !important;
-        margin-bottom: 0 !important;
-      }
-      #m-pr-detail .rounded-2xl {
-        border-radius: clamp(0.65rem, 1.8vw, 0.85rem) !important;
-        padding: clamp(0.35rem, 1.5vw + 0.1rem, 0.75rem) !important;
-      }
-      #m-pr-detail .disp-deal-price {
-        font-size: clamp(1.1rem, 3.2vw + 0.4rem, 1.5rem) !important;
-        line-height: 1.1 !important;
-      }
-      #m-pr-detail .awaiting-countdown-badge {
-        width: clamp(1.45rem, 4vw, 1.85rem) !important;
-        height: clamp(1.45rem, 4vw, 1.85rem) !important;
-        font-size: clamp(0.55rem, 1.2vw + 0.25rem, 0.7rem) !important;
-      }
-      #m-pr-detail .space-y-3 > :not([hidden]) ~ :not([hidden]) {
-        --tw-space-y-reverse: 0 !important;
-        margin-top: clamp(0.15rem, 0.6vh + 0.02rem, 0.45rem) !important;
-        margin-bottom: 0 !important;
-      }
-      #m-pr-detail h3 {
-        font-size: clamp(0.625rem, 1.5vw + 0.25rem, 0.75rem) !important;
-        margin-bottom: clamp(0.15rem, 0.5vh, 0.4rem) !important;
-        letter-spacing: 0.03em !important;
-      }
-      #m-pr-detail .text-\[11\.5px\] {
-        font-size: clamp(0.58rem, 1.2vw + 0.25rem, 0.7rem) !important;
-        line-height: 1 !important;
-      }
-      #m-pr-detail .text-\[13\.5px\] {
-        font-size: clamp(0.68rem, 1.4vw + 0.3rem, 0.8rem) !important;
-        line-height: 1.15 !important;
-      }
-      #m-pr-detail .payment-made-cta-btn,
-      #m-pr-detail button.h-\[50px\],
-      #m-pr-detail .h-\[50px\],
-      #m-pr-detail .primary-action-btn {
-        height: clamp(2.35rem, 4.8vh + 0.3rem, 3rem) !important;
-        min-height: clamp(2.35rem, 4.8vh + 0.3rem, 3rem) !important;
-        border-radius: clamp(0.65rem, 1.8vw, 0.85rem) !important;
-        font-size: clamp(0.68rem, 1.4vw + 0.3rem, 0.825rem) !important;
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
-      }
-      #m-pr-detail .pt-2,
-      #m-pr-detail .mt-6 {
-        margin-top: clamp(0.25rem, 0.8vh + 0.05rem, 0.65rem) !important;
-        margin-bottom: clamp(0.08rem, 0.3vh, 0.2rem) !important;
-      }
-      #m-pr-detail .mt-3 {
-        margin-top: clamp(0.15rem, 0.5vh, 0.45rem) !important;
-        margin-bottom: clamp(0.05rem, 0.2vh, 0.15rem) !important;
-      }
-      #m-pr-detail .mb-3,
-      #m-pr-detail .mb-3\.5 {
-        margin-bottom: clamp(0.15rem, 0.5vh, 0.4rem) !important;
-      }
-      #m-pr-detail .w-6.h-6 {
-        width: clamp(1.2rem, 3.2vw, 1.5rem) !important;
-        height: clamp(1.2rem, 3.2vw, 1.5rem) !important;
-        font-size: clamp(0.5rem, 1vw + 0.2rem, 0.65rem) !important;
-      }
-      #m-pr-detail .w-6.h-6 span {
-        font-size: clamp(0.58rem, 1.2vw + 0.25rem, 0.72rem) !important;
-      }
-      #m-pr-detail span.font-heading.leading-tight {
-        font-size: clamp(0.48rem, 1vw + 0.2rem, 0.6rem) !important;
-      }
-    }
 
-    /* Desktop Fluid Sizing for Payment Room Components */
-    @media (min-width: 768px) {
-      #d-pr-detail .disp-deal-price {
-        font-size: clamp(1.5rem, 1.6vw + 0.6rem, 2.25rem) !important;
+      #m-pr-detail:not(.hidden),
+      #d-pr-detail:not(.hidden) {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        max-height: 100%;
+        min-height: 0;
+        overflow: hidden;
       }
-      #d-pr-detail .primary-action-btn,
-      #d-pr-detail .payment-made-cta-btn {
-        height: clamp(2.75rem, 2.2vw + 1rem, 3.5rem) !important;
-        font-size: clamp(0.8rem, 0.4vw + 0.65rem, 0.95rem) !important;
+
+      #m-pr-detail .pr-sub-screen:not(.hidden),
+      #d-pr-detail .pr-sub-screen:not(.hidden) {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: min(100%, 42rem) !important;
+        height: 100%;
+        min-height: 0;
+        padding-bottom: 0 !important;
+        overflow: hidden;
       }
-      #d-pr-detail .lg\:col-span-6:last-child {
-        height: clamp(660px, 78vh, 760px) !important;
-        min-height: clamp(660px, 78vh, 760px) !important;
-        max-height: clamp(660px, 78vh, 760px) !important;
+
+      #d-pr-detail .pr-sub-screen:not(.hidden) {
+        max-width: none !important;
       }
-    }
-  </style>
+
+      #m-pr-detail .pr-sub-screen > :first-child,
+      #d-pr-detail .pr-sub-screen > :first-child {
+        flex: 0 0 auto;
+        min-width: 0;
+        margin-bottom: var(--pr-gap) !important;
+        padding-top: clamp(0.4rem, 1vh, 0.65rem) !important;
+        padding-bottom: clamp(0.4rem, 1vh, 0.65rem) !important;
+        gap: var(--pr-gap) !important;
+      }
+
+      #m-pr-detail .pr-sub-screen > .buyer-only,
+      #m-pr-detail .pr-sub-screen > .seller-only,
+      #d-pr-detail .pr-sub-screen > .buyer-only,
+      #d-pr-detail .pr-sub-screen > .seller-only {
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: column;
+        min-width: 0;
+        min-height: 0;
+        gap: var(--pr-gap) !important;
+        overflow: hidden;
+      }
+
+      #m-pr-detail .pr-sub-screen > .buyer-only > *,
+      #m-pr-detail .pr-sub-screen > .seller-only > *,
+      #d-pr-detail .pr-sub-screen > .buyer-only > *,
+      #d-pr-detail .pr-sub-screen > .seller-only > * {
+        min-width: 0;
+        margin-top: 0 !important;
+      }
+
+      #m-pr-detail .pr-sub-screen .rounded-2xl,
+      #d-pr-detail .pr-sub-screen .rounded-2xl {
+        border-radius: var(--pr-radius);
+      }
+
+      #m-pr-detail .pr-sub-screen .p-3\.5,
+      #d-pr-detail .pr-sub-screen .p-3\.5 {
+        padding: var(--pr-card-padding) !important;
+      }
+
+      #m-pr-detail .pr-sub-screen .space-y-4 > :not([hidden]) ~ :not([hidden]),
+      #d-pr-detail .pr-sub-screen .space-y-4 > :not([hidden]) ~ :not([hidden]) {
+        margin-top: 0 !important;
+      }
+
+      /* Keep the status rail readable but compact: current state remains
+         prominent while the surrounding milestones use less vertical space. */
+      #m-pr-detail .pr-sub-screen .grid.grid-cols-5,
+      #d-pr-detail .pr-sub-screen .grid.grid-cols-5 {
+        gap: clamp(0.1rem, 0.5vw, 0.3rem) !important;
+      }
+
+      #m-pr-detail .pr-sub-screen .grid.grid-cols-5 > div,
+      #d-pr-detail .pr-sub-screen .grid.grid-cols-5 > div {
+        gap: clamp(0.15rem, 0.4vh, 0.25rem) !important;
+        min-width: 0;
+      }
+
+      #m-pr-detail .pr-sub-screen .grid.grid-cols-5 span:last-child,
+      #d-pr-detail .pr-sub-screen .grid.grid-cols-5 span:last-child {
+        font-size: var(--pr-small-size) !important;
+        overflow-wrap: anywhere;
+      }
+
+      #m-pr-detail .pr-sub-screen .disp-deal-price,
+      #d-pr-detail .pr-sub-screen .disp-deal-price {
+        font-size: clamp(1.35rem, 3.8vw, 1.5rem) !important;
+        line-height: 1.05;
+      }
+
+      #m-pr-detail .pr-sub-screen .payment-made-cta-btn,
+      #d-pr-detail .pr-sub-screen .payment-made-cta-btn,
+      #m-pr-detail .pr-sub-screen .paykudi-btn-primary,
+      #d-pr-detail .pr-sub-screen .paykudi-btn-primary {
+        min-width: 0 !important;
+        min-height: var(--pr-action-height);
+        height: var(--pr-action-height) !important;
+        padding-inline: clamp(0.75rem, 3vw, 1.25rem) !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        flex-shrink: 0;
+      }
+
+      #m-pr-detail .pr-sub-screen :is(button, a, span, p, div),
+      #d-pr-detail .pr-sub-screen :is(button, a, span, p, div) {
+        min-width: 0;
+      }
+
+      #m-pr-detail .pr-sub-screen .truncate,
+      #d-pr-detail .pr-sub-screen .truncate {
+        max-width: 100%;
+      }
+
+      /* Desktop keeps chat alongside the same room hierarchy, rather than
+         using a separate, taller scrolling detail document. */
+      #d-pr-detail > .overflow-y-auto {
+        min-height: 0;
+        overflow: hidden !important;
+        padding-bottom: var(--pr-space) !important;
+      }
+
+      @media (max-height: 700px) {
+        #m-pr-detail,
+        #d-pr-detail {
+          --pr-gap: 0.35rem;
+          --pr-card-padding: 0.65rem;
+          --pr-action-height: 2.7rem;
+        }
+
+        #m-pr-detail .pr-sub-screen .text-\[11\.5px\],
+        #d-pr-detail .pr-sub-screen .text-\[11\.5px\] {
+          line-height: 1.25;
+        }
+
+        #m-pr-detail .pr-sub-screen .mt-6,
+        #d-pr-detail .pr-sub-screen .mt-6 {
+          margin-top: var(--pr-gap) !important;
+        }
+
+        #m-pr-detail .pr-sub-screen .mb-3,
+        #d-pr-detail .pr-sub-screen .mb-3 {
+          margin-bottom: var(--pr-gap) !important;
+        }
+      }
+
+      @media (max-width: 420px) {
+        #m-pr-detail .pr-sub-screen:not(.hidden) {
+          max-width: 100% !important;
+        }
+
+        #m-pr-detail .pr-sub-screen > :first-child {
+          padding-inline: var(--pr-space) !important;
+        }
+      }
+
+      /* The awaiting-payment acknowledgement is the only action that must
+         stay reachable while bank details compress on a short phone. */
+      @media (max-width: 767px) {
+        #m-pr-detail .payment-made-cta-btn {
+          position: fixed;
+          right: var(--pr-space);
+          bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
+          left: var(--pr-space);
+          z-index: 45;
+          width: auto !important;
+        }
+
+        #m-pr-detail .pr-sub-screen .space-y-3 > :not([hidden]) ~ :not([hidden]) {
+          margin-top: var(--pr-gap) !important;
+        }
+      }
+    </style>
 </head>
 
 <body
