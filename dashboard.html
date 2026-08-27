@@ -1423,6 +1423,16 @@
         border-radius: 0px !important;
       }
 
+      .pr-room-card {
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+      }
+      .pr-room-card > div {
+        width: 100% !important;
+      }
+
       html.dark #m-pr-detail .bg-white,
       html.dark #m-pr-detail .dark\:bg-\[\#181A20\],
       html.dark #d-pr-detail .bg-white,
@@ -2357,43 +2367,43 @@
         <div class="flex-none bg-[#FAF7F2] z-30 px-4 pt-3 pb-2 space-y-3">
           <!-- 3 Metric Cards Section -->
           <section class="grid grid-cols-3 gap-2.5">
-            <!-- Sent Card -->
+            <!-- Sent Card (Solid Red) -->
             <div
-              class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3 sm:p-3.5 h-[76px] flex flex-col justify-between shadow-2xs select-none">
+              class="bg-red-500 hover:bg-red-600 border border-red-400/30 rounded-2xl p-3 sm:p-3.5 h-[80px] flex flex-col justify-between shadow-md shadow-red-500/20 select-none transition-all">
               <div class="flex justify-between items-center">
-                <span class="text-[10px] sm:text-[11px] font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider font-heading">Sent</span>
+                <span class="text-[10px] sm:text-[11px] font-bold text-white/90 uppercase tracking-wider font-heading">Sent</span>
                 <span
-                  class="w-5 h-5 rounded-lg bg-red-500/10 dark:bg-red-500/20 text-red-500 dark:text-red-400 flex items-center justify-center text-[10px]">
+                  class="w-5.5 h-5.5 sm:w-6 sm:h-6 rounded-xl bg-white/20 text-white flex items-center justify-center text-[10px] sm:text-[11px] shadow-xs backdrop-blur-xs">
                   <i class="fa-solid fa-arrow-up"></i>
                 </span>
               </div>
-              <p class="text-[14px] sm:text-base font-black font-heading text-brand-dark dark:text-white tracking-tight leading-none mt-0.5">₦450,000</p>
+              <p class="text-[14.5px] sm:text-base font-black font-heading text-white tracking-tight leading-none mt-0.5">₦450,000</p>
             </div>
 
-            <!-- Received Card -->
+            <!-- Received Card (Solid Green) -->
             <div
-              class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3 sm:p-3.5 h-[76px] flex flex-col justify-between shadow-2xs select-none">
+              class="bg-emerald-600 hover:bg-emerald-700 border border-emerald-500/30 rounded-2xl p-3 sm:p-3.5 h-[80px] flex flex-col justify-between shadow-md shadow-emerald-600/20 select-none transition-all">
               <div class="flex justify-between items-center">
-                <span class="text-[10px] sm:text-[11px] font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider font-heading">Received</span>
+                <span class="text-[10px] sm:text-[11px] font-bold text-white/90 uppercase tracking-wider font-heading">Received</span>
                 <span
-                  class="w-5 h-5 rounded-lg bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-[10px]">
+                  class="w-5.5 h-5.5 sm:w-6 sm:h-6 rounded-xl bg-white/20 text-white flex items-center justify-center text-[10px] sm:text-[11px] shadow-xs backdrop-blur-xs">
                   <i class="fa-solid fa-arrow-down"></i>
                 </span>
               </div>
-              <p class="text-[14px] sm:text-base font-black font-heading text-brand-dark dark:text-white tracking-tight leading-none mt-0.5">₦1,700,000</p>
+              <p class="text-[14.5px] sm:text-base font-black font-heading text-white tracking-tight leading-none mt-0.5">₦1,700,000</p>
             </div>
 
-            <!-- Withdrawn Card -->
+            <!-- Withdrawn Card (Solid Blue) -->
             <div
-              class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3 sm:p-3.5 h-[76px] flex flex-col justify-between shadow-2xs select-none">
+              class="bg-blue-600 hover:bg-blue-700 border border-blue-500/30 rounded-2xl p-3 sm:p-3.5 h-[80px] flex flex-col justify-between shadow-md shadow-blue-600/20 select-none transition-all">
               <div class="flex justify-between items-center">
-                <span class="text-[10px] sm:text-[11px] font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider font-heading">Withdrawn</span>
+                <span class="text-[10px] sm:text-[11px] font-bold text-white/90 uppercase tracking-wider font-heading">Withdrawn</span>
                 <span
-                  class="w-5 h-5 rounded-lg bg-blue-500/10 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center text-[10px]">
+                  class="w-5.5 h-5.5 sm:w-6 sm:h-6 rounded-xl bg-white/20 text-white flex items-center justify-center text-[10px] sm:text-[11px] shadow-xs backdrop-blur-xs">
                   <i class="fa-solid fa-building-columns"></i>
                 </span>
               </div>
-              <p class="text-[14px] sm:text-base font-black font-heading text-brand-dark dark:text-white tracking-tight leading-none mt-0.5">₦1,200,000</p>
+              <p class="text-[14.5px] sm:text-base font-black font-heading text-white tracking-tight leading-none mt-0.5">₦1,200,000</p>
             </div>
           </section>
 
@@ -2404,7 +2414,7 @@
             <!-- Integrated Search Bar with Filter inside -->
             <div class="relative max-w-[245px] sm:max-w-[270px] flex-1 min-w-0 ml-auto">
               <div
-                class="flex items-center bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/20 rounded-xl pl-2.5 pr-1 py-1 shadow-xs focus-within:ring-2 focus-within:ring-brand-blue/20 dark:focus-within:border-white/40 transition-all">
+                class="flex items-center bg-[#FAF7F2] dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/20 rounded-xl pl-2.5 pr-1 py-1 shadow-xs focus-within:ring-2 focus-within:ring-brand-blue/20 dark:focus-within:border-white/40 transition-all">
                 <span class="material-symbols-outlined text-gray-400 dark:text-gray-400 text-[14px] flex-shrink-0">search</span>
                 <input type="text" id="m-activity-search" oninput="filterActivities('mobile')"
                   placeholder="Search activities"
@@ -2663,7 +2673,7 @@
             <!-- Integrated Search Bar with Filter inside (Payment Room) -->
             <div class="relative flex-1 min-w-[120px] max-w-[260px] ml-auto">
               <div
-                class="h-[34px] flex items-center bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/20 rounded-xl pl-2 pr-1 shadow-xs focus-within:ring-2 focus-within:ring-brand-blue/20 dark:focus-within:border-white/40 transition-all">
+                class="h-[34px] flex items-center bg-[#FAF7F2] dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/20 rounded-xl pl-2 pr-1 shadow-xs focus-within:ring-2 focus-within:ring-brand-blue/20 dark:focus-within:border-white/40 transition-all">
                 <span class="material-symbols-outlined text-gray-400 dark:text-gray-400 text-[14px] flex-shrink-0">search</span>
                 <input type="text" id="m-pr-search" oninput="filterPaymentRooms('mobile')"
                   placeholder="Search orders"
@@ -6219,41 +6229,41 @@
         <!-- Fixed Top Section -->
         <div class="flex-none max-w-6xl w-full mx-auto space-y-4 pt-3 pb-3 px-2 relative z-30">
           <section class="grid grid-cols-3 fluid-gap">
-            <!-- Sent Card -->
+            <!-- Sent Card (Solid Red) -->
             <div
-              class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl fluid-card-padding flex flex-col justify-between shadow-2xs select-none">
+              class="bg-red-500 hover:bg-red-600 border border-red-400/30 rounded-2xl fluid-card-padding flex flex-col justify-between shadow-md shadow-red-500/20 select-none transition-all">
               <div class="flex justify-between items-center mb-2.5">
-                <span class="text-xs font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider font-heading">Sent</span>
-                <span class="w-6 h-6 rounded-lg bg-red-500/10 dark:bg-red-500/20 text-red-500 dark:text-red-400 flex items-center justify-center text-xs">
+                <span class="text-xs font-bold text-white/90 uppercase tracking-wider font-heading">Sent</span>
+                <span class="w-6 h-6 rounded-xl bg-white/20 text-white flex items-center justify-center text-xs shadow-xs backdrop-blur-xs">
                   <i class="fa-solid fa-arrow-up"></i>
                 </span>
               </div>
-              <p class="fluid-stat-val font-black font-heading text-brand-dark dark:text-white tracking-tight leading-none">₦450,000</p>
+              <p class="fluid-stat-val font-black font-heading text-white tracking-tight leading-none">₦450,000</p>
             </div>
 
-            <!-- Received Card -->
+            <!-- Received Card (Solid Green) -->
             <div
-              class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl fluid-card-padding flex flex-col justify-between shadow-2xs select-none">
+              class="bg-emerald-600 hover:bg-emerald-700 border border-emerald-500/30 rounded-2xl fluid-card-padding flex flex-col justify-between shadow-md shadow-emerald-600/20 select-none transition-all">
               <div class="flex justify-between items-center mb-2.5">
-                <span class="text-xs font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider font-heading">Received</span>
+                <span class="text-xs font-bold text-white/90 uppercase tracking-wider font-heading">Received</span>
                 <span
-                  class="w-6 h-6 rounded-lg bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xs">
+                  class="w-6 h-6 rounded-xl bg-white/20 text-white flex items-center justify-center text-xs shadow-xs backdrop-blur-xs">
                   <i class="fa-solid fa-arrow-down"></i>
                 </span>
               </div>
-              <p class="fluid-stat-val font-black font-heading text-brand-dark dark:text-white tracking-tight leading-none">₦1,700,000</p>
+              <p class="fluid-stat-val font-black font-heading text-white tracking-tight leading-none">₦1,700,000</p>
             </div>
 
-            <!-- Withdrawn Card -->
+            <!-- Withdrawn Card (Solid Blue) -->
             <div
-              class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl fluid-card-padding flex flex-col justify-between shadow-2xs select-none">
+              class="bg-blue-600 hover:bg-blue-700 border border-blue-500/30 rounded-2xl fluid-card-padding flex flex-col justify-between shadow-md shadow-blue-600/20 select-none transition-all">
               <div class="flex justify-between items-center mb-2.5">
-                <span class="text-xs font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider font-heading">Withdrawn</span>
-                <span class="w-6 h-6 rounded-lg bg-blue-500/10 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xs">
+                <span class="text-xs font-bold text-white/90 uppercase tracking-wider font-heading">Withdrawn</span>
+                <span class="w-6 h-6 rounded-xl bg-white/20 text-white flex items-center justify-center text-xs shadow-xs backdrop-blur-xs">
                   <i class="fa-solid fa-building-columns"></i>
                 </span>
               </div>
-              <p class="fluid-stat-val font-black font-heading text-brand-dark dark:text-white tracking-tight leading-none">₦1,200,000</p>
+              <p class="fluid-stat-val font-black font-heading text-white tracking-tight leading-none">₦1,200,000</p>
             </div>
           </section>
 
@@ -6265,7 +6275,7 @@
               <!-- Integrated Search Bar with Filter Inside -->
               <div class="relative w-72">
                 <div
-                  class="flex items-center bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/20 rounded-xl pl-3 pr-1 py-1 shadow-xs focus-within:ring-2 focus-within:ring-brand-blue/20 dark:focus-within:border-white/40 transition-all">
+                  class="flex items-center bg-[#FAF7F2] dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/20 rounded-xl pl-3 pr-1 py-1 shadow-xs focus-within:ring-2 focus-within:ring-brand-blue/20 dark:focus-within:border-white/40 transition-all">
                   <span class="material-symbols-outlined text-gray-400 dark:text-gray-400 text-[16px] flex-shrink-0">search</span>
                   <input type="text" id="d-activity-search" oninput="filterActivities('desktop')"
                     placeholder="Search activities"
@@ -6851,7 +6861,7 @@
             <!-- Integrated Search Bar with Filter Inside (Payment Room Desktop) -->
             <div class="relative w-72">
               <div
-                class="h-[38px] flex items-center bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/20 rounded-xl pl-3 pr-1 shadow-xs focus-within:ring-2 focus-within:ring-brand-blue/20 dark:focus-within:border-white/40 transition-all">
+                class="h-[38px] flex items-center bg-[#FAF7F2] dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/20 rounded-xl pl-3 pr-1 shadow-xs focus-within:ring-2 focus-within:ring-brand-blue/20 dark:focus-within:border-white/40 transition-all">
                 <span class="material-symbols-outlined text-gray-400 dark:text-gray-400 text-[16px] flex-shrink-0">search</span>
                 <input type="text" id="d-pr-search" oninput="filterPaymentRooms('desktop')"
                   placeholder="Search orders"
@@ -12155,28 +12165,28 @@
 
           return '<button type="button" onclick="openPRDetail(\'' + deal.id + '\')" class="pr-room-card w-full text-left p-3.5 sm:p-4 bg-white dark:bg-[#181A20] border border-gray-200/80 dark:border-white/10 rounded-2xl shadow-2xs hover:shadow-xs transition-all cursor-pointer flex flex-col gap-2 group focus:outline-none">' +
             '<!-- Top Row: Buying / Selling Label (Sentence case, Green/Red) -->' +
-            '<div class="flex items-center justify-between gap-2">' +
+            '<div class="w-full flex items-center justify-between gap-2">' +
             '<span class="pr-room-role text-xs font-bold font-heading ' + roleColor + '">' + roleText + '</span>' +
             '</div>' +
 
-            '<!-- Main Row: Product Name & Price (Price stands out, Title smaller) -->' +
-            '<div class="flex items-center justify-between gap-3">' +
-            '<h4 class="pr-room-title text-xs sm:text-sm font-semibold text-neutral-800 dark:text-neutral-200 truncate font-heading leading-snug group-hover:text-brand-blue dark:group-hover:text-blue-400 transition-colors">' + deal.title + '</h4>' +
-            '<span class="pr-room-price text-base sm:text-lg md:text-xl font-black text-brand-dark dark:text-white font-heading whitespace-nowrap flex-shrink-0 tracking-tight">' + deal.price + '</span>' +
+            '<!-- Main Row: Product Name & Price (Price stands out on right, Title on left) -->' +
+            '<div class="w-full flex items-center justify-between gap-3">' +
+            '<h4 class="pr-room-title text-xs sm:text-sm font-semibold text-neutral-800 dark:text-neutral-200 truncate font-heading leading-snug group-hover:text-brand-blue dark:group-hover:text-blue-400 transition-colors flex-1 min-w-0 pr-2">' + deal.title + '</h4>' +
+            '<span class="pr-room-price text-base sm:text-lg md:text-xl font-black text-brand-dark dark:text-white font-heading whitespace-nowrap flex-shrink-0 tracking-tight ml-auto text-right">' + deal.price + '</span>' +
             '</div>' +
 
             '<!-- Seller\'s Name Row (Label Gray, Name Black -> White in Dark Mode) -->' +
-            '<div>' +
+            '<div class="w-full">' +
             '<p class="pr-room-meta text-xs text-neutral-500 dark:text-neutral-400 font-medium truncate">' +
             '<span>' + counterpartyLabel + '</span>' +
             '<strong class="text-brand-dark dark:text-white font-bold">' + counterpartyName + '</strong>' +
             '</p>' +
             '</div>' +
 
-            '<!-- Bottom Row: Date/Time (Smaller, Subdued) & Plain Text Status (in distinct state color) -->' +
-            '<div class="flex items-center justify-between gap-2 pt-0.5">' +
-            '<span class="pr-room-date text-[10px] sm:text-[10.5px] text-neutral-400 dark:text-neutral-500 font-normal truncate">' + dateTime + '</span>' +
-            '<span class="pr-room-status text-xs font-bold font-heading whitespace-nowrap ' + statusColor + '">' + statusText + '</span>' +
+            '<!-- Bottom Row: Date/Time (Smaller, Subdued on left) & Plain Text Status (pinned right) -->' +
+            '<div class="w-full flex items-center justify-between gap-2 pt-0.5">' +
+            '<span class="pr-room-date text-[10px] sm:text-[10.5px] text-neutral-400 dark:text-neutral-500 font-normal truncate flex-1 min-w-0 pr-2">' + dateTime + '</span>' +
+            '<span class="pr-room-status text-xs font-bold font-heading whitespace-nowrap flex-shrink-0 ml-auto text-right ' + statusColor + '">' + statusText + '</span>' +
             '</div>' +
             '</button>';
         }).join('');
