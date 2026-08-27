@@ -760,6 +760,13 @@
        doesn't chain up to the app shell and shift the fixed nav/FAB */
     .view-panel {
       overscroll-behavior-y: contain;
+      /* Flex children default to min-height:auto, which lets a panel's
+         content grow taller than the space it's given instead of
+         scrolling inside it - the parent shell is overflow-hidden, so
+         anything past that point becomes unreachable. min-height:0
+         forces this flex item to respect its box and let its own
+         overflow-y:auto actually take over. */
+      min-height: 0;
     }
 
     h1,
@@ -1293,27 +1300,135 @@
          Both the mobile and desktop state screens keep their existing
          markup and router.  These scoped rules make them consume one
          responsive scale instead of relying on separate layouts.
+
+         BOX-DRIVEN SCALING: the room's outer panel is declared as a CSS
+         containment box below. Every clamp() in this section is written
+         in container query units (cqw/cqh) instead of viewport units
+         (vw/vh), so every component inside scales off the box's own
+         width/height - not the browser window. Shrink or grow the box
+         (resize the window, embed it in a smaller panel, whatever) and
+         everything inside rescales together and stays visible in it.
       ================================================================= */
       #m-pr-detail,
       #d-pr-detail {
-        --pr-space: clamp(0.5rem, 1.25vw, 1rem);
-        --pr-gap: clamp(0.45rem, 1.1vh, 0.95rem);
-        --pr-card-padding: clamp(0.7rem, 1.4vw, 0.95rem);
-        --pr-radius: clamp(0.85rem, 1.5vw, 1rem);
-        --pr-title-size: clamp(0.875rem, 1vw + 0.5rem, 1rem);
-        --pr-body-size: clamp(0.75rem, 0.45vw + 0.62rem, 0.875rem);
-        --pr-small-size: clamp(0.625rem, 0.35vw + 0.54rem, 0.7rem);
-        --pr-icon-size: clamp(1rem, 1.5vw, 1.25rem);
-        --pr-action-height: clamp(2.75rem, 6.5vh, 3.125rem);
+        container-type: size;
+        container-name: pr-box;
+      }
+
+      /* Mobile: free up the bottom nav's real estate for the room itself
+         while a payment room is open. Slides out rather than just
+         vanishing, so it doesn't feel like a layout jump. */
+      #m-bottom-nav {
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+      }
+
+      #m-bottom-nav.pr-nav-hidden {
+        transform: translateY(130%);
+        opacity: 0;
+        pointer-events: none;
+      }
+      /* ================================================================
+         PAYMENT ROOM LIST: FLUID CARD SCALE (Activities/Rooms List)
+         The room cards shown before opening a room (title, price, role,
+         counterparty, date, status) scale continuously with viewport
+         width/height instead of jumping at sm: breakpoints.
+      ================================================================= */
+      #m-pr-list-container,
+      #d-pr-list-container {
+        --prl-gap: clamp(0.5rem, 1.4cqw, 0.75rem);
+      }
+
+      #m-pr-list-container.space-y-2\.5 > :not([hidden]) ~ :not([hidden]),
+      #d-pr-list-container.space-y-3 > :not([hidden]) ~ :not([hidden]) {
+        margin-top: var(--prl-gap) !important;
+      }
+
+      #m-pr-list-container .pr-room-card,
+      #d-pr-list-container .pr-room-card {
+        padding: clamp(0.75rem, 2.2cqw, 1.15rem) !important;
+        gap: clamp(0.35rem, 1cqw, 0.6rem) !important;
+        border-radius: clamp(0.9rem, 1.6cqw, 1.15rem) !important;
+      }
+
+      #m-pr-list-container .pr-room-role,
+      #d-pr-list-container .pr-room-role {
+        font-size: clamp(0.65rem, 0.3cqw + 0.56rem, 0.78rem) !important;
+      }
+
+      #m-pr-list-container .pr-room-title,
+      #d-pr-list-container .pr-room-title,
+      #m-pr-list-container .pr-room-price,
+      #d-pr-list-container .pr-room-price {
+        font-size: clamp(0.85rem, 0.75cqw + 0.64rem, 1.05rem) !important;
+        line-height: 1.15;
+      }
+
+      #m-pr-list-container .pr-room-meta,
+      #d-pr-list-container .pr-room-meta {
+        font-size: clamp(0.65rem, 0.3cqw + 0.56rem, 0.8rem) !important;
+      }
+
+      #m-pr-list-container .pr-room-date,
+      #d-pr-list-container .pr-room-date {
+        font-size: clamp(0.6rem, 0.25cqw + 0.52rem, 0.74rem) !important;
+      }
+
+      #m-pr-list-container .pr-room-status,
+      #d-pr-list-container .pr-room-status {
+        font-size: clamp(0.65rem, 0.3cqw + 0.56rem, 0.8rem) !important;
+      }
+
+      #m-pr-detail,
+      #d-pr-detail {
+        --pr-space: clamp(0.55rem, 1.3cqh + 0.8cqw, 0.85rem);
+        --pr-gap: clamp(0.35rem, 0.9cqh, 0.6rem);
+        --pr-card-padding: clamp(0.5rem, 1.4cqh, 0.8rem);
+        --pr-radius: clamp(0.65rem, 1.2cqh + 0.5cqw, 0.9rem);
+        --pr-icon-size: clamp(0.8rem, 1.4cqh, 1.05rem);
+        --pr-action-height: clamp(1.95rem, 4.4cqh, 2.35rem);
+        /* Fluid text scale covering every fixed font-size utility used
+           inside a room's content. Each size takes whichever of viewport
+           width or height is more constrained (via min()), so text
+           shrinks proportionally on a narrow phone just as much as on a
+           short one, and grows the same way in reverse - never jumping
+           at a single breakpoint. */
+        --pr-title-size: clamp(0.74rem, min(0.8cqh + 0.46rem, 3cqw + 0.12rem), 0.95rem);
+        --pr-body-size: clamp(0.64rem, min(0.55cqh + 0.46rem, 2.6cqw + 0.1rem), 0.82rem);
+        --pr-small-size: clamp(0.52rem, min(0.45cqh + 0.36rem, 1.8cqw + 0.15rem), 0.64rem);
+        --pr-micro-size: clamp(0.48rem, min(0.5cqh + 0.35rem, 1.7cqw + 0.12rem), 0.58rem);
+        --pr-tiny-size: clamp(0.44rem, min(0.45cqh + 0.32rem, 1.4cqw + 0.14rem), 0.52rem);
+        --pr-value-size: clamp(0.66rem, min(0.65cqh + 0.46rem, 2.5cqw + 0.11rem), 0.8125rem);
+        --pr-label-size: clamp(0.56rem, min(0.55cqh + 0.4rem, 1.9cqw + 0.15rem), 0.6875rem);
+        --pr-header-size: clamp(0.64rem, min(0.6cqh + 0.42rem, 2.3cqw + 0.12rem), 0.78rem);
+        --pr-badge-size: clamp(0.52rem, min(0.45cqh + 0.4rem, 1.8cqw + 0.14rem), 0.64rem);
+        --pr-copy-icon-size: clamp(0.68rem, min(0.75cqh + 0.44rem, 3cqw + 0.02rem), 0.88rem);
+        --pr-note-size: clamp(0.54rem, min(0.48cqh + 0.38rem, 1.8cqw + 0.14rem), 0.64rem);
+        --pr-icon-lg: clamp(0.7rem, min(0.75cqh + 0.4rem, 2.6cqw + 0.14rem), 0.95rem);
+        --pr-icon-btn: clamp(1.4rem, 4cqh, 1.85rem);
+        --pr-step-circle: clamp(1.05rem, 3.2cqh, 1.35rem);
+        --pr-section-gap: clamp(0.45rem, 1.2cqh, 0.75rem);
+        --pr-row-gap: clamp(0.55rem, 1.35cqh + 0.2cqw, 0.75rem);
+        --pr-micro-gap: clamp(0.12rem, 0.35cqh, 0.18rem);
+        --pr-tiny-gap: clamp(0.1rem, 0.35cqh, 0.22rem);
+        --pr-inline-pad: clamp(0.5rem, 2.5cqw, 0.85rem);
         min-width: 0;
       }
 
-      /* The detail panel is an application viewport; the room itself does
-         not become a long document.  Chat, Help, receipts and forms retain
-         their own existing overlays/drawers for secondary content. */
-      #m-view-notifications:has(#m-pr-detail:not(.hidden)),
+      /* The detail panel is an application viewport; lock only when a detail room is active */
+      #m-view-notifications.is-pr-active,
+      #m-view-notifications:has(> #m-pr-detail:not(.hidden)),
       #d-pr-detail {
         overflow: hidden !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        height: 100% !important;
+        max-height: 100% !important;
+      }
+
+      /* When on the Payment Rooms list, enable standard smooth touch scroll */
+      #m-view-notifications:not(.is-pr-active) {
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
       }
 
       #m-pr-detail:not(.hidden),
@@ -1323,22 +1438,29 @@
         height: 100%;
         max-height: 100%;
         min-height: 0;
-        overflow: hidden;
+        overflow: hidden !important;
       }
 
-      #m-pr-detail .pr-sub-screen:not(.hidden),
-      #d-pr-detail .pr-sub-screen:not(.hidden) {
+      #m-pr-detail .pr-sub-screen:not(.hidden) {
         display: flex;
         flex-direction: column;
         width: 100%;
         max-width: min(100%, 42rem) !important;
         height: 100%;
+        max-height: 100%;
         min-height: 0;
         padding-bottom: 0 !important;
-        overflow: hidden;
+        overflow: hidden !important;
       }
 
       #d-pr-detail .pr-sub-screen:not(.hidden) {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        padding-bottom: 0 !important;
+        overflow: hidden;
         max-width: none !important;
       }
 
@@ -1347,13 +1469,29 @@
         flex: 0 0 auto;
         min-width: 0;
         margin-bottom: var(--pr-gap) !important;
-        padding-top: clamp(0.4rem, 1vh, 0.65rem) !important;
-        padding-bottom: clamp(0.4rem, 1vh, 0.65rem) !important;
+        padding-top: clamp(0.4rem, 1cqh, 0.65rem) !important;
+        padding-bottom: clamp(0.4rem, 1cqh, 0.65rem) !important;
         gap: var(--pr-gap) !important;
       }
 
       #m-pr-detail .pr-sub-screen > .buyer-only,
-      #m-pr-detail .pr-sub-screen > .seller-only,
+      #m-pr-detail .pr-sub-screen > .seller-only {
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: column;
+        min-width: 0;
+        min-height: 0;
+        gap: var(--pr-gap) !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+
+      #m-pr-detail .pr-sub-screen > .buyer-only::-webkit-scrollbar,
+      #m-pr-detail .pr-sub-screen > .seller-only::-webkit-scrollbar {
+        display: none;
+      }
+
       #d-pr-detail .pr-sub-screen > .buyer-only,
       #d-pr-detail .pr-sub-screen > .seller-only {
         display: flex;
@@ -1362,7 +1500,13 @@
         min-width: 0;
         min-height: 0;
         gap: var(--pr-gap) !important;
-        overflow: hidden;
+        overflow-y: auto !important;
+        scrollbar-width: none;
+      }
+
+      #d-pr-detail .pr-sub-screen > .buyer-only::-webkit-scrollbar,
+      #d-pr-detail .pr-sub-screen > .seller-only::-webkit-scrollbar {
+        display: none;
       }
 
       #m-pr-detail .pr-sub-screen > .buyer-only > *,
@@ -1371,6 +1515,13 @@
       #d-pr-detail .pr-sub-screen > .seller-only > * {
         min-width: 0;
         margin-top: 0 !important;
+      }
+
+      #m-pr-detail .seller-protection-note,
+      #d-pr-detail .seller-protection-note {
+        margin-top: auto !important;
+        margin-bottom: 0.65rem !important;
+        padding-top: 0.5rem !important;
       }
 
       #m-pr-detail .pr-sub-screen .rounded-2xl,
@@ -1383,21 +1534,180 @@
         padding: var(--pr-card-padding) !important;
       }
 
+      /* ---- Fluid coverage for every fixed text-size utility used in a
+         room's rows (labels, values, headers, badges, copy icons) so the
+         whole screen scales continuously instead of clipping at low
+         heights. ---- */
+      #m-pr-detail .pr-sub-screen .text-\[10px\],
+      #d-pr-detail .pr-sub-screen .text-\[10px\] {
+        font-size: var(--pr-micro-size) !important;
+      }
+
+      #m-pr-detail .pr-sub-screen .text-\[9px\],
+      #d-pr-detail .pr-sub-screen .text-\[9px\] {
+        font-size: var(--pr-tiny-size) !important;
+      }
+
+      #m-pr-detail .pr-sub-screen .text-\[13\.5px\],
+      #d-pr-detail .pr-sub-screen .text-\[13\.5px\] {
+        font-size: var(--pr-value-size) !important;
+      }
+
+      #m-pr-detail .pr-sub-screen .text-\[11\.5px\],
+      #d-pr-detail .pr-sub-screen .text-\[11\.5px\] {
+        font-size: var(--pr-label-size) !important;
+      }
+
+      #m-pr-detail .pr-sub-screen .text-\[13px\],
+      #d-pr-detail .pr-sub-screen .text-\[13px\] {
+        font-size: var(--pr-header-size) !important;
+      }
+
+      #m-pr-detail .pr-sub-screen .text-\[11px\],
+      #d-pr-detail .pr-sub-screen .text-\[11px\] {
+        font-size: var(--pr-badge-size) !important;
+      }
+
+      #m-pr-detail .pr-sub-screen .material-symbols-outlined.text-\[15px\],
+      #d-pr-detail .pr-sub-screen .material-symbols-outlined.text-\[15px\] {
+        font-size: var(--pr-copy-icon-size) !important;
+      }
+
+      #m-pr-detail .pr-sub-screen .text-\[10\.5px\],
+      #d-pr-detail .pr-sub-screen .text-\[10\.5px\] {
+        font-size: var(--pr-note-size) !important;
+      }
+
+      #m-pr-detail .pr-sub-screen .material-symbols-outlined.text-\[17px\],
+      #d-pr-detail .pr-sub-screen .material-symbols-outlined.text-\[17px\],
+      #m-pr-detail .pr-sub-screen .material-symbols-outlined.text-\[18px\],
+      #d-pr-detail .pr-sub-screen .material-symbols-outlined.text-\[18px\],
+      #m-pr-detail .pr-sub-screen .material-symbols-outlined.text-\[13px\],
+      #d-pr-detail .pr-sub-screen .material-symbols-outlined.text-\[13px\] {
+        font-size: var(--pr-icon-lg) !important;
+      }
+
+      /* Small vertical margins/paddings around the order-details link,
+         the CTA button, and the protection note - these were fixed and
+         didn't shrink with the rest of the row content. */
+      #m-pr-detail .pr-sub-screen .pt-0\.5,
+      #d-pr-detail .pr-sub-screen .pt-0\.5 {
+        padding-top: var(--pr-tiny-gap) !important;
+      }
+
+      #m-pr-detail .pr-sub-screen .mt-1\.5,
+      #d-pr-detail .pr-sub-screen .mt-1\.5,
+      #m-pr-detail .pr-sub-screen .mt-1,
+      #d-pr-detail .pr-sub-screen .mt-1 {
+        margin-top: var(--pr-tiny-gap) !important;
+      }
+
+      #m-pr-detail .pr-sub-screen .mb-0\.5,
+      #d-pr-detail .pr-sub-screen .mb-0\.5 {
+        margin-bottom: var(--pr-tiny-gap) !important;
+      }
+
+      #m-pr-detail .pr-sub-screen .text-sm,
+      #d-pr-detail .pr-sub-screen .text-sm {
+        font-size: var(--pr-title-size) !important;
+      }
+
+      #m-pr-detail .pr-sub-screen .text-xs,
+      #d-pr-detail .pr-sub-screen .text-xs {
+        font-size: var(--pr-label-size) !important;
+      }
+
+      /* Icon buttons (back / help) and stepper number circles */
+      #m-pr-detail .pr-sub-screen .w-8.h-8,
+      #d-pr-detail .pr-sub-screen .w-8.h-8 {
+        width: var(--pr-icon-btn) !important;
+        height: var(--pr-icon-btn) !important;
+      }
+
+      #m-pr-detail .pr-sub-screen .w-6.h-6,
+      #d-pr-detail .pr-sub-screen .w-6.h-6 {
+        width: var(--pr-step-circle) !important;
+        height: var(--pr-step-circle) !important;
+      }
+
+      #m-pr-detail .pr-sub-screen .awaiting-countdown-badge,
+      #d-pr-detail .pr-sub-screen .awaiting-countdown-badge {
+        width: var(--pr-icon-btn) !important;
+        height: var(--pr-icon-btn) !important;
+      }
+
+      /* Section and row spacing: replaces fixed space-y-*/mb-*/pt-*/px-3.5
+         gaps with continuous values driven by available height/width. */
+      #m-pr-detail .pr-sub-screen .space-y-1\.5 > :not([hidden]) ~ :not([hidden]),
+      #d-pr-detail .pr-sub-screen .space-y-1\.5 > :not([hidden]) ~ :not([hidden]),
+      #m-pr-detail .pr-sub-screen .space-y-2 > :not([hidden]) ~ :not([hidden]),
+      #d-pr-detail .pr-sub-screen .space-y-2 > :not([hidden]) ~ :not([hidden]),
+      #m-pr-detail .pr-sub-screen .space-y-3 > :not([hidden]) ~ :not([hidden]),
+      #d-pr-detail .pr-sub-screen .space-y-3 > :not([hidden]) ~ :not([hidden]) {
+        margin-top: var(--pr-row-gap) !important;
+      }
+
+      #m-pr-detail .pr-sub-screen .px-3\.5,
+      #d-pr-detail .pr-sub-screen .px-3\.5 {
+        padding-left: var(--pr-inline-pad) !important;
+        padding-right: var(--pr-inline-pad) !important;
+      }
+
+      #m-pr-detail .pr-sub-screen .mb-3\.5,
+      #d-pr-detail .pr-sub-screen .mb-3\.5,
+      #m-pr-detail .pr-sub-screen .mb-2,
+      #d-pr-detail .pr-sub-screen .mb-2,
+      #m-pr-detail .pr-sub-screen .mb-3,
+      #d-pr-detail .pr-sub-screen .mb-3 {
+        margin-bottom: var(--pr-gap) !important;
+      }
+
+      #m-pr-detail .pr-sub-screen .mt-2\.5,
+      #d-pr-detail .pr-sub-screen .mt-2\.5 {
+        margin-top: var(--pr-gap) !important;
+      }
+
+      #m-pr-detail .pr-sub-screen .pt-2\.5,
+      #d-pr-detail .pr-sub-screen .pt-2\.5,
+      #m-pr-detail .pr-sub-screen .py-2\.5,
+      #d-pr-detail .pr-sub-screen .py-2\.5 {
+        padding-top: var(--pr-gap) !important;
+      }
+
+      #m-pr-detail .pr-sub-screen .py-2\.5,
+      #d-pr-detail .pr-sub-screen .py-2\.5 {
+        padding-bottom: var(--pr-gap) !important;
+      }
+
       #m-pr-detail .pr-sub-screen .space-y-4 > :not([hidden]) ~ :not([hidden]),
       #d-pr-detail .pr-sub-screen .space-y-4 > :not([hidden]) ~ :not([hidden]) {
-        margin-top: 0 !important;
+        margin-top: var(--pr-section-gap) !important;
+      }
+
+      /* Tighten the vertical rhythm of the text itself: the small gap
+         between each row's label and its value, plus line-height on
+         wrapped label/value text, so lines sit closer together instead
+         of the browser's default leading. */
+      #m-pr-detail .pr-sub-screen .mt-0\.5,
+      #d-pr-detail .pr-sub-screen .mt-0\.5 {
+        margin-top: var(--pr-micro-gap) !important;
+      }
+
+      #m-pr-detail .pr-sub-screen .leading-tight,
+      #d-pr-detail .pr-sub-screen .leading-tight {
+        line-height: 1.1 !important;
       }
 
       /* Keep the status rail readable but compact: current state remains
          prominent while the surrounding milestones use less vertical space. */
       #m-pr-detail .pr-sub-screen .grid.grid-cols-5,
       #d-pr-detail .pr-sub-screen .grid.grid-cols-5 {
-        gap: clamp(0.1rem, 0.5vw, 0.3rem) !important;
+        gap: clamp(0.1rem, 0.5cqw, 0.3rem) !important;
       }
 
       #m-pr-detail .pr-sub-screen .grid.grid-cols-5 > div,
       #d-pr-detail .pr-sub-screen .grid.grid-cols-5 > div {
-        gap: clamp(0.15rem, 0.4vh, 0.25rem) !important;
+        gap: clamp(0.15rem, 0.4cqh, 0.25rem) !important;
         min-width: 0;
       }
 
@@ -1407,9 +1717,9 @@
         overflow-wrap: anywhere;
       }
 
-      #m-pr-detail .pr-sub-screen .disp-deal-price,
-      #d-pr-detail .pr-sub-screen .disp-deal-price {
-        font-size: clamp(1.35rem, 3.8vw, 1.5rem) !important;
+      #m-pr-detail .pr-sub-screen .text-2xl.disp-deal-price,
+      #d-pr-detail .pr-sub-screen .text-2xl.disp-deal-price {
+        font-size: clamp(1.35rem, 3.8cqw, 1.5rem) !important;
         line-height: 1.05;
       }
 
@@ -1420,11 +1730,64 @@
         min-width: 0 !important;
         min-height: var(--pr-action-height);
         height: var(--pr-action-height) !important;
-        padding-inline: clamp(0.75rem, 3vw, 1.25rem) !important;
+        padding-inline: clamp(0.75rem, 3cqw, 1.25rem) !important;
         white-space: nowrap !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         flex-shrink: 0;
+      }
+
+      /* Confirm Delivery / Report an Issue (+ the protection note beneath
+         them): with the mobile bottom nav now hidden while a room is
+         open, the box has real vertical room it didn't have before -
+         let this block use it instead of staying as tight as it had to
+         be when the nav was eating into that space. Sized off the box's
+         own height (cqh), so it keeps breathing room at any box size. */
+      #m-pr-detail .pr-sub-screen .pr-action-buttons,
+      #d-pr-detail .pr-sub-screen .pr-action-buttons {
+        padding-top: clamp(0.5rem, 1.8cqh, 1.05rem) !important;
+        gap: clamp(0.5rem, 1.6cqh, 0.9rem) !important;
+      }
+
+      #m-pr-detail .pr-sub-screen .pr-confirm-btn,
+      #d-pr-detail .pr-sub-screen .pr-confirm-btn,
+      #m-pr-detail .pr-sub-screen .pr-report-btn,
+      #d-pr-detail .pr-sub-screen .pr-report-btn,
+      #m-pr-detail .pr-sub-screen .pr-proof-btn,
+      #d-pr-detail .pr-sub-screen .pr-proof-btn {
+        height: var(--pr-action-height) !important;
+        min-height: var(--pr-action-height) !important;
+        padding-block: 0 !important;
+        padding-inline: clamp(0.65rem, 2.5cqw, 1rem) !important;
+        border-radius: clamp(0.65rem, 1.5cqw, 0.85rem) !important;
+        font-size: clamp(0.7rem, 2.8cqw, 0.76rem) !important;
+        font-weight: 800 !important;
+        letter-spacing: 0.04em !important;
+      }
+
+      #m-pr-detail .pr-sub-screen .pr-confirm-btn .material-symbols-outlined,
+      #d-pr-detail .pr-sub-screen .pr-confirm-btn .material-symbols-outlined,
+      #m-pr-detail .pr-sub-screen .pr-report-btn .material-symbols-outlined,
+      #d-pr-detail .pr-sub-screen .pr-report-btn .material-symbols-outlined,
+      #m-pr-detail .pr-sub-screen .pr-proof-btn .material-symbols-outlined,
+      #d-pr-detail .pr-sub-screen .pr-proof-btn .material-symbols-outlined {
+        font-size: clamp(0.95rem, 2.2cqh, 1.1rem) !important;
+      }
+
+      #m-pr-detail .pr-protection-note,
+      #d-pr-detail .pr-protection-note,
+      #m-pr-detail .seller-protection-note,
+      #d-pr-detail .seller-protection-note,
+      #m-pr-detail .pr-sub-screen .pr-protection-note,
+      #d-pr-detail .pr-sub-screen .pr-protection-note,
+      #m-pr-detail .pr-sub-screen .seller-protection-note,
+      #d-pr-detail .pr-sub-screen .seller-protection-note {
+        margin-top: auto !important;
+        margin-bottom: clamp(0.15rem, 0.5cqh, 0.35rem) !important;
+        padding-top: clamp(0.35rem, 0.8cqh, 0.55rem) !important;
+        padding-bottom: clamp(0.15rem, 0.4cqh, 0.25rem) !important;
+        flex-shrink: 0 !important;
+        width: 100% !important;
       }
 
       #m-pr-detail .pr-sub-screen :is(button, a, span, p, div),
@@ -1446,13 +1809,6 @@
       }
 
       @media (max-height: 700px) {
-        #m-pr-detail,
-        #d-pr-detail {
-          --pr-gap: 0.35rem;
-          --pr-card-padding: 0.65rem;
-          --pr-action-height: 2.7rem;
-        }
-
         #m-pr-detail .pr-sub-screen .text-\[11\.5px\],
         #d-pr-detail .pr-sub-screen .text-\[11\.5px\] {
           line-height: 1.25;
@@ -1461,11 +1817,6 @@
         #m-pr-detail .pr-sub-screen .mt-6,
         #d-pr-detail .pr-sub-screen .mt-6 {
           margin-top: var(--pr-gap) !important;
-        }
-
-        #m-pr-detail .pr-sub-screen .mb-3,
-        #d-pr-detail .pr-sub-screen .mb-3 {
-          margin-bottom: var(--pr-gap) !important;
         }
       }
 
@@ -1479,20 +1830,26 @@
         }
       }
 
-      /* The awaiting-payment acknowledgement is the only action that must
-         stay reachable while bank details compress on a short phone. */
+      /* In mobile view, the CTA button sits cleanly in flow with clamp height */
       @media (max-width: 767px) {
         #m-pr-detail .payment-made-cta-btn {
-          position: fixed;
-          right: var(--pr-space);
-          bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
-          left: var(--pr-space);
-          z-index: 45;
-          width: auto !important;
+          position: relative !important;
+          right: auto !important;
+          bottom: auto !important;
+          left: auto !important;
+          z-index: 10;
+          width: 100% !important;
+          height: var(--pr-action-height) !important;
+          min-height: var(--pr-action-height) !important;
+          border-radius: clamp(0.65rem, 1.5cqw, 0.85rem) !important;
+          font-size: clamp(0.7rem, 2.8cqw, 0.76rem) !important;
+          padding-inline: clamp(0.65rem, 2.5cqw, 1rem) !important;
+          margin-top: clamp(0.35rem, 1cqh, 0.6rem) !important;
+          margin-bottom: 0.15rem !important;
         }
 
-        #m-pr-detail .pr-sub-screen .space-y-3 > :not([hidden]) ~ :not([hidden]) {
-          margin-top: var(--pr-gap) !important;
+        #m-pr-detail .payment-made-cta-btn .payment-btn-icon {
+          font-size: clamp(0.95rem, 2.2cqh, 1.1rem) !important;
         }
       }
     </style>
@@ -2115,9 +2472,9 @@
       <div id="m-view-notifications" class="view-panel flex-1 overflow-y-auto px-3.5 sm:px-4 pt-0 pb-32 sm:pb-36 custom-scroll hidden">
 
         <!-- MOBILE LANDING LIST -->
-        <div id="m-pr-landing" class="max-w-3xl mx-auto w-full space-y-4 pt-3.5">
-          <!-- Top Grouping Tabs & Integrated Search/Filter (Unscrollable Seamless Header) -->
-          <div class="sticky top-0 z-30 pt-1 pb-2.5 flex items-center justify-between gap-2 mb-1 flex-wrap">
+        <div id="m-pr-landing" class="max-w-3xl mx-auto w-full space-y-2.5">
+          <!-- Top Grouping Tabs & Integrated Search/Filter (Pinned Fixed Sticky Header with Solid Background) -->
+          <div class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md -mx-3.5 sm:-mx-4 px-3.5 sm:px-4 pt-3 pb-2.5 flex items-center justify-between gap-2">
             <div class="flex items-center gap-1.5 flex-shrink-0">
               <button id="m-tab-ongoing" onclick="switchPRTab('ongoing')"
                 class="pr-tab-btn h-[34px] px-2.5 sm:px-3.5 rounded-xl font-heading text-xs font-bold transition-all bg-brand-blue text-white shadow-sm flex items-center gap-1.5 cursor-pointer">
@@ -2229,46 +2586,46 @@
           <!-- ================================================================= -->
           <!-- STATE 1: AWAITING PAYMENT (#pr-sub-awaiting)                      -->
           <!-- ================================================================= -->
-          <div id="pr-sub-awaiting" class="pr-sub-screen w-full max-w-[420px] mx-auto hidden pb-6 sm:pb-8">
+          <div id="pr-sub-awaiting" class="pr-sub-screen w-full max-w-[420px] mx-auto hidden pb-4">
             <!-- Header: Clean transparent back button + Title + "Switch role" text + Help + Chat -->
             <div
-              class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-2 sm:px-3 py-1.5 sm:py-2.5 flex items-center justify-between mb-2 sm:mb-3.5 gap-1.5 sm:gap-2">
+              class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-2 sm:px-3 py-2.5 flex items-center justify-between mb-3.5 gap-2">
               <div class="flex items-center gap-2 min-w-0 flex-1">
                 <button type="button" onclick="closePRDetail()"
-                  class="-ml-1 w-7.5 h-7.5 sm:w-8 sm:h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                  class="-ml-1 w-8 h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
                   title="Back to list">
-                  <span class="material-symbols-outlined text-[17px] sm:text-[18px] leading-none select-none">arrow_back</span>
+                  <span class="material-symbols-outlined text-[18px] leading-none select-none">arrow_back</span>
                 </button>
                 <h2 class="text-sm sm:text-base font-bold text-brand-dark dark:text-white font-heading truncate">Awaiting Payment</h2>
 
                 <!-- Plain Text "Switch role" Button -->
                 <button type="button" onclick="switchRoleDemo()"
-                  class="text-[11px] sm:text-xs font-semibold text-neutral-500 dark:text-neutral-400 hover:text-brand-dark dark:hover:text-white cursor-pointer transition-colors underline underline-offset-2 ml-1 select-none flex-shrink-0"
+                  class="text-xs font-semibold text-neutral-500 dark:text-neutral-400 hover:text-brand-dark dark:hover:text-white cursor-pointer transition-colors underline underline-offset-2 ml-1 select-none flex-shrink-0"
                   title="Switch between Buyer and Seller views">Switch role</button>
               </div>
 
               <!-- Right Header Actions: Help Button + Chat Button -->
               <div class="flex items-center gap-1.5 flex-shrink-0">
                 <button type="button" onclick="switchPRSubScreen('help')"
-                  class="w-7.5 h-7.5 sm:w-8 sm:h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                  class="w-8 h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
                   title="Help & Support">
                   <span
-                    class="material-symbols-outlined text-[16px] sm:text-[17px] leading-none select-none text-neutral-600 dark:text-neutral-300">help_outline</span>
+                    class="material-symbols-outlined text-[17px] leading-none select-none text-neutral-600 dark:text-neutral-300">help_outline</span>
                 </button>
                 <button type="button" onclick="openPRChat()"
-                  class="flex items-center gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-brand-green hover:bg-emerald-700 text-white font-bold text-xs font-heading shadow-xs transition-all cursor-pointer active:scale-95 flex-shrink-0"
+                  class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-green hover:bg-emerald-700 text-white font-bold text-xs font-heading shadow-xs transition-all cursor-pointer active:scale-95 flex-shrink-0"
                   title="Open P2P Chat">
-                  <span class="material-symbols-outlined text-[14px] sm:text-[15px]">chat</span>
+                  <span class="material-symbols-outlined text-[15px]">chat</span>
                   <span>Chat</span>
                 </button>
               </div>
             </div>
 
             <!-- ================= BUYER-ONLY VIEW ================= -->
-            <div class="buyer-only space-y-2.5 sm:space-y-3.5 px-2.5 sm:px-4">
+            <div class="buyer-only space-y-4 px-3.5 sm:px-4">
               <!-- 1. Order Amount & 5-State Stepper Card -->
               <div
-                class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-2.5 sm:p-3.5 shadow-2xs">
+                class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3.5 shadow-2xs">
                 <div class="flex items-center justify-between">
                   <div>
                     <span
@@ -2336,10 +2693,10 @@
               <!-- 2. PROCEED TO MAKE PAYMENT (Buyer View) -->
               <div class="pt-1 px-1">
                 <h3
-                  class="text-[13px] font-black tracking-wide uppercase text-brand-dark dark:text-white font-heading mb-3">
+                  class="text-[13px] font-black tracking-wide uppercase text-amber-600 dark:text-amber-400 font-heading mb-2 sm:mb-3">
                   PROCEED TO MAKE PAYMENT</h3>
 
-                <div class="space-y-3">
+                <div class="space-y-1.5 sm:space-y-2">
                   <!-- Order Number -->
                   <div>
                     <span
@@ -2442,47 +2799,46 @@
                   </div>
 
                   <!-- 3. Order Details Pull-Up Trigger (Clean inline text link with horizontally aligned arrow) -->
-                  <div class="pt-1">
+                  <div class="pt-0.5">
                     <button type="button" onclick="openAwaitingOrderDetailsBottomSheet()"
-                      class="inline-flex items-center gap-0.5 text-xs font-bold text-brand-green dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors cursor-pointer select-none group">
+                      class="inline-flex items-center gap-0.5 text-[11.5px] sm:text-xs font-bold text-brand-green dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors cursor-pointer select-none group">
                       <span class="leading-none">Order details</span>
                       <span
-                        class="material-symbols-outlined awaiting-details-arrow-icon text-[18px] text-brand-green dark:text-emerald-400 leading-none inline-flex items-center justify-center origin-center transition-transform duration-300 ease-out select-none">expand_more</span>
+                        class="material-symbols-outlined awaiting-details-arrow-icon text-[17px] text-brand-green dark:text-emerald-400 leading-none inline-flex items-center justify-center origin-center transition-transform duration-300 ease-out select-none">expand_more</span>
                     </button>
                   </div>
-                </div>
-              </div>
 
-              <!-- 4. Bottom Action: I HAVE MADE PAYMENT (Full Width) -->
-              <div class="mt-6 mb-2">
-                <!-- Primary Action CTA with Sliding Loading Animation -->
-                <button type="button" onclick="confirmPaymentMade(this)"
-                  class="payment-made-cta-btn relative overflow-hidden w-full h-[50px] px-5 rounded-2xl bg-brand-green hover:bg-emerald-700 active:scale-[0.98] text-white font-extrabold text-xs sm:text-[13px] font-heading shadow-[0_4px_16px_rgba(46,160,67,0.32)] hover:shadow-[0_6px_20px_rgba(46,160,67,0.45)] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider">
-                  <!-- Sliding Progress Fill Bar (Animates Left to Right) -->
-                  <div
-                    class="payment-btn-progress absolute inset-y-0 left-0 bg-emerald-800/80 dark:bg-emerald-600/80 w-0 transition-all duration-[1200ms] ease-out pointer-events-none rounded-2xl">
+                  <!-- 4. Primary Action: I HAVE MADE PAYMENT (Directly below Order details) -->
+                  <div class="pt-2">
+                    <button type="button" onclick="confirmPaymentMade(this)"
+                      class="payment-made-cta-btn relative overflow-hidden w-full h-[clamp(2.15rem,4.5vh,2.5rem)] px-4 rounded-xl bg-brand-green hover:bg-emerald-700 active:scale-[0.98] text-white font-extrabold text-[11.5px] sm:text-xs font-heading shadow-[0_4px_16px_rgba(46,160,67,0.32)] hover:shadow-[0_6px_20px_rgba(46,160,67,0.45)] transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer uppercase tracking-wider">
+                      <!-- Sliding Progress Fill Bar (Animates Left to Right) -->
+                      <div
+                        class="payment-btn-progress absolute inset-y-0 left-0 bg-emerald-800/80 dark:bg-emerald-600/80 w-0 transition-all duration-[1200ms] ease-out pointer-events-none rounded-xl">
+                      </div>
+                      <!-- Shimmer Light Sweep -->
+                      <div
+                        class="payment-btn-shimmer absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent w-full transition-transform duration-[1200ms] ease-out pointer-events-none">
+                      </div>
+                      <!-- Foreground Text & Icon (Stays crisp & visible on top) -->
+                      <div class="relative z-10 flex items-center justify-center gap-1.5">
+                        <span
+                          class="payment-btn-icon material-symbols-outlined text-[17px] leading-none select-none">check_circle</span>
+                        <span class="payment-btn-text">I Have Made Payment</span>
+                      </div>
+                    </button>
                   </div>
-                  <!-- Shimmer Light Sweep -->
+
+                  <!-- Protection Note with Info Icon (Immediately follows button) -->
                   <div
-                    class="payment-btn-shimmer absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent w-full transition-transform duration-[1200ms] ease-out pointer-events-none">
-                  </div>
-                  <!-- Foreground Text & Icon (Stays crisp & visible on top) -->
-                  <div class="relative z-10 flex items-center justify-center gap-2">
+                    class="pr-protection-note flex items-center justify-center gap-1 text-[10.5px] sm:text-[11px] text-neutral-500 dark:text-neutral-400 font-medium pt-1.5 pb-0.5 text-center select-none">
+                    <span>Your payment is protected by <strong
+                        class="text-brand-dark dark:text-gray-200 font-semibold">PayKudi</strong></span>
                     <span
-                      class="payment-btn-icon material-symbols-outlined text-[19px] leading-none select-none">check_circle</span>
-                    <span class="payment-btn-text">I Have Made Payment</span>
+                      class="material-symbols-outlined text-[13px] text-neutral-400 dark:text-neutral-400 flex-shrink-0 cursor-pointer hover:text-brand-dark dark:hover:text-white transition-colors"
+                      title="Learn more about PayKudi Payment Protection">info</span>
                   </div>
-                </button>
-              </div>
-
-              <!-- Protection Note with Info Icon (Shifted down) -->
-              <div
-                class="flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-3 mb-1 text-center select-none">
-                <span>Your payout is protected by <strong
-                    class="text-brand-dark dark:text-gray-200 font-semibold">PayKudi</strong></span>
-                <span
-                  class="material-symbols-outlined text-[14px] text-neutral-400 dark:text-neutral-400 flex-shrink-0 cursor-pointer hover:text-brand-dark dark:hover:text-white transition-colors"
-                  title="Learn more about PayKudi Payment Protection">info</span>
+                </div>
               </div>
             </div>
 
@@ -2558,7 +2914,7 @@
               <!-- 2. PAYMENT DETAILS (Seller Primary Payout Details) -->
               <div class="pt-1 px-1">
                 <h3
-                  class="text-[13px] font-black tracking-wide uppercase text-brand-dark dark:text-white font-heading mb-3">
+                  class="text-[13px] font-black tracking-wide uppercase text-amber-600 dark:text-amber-400 font-heading mb-3">
                   PAYMENT PENDING FROM BUYER</h3>
 
                 <div class="space-y-3">
@@ -2671,12 +3027,9 @@
                 </div>
               </div>
 
-              <!-- Matching Spacer (Preserves exact vertical positioning identical to buyer view) -->
-              <div class="mt-6 mb-2 h-[50px]"></div>
-
-              <!-- Protection Note with Info Icon (Matches exact position as buyer view) -->
+              <!-- Protection Note with Info Icon (Pinned above bottom navbar) -->
               <div
-                class="flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-3 mb-1 text-center select-none">
+                class="seller-protection-note flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium text-center select-none">
                 <span>Your payout is protected by <strong
                     class="text-brand-dark dark:text-gray-200 font-semibold">PayKudi</strong></span>
                 <span
@@ -2815,7 +3168,7 @@
               <!-- 2. PAYMENT RECEIVED (Buyer View) -->
               <div class="pt-1 px-1">
                 <h3
-                  class="text-[13px] font-black tracking-wide uppercase text-brand-dark dark:text-white font-heading mb-3">
+                  class="text-[13px] font-black tracking-wide uppercase text-brand-blue dark:text-blue-400 font-heading mb-3">
                   PAYMENT RECEIVED</h3>
 
                 <div class="space-y-3">
@@ -2931,12 +3284,9 @@
                 </div>
               </div>
 
-              <!-- Matching Height Spacer (so protection note matches seller position) -->
-              <div class="h-[50px] mt-6 mb-2"></div>
-
-              <!-- Protection Note with Info Icon -->
+              <!-- Protection Note with Info Icon (Pinned to bottom) -->
               <div
-                class="flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-3 mb-1 text-center select-none">
+                class="pr-protection-note flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium text-center select-none">
                 <span>Your payment is protected by <strong
                     class="text-brand-dark dark:text-gray-200 font-semibold">PayKudi</strong></span>
                 <span
@@ -3035,7 +3385,7 @@
               <!-- 2. PAYMENT RECEIVED (Seller View) -->
               <div class="pt-1 px-1">
                 <h3
-                  class="text-[13px] font-black tracking-wide uppercase text-brand-dark dark:text-white font-heading mb-3">
+                  class="text-[13px] font-black tracking-wide uppercase text-brand-blue dark:text-blue-400 font-heading mb-3">
                   PAYMENT RECEIVED</h3>
 
                 <div class="space-y-3">
@@ -3154,12 +3504,9 @@
                 </div>
               </div>
 
-              <!-- 4. Matching Vertical Spacer (Replaces removed Mark Order As Shipped CTA) -->
-              <div class="h-[50px] mt-6 mb-2"></div>
-
-              <!-- Protection Note with Info Icon (Matches exact position as buyer view) -->
+              <!-- Protection Note with Info Icon (Pinned to bottom) -->
               <div
-                class="flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-3 mb-1 text-center select-none">
+                class="pr-protection-note flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium text-center select-none">
                 <span>Your payout is protected by <strong
                     class="text-brand-dark dark:text-gray-200 font-semibold">PayKudi</strong></span>
                 <span
@@ -3309,7 +3656,7 @@
               <!-- 2. SHIPPING DETAILS (Buyer View) -->
               <div class="pt-1 px-1">
                 <h3
-                  class="text-[13px] font-black tracking-wide uppercase text-brand-dark dark:text-white font-heading mb-3">
+                  class="text-[13px] font-black tracking-wide uppercase text-purple-600 dark:text-purple-400 font-heading mb-3">
                   SHIPPING DETAILS</h3>
 
                 <div class="space-y-3">
@@ -3410,12 +3757,9 @@
                 </div>
               </div>
 
-              <!-- Matching Height Spacer (so protection note matches Awaiting / Payment Received position) -->
-              <div class="h-[94px] mt-6 mb-2"></div>
-
-              <!-- Protection Note with Info Icon -->
+              <!-- Protection Note with Info Icon (Pinned to bottom) -->
               <div
-                class="flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-3 mb-1 text-center select-none">
+                class="pr-protection-note flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium text-center select-none">
                 <span>Your payment is protected by <strong
                     class="text-brand-dark dark:text-gray-200 font-semibold">PayKudi</strong></span>
                 <span
@@ -3525,7 +3869,7 @@
               <!-- 2. SHIPPING DETAILS (Seller View) -->
               <div class="pt-1 px-1">
                 <h3
-                  class="text-[13px] font-black tracking-wide uppercase text-brand-dark dark:text-white font-heading mb-3">
+                  class="text-[13px] font-black tracking-wide uppercase text-purple-600 dark:text-purple-400 font-heading mb-3">
                   SHIPPING DETAILS</h3>
 
                 <div class="space-y-3">
@@ -3626,12 +3970,9 @@
                 </div>
               </div>
 
-              <!-- Matching Height Spacer (so protection note matches Awaiting / Payment Received position) -->
-              <div class="h-[94px] mt-6 mb-2"></div>
-
-              <!-- Protection Note with Info Icon -->
+              <!-- Protection Note with Info Icon (Pinned to bottom) -->
               <div
-                class="flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-3 mb-1 text-center select-none">
+                class="pr-protection-note flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium text-center select-none">
                 <span>Your payout is protected by <strong
                     class="text-brand-dark dark:text-gray-200 font-semibold">PayKudi</strong></span>
                 <span
@@ -3644,57 +3985,57 @@
           <!-- ================================================================= -->
           <!-- STATE 4: DELIVERED / CONFIRM DELIVERY (#pr-sub-verify)             -->
           <!-- ================================================================= -->
-          <div id="pr-sub-verify" class="pr-sub-screen w-full max-w-[420px] mx-auto hidden pb-6 sm:pb-8">
+          <div id="pr-sub-verify" class="pr-sub-screen w-full max-w-[420px] mx-auto hidden pb-4">
             <!-- Header: Clean transparent back button + Title + "Switch role" text + Help + Chat -->
             <div
-              class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-2 sm:px-3 py-1.5 sm:py-2.5 flex items-center justify-between mb-2 sm:mb-3.5 gap-1.5 sm:gap-2">
+              class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-2 sm:px-3 py-2.5 flex items-center justify-between mb-3.5 gap-2">
               <div class="flex items-center gap-2 min-w-0 flex-1">
                 <button type="button" onclick="closePRDetail()"
-                  class="-ml-1 w-7.5 h-7.5 sm:w-8 sm:h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                  class="-ml-1 w-8 h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
                   title="Back to list">
-                  <span class="material-symbols-outlined text-[17px] sm:text-[18px] leading-none select-none">arrow_back</span>
+                  <span class="material-symbols-outlined text-[18px] leading-none select-none">arrow_back</span>
                 </button>
                 <h2 class="text-sm sm:text-base font-bold text-brand-dark dark:text-white font-heading truncate">Confirm
                   Delivery</h2>
 
                 <!-- Plain Text "Switch role" Button -->
                 <button type="button" onclick="switchRoleDemo()"
-                  class="text-[11px] sm:text-xs font-semibold text-neutral-500 dark:text-neutral-400 hover:text-brand-dark dark:hover:text-white cursor-pointer transition-colors underline underline-offset-2 ml-1 select-none flex-shrink-0"
+                  class="text-xs font-semibold text-neutral-500 dark:text-neutral-400 hover:text-brand-dark dark:hover:text-white cursor-pointer transition-colors underline underline-offset-2 ml-1 select-none flex-shrink-0"
                   title="Switch between Buyer and Seller views">Switch role</button>
               </div>
 
               <!-- Right Header Actions: Help Button + Chat Button -->
               <div class="flex items-center gap-1.5 flex-shrink-0">
                 <button type="button" onclick="switchPRSubScreen('help')"
-                  class="w-7.5 h-7.5 sm:w-8 sm:h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                  class="w-8 h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
                   title="Help & Support">
                   <span
-                    class="material-symbols-outlined text-[16px] sm:text-[17px] leading-none select-none text-neutral-600 dark:text-neutral-300">help_outline</span>
+                    class="material-symbols-outlined text-[17px] leading-none select-none text-neutral-600 dark:text-neutral-300">help_outline</span>
                 </button>
                 <button type="button" onclick="openPRChat()"
-                  class="flex items-center gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-brand-green hover:bg-emerald-700 text-white font-bold text-xs font-heading shadow-xs transition-all cursor-pointer active:scale-95 flex-shrink-0"
+                  class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-green hover:bg-emerald-700 text-white font-bold text-xs font-heading shadow-xs transition-all cursor-pointer active:scale-95 flex-shrink-0"
                   title="Open P2P Chat">
-                  <span class="material-symbols-outlined text-[14px] sm:text-[15px]">chat</span>
+                  <span class="material-symbols-outlined text-[15px]">chat</span>
                   <span>Chat</span>
                 </button>
               </div>
             </div>
-            <div class="buyer-only space-y-2.5 sm:space-y-3.5 px-2.5 sm:px-4">
+            <div class="buyer-only space-y-4 px-3.5 sm:px-4">
               <!-- 1. Order Amount & 5-State Stepper Card -->
               <div
-                class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-2.5 sm:p-3.5 shadow-2xs">
+                class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3.5 shadow-2xs">
                 <div class="flex items-center justify-between">
                   <div>
                     <span
-                      class="text-[9px] sm:text-[10px] font-bold text-neutral-400 dark:text-neutral-400 uppercase tracking-wider font-heading block">ORDER
+                      class="text-[10px] font-bold text-neutral-400 dark:text-neutral-400 uppercase tracking-wider font-heading block">ORDER
                       AMOUNT</span>
                     <span
-                      class="disp-deal-price text-xl sm:text-2xl font-black text-brand-dark dark:text-white font-heading block mt-0.5 tracking-tight">₦50,000</span>
+                      class="disp-deal-price text-2xl font-black text-brand-dark dark:text-white font-heading block mt-0.5 tracking-tight">₦50,000</span>
                   </div>
                   <button type="button" onclick="openPaymentReceiptModal()"
-                    class="flex items-center gap-1 text-brand-green dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 font-bold text-xs font-heading cursor-pointer transition-all active:scale-95 select-none p-1"
+                    class="flex items-center gap-1.5 text-brand-green dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 font-bold text-xs font-heading cursor-pointer transition-all active:scale-95 select-none p-1"
                     title="View Official Receipt">
-                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current flex-shrink-0" viewBox="0 0 24 24">
+                    <svg class="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 24 24">
                       <path
                         d="M4 2a2 2 0 0 0-2 2v17.5a.5.5 0 0 0 .78.41L6 20.15l3.22 1.76a.5.5 0 0 0 .56 0L13 20.15l3.22 1.76a.5.5 0 0 0 .56 0L20 20.15l3.22 1.76a.5.5 0 0 0 .78-.41V4a2 2 0 0 0-2-2H4zm3 5h10a1 1 0 0 1 0 2H7a1 1 0 1 1 0-2zm0 4h10a1 1 0 0 1 0 2H7a1 1 0 0 1 0-2zm0 4h6a1 1 0 0 1 0 2H7a1 1 0 0 1 0-2z" />
                     </svg>
@@ -3703,14 +4044,14 @@
                 </div>
 
                 <!-- Horizontal Separator & 5 Stepper States -->
-                <div class="border-t border-[#EBE3D5]/80 dark:border-white/10 pt-2 sm:pt-2.5 mt-2 sm:mt-2.5">
+                <div class="border-t border-[#EBE3D5]/80 dark:border-white/10 pt-2.5 mt-2.5">
                   <span
-                    class="text-[9px] sm:text-[10px] font-bold text-neutral-400 dark:text-neutral-400 uppercase tracking-wider font-heading block mb-1 sm:mb-2">ORDER
+                    class="text-[10px] font-bold text-neutral-400 dark:text-neutral-400 uppercase tracking-wider font-heading block mb-2">ORDER
                     STATUS</span>
-                  <div class="relative grid grid-cols-5 gap-0.5 sm:gap-1 text-center">
+                  <div class="relative grid grid-cols-5 gap-1 text-center">
                     <!-- Connector 1 (Yellow to Blue dots) -->
                     <div
-                      class="absolute top-2.5 sm:top-3 left-[10%] w-[20%] -translate-y-1/2 flex items-center justify-evenly px-2 sm:px-3.5 pointer-events-none z-0">
+                      class="absolute top-3 left-[10%] w-[20%] -translate-y-1/2 flex items-center justify-evenly px-3.5 pointer-events-none z-0">
                       <span class="w-1 h-1 rounded-full bg-[#f59e0b]"></span>
                       <span class="w-1 h-1 rounded-full bg-[#c4923e]"></span>
                       <span class="w-1 h-1 rounded-full bg-[#5f8496]"></span>
@@ -3719,7 +4060,7 @@
 
                     <!-- Connector 2 (Blue to Purple dots) -->
                     <div
-                      class="absolute top-2.5 sm:top-3 left-[30%] w-[20%] -translate-y-1/2 flex items-center justify-evenly px-2 sm:px-3.5 pointer-events-none z-0">
+                      class="absolute top-3 left-[30%] w-[20%] -translate-y-1/2 flex items-center justify-evenly px-3.5 pointer-events-none z-0">
                       <span class="w-1 h-1 rounded-full bg-[#0e5296]"></span>
                       <span class="w-1 h-1 rounded-full bg-[#3245b3]"></span>
                       <span class="w-1 h-1 rounded-full bg-[#5739cf]"></span>
@@ -3728,7 +4069,7 @@
 
                     <!-- Connector 3 (Purple to Dark Green dots) -->
                     <div
-                      class="absolute top-2.5 sm:top-3 left-[50%] w-[20%] -translate-y-1/2 flex items-center justify-evenly px-2 sm:px-3.5 pointer-events-none z-0">
+                      class="absolute top-3 left-[50%] w-[20%] -translate-y-1/2 flex items-center justify-evenly px-3.5 pointer-events-none z-0">
                       <span class="w-1 h-1 rounded-full bg-[#7c3aed]"></span>
                       <span class="w-1 h-1 rounded-full bg-[#4e5595]"></span>
                       <span class="w-1 h-1 rounded-full bg-[#1b6348]"></span>
@@ -3736,74 +4077,74 @@
                     </div>
 
                     <!-- Step 1: Payment (Completed) -->
-                    <div class="relative z-10 flex flex-col items-center gap-0.5 sm:gap-1">
+                    <div class="relative z-10 flex flex-col items-center gap-1">
                       <span
-                        class="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-amber-500 text-white flex items-center justify-center text-[9px] sm:text-[10px] font-bold shadow-2xs">
-                        <span class="material-symbols-outlined text-[11px] sm:text-[13px]">check</span>
+                        class="w-6 h-6 rounded-full bg-amber-500 text-white flex items-center justify-center text-[10px] font-bold shadow-2xs">
+                        <span class="material-symbols-outlined text-[13px]">check</span>
                       </span>
                       <span
-                        class="text-[8px] sm:text-[9px] font-bold text-amber-600 dark:text-amber-400 font-heading leading-tight">Payment</span>
+                        class="text-[9px] font-bold text-amber-600 dark:text-amber-400 font-heading leading-tight">Payment</span>
                     </div>
                     <!-- Step 2: Received (Completed) -->
-                    <div class="relative z-10 flex flex-col items-center gap-0.5 sm:gap-1">
+                    <div class="relative z-10 flex flex-col items-center gap-1">
                       <span
-                        class="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-brand-blue text-white flex items-center justify-center text-[9px] sm:text-[10px] font-bold shadow-2xs">
-                        <span class="material-symbols-outlined text-[11px] sm:text-[13px]">check</span>
+                        class="w-6 h-6 rounded-full bg-brand-blue text-white flex items-center justify-center text-[10px] font-bold shadow-2xs">
+                        <span class="material-symbols-outlined text-[13px]">check</span>
                       </span>
                       <span
-                        class="text-[8px] sm:text-[9px] font-bold text-brand-blue dark:text-blue-400 font-heading leading-tight">Received</span>
+                        class="text-[9px] font-bold text-brand-blue dark:text-blue-400 font-heading leading-tight">Received</span>
                     </div>
                     <!-- Step 3: In Transit (Completed) -->
-                    <div class="relative z-10 flex flex-col items-center gap-0.5 sm:gap-1">
+                    <div class="relative z-10 flex flex-col items-center gap-1">
                       <span
-                        class="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-purple-600 text-white flex items-center justify-center text-[9px] sm:text-[10px] font-bold shadow-2xs">
-                        <span class="material-symbols-outlined text-[11px] sm:text-[13px]">check</span>
+                        class="w-6 h-6 rounded-full bg-purple-600 text-white flex items-center justify-center text-[10px] font-bold shadow-2xs">
+                        <span class="material-symbols-outlined text-[13px]">check</span>
                       </span>
                       <span
-                        class="text-[8px] sm:text-[9px] font-bold text-purple-600 dark:text-purple-400 font-heading leading-tight">In
+                        class="text-[9px] font-bold text-purple-600 dark:text-purple-400 font-heading leading-tight">In
                         Transit</span>
                     </div>
                     <!-- Step 4: Delivered (Active & Subtle Fade Glow in Dark Green) -->
-                    <div class="relative z-10 flex flex-col items-center gap-0.5 sm:gap-1">
-                      <div class="relative w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center">
+                    <div class="relative z-10 flex flex-col items-center gap-1">
+                      <div class="relative w-6 h-6 flex items-center justify-center">
                         <span
                           class="absolute inset-0 rounded-full bg-emerald-800/40 dark:bg-emerald-700/40 animate-subtle-glow pointer-events-none"></span>
                         <span
-                          class="relative z-10 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-emerald-800 dark:bg-emerald-700 text-white flex items-center justify-center text-[9px] sm:text-[10px] font-bold shadow-[0_0_8px_rgba(6,95,70,0.45)] ring-1 ring-emerald-800/30">4</span>
+                          class="relative z-10 w-6 h-6 rounded-full bg-emerald-800 dark:bg-emerald-700 text-white flex items-center justify-center text-[10px] font-bold shadow-[0_0_8px_rgba(6,95,70,0.45)] ring-1 ring-emerald-800/30">4</span>
                       </div>
                       <span
-                        class="text-[8px] sm:text-[9px] font-bold text-emerald-800 dark:text-emerald-300 font-heading leading-tight">Delivered</span>
+                        class="text-[9px] font-bold text-emerald-800 dark:text-emerald-300 font-heading leading-tight">Delivered</span>
                     </div>
                     <!-- Step 5: Completed (Pending) -->
-                    <div class="relative z-10 flex flex-col items-center gap-0.5 sm:gap-1 opacity-40">
+                    <div class="relative z-10 flex flex-col items-center gap-1 opacity-40">
                       <span
-                        class="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-neutral-200 dark:bg-white/10 text-neutral-500 dark:text-neutral-400 flex items-center justify-center text-[9px] sm:text-[10px] font-medium">5</span>
+                        class="w-6 h-6 rounded-full bg-neutral-200 dark:bg-white/10 text-neutral-500 dark:text-neutral-400 flex items-center justify-center text-[10px] font-medium">5</span>
                       <span
-                        class="text-[8px] sm:text-[9px] font-medium text-neutral-500 dark:text-neutral-400 font-heading leading-tight">Completed</span>
+                        class="text-[9px] font-medium text-neutral-500 dark:text-neutral-400 font-heading leading-tight">Completed</span>
                     </div>
                   </div>
                 </div>
               </div>
 
               <!-- 2. ORDER DELIVERED (Buyer View) -->
-              <div class="pt-0.5 px-0.5 sm:px-1">
+              <div class="pt-1 px-1">
                 <h3
-                  class="text-[11.5px] sm:text-[13px] font-black tracking-wide uppercase text-brand-dark dark:text-white font-heading mb-1.5 sm:mb-2.5">
+                  class="text-[13px] font-black tracking-wide uppercase text-emerald-800 dark:text-emerald-300 font-heading mb-3">
                   ORDER DELIVERED</h3>
 
-                <div class="space-y-1.5 sm:space-y-2.5">
+                <div class="space-y-3">
                   <!-- Order Number -->
                   <div>
                     <span
-                      class="text-neutral-400 dark:text-neutral-400 text-[10.5px] sm:text-[11.5px] font-medium block leading-none">Order
+                      class="text-neutral-400 dark:text-neutral-400 text-[11.5px] font-medium block leading-none">Order
                       Number</span>
                     <div class="flex items-center justify-between mt-0.5">
                       <span
-                        class="disp-deal-order-num font-bold text-[12.5px] sm:text-[13.5px] text-brand-dark dark:text-white leading-tight">ORD-771920</span>
+                        class="disp-deal-order-num font-bold text-[13.5px] text-brand-dark dark:text-white leading-tight">ORD-771920</span>
                       <button type="button" onclick="copyDynamicValue('disp-deal-order-num', 'Order Number')"
                         class="text-neutral-400 dark:text-neutral-500 hover:text-brand-dark dark:hover:text-white cursor-pointer p-0.5 transition-colors"
                         title="Copy Order Number">
-                        <span class="material-symbols-outlined text-[14px] sm:text-[15px]">content_copy</span>
+                        <span class="material-symbols-outlined text-[15px]">content_copy</span>
                       </button>
                     </div>
                   </div>
@@ -3811,16 +4152,16 @@
                   <!-- Courier Service -->
                   <div>
                     <span
-                      class="text-neutral-400 dark:text-neutral-400 text-[10.5px] sm:text-[11.5px] font-medium block leading-none">Courier
+                      class="text-neutral-400 dark:text-neutral-400 text-[11.5px] font-medium block leading-none">Courier
                       Service</span>
                     <div class="flex items-center justify-between mt-0.5">
                       <span
-                        class="disp-deal-courier font-bold text-[12.5px] sm:text-[13.5px] text-brand-dark dark:text-white leading-tight">GIG
+                        class="disp-deal-courier font-bold text-[13.5px] text-brand-dark dark:text-white leading-tight">GIG
                         Logistics</span>
                       <button type="button" onclick="copyDynamicValue('disp-deal-courier', 'Courier Service')"
                         class="text-neutral-400 dark:text-neutral-500 hover:text-brand-dark dark:hover:text-white cursor-pointer p-0.5 transition-colors"
                         title="Copy Courier Service">
-                        <span class="material-symbols-outlined text-[14px] sm:text-[15px]">content_copy</span>
+                        <span class="material-symbols-outlined text-[15px]">content_copy</span>
                       </button>
                     </div>
                   </div>
@@ -3828,15 +4169,15 @@
                   <!-- Tracking Number -->
                   <div>
                     <span
-                      class="text-neutral-400 dark:text-neutral-400 text-[10.5px] sm:text-[11.5px] font-medium block leading-none">Tracking
+                      class="text-neutral-400 dark:text-neutral-400 text-[11.5px] font-medium block leading-none">Tracking
                       Number</span>
                     <div class="flex items-center justify-between mt-0.5">
                       <span
-                        class="disp-deal-tracking font-mono font-bold text-[12.5px] sm:text-[13.5px] text-brand-dark dark:text-white leading-tight">GIG-NG-8839210</span>
+                        class="disp-deal-tracking font-mono font-bold text-[13.5px] text-brand-dark dark:text-white leading-tight">GIG-NG-8839210</span>
                       <button type="button" onclick="copyDynamicValue('disp-deal-tracking', 'Tracking Number')"
                         class="text-neutral-400 dark:text-neutral-500 hover:text-brand-dark dark:hover:text-white cursor-pointer p-0.5 transition-colors"
                         title="Copy Tracking Number">
-                        <span class="material-symbols-outlined text-[14px] sm:text-[15px]">content_copy</span>
+                        <span class="material-symbols-outlined text-[15px]">content_copy</span>
                       </button>
                     </div>
                   </div>
@@ -3844,11 +4185,11 @@
                   <!-- Delivery Status -->
                   <div>
                     <span
-                      class="text-neutral-400 dark:text-neutral-400 text-[10.5px] sm:text-[11.5px] font-medium block leading-none">Delivery
+                      class="text-neutral-400 dark:text-neutral-400 text-[11.5px] font-medium block leading-none">Delivery
                       Status</span>
                     <div class="flex items-center justify-between mt-0.5">
                       <span
-                        class="disp-deal-est-delivery font-bold text-[12.5px] sm:text-[13.5px] text-brand-green dark:text-emerald-400 leading-tight">Delivered
+                        class="disp-deal-est-delivery font-bold text-[13.5px] text-brand-green dark:text-emerald-400 leading-tight">Delivered
                         Today</span>
                     </div>
                   </div>
@@ -3856,62 +4197,62 @@
                   <!-- Seller's Name -->
                   <div>
                     <span
-                      class="text-neutral-400 dark:text-neutral-400 text-[10.5px] sm:text-[11.5px] font-medium block leading-none">Seller's
+                      class="text-neutral-400 dark:text-neutral-400 text-[11.5px] font-medium block leading-none">Seller's
                       Name</span>
                     <div class="flex items-center justify-between mt-0.5">
                       <span
-                        class="disp-deal-seller font-bold text-[12.5px] sm:text-[13.5px] text-brand-dark dark:text-white leading-tight">Emeka
+                        class="disp-deal-seller font-bold text-[13.5px] text-brand-dark dark:text-white leading-tight">Emeka
                         Tech Hub</span>
                       <button type="button" onclick="copyDynamicValue('disp-deal-seller', 'Seller Name')"
                         class="text-neutral-400 dark:text-neutral-500 hover:text-brand-dark dark:hover:text-white cursor-pointer p-0.5 transition-colors"
                         title="Copy Seller Name">
-                        <span class="material-symbols-outlined text-[14px] sm:text-[15px]">content_copy</span>
+                        <span class="material-symbols-outlined text-[15px]">content_copy</span>
                       </button>
                     </div>
                   </div>
 
                   <!-- 3. Action Triggers: Order details & Shipping status -->
-                  <div class="pt-0.5 flex items-center gap-3.5 sm:gap-4">
+                  <div class="pt-1 flex items-center gap-4">
                     <button type="button" onclick="openAwaitingOrderDetailsBottomSheet()"
-                      class="inline-flex items-center gap-0.5 text-[11px] sm:text-xs font-bold text-brand-green dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors cursor-pointer select-none group">
+                      class="inline-flex items-center gap-0.5 text-xs font-bold text-brand-green dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors cursor-pointer select-none group">
                       <span class="leading-none">Order details</span>
                       <span
-                        class="material-symbols-outlined awaiting-details-arrow-icon text-[16px] sm:text-[18px] text-brand-green dark:text-emerald-400 leading-none inline-flex items-center justify-center origin-center transition-transform duration-300 ease-out select-none">expand_more</span>
+                        class="material-symbols-outlined awaiting-details-arrow-icon text-[18px] text-brand-green dark:text-emerald-400 leading-none inline-flex items-center justify-center origin-center transition-transform duration-300 ease-out select-none">expand_more</span>
                     </button>
 
                     <button type="button" onclick="openShippingStatusBottomSheet()"
-                      class="inline-flex items-center gap-0.5 text-[11px] sm:text-xs font-bold text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors cursor-pointer select-none group">
+                      class="inline-flex items-center gap-0.5 text-xs font-bold text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors cursor-pointer select-none group">
                       <span class="leading-none">Shipping status</span>
                       <span
-                        class="material-symbols-outlined shipping-status-arrow-icon text-[16px] sm:text-[18px] text-purple-600 dark:text-purple-400 leading-none inline-flex items-center justify-center origin-center transition-transform duration-300 ease-out select-none">expand_more</span>
+                        class="material-symbols-outlined shipping-status-arrow-icon text-[18px] text-purple-600 dark:text-purple-400 leading-none inline-flex items-center justify-center origin-center transition-transform duration-300 ease-out select-none">expand_more</span>
                     </button>
                   </div>
                 </div>
               </div>
 
-              <!-- Action Buttons for Buyer: Confirm Delivery & Report Issue -->
-              <div class="pt-1 sm:pt-1.5 flex flex-col gap-2">
+              <!-- Action Buttons for Buyer: Confirm Delivery & Report Issue (Exact Same Size & Typography as I Have Made Payment) -->
+              <div class="pr-action-buttons pt-1 sm:pt-1.5 flex flex-col gap-2">
                 <button onclick="confirmDelivery()" type="button"
-                  class="relative w-full py-2.5 sm:py-3.5 px-4 rounded-xl bg-brand-green hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm font-heading shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95">
-                  <span class="material-symbols-outlined text-[17px] sm:text-[18px]">check_circle</span>
-                  <span>Confirm Delivery</span>
+                  class="pr-confirm-btn relative overflow-hidden w-full h-[clamp(2.15rem,4.5vh,2.5rem)] px-4 rounded-xl bg-brand-green hover:bg-emerald-700 active:scale-[0.98] text-white font-extrabold text-[11.5px] sm:text-xs font-heading shadow-[0_4px_16px_rgba(46,160,67,0.32)] hover:shadow-[0_6px_20px_rgba(46,160,67,0.45)] transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer uppercase tracking-wider">
+                  <span class="material-symbols-outlined text-[17px] leading-none select-none">check_circle</span>
+                  <span class="font-extrabold text-[11.5px] sm:text-xs tracking-wider uppercase">Confirm Delivery</span>
                   <div
-                    class="delivery-countdown-timer absolute right-3 sm:right-3.5 flex items-center gap-1 text-amber-300 font-mono font-black text-[11px] sm:text-[13px] tracking-wider drop-shadow-sm">
+                    class="delivery-countdown-timer absolute right-3 sm:right-3.5 flex items-center gap-1 text-amber-300 font-mono font-black text-[10.5px] sm:text-[11.5px] tracking-wider drop-shadow-sm">
                     <span
-                      class="material-symbols-outlined text-[13px] sm:text-[15px] leading-none text-amber-300 animate-pulse">timer</span>
+                      class="material-symbols-outlined text-[12px] sm:text-[13px] leading-none text-amber-300 animate-pulse">timer</span>
                     <span class="timer-text">59:59</span>
                   </div>
                 </button>
                 <button onclick="openAppealModal()" type="button"
-                  class="w-full py-2 sm:py-2.5 px-4 rounded-xl bg-red-600 hover:bg-red-700 active:scale-95 text-white font-bold text-[11px] sm:text-xs font-heading transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-md">
-                  <span class="material-symbols-outlined text-[14px] sm:text-[16px] text-white leading-none">gavel</span>
-                  <span class="text-white">Report an Issue</span>
+                  class="pr-report-btn relative overflow-hidden w-full h-[clamp(2.15rem,4.5vh,2.5rem)] px-4 rounded-xl bg-red-600 hover:bg-red-700 active:scale-[0.98] text-white font-extrabold text-[11.5px] sm:text-xs font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer uppercase tracking-wider">
+                  <span class="material-symbols-outlined text-[17px] text-white leading-none select-none">gavel</span>
+                  <span class="font-extrabold text-[11.5px] sm:text-xs text-white tracking-wider uppercase">Report an Issue</span>
                 </button>
               </div>
 
               <!-- Protection Note with Info Icon -->
               <div
-                class="flex items-center justify-center gap-1 text-[10.5px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-1 sm:mt-2 mb-1 text-center select-none">
+                class="pr-protection-note flex items-center justify-center gap-1 text-[10.5px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-1 sm:mt-2 mb-1 text-center select-none">
                 <span>Your payment is protected by <strong
                     class="text-brand-dark dark:text-gray-200 font-semibold">PayKudi</strong></span>
                 <span
@@ -3970,7 +4311,7 @@
 
                     <!-- Connector 3 (Purple to Dark Green dots) -->
                     <div
-                      class="absolute top-2.5 sm:top-3 left-[50%] w-[20%] -translate-y-1/2 flex items-center justify-evenly px-2 sm:px-3.5 pointer-events-none z-0">
+                      class="absolute top-3 left-[50%] w-[20%] -translate-y-1/2 flex items-center justify-evenly px-3.5 pointer-events-none z-0">
                       <span class="w-1 h-1 rounded-full bg-[#7c3aed]"></span>
                       <span class="w-1 h-1 rounded-full bg-[#4e5595]"></span>
                       <span class="w-1 h-1 rounded-full bg-[#1b6348]"></span>
@@ -3978,74 +4319,74 @@
                     </div>
 
                     <!-- Step 1: Payment (Completed) -->
-                    <div class="relative z-10 flex flex-col items-center gap-0.5 sm:gap-1">
+                    <div class="relative z-10 flex flex-col items-center gap-1">
                       <span
-                        class="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-amber-500 text-white flex items-center justify-center text-[9px] sm:text-[10px] font-bold shadow-2xs">
-                        <span class="material-symbols-outlined text-[11px] sm:text-[13px]">check</span>
+                        class="w-6 h-6 rounded-full bg-amber-500 text-white flex items-center justify-center text-[10px] font-bold shadow-2xs">
+                        <span class="material-symbols-outlined text-[13px]">check</span>
                       </span>
                       <span
-                        class="text-[8px] sm:text-[9px] font-bold text-amber-600 dark:text-amber-400 font-heading leading-tight">Payment</span>
+                        class="text-[9px] font-bold text-amber-600 dark:text-amber-400 font-heading leading-tight">Payment</span>
                     </div>
                     <!-- Step 2: Received (Completed) -->
-                    <div class="relative z-10 flex flex-col items-center gap-0.5 sm:gap-1">
+                    <div class="relative z-10 flex flex-col items-center gap-1">
                       <span
-                        class="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-brand-blue text-white flex items-center justify-center text-[9px] sm:text-[10px] font-bold shadow-2xs">
-                        <span class="material-symbols-outlined text-[11px] sm:text-[13px]">check</span>
+                        class="w-6 h-6 rounded-full bg-brand-blue text-white flex items-center justify-center text-[10px] font-bold shadow-2xs">
+                        <span class="material-symbols-outlined text-[13px]">check</span>
                       </span>
                       <span
-                        class="text-[8px] sm:text-[9px] font-bold text-brand-blue dark:text-blue-400 font-heading leading-tight">Received</span>
+                        class="text-[9px] font-bold text-brand-blue dark:text-blue-400 font-heading leading-tight">Received</span>
                     </div>
                     <!-- Step 3: In Transit (Completed) -->
-                    <div class="relative z-10 flex flex-col items-center gap-0.5 sm:gap-1">
+                    <div class="relative z-10 flex flex-col items-center gap-1">
                       <span
-                        class="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-purple-600 text-white flex items-center justify-center text-[9px] sm:text-[10px] font-bold shadow-2xs">
-                        <span class="material-symbols-outlined text-[11px] sm:text-[13px]">check</span>
+                        class="w-6 h-6 rounded-full bg-purple-600 text-white flex items-center justify-center text-[10px] font-bold shadow-2xs">
+                        <span class="material-symbols-outlined text-[13px]">check</span>
                       </span>
                       <span
-                        class="text-[8px] sm:text-[9px] font-bold text-purple-600 dark:text-purple-400 font-heading leading-tight">In
+                        class="text-[9px] font-bold text-purple-600 dark:text-purple-400 font-heading leading-tight">In
                         Transit</span>
                     </div>
-                    <!-- Step 4: Delivered (Active in Dark Green) -->
-                    <div class="relative z-10 flex flex-col items-center gap-0.5 sm:gap-1">
-                      <div class="relative w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center">
+                    <!-- Step 4: Delivered (Active & Subtle Fade Glow in Dark Green) -->
+                    <div class="relative z-10 flex flex-col items-center gap-1">
+                      <div class="relative w-6 h-6 flex items-center justify-center">
                         <span
                           class="absolute inset-0 rounded-full bg-emerald-800/40 dark:bg-emerald-700/40 animate-subtle-glow pointer-events-none"></span>
                         <span
-                          class="relative z-10 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-emerald-800 dark:bg-emerald-700 text-white flex items-center justify-center text-[9px] sm:text-[10px] font-bold shadow-[0_0_8px_rgba(6,95,70,0.45)] ring-1 ring-emerald-800/30">4</span>
+                          class="relative z-10 w-6 h-6 rounded-full bg-emerald-800 dark:bg-emerald-700 text-white flex items-center justify-center text-[10px] font-bold shadow-[0_0_8px_rgba(6,95,70,0.45)] ring-1 ring-emerald-800/30">4</span>
                       </div>
                       <span
-                        class="text-[8px] sm:text-[9px] font-bold text-emerald-800 dark:text-emerald-300 font-heading leading-tight">Delivered</span>
+                        class="text-[9px] font-bold text-emerald-800 dark:text-emerald-300 font-heading leading-tight">Delivered</span>
                     </div>
                     <!-- Step 5: Completed (Pending) -->
-                    <div class="relative z-10 flex flex-col items-center gap-0.5 sm:gap-1 opacity-40">
+                    <div class="relative z-10 flex flex-col items-center gap-1 opacity-40">
                       <span
-                        class="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-neutral-200 dark:bg-white/10 text-neutral-500 dark:text-neutral-400 flex items-center justify-center text-[9px] sm:text-[10px] font-medium">5</span>
+                        class="w-6 h-6 rounded-full bg-neutral-200 dark:bg-white/10 text-neutral-500 dark:text-neutral-400 flex items-center justify-center text-[10px] font-medium">5</span>
                       <span
-                        class="text-[8px] sm:text-[9px] font-medium text-neutral-500 dark:text-neutral-400 font-heading leading-tight">Completed</span>
+                        class="text-[9px] font-medium text-neutral-500 dark:text-neutral-400 font-heading leading-tight">Completed</span>
                     </div>
                   </div>
                 </div>
               </div>
 
               <!-- 2. ORDER DELIVERED (Seller View) -->
-              <div class="pt-0.5 px-0.5 sm:px-1">
+              <div class="pt-1 px-1">
                 <h3
-                  class="text-[11.5px] sm:text-[13px] font-black tracking-wide uppercase text-brand-dark dark:text-white font-heading mb-1.5 sm:mb-2.5">
+                  class="text-[13px] font-black tracking-wide uppercase text-emerald-800 dark:text-emerald-300 font-heading mb-3">
                   ORDER DELIVERED</h3>
 
-                <div class="space-y-1.5 sm:space-y-2.5">
+                <div class="space-y-3">
                   <!-- Order Number -->
                   <div>
                     <span
-                      class="text-neutral-400 dark:text-neutral-400 text-[10.5px] sm:text-[11.5px] font-medium block leading-none">Order
+                      class="text-neutral-400 dark:text-neutral-400 text-[11.5px] font-medium block leading-none">Order
                       Number</span>
                     <div class="flex items-center justify-between mt-0.5">
                       <span
-                        class="disp-deal-order-num font-bold text-[12.5px] sm:text-[13.5px] text-brand-dark dark:text-white leading-tight">ORD-884910</span>
+                        class="disp-deal-order-num font-bold text-[13.5px] text-brand-dark dark:text-white leading-tight">ORD-884910</span>
                       <button type="button" onclick="copyDynamicValue('disp-deal-order-num', 'Order Number')"
                         class="text-neutral-400 dark:text-neutral-500 hover:text-brand-dark dark:hover:text-white cursor-pointer p-0.5 transition-colors"
                         title="Copy Order Number">
-                        <span class="material-symbols-outlined text-[14px] sm:text-[15px]">content_copy</span>
+                        <span class="material-symbols-outlined text-[15px]">content_copy</span>
                       </button>
                     </div>
                   </div>
@@ -4053,15 +4394,15 @@
                   <!-- Payout Amount (Order Amount minus Payout Fee) -->
                   <div>
                     <span
-                      class="text-neutral-400 dark:text-neutral-400 text-[10.5px] sm:text-[11.5px] font-medium block leading-none">Payout
+                      class="text-neutral-400 dark:text-neutral-400 text-[11.5px] font-medium block leading-none">Payout
                       Amount</span>
                     <div class="flex items-center justify-between mt-0.5">
                       <span
-                        class="disp-seller-net-payout font-bold text-[12.5px] sm:text-[13.5px] text-brand-green dark:text-emerald-400 leading-tight">₦49,950</span>
+                        class="disp-seller-net-payout font-bold text-[13.5px] text-brand-green dark:text-emerald-400 leading-tight">₦49,950</span>
                       <button type="button" onclick="copyDynamicValue('disp-seller-net-payout', 'Payout Amount')"
                         class="text-neutral-400 dark:text-neutral-500 hover:text-brand-dark dark:hover:text-white cursor-pointer p-0.5 transition-colors"
                         title="Copy Payout Amount">
-                        <span class="material-symbols-outlined text-[14px] sm:text-[15px]">content_copy</span>
+                        <span class="material-symbols-outlined text-[15px]">content_copy</span>
                       </button>
                     </div>
                   </div>
@@ -4069,14 +4410,14 @@
                   <!-- Bank (Primary Payout - Locked/Blurred in Confirm Delivery) -->
                   <div>
                     <span
-                      class="text-neutral-400 dark:text-neutral-400 text-[10.5px] sm:text-[11.5px] font-medium block leading-none">Bank
+                      class="text-neutral-400 dark:text-neutral-400 text-[11.5px] font-medium block leading-none">Bank
                       <strong class="font-bold text-neutral-500 dark:text-neutral-300">(Primary Payout)</strong></span>
                     <div class="flex items-center justify-between mt-0.5">
                       <span
-                        class="disp-seller-bank-name font-bold text-[12.5px] sm:text-[13.5px] text-brand-dark dark:text-white leading-tight">Access
+                        class="disp-seller-bank-name font-bold text-[13.5px] text-brand-dark dark:text-white leading-tight">Access
                         Bank</span>
                       <span
-                        class="text-[11px] sm:text-xs font-bold text-neutral-400 dark:text-neutral-500 opacity-40 blur-[0.4px] cursor-not-allowed select-none p-0.5"
+                        class="text-xs font-bold text-neutral-400 dark:text-neutral-500 opacity-40 blur-[0.4px] cursor-not-allowed select-none p-0.5"
                         title="Payout account cannot be changed during active delivery">Change</span>
                     </div>
                   </div>
@@ -4084,16 +4425,16 @@
                   <!-- Account Name -->
                   <div>
                     <span
-                      class="text-neutral-400 dark:text-neutral-400 text-[10.5px] sm:text-[11.5px] font-medium block leading-none">Account
+                      class="text-neutral-400 dark:text-neutral-400 text-[11.5px] font-medium block leading-none">Account
                       Name</span>
                     <div class="flex items-center justify-between mt-0.5">
                       <span
-                        class="disp-seller-acc-name font-bold text-[12.5px] sm:text-[13.5px] text-brand-dark dark:text-white leading-tight">Emeka
+                        class="disp-seller-acc-name font-bold text-[13.5px] text-brand-dark dark:text-white leading-tight">Emeka
                         Tech Hub</span>
                       <button type="button" onclick="copyDynamicValue('disp-seller-acc-name', 'Account Name')"
                         class="text-neutral-400 dark:text-neutral-500 hover:text-brand-dark dark:hover:text-white cursor-pointer p-0.5 transition-colors"
                         title="Copy Account Name">
-                        <span class="material-symbols-outlined text-[14px] sm:text-[15px]">content_copy</span>
+                        <span class="material-symbols-outlined text-[15px]">content_copy</span>
                       </button>
                     </div>
                   </div>
@@ -4101,50 +4442,50 @@
                   <!-- Account Number -->
                   <div>
                     <span
-                      class="text-neutral-400 dark:text-neutral-400 text-[10.5px] sm:text-[11.5px] font-medium block leading-none">Account
+                      class="text-neutral-400 dark:text-neutral-400 text-[11.5px] font-medium block leading-none">Account
                       Number</span>
                     <div class="flex items-center justify-between mt-0.5">
                       <span
-                        class="disp-seller-acc-num font-mono font-bold text-[12.5px] sm:text-[13.5px] text-brand-dark dark:text-white leading-tight">0123456789</span>
+                        class="disp-seller-acc-num font-mono font-bold text-[13.5px] text-brand-dark dark:text-white leading-tight">0123456789</span>
                       <button type="button" onclick="copyDynamicValue('disp-seller-acc-num', 'Account Number')"
                         class="text-neutral-400 dark:text-neutral-500 hover:text-brand-dark dark:hover:text-white cursor-pointer p-0.5 transition-colors"
                         title="Copy Account Number">
-                        <span class="material-symbols-outlined text-[14px] sm:text-[15px]">content_copy</span>
+                        <span class="material-symbols-outlined text-[15px]">content_copy</span>
                       </button>
                     </div>
                   </div>
 
                   <!-- 3. Action Triggers: Order details & Shipping status -->
-                  <div class="pt-0.5 flex items-center gap-3.5 sm:gap-4">
+                  <div class="pt-1 flex items-center gap-4">
                     <button type="button" onclick="openAwaitingOrderDetailsBottomSheet()"
-                      class="inline-flex items-center gap-0.5 text-[11px] sm:text-xs font-bold text-brand-green dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors cursor-pointer select-none group">
+                      class="inline-flex items-center gap-0.5 text-xs font-bold text-brand-green dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors cursor-pointer select-none group">
                       <span class="leading-none">Order details</span>
                       <span
-                        class="material-symbols-outlined awaiting-details-arrow-icon text-[16px] sm:text-[18px] text-brand-green dark:text-emerald-400 leading-none inline-flex items-center justify-center origin-center transition-transform duration-300 ease-out select-none">expand_more</span>
+                        class="material-symbols-outlined awaiting-details-arrow-icon text-[18px] text-brand-green dark:text-emerald-400 leading-none inline-flex items-center justify-center origin-center transition-transform duration-300 ease-out select-none">expand_more</span>
                     </button>
 
                     <button type="button" onclick="openShippingStatusBottomSheet()"
-                      class="inline-flex items-center gap-0.5 text-[11px] sm:text-xs font-bold text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors cursor-pointer select-none group">
+                      class="inline-flex items-center gap-0.5 text-xs font-bold text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors cursor-pointer select-none group">
                       <span class="leading-none">Shipping status</span>
                       <span
-                        class="material-symbols-outlined shipping-status-arrow-icon text-[16px] sm:text-[18px] text-purple-600 dark:text-purple-400 leading-none inline-flex items-center justify-center origin-center transition-transform duration-300 ease-out select-none">expand_more</span>
+                        class="material-symbols-outlined shipping-status-arrow-icon text-[18px] text-purple-600 dark:text-purple-400 leading-none inline-flex items-center justify-center origin-center transition-transform duration-300 ease-out select-none">expand_more</span>
                     </button>
                   </div>
                 </div>
               </div>
 
-              <!-- Seller Notice & Report Button Action -->
-              <div class="pt-1 sm:pt-1.5 flex flex-col justify-end gap-2">
-                <button type="button" onclick="openAppealModal()"
-                  class="w-full py-2.5 sm:py-3.5 px-4 rounded-xl bg-red-600 hover:bg-red-700 active:scale-95 text-white font-bold text-xs sm:text-sm font-heading shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer">
-                  <span class="material-symbols-outlined text-[16px] sm:text-[18px] text-white">gavel</span>
-                  <span>Report an Issue</span>
+              <!-- Action Button for Seller: Report Issue (Exact Same Size & Typography as I Have Made Payment) -->
+              <div class="pr-action-buttons pt-1 sm:pt-1.5 flex flex-col gap-2">
+                <button onclick="openAppealModal()" type="button"
+                  class="pr-report-btn relative overflow-hidden w-full h-[clamp(2.15rem,4.5vh,2.5rem)] px-4 rounded-xl bg-red-600 hover:bg-red-700 active:scale-[0.98] text-white font-extrabold text-[11.5px] sm:text-xs font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer uppercase tracking-wider">
+                  <span class="material-symbols-outlined text-[17px] text-white leading-none select-none">gavel</span>
+                  <span class="font-extrabold text-[11.5px] sm:text-xs text-white tracking-wider uppercase">Report an Issue</span>
                 </button>
               </div>
 
               <!-- Protection Note with Info Icon -->
               <div
-                class="flex items-center justify-center gap-1 text-[10.5px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-1 sm:mt-2 mb-1 text-center select-none">
+                class="pr-protection-note flex items-center justify-center gap-1 text-[10.5px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-1 sm:mt-2 mb-1 text-center select-none">
                 <span>Your payout is protected by <strong
                     class="text-brand-dark dark:text-gray-200 font-semibold">PayKudi</strong></span>
                 <span
@@ -4462,7 +4803,7 @@
                 <!-- Section Header: DISPUTE TRAILS + Timer Badge -->
                 <div class="flex items-center justify-between mb-3">
                   <h3
-                    class="text-[13px] font-black tracking-wide uppercase text-brand-dark dark:text-white font-heading">
+                    class="text-[13px] font-black tracking-wide uppercase text-red-600 dark:text-red-400 font-heading">
                     DISPUTE TRAILS</h3>
                   <div
                     class="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-red-500/10 dark:bg-red-500/20 text-red-600 dark:text-red-400 font-mono font-bold text-xs border border-red-500/20 shadow-2xs select-none">
@@ -4550,14 +4891,14 @@
 
               <!-- 4. BOTTOM ACTION BUTTON & PROTECTION NOTE: ROLE-SPECIFIC -->
               <!-- Buyer Role View: Submit More Proof + Payment Protection -->
-              <div class="buyer-only pt-2 flex flex-col gap-2.5">
+              <div class="buyer-only pt-1 sm:pt-1.5 flex flex-col gap-2">
                 <button onclick="openProvideMoreInfoModal('buyer')" type="button"
-                  class="w-full py-3.5 px-4 rounded-xl bg-red-600 hover:bg-red-700 active:scale-98 text-white font-bold text-sm font-heading shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer">
-                  <span class="material-symbols-outlined text-[18px]">add_photo_alternate</span>
-                  <span>Submit more proof</span>
+                  class="pr-proof-btn relative overflow-hidden w-full h-[clamp(2.15rem,4.5vh,2.5rem)] px-4 rounded-xl bg-red-600 hover:bg-red-700 active:scale-[0.98] text-white font-extrabold text-[11.5px] sm:text-xs font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer uppercase tracking-wider">
+                  <span class="material-symbols-outlined text-[17px] text-white leading-none select-none">add_photo_alternate</span>
+                  <span class="font-extrabold text-[11.5px] sm:text-xs text-white tracking-wider uppercase">Submit More Proof</span>
                 </button>
                 <div
-                  class="flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-1 mb-1 text-center select-none">
+                  class="pr-protection-note flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium text-center select-none">
                   <span>Your payment is protected by <strong
                       class="text-brand-dark dark:text-gray-200 font-semibold">PayKudi</strong></span>
                   <span
@@ -4567,14 +4908,14 @@
               </div>
 
               <!-- Seller Role View: Submit Counter Proof + Payout Protection -->
-              <div class="seller-only pt-2 flex flex-col gap-2.5">
+              <div class="seller-only pt-1 sm:pt-1.5 flex flex-col gap-2">
                 <button onclick="openProvideMoreInfoModal('seller')" type="button"
-                  class="w-full py-3.5 px-4 rounded-xl bg-red-600 hover:bg-red-700 active:scale-98 text-white font-bold text-sm font-heading shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer">
-                  <span class="material-symbols-outlined text-[18px]">add_photo_alternate</span>
-                  <span>Submit counter proof</span>
+                  class="pr-proof-btn relative overflow-hidden w-full h-[clamp(2.15rem,4.5vh,2.5rem)] px-4 rounded-xl bg-red-600 hover:bg-red-700 active:scale-[0.98] text-white font-extrabold text-[11.5px] sm:text-xs font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer uppercase tracking-wider">
+                  <span class="material-symbols-outlined text-[17px] text-white leading-none select-none">add_photo_alternate</span>
+                  <span class="font-extrabold text-[11.5px] sm:text-xs text-white tracking-wider uppercase">Submit Counter Proof</span>
                 </button>
                 <div
-                  class="flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-1 mb-1 text-center select-none">
+                  class="pr-protection-note flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium text-center select-none">
                   <span>Your payout is protected by <strong
                       class="text-brand-dark dark:text-gray-200 font-semibold">PayKudi</strong></span>
                   <span
@@ -4747,7 +5088,7 @@
               <!-- 2. COMPLETED (Buyer View) -->
               <div class="pt-1 px-1">
                 <h3
-                  class="text-[13px] font-black tracking-wide uppercase text-brand-dark dark:text-white font-heading mb-3">
+                  class="text-[13px] font-black tracking-wide uppercase text-emerald-600 dark:text-emerald-400 font-heading mb-3">
                   COMPLETED</h3>
 
                 <div class="space-y-3">
@@ -4815,12 +5156,9 @@
                 </div>
               </div>
 
-              <!-- Matching Height Spacer -->
-              <div class="h-[50px] mt-6 mb-2"></div>
-
-              <!-- Protection Note with Info Icon -->
+              <!-- Protection Note with Info Icon (Pinned to bottom) -->
               <div
-                class="flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-3 mb-1 text-center select-none">
+                class="pr-protection-note flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium text-center select-none">
                 <span>Your payment is protected by <strong
                     class="text-brand-dark dark:text-gray-200 font-semibold">PayKudi</strong></span>
                 <span
@@ -4952,7 +5290,7 @@
               <!-- 2. COMPLETED (Seller View) -->
               <div class="pt-1 px-1">
                 <h3
-                  class="text-[13px] font-black tracking-wide uppercase text-brand-dark dark:text-white font-heading mb-3">
+                  class="text-[13px] font-black tracking-wide uppercase text-emerald-600 dark:text-emerald-400 font-heading mb-3">
                   COMPLETED</h3>
 
                 <div class="space-y-3">
@@ -5064,12 +5402,9 @@
                 </div>
               </div>
 
-              <!-- 4. Matching Vertical Spacer -->
-              <div class="h-[50px] mt-6 mb-2"></div>
-
-              <!-- Protection Note with Info Icon -->
+              <!-- Protection Note with Info Icon (Pinned to bottom) -->
               <div
-                class="flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-3 mb-1 text-center select-none">
+                class="pr-protection-note flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium text-center select-none">
                 <span>Your payout is protected by <strong
                     class="text-brand-dark dark:text-gray-200 font-semibold">PayKudi</strong></span>
                 <span
@@ -6340,10 +6675,10 @@
                 <div id="d-pr-sub-awaiting" class="pr-sub-screen w-full hidden pb-4">
               <!-- Header: Clean transparent back button + Title + "Switch role" text + Help + Chat -->
               <div
-                class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-0 py-2 flex items-center justify-between mb-3 gap-2">
+                class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-1 py-2 flex items-center justify-between mb-3 gap-2">
                 <div class="flex items-center gap-2 min-w-0 flex-1">
                   <button type="button" onclick="closePRDetail()"
-                    class="-ml-1 w-8 h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-8 h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Back to list">
                     <span class="material-symbols-outlined text-[18px] leading-none select-none">arrow_back</span>
                   </button>
@@ -6439,7 +6774,7 @@
                 <!-- 2. PROCEED TO MAKE PAYMENT (Buyer View) -->
                 <div class="pt-1 px-1">
                   <h3
-                    class="text-[13px] font-black tracking-wide uppercase text-brand-dark dark:text-white font-heading mb-3">
+                    class="text-[13px] font-black tracking-wide uppercase text-amber-600 dark:text-amber-400 font-heading mb-3">
                     PROCEED TO MAKE PAYMENT</h3>
 
                   <div class="space-y-3">
@@ -6553,39 +6888,35 @@
                           class="material-symbols-outlined awaiting-details-arrow-icon text-[18px] text-brand-green dark:text-emerald-400 leading-none inline-flex items-center justify-center origin-center transition-transform duration-300 ease-out select-none">expand_more</span>
                       </button>
                     </div>
-                  </div>
-                </div>
 
-                <!-- 4. Bottom Action: I HAVE MADE PAYMENT (Full Width) -->
-                <div class="mt-6 mb-2">
-                  <!-- Primary Action CTA with Sliding Loading Animation -->
-                  <button type="button" onclick="confirmPaymentMade(this)"
-                    class="payment-made-cta-btn relative overflow-hidden w-full h-[50px] px-5 rounded-2xl bg-brand-green hover:bg-emerald-700 active:scale-[0.98] text-white font-extrabold text-xs sm:text-[13px] font-heading shadow-[0_4px_16px_rgba(46,160,67,0.32)] hover:shadow-[0_6px_20px_rgba(46,160,67,0.45)] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider">
-                    <!-- Sliding Progress Fill Bar (Animates Left to Right) -->
-                    <div
-                      class="payment-btn-progress absolute inset-y-0 left-0 bg-emerald-800/80 dark:bg-emerald-600/80 w-0 transition-all duration-[1200ms] ease-out pointer-events-none rounded-2xl">
+                    <!-- 4. Primary Action: I HAVE MADE PAYMENT (Directly below Order details) -->
+                    <div class="pt-3">
+                      <button type="button" onclick="confirmPaymentMade(this)"
+                        class="payment-made-cta-btn relative overflow-hidden w-full h-[48px] px-5 rounded-2xl bg-brand-green hover:bg-emerald-700 active:scale-[0.98] text-white font-extrabold text-xs sm:text-[13px] font-heading shadow-[0_4px_16px_rgba(46,160,67,0.32)] hover:shadow-[0_6px_20px_rgba(46,160,67,0.45)] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider">
+                        <div
+                          class="payment-btn-progress absolute inset-y-0 left-0 bg-emerald-800/80 dark:bg-emerald-600/80 w-0 transition-all duration-[1200ms] ease-out pointer-events-none rounded-2xl">
+                        </div>
+                        <div
+                          class="payment-btn-shimmer absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent w-full transition-transform duration-[1200ms] ease-out pointer-events-none">
+                        </div>
+                        <div class="relative z-10 flex items-center justify-center gap-2">
+                          <span
+                            class="payment-btn-icon material-symbols-outlined text-[19px] leading-none select-none">check_circle</span>
+                          <span class="payment-btn-text">I Have Made Payment</span>
+                        </div>
+                      </button>
                     </div>
-                    <!-- Shimmer Light Sweep -->
+
+                    <!-- Protection Note with Info Icon (Cleanly follows right after button) -->
                     <div
-                      class="payment-btn-shimmer absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent w-full transition-transform duration-[1200ms] ease-out pointer-events-none">
-                    </div>
-                    <!-- Foreground Text & Icon (Stays crisp & visible on top) -->
-                    <div class="relative z-10 flex items-center justify-center gap-2">
+                      class="pr-protection-note flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium pt-2 pb-0.5 text-center select-none">
+                      <span>Your payment is protected by <strong
+                          class="text-brand-dark dark:text-gray-200 font-semibold">PayKudi</strong></span>
                       <span
-                        class="payment-btn-icon material-symbols-outlined text-[19px] leading-none select-none">check_circle</span>
-                      <span class="payment-btn-text">I Have Made Payment</span>
+                        class="material-symbols-outlined text-[14px] text-neutral-400 dark:text-neutral-400 flex-shrink-0 cursor-pointer hover:text-brand-dark dark:hover:text-white transition-colors"
+                        title="Learn more about PayKudi Payment Protection">info</span>
                     </div>
-                  </button>
-                </div>
-
-                <!-- Protection Note with Info Icon (Shifted down) -->
-                <div
-                  class="flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-3 mb-1 text-center select-none">
-                  <span>Your payout is protected by <strong
-                      class="text-brand-dark dark:text-gray-200 font-semibold">PayKudi</strong></span>
-                  <span
-                    class="material-symbols-outlined text-[14px] text-neutral-400 dark:text-neutral-400 flex-shrink-0 cursor-pointer hover:text-brand-dark dark:hover:text-white transition-colors"
-                    title="Learn more about PayKudi Payment Protection">info</span>
+                  </div>
                 </div>
               </div>
 
@@ -6661,7 +6992,7 @@
                 <!-- 2. PAYMENT DETAILS (Seller Primary Payout Details) -->
                 <div class="pt-1 px-1">
                   <h3
-                    class="text-[13px] font-black tracking-wide uppercase text-brand-dark dark:text-white font-heading mb-3">
+                    class="text-[13px] font-black tracking-wide uppercase text-amber-600 dark:text-amber-400 font-heading mb-3">
                     PAYMENT PENDING FROM BUYER</h3>
 
                   <div class="space-y-3">
@@ -6775,12 +7106,9 @@
                   </div>
                 </div>
 
-                <!-- Matching Spacer (Preserves exact vertical positioning identical to buyer view) -->
-                <div class="mt-6 mb-2 h-[50px]"></div>
-
-                <!-- Protection Note with Info Icon (Matches exact position as buyer view) -->
+                <!-- Protection Note with Info Icon (Pinned above bottom navbar) -->
                 <div
-                  class="flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-3 mb-1 text-center select-none">
+                  class="seller-protection-note flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium text-center select-none">
                   <span>Your payout is protected by <strong
                       class="text-brand-dark dark:text-gray-200 font-semibold">PayKudi</strong></span>
                   <span
@@ -6797,10 +7125,10 @@
             <div id="d-pr-sub-received" class="pr-sub-screen w-full hidden pb-4">
               <!-- Header: Clean transparent back button + Title + "Switch role" text + Help + Chat -->
               <div
-                class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-0 py-2 flex items-center justify-between mb-3 gap-2">
+                class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-1 py-2 flex items-center justify-between mb-3 gap-2">
                 <div class="flex items-center gap-2 min-w-0 flex-1">
                   <button type="button" onclick="closePRDetail()"
-                    class="-ml-1 w-8 h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-8 h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Back to list">
                     <span class="material-symbols-outlined text-[18px] leading-none select-none">arrow_back</span>
                   </button>
@@ -6914,7 +7242,7 @@
                 <!-- 2. PAYMENT RECEIVED (Buyer View) -->
                 <div class="pt-1 px-1">
                   <h3
-                    class="text-[13px] font-black tracking-wide uppercase text-brand-dark dark:text-white font-heading mb-3">
+                    class="text-[13px] font-black tracking-wide uppercase text-brand-blue dark:text-blue-400 font-heading mb-3">
                     PAYMENT RECEIVED</h3>
 
                   <div class="space-y-3">
@@ -7031,12 +7359,9 @@
                   </div>
                 </div>
 
-                <!-- Matching Height Spacer (so protection note matches seller position) -->
-                <div class="h-[50px] mt-6 mb-2"></div>
-
-                <!-- Protection Note with Info Icon -->
+                <!-- Protection Note with Info Icon (Pinned to bottom) -->
                 <div
-                  class="flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-3 mb-1 text-center select-none">
+                  class="pr-protection-note flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium text-center select-none">
                   <span>Your payout is protected by <strong
                       class="text-brand-dark dark:text-gray-200 font-semibold">PayKudi</strong></span>
                   <span
@@ -7135,7 +7460,7 @@
                 <!-- 2. PAYMENT RECEIVED (Seller View) -->
                 <div class="pt-1 px-1">
                   <h3
-                    class="text-[13px] font-black tracking-wide uppercase text-brand-dark dark:text-white font-heading mb-3">
+                    class="text-[13px] font-black tracking-wide uppercase text-brand-blue dark:text-blue-400 font-heading mb-3">
                     PAYMENT RECEIVED</h3>
 
                   <div class="space-y-3">
@@ -7257,12 +7582,9 @@
                   </div>
                 </div>
 
-                <!-- 4. Matching Vertical Spacer (Replaces removed Mark Order As Shipped CTA) -->
-                <div class="h-[50px] mt-6 mb-2"></div>
-
-                <!-- Protection Note with Info Icon (Matches exact position as buyer view) -->
+                <!-- Protection Note with Info Icon (Pinned to bottom) -->
                 <div
-                  class="flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-3 mb-1 text-center select-none">
+                  class="pr-protection-note flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-3 mb-1 text-center select-none">
                   <span>Your payout is protected by <strong
                       class="text-brand-dark dark:text-gray-200 font-semibold">PayKudi</strong></span>
                   <span
@@ -7278,10 +7600,10 @@
             <div id="d-pr-sub-transit" class="pr-sub-screen w-full hidden pb-4">
               <!-- Header: Clean transparent back button + Title + "Switch role" text + Help + Chat -->
               <div
-                class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-0 py-2 flex items-center justify-between mb-3 gap-2">
+                class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-1 py-2 flex items-center justify-between mb-3 gap-2">
                 <div class="flex items-center gap-2 min-w-0 flex-1">
                   <button type="button" onclick="closePRDetail()"
-                    class="-ml-1 w-8 h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-8 h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Back to list">
                     <span class="material-symbols-outlined text-[18px] leading-none select-none">arrow_back</span>
                   </button>
@@ -7406,7 +7728,7 @@
                 <!-- 2. SHIPPING DETAILS (Buyer View) -->
                 <div class="pt-1 px-1">
                   <h3
-                    class="text-[13px] font-black tracking-wide uppercase text-brand-dark dark:text-white font-heading mb-3">
+                    class="text-[13px] font-black tracking-wide uppercase text-purple-600 dark:text-purple-400 font-heading mb-3">
                     SHIPPING DETAILS</h3>
 
                   <div class="space-y-3">
@@ -7507,12 +7829,9 @@
                   </div>
                 </div>
 
-                <!-- Matching Height Spacer (so protection note matches Awaiting / Payment Received position) -->
-                <div class="h-[94px] mt-6 mb-2"></div>
-
-                <!-- Protection Note with Info Icon -->
+                <!-- Protection Note with Info Icon (Pinned to bottom) -->
                 <div
-                  class="flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-3 mb-1 text-center select-none">
+                  class="pr-protection-note flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium text-center select-none">
                   <span>Your payout is protected by <strong
                       class="text-brand-dark dark:text-gray-200 font-semibold">PayKudi</strong></span>
                   <span
@@ -7622,7 +7941,7 @@
                 <!-- 2. SHIPPING DETAILS (Seller View) -->
                 <div class="pt-1 px-1">
                   <h3
-                    class="text-[13px] font-black tracking-wide uppercase text-brand-dark dark:text-white font-heading mb-3">
+                    class="text-[13px] font-black tracking-wide uppercase text-purple-600 dark:text-purple-400 font-heading mb-3">
                     SHIPPING DETAILS</h3>
 
                   <div class="space-y-3">
@@ -7723,12 +8042,9 @@
                   </div>
                 </div>
 
-                <!-- Matching Height Spacer (so protection note matches Awaiting / Payment Received position) -->
-                <div class="h-[94px] mt-6 mb-2"></div>
-
-                <!-- Protection Note with Info Icon -->
+                <!-- Protection Note with Info Icon (Pinned to bottom) -->
                 <div
-                  class="flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-3 mb-1 text-center select-none">
+                  class="pr-protection-note flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium text-center select-none">
                   <span>Your payout is protected by <strong
                       class="text-brand-dark dark:text-gray-200 font-semibold">PayKudi</strong></span>
                   <span
@@ -7744,10 +8060,10 @@
             <div id="d-pr-sub-verify" class="pr-sub-screen w-full hidden pb-4">
               <!-- Header: Clean transparent back button + Title + "Switch role" text + Help -->
               <div
-                class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-0 py-2 flex items-center justify-between mb-3 gap-2">
+                class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-1 py-2 flex items-center justify-between mb-3 gap-2">
                 <div class="flex items-center gap-2 min-w-0 flex-1">
                   <button type="button" onclick="closePRDetail()"
-                    class="-ml-1 w-8 h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-8 h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Back to list">
                     <span class="material-symbols-outlined text-[18px] leading-none select-none">arrow_back</span>
                   </button>
@@ -7881,7 +8197,7 @@
                 <!-- 2. ORDER DELIVERED (Buyer View) -->
                 <div class="pt-1 px-1">
                   <h3
-                    class="text-[13px] font-black tracking-wide uppercase text-brand-dark dark:text-white font-heading mb-3">
+                    class="text-[13px] font-black tracking-wide uppercase text-emerald-800 dark:text-emerald-300 font-heading mb-3">
                     ORDER DELIVERED</h3>
 
                   <div class="space-y-3">
@@ -7982,29 +8298,29 @@
                   </div>
                 </div>
 
-                <!-- Action Buttons for Buyer: Confirm Delivery & Report Issue -->
-                <div class="pt-2 flex flex-col gap-2.5">
+                <!-- Action Buttons for Buyer: Confirm Delivery & Report Issue (Exact Same Size & Typography as I Have Made Payment) -->
+                <div class="pr-action-buttons pt-2 flex flex-col gap-2.5">
                   <button onclick="confirmDelivery()" type="button"
-                    class="relative w-full py-3.5 px-4 rounded-xl bg-brand-green hover:bg-emerald-700 text-white font-bold text-sm font-heading shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95">
-                    <span class="material-symbols-outlined text-[18px]">check_circle</span>
-                    <span>Confirm Delivery</span>
+                    class="pr-confirm-btn relative overflow-hidden w-full h-[48px] px-5 rounded-2xl bg-brand-green hover:bg-emerald-700 active:scale-[0.98] text-white font-extrabold text-xs sm:text-[13px] font-heading shadow-[0_4px_16px_rgba(46,160,67,0.32)] hover:shadow-[0_6px_20px_rgba(46,160,67,0.45)] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider">
+                    <span class="material-symbols-outlined text-[19px] leading-none select-none">check_circle</span>
+                    <span class="font-extrabold text-xs sm:text-[13px] tracking-wider uppercase">Confirm Delivery</span>
                     <div
                       class="delivery-countdown-timer absolute right-3.5 flex items-center gap-1 text-amber-300 font-mono font-black text-xs sm:text-[13px] tracking-wider drop-shadow-sm">
                       <span
-                        class="material-symbols-outlined text-[15px] leading-none text-amber-300 animate-pulse">timer</span>
+                        class="material-symbols-outlined text-[14px] sm:text-[15px] leading-none text-amber-300 animate-pulse">timer</span>
                       <span class="timer-text">59:59</span>
                     </div>
                   </button>
                   <button onclick="openAppealModal()" type="button"
-                    class="w-full py-3 px-4 rounded-xl bg-red-600 hover:bg-red-700 active:scale-95 text-white font-bold text-xs font-heading transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-md">
-                    <span class="material-symbols-outlined text-[16px] text-white leading-none">gavel</span>
-                    <span class="text-white">Report an Issue</span>
+                    class="pr-report-btn relative overflow-hidden w-full h-[48px] px-5 rounded-2xl bg-red-600 hover:bg-red-700 active:scale-[0.98] text-white font-extrabold text-xs sm:text-[13px] font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider">
+                    <span class="material-symbols-outlined text-[19px] text-white leading-none select-none">gavel</span>
+                    <span class="font-extrabold text-xs sm:text-[13px] text-white tracking-wider uppercase">Report an Issue</span>
                   </button>
                 </div>
 
                 <!-- Protection Note with Info Icon -->
                 <div
-                  class="flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-3 mb-1 text-center select-none">
+                  class="pr-protection-note flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-3 mb-1 text-center select-none">
                   <span>Your payment is protected by <strong
                       class="text-brand-dark dark:text-gray-200 font-semibold">PayKudi</strong></span>
                   <span
@@ -8123,7 +8439,7 @@
                 <!-- 2. ORDER DELIVERED TO BUYER (Seller View) -->
                 <div class="pt-1 px-1">
                   <h3
-                    class="text-[13px] font-black tracking-wide uppercase text-brand-dark dark:text-white font-heading mb-3">
+                    class="text-[13px] font-black tracking-wide uppercase text-emerald-800 dark:text-emerald-300 font-heading mb-3">
                     ORDER DELIVERED TO BUYER</h3>
 
                   <div class="space-y-3">
@@ -8208,18 +8524,18 @@
                   </div>
                 </div>
 
-                <!-- Action Button for Seller: Report Issue -->
-                <div class="pt-2">
+                <!-- Action Button for Seller: Report Issue (Exact Same Size & Typography as I Have Made Payment) -->
+                <div class="pr-action-buttons pt-2 flex flex-col gap-2.5">
                   <button onclick="openAppealModal()" type="button"
-                    class="w-full py-3.5 px-4 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs font-heading shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95">
-                    <span class="material-symbols-outlined text-[16px] text-white">gavel</span>
-                    <span>Report an Issue</span>
+                    class="pr-report-btn relative overflow-hidden w-full h-[48px] px-5 rounded-2xl bg-red-600 hover:bg-red-700 active:scale-[0.98] text-white font-extrabold text-xs sm:text-[13px] font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider">
+                    <span class="material-symbols-outlined text-[19px] text-white leading-none select-none">gavel</span>
+                    <span class="font-extrabold text-xs sm:text-[13px] text-white tracking-wider uppercase">Report an Issue</span>
                   </button>
                 </div>
 
                 <!-- Protection Note with Info Icon -->
                 <div
-                  class="flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-3 mb-1 text-center select-none">
+                  class="pr-protection-note flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-3 mb-1 text-center select-none">
                   <span>Your payout is protected by <strong
                       class="text-brand-dark dark:text-gray-200 font-semibold">PayKudi</strong></span>
                   <span
@@ -8286,14 +8602,6 @@
                 </p>
               </div>
 
-              <!-- Bottom Appeal Button -->
-              <div class="pt-4 sticky bottom-2 z-30">
-                <button type="button" onclick="openAppealModal()"
-                  class="w-full py-3.5 px-4 rounded-xl paykudi-btn-primary text-sm font-bold font-heading shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98">
-                  <span class="material-symbols-outlined text-[18px]">gavel</span>
-                  <span>Appeal</span>
-                </button>
-              </div>
             </div>
 
             <!-- SUB-ROOM 3: APPEAL / FILE DISPUTE -->
@@ -8402,10 +8710,10 @@
             <div id="d-pr-sub-progress" class="pr-sub-screen w-full hidden pb-4">
               <!-- 1. Header: Clean transparent back button + Title + "Switch role" text + Help + Chat -->
               <div
-                class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-0 py-2 flex items-center justify-between mb-3 gap-2">
+                class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-1 py-2 flex items-center justify-between mb-3 gap-2">
                 <div class="flex items-center gap-2 min-w-0 flex-1">
                   <button type="button" onclick="closePRDetail()"
-                    class="-ml-1 w-8 h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-8 h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Back to list">
                     <span class="material-symbols-outlined text-[18px] leading-none select-none">arrow_back</span>
                   </button>
@@ -8515,7 +8823,7 @@
                   <!-- Section Header: DISPUTE TRAILS + Timer Badge -->
                   <div class="flex items-center justify-between mb-3">
                     <h3
-                      class="text-[13px] font-black tracking-wide uppercase text-brand-dark dark:text-white font-heading">
+                      class="text-[13px] font-black tracking-wide uppercase text-red-600 dark:text-red-400 font-heading">
                       DISPUTE TRAILS</h3>
                     <div
                       class="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-red-500/10 dark:bg-red-500/20 text-red-600 dark:text-red-400 font-mono font-bold text-xs border border-red-500/20 shadow-2xs select-none">
@@ -8606,12 +8914,12 @@
                 <!-- Buyer Role View: Submit More Proof + Payment Protection -->
                 <div class="buyer-only pt-2 flex flex-col gap-2.5">
                   <button onclick="openProvideMoreInfoModal('buyer')" type="button"
-                    class="w-full py-3.5 px-4 rounded-xl bg-red-600 hover:bg-red-700 active:scale-98 text-white font-bold text-sm font-heading shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer">
-                    <span class="material-symbols-outlined text-[18px]">add_photo_alternate</span>
-                    <span>Submit more proof</span>
+                    class="pr-proof-btn relative overflow-hidden w-full h-[48px] px-5 rounded-2xl bg-red-600 hover:bg-red-700 active:scale-[0.98] text-white font-extrabold text-xs sm:text-[13px] font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider">
+                    <span class="material-symbols-outlined text-[19px] text-white leading-none select-none">add_photo_alternate</span>
+                    <span class="font-extrabold text-xs sm:text-[13px] text-white tracking-wider uppercase">Submit More Proof</span>
                   </button>
                   <div
-                    class="flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-1 mb-1 text-center select-none">
+                    class="pr-protection-note flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-1 mb-1 text-center select-none">
                     <span>Your payment is protected by <strong
                         class="text-brand-dark dark:text-gray-200 font-semibold">PayKudi</strong></span>
                     <span
@@ -8623,12 +8931,12 @@
                 <!-- Seller Role View: Submit Counter Proof + Payout Protection -->
                 <div class="seller-only pt-2 flex flex-col gap-2.5">
                   <button onclick="openProvideMoreInfoModal('seller')" type="button"
-                    class="w-full py-3.5 px-4 rounded-xl bg-red-600 hover:bg-red-700 active:scale-98 text-white font-bold text-sm font-heading shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer">
-                    <span class="material-symbols-outlined text-[18px]">add_photo_alternate</span>
-                    <span>Submit counter proof</span>
+                    class="pr-proof-btn relative overflow-hidden w-full h-[48px] px-5 rounded-2xl bg-red-600 hover:bg-red-700 active:scale-[0.98] text-white font-extrabold text-xs sm:text-[13px] font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider">
+                    <span class="material-symbols-outlined text-[19px] text-white leading-none select-none">add_photo_alternate</span>
+                    <span class="font-extrabold text-xs sm:text-[13px] text-white tracking-wider uppercase">Submit Counter Proof</span>
                   </button>
                   <div
-                    class="flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-1 mb-1 text-center select-none">
+                    class="pr-protection-note flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-1 mb-1 text-center select-none">
                     <span>Your payout is protected by <strong
                         class="text-brand-dark dark:text-gray-200 font-semibold">PayKudi</strong></span>
                     <span
@@ -8645,10 +8953,10 @@
             <div id="d-pr-sub-completed" class="pr-sub-screen w-full hidden pb-4">
               <!-- Header: Clean transparent back button + Title + "Switch role" text + Help + Chat -->
               <div
-                class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-0 py-2 flex items-center justify-between mb-3 gap-2">
+                class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-1 py-2 flex items-center justify-between mb-3 gap-2">
                 <div class="flex items-center gap-2 min-w-0 flex-1">
                   <button type="button" onclick="closePRDetail()"
-                    class="-ml-1 w-8 h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-8 h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Back to list">
                     <span class="material-symbols-outlined text-[18px] leading-none select-none">arrow_back</span>
                   </button>
@@ -8795,7 +9103,7 @@
                 <!-- 2. COMPLETED (Buyer View) -->
                 <div class="pt-1 px-1">
                   <h3
-                    class="text-[13px] font-black tracking-wide uppercase text-brand-dark dark:text-white font-heading mb-3">
+                    class="text-[13px] font-black tracking-wide uppercase text-emerald-600 dark:text-emerald-400 font-heading mb-3">
                     COMPLETED</h3>
 
                   <div class="space-y-3">
@@ -8863,12 +9171,9 @@
                   </div>
                 </div>
 
-                <!-- Matching Height Spacer -->
-                <div class="h-[50px] mt-6 mb-2"></div>
-
-                <!-- Protection Note with Info Icon -->
+                <!-- Protection Note with Info Icon (Pinned to bottom) -->
                 <div
-                  class="flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-3 mb-1 text-center select-none">
+                  class="pr-protection-note flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium text-center select-none">
                   <span>Your payment is protected by <strong
                       class="text-brand-dark dark:text-gray-200 font-semibold">PayKudi</strong></span>
                   <span
@@ -9000,7 +9305,7 @@
                 <!-- 2. COMPLETED (Seller View) -->
                 <div class="pt-1 px-1">
                   <h3
-                    class="text-[13px] font-black tracking-wide uppercase text-brand-dark dark:text-white font-heading mb-3">
+                    class="text-[13px] font-black tracking-wide uppercase text-emerald-600 dark:text-emerald-400 font-heading mb-3">
                     COMPLETED</h3>
 
                   <div class="space-y-3">
@@ -9113,12 +9418,9 @@
                   </div>
                 </div>
 
-                <!-- 4. Matching Vertical Spacer -->
-                <div class="h-[50px] mt-6 mb-2"></div>
-
-                <!-- Protection Note with Info Icon -->
+                <!-- Protection Note with Info Icon (Pinned to bottom) -->
                 <div
-                  class="flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-3 mb-1 text-center select-none">
+                  class="pr-protection-note flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium text-center select-none">
                   <span>Your payout is protected by <strong
                       class="text-brand-dark dark:text-gray-200 font-semibold">PayKudi</strong></span>
                   <span
@@ -11487,21 +11789,21 @@
 
           var roleColor = isBuying ? 'text-brand-green dark:text-emerald-400' : 'text-red-600 dark:text-red-400';
 
-          return '<button type="button" onclick="openPRDetail(\'' + deal.id + '\')" class="w-full text-left p-3.5 sm:p-4 bg-white dark:bg-[#181A20] border border-gray-200/80 dark:border-white/10 rounded-2xl shadow-2xs hover:shadow-xs transition-all cursor-pointer flex flex-col gap-2 group focus:outline-none">' +
+          return '<button type="button" onclick="openPRDetail(\'' + deal.id + '\')" class="pr-room-card w-full text-left p-3.5 sm:p-4 bg-white dark:bg-[#181A20] border border-gray-200/80 dark:border-white/10 rounded-2xl shadow-2xs hover:shadow-xs transition-all cursor-pointer flex flex-col gap-2 group focus:outline-none">' +
             '<!-- Top Row: Buying / Selling Label (Sentence case, Green/Red) -->' +
             '<div class="flex items-center justify-between gap-2">' +
-            '<span class="text-xs font-bold font-heading ' + roleColor + '">' + roleText + '</span>' +
+            '<span class="pr-room-role text-xs font-bold font-heading ' + roleColor + '">' + roleText + '</span>' +
             '</div>' +
 
             '<!-- Main Row: Product Name & Price (Black -> White in Dark Mode) -->' +
             '<div class="flex items-start justify-between gap-3">' +
-            '<h4 class="text-sm sm:text-base font-bold text-brand-dark dark:text-white truncate font-heading leading-tight group-hover:text-brand-blue dark:group-hover:text-blue-400 transition-colors">' + deal.title + '</h4>' +
-            '<span class="text-sm sm:text-base font-black text-brand-dark dark:text-white font-heading whitespace-nowrap flex-shrink-0">' + deal.price + '</span>' +
+            '<h4 class="pr-room-title text-sm sm:text-base font-bold text-brand-dark dark:text-white truncate font-heading leading-tight group-hover:text-brand-blue dark:group-hover:text-blue-400 transition-colors">' + deal.title + '</h4>' +
+            '<span class="pr-room-price text-sm sm:text-base font-black text-brand-dark dark:text-white font-heading whitespace-nowrap flex-shrink-0">' + deal.price + '</span>' +
             '</div>' +
 
             '<!-- Seller\'s Name Row (Label Gray, Name Black -> White in Dark Mode) -->' +
             '<div>' +
-            '<p class="text-xs text-neutral-500 dark:text-neutral-400 font-medium truncate">' +
+            '<p class="pr-room-meta text-xs text-neutral-500 dark:text-neutral-400 font-medium truncate">' +
             '<span>' + counterpartyLabel + '</span>' +
             '<strong class="text-brand-dark dark:text-white font-bold">' + counterpartyName + '</strong>' +
             '</p>' +
@@ -11509,8 +11811,8 @@
 
             '<!-- Bottom Row: Date/Time (Gray) & Plain Text Status (in distinct state color) -->' +
             '<div class="flex items-center justify-between gap-2 pt-0.5">' +
-            '<span class="text-[11.5px] text-neutral-400 dark:text-neutral-500 font-medium truncate">' + dateTime + '</span>' +
-            '<span class="text-xs font-bold font-heading whitespace-nowrap ' + statusColor + '">' + statusText + '</span>' +
+            '<span class="pr-room-date text-[11.5px] text-neutral-400 dark:text-neutral-500 font-medium truncate">' + dateTime + '</span>' +
+            '<span class="pr-room-status text-xs font-bold font-heading whitespace-nowrap ' + statusColor + '">' + statusText + '</span>' +
             '</div>' +
             '</button>';
         }).join('');
@@ -11544,6 +11846,12 @@
       // Ensure the payment room view is active on both mobile and desktop
       switchView('notifications', true);
 
+      var mNotif = document.getElementById('m-view-notifications');
+      if (mNotif) mNotif.classList.add('is-pr-active');
+
+      var mBottomNav = document.getElementById('m-bottom-nav');
+      if (mBottomNav) mBottomNav.classList.add('pr-nav-hidden');
+
       var mLanding = document.getElementById('m-pr-landing') || document.getElementById('m-pr-list-view');
       var mDetail = document.getElementById('m-pr-detail');
       if (mLanding) mLanding.classList.add('hidden');
@@ -11558,6 +11866,12 @@
     }
 
     function closePRDetail() {
+      var mNotif = document.getElementById('m-view-notifications');
+      if (mNotif) mNotif.classList.remove('is-pr-active');
+
+      var mBottomNav = document.getElementById('m-bottom-nav');
+      if (mBottomNav) mBottomNav.classList.remove('pr-nav-hidden');
+
       var mLanding = document.getElementById('m-pr-landing') || document.getElementById('m-pr-list-view');
       var mDetail = document.getElementById('m-pr-detail');
       if (mLanding) mLanding.classList.remove('hidden');
@@ -12170,6 +12484,9 @@
         return;
       }
       currentPRSubScreen = screenName;
+
+      var mNotif = document.getElementById('m-view-notifications');
+      if (mNotif) mNotif.classList.add('is-pr-active');
 
       // The list of all possible sub-states
       const states = ['awaiting', 'received', 'transit', 'verify', 'progress', 'completed', 'help', 'appeal', 'overview'];
