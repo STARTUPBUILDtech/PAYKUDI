@@ -95,6 +95,14 @@
         font-size: 14px;
       }
 
+      /* Specific mobile override for compact Payment Room search bar */
+      #m-pr-search {
+        font-size: 11px !important;
+      }
+      #m-pr-search::placeholder {
+        font-size: 11px !important;
+      }
+
       #m-act-day, #m-pr-date-day {
         width: 22px !important;
       }
@@ -2205,7 +2213,7 @@
         </div>
 
         <!-- SCROLLABLE LOWER CONTENT: Recent Activity Feed + Special Offers Promo Carousel -->
-        <div class="flex-1 flex flex-col overflow-y-auto custom-scroll [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden pt-2.5 pb-28">
+        <div class="flex-1 flex flex-col overflow-y-auto custom-scroll [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden pt-2.5 pb-24">
 
           <!-- Recent Activity Feed (Top 3 Activities) -->
           <div class="px-4 pt-1 space-y-3">
@@ -2693,7 +2701,7 @@
       </div>
 
       <!-- VIEW 4: PAYMENT ROOM MOBILE -->
-      <div id="m-view-notifications" class="view-panel flex-1 overflow-y-auto px-3.5 sm:px-4 pt-0 pb-32 sm:pb-36 custom-scroll hidden">
+      <div id="m-view-notifications" class="view-panel flex-1 overflow-y-auto px-3.5 sm:px-4 pt-0 pb-24 custom-scroll hidden">
 
         <!-- MOBILE LANDING LIST -->
         <div id="m-pr-landing" class="max-w-3xl mx-auto w-full space-y-2.5">
@@ -5612,7 +5620,7 @@
       </div>
 
       <!-- VIEW 5: PROFILE MOBILE (KUDA-INSPIRED ACCOUNT DETAILS & HUB) -->
-      <div id="m-view-profile" class="view-panel flex-1 overflow-y-auto px-4 pt-0 pb-28 space-y-4 custom-scroll hidden">
+      <div id="m-view-profile" class="view-panel flex-1 overflow-y-auto px-4 pt-0 pb-24 space-y-4 custom-scroll hidden">
 
         <!-- Header: Profile (Centered Title, Flush with Top Header) -->
         <div
@@ -5937,36 +5945,36 @@
         </div>
       </div>
 
-      <!-- Docked Bottom Navigation Bar (Mobile) -->
+      <!-- Floating Bottom Navigation Bar (Mobile) -->
       <nav id="m-bottom-nav"
-        class="fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-[#181A20]/95 backdrop-blur-xl border-t border-[#EBE3D5] dark:border-white/10 shadow-[0_-4px_24px_rgba(0,0,0,0.04)] px-6 pt-2.5 pb-4 sm:pb-3 flex justify-between items-center z-[9999] max-w-lg mx-auto select-none pointer-events-auto">
+        class="fixed bottom-4 inset-x-4 max-w-[390px] mx-auto bg-white/92 dark:bg-[#181A20]/92 backdrop-blur-2xl border border-[#EBE3D5] dark:border-white/15 rounded-[26px] shadow-[0_12px_36px_-6px_rgba(16,43,27,0.18)] dark:shadow-[0_16px_40px_rgba(0,0,0,0.65)] px-4 py-2 flex justify-between items-center z-[9999] select-none pointer-events-auto transition-all">
         <button onclick="switchView('home')" id="m-nav-home"
-          class="nav-bottom-link text-brand-blue flex flex-col items-center gap-0.5 font-bold transition-colors cursor-pointer"
+          class="nav-bottom-link text-brand-blue dark:text-emerald-400 flex flex-col items-center gap-0.5 font-bold transition-all cursor-pointer px-2 py-1 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 active:scale-95"
           data-target="home">
-          <span class="material-symbols-outlined text-[24px]">dashboard</span>
+          <span class="material-symbols-outlined text-[23px]">dashboard</span>
           <span class="text-[10px] font-heading">Dashboard</span>
         </button>
         <button onclick="switchView('activity')" id="m-nav-activity"
-          class="nav-bottom-link text-gray-500 dark:text-neutral-400 hover:text-brand-blue dark:hover:text-white flex flex-col items-center gap-0.5 transition-colors cursor-pointer"
+          class="nav-bottom-link text-gray-500 dark:text-neutral-400 hover:text-brand-blue dark:hover:text-white flex flex-col items-center gap-0.5 transition-all cursor-pointer px-2 py-1 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 active:scale-95"
           data-target="activity">
-          <span class="material-symbols-outlined text-[24px]">analytics</span>
+          <span class="material-symbols-outlined text-[23px]">analytics</span>
           <span class="text-[10px] font-heading">Activity</span>
         </button>
         <button onclick="switchView('notifications')" id="m-nav-notifications"
-          class="nav-bottom-link text-gray-500 dark:text-neutral-400 hover:text-brand-blue dark:hover:text-white flex flex-col items-center gap-0.5 transition-colors relative cursor-pointer"
+          class="nav-bottom-link text-gray-500 dark:text-neutral-400 hover:text-brand-blue dark:hover:text-white flex flex-col items-center gap-0.5 transition-all relative cursor-pointer px-2 py-1 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 active:scale-95"
           data-target="notifications">
           <div class="relative inline-flex items-center justify-center">
-            <span class="material-symbols-outlined text-[24px]">payments</span>
+            <span class="material-symbols-outlined text-[23px]">payments</span>
             <span id="m-pr-nav-badge"
               class="absolute -top-1 -right-2 bg-brand-blue text-white rounded-full text-[9px] font-extrabold w-4 h-4 flex items-center justify-center border-2 border-white dark:border-[#181A20] shadow-xs">2</span>
           </div>
           <span class="text-[10px] font-heading">Payment Room</span>
         </button>
         <button onclick="switchView('profile')" id="m-nav-profile"
-          class="nav-bottom-link text-gray-500 dark:text-neutral-400 hover:text-brand-blue dark:hover:text-white flex flex-col items-center gap-0.5 transition-colors cursor-pointer"
+          class="nav-bottom-link text-gray-500 dark:text-neutral-400 hover:text-brand-blue dark:hover:text-white flex flex-col items-center gap-0.5 transition-all cursor-pointer px-2 py-1 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 active:scale-95"
           data-target="profile">
           <div class="flex items-center gap-1">
-            <span class="material-symbols-outlined text-[22px]">person</span>
+            <span class="material-symbols-outlined text-[21px]">person</span>
             <i class="fa-brands fa-whatsapp text-emerald-500 text-[12px]"></i>
           </div>
           <span class="text-[10px] font-heading">Profile</span>
@@ -10216,10 +10224,161 @@
   </div>
 
   <script>
+    /* =========================================================================
+       PHONE / BROWSER BACK BUTTON & MODAL/VIEW HISTORY MANAGER
+       ========================================================================= */
+    var appViewHistory = ['home'];
+
+    function pushAppModalState(modalId) {
+      try {
+        window.history.pushState({ type: 'overlay', id: modalId, time: Date.now() }, '');
+      } catch (e) {}
+    }
+
+    function closeTopmostActiveModal() {
+      // 1. P2P Chat drawer
+      var chatDrawer = document.getElementById('pr-chat-drawer');
+      if (chatDrawer && !chatDrawer.classList.contains('closed')) {
+        if (typeof closePRChat === 'function') { closePRChat(); return true; }
+      }
+
+      // 2. Counter proof modal
+      var counterProofModal = document.getElementById('counter-proof-modal');
+      if (counterProofModal && !counterProofModal.classList.contains('hidden') && counterProofModal.style.display !== 'none') {
+        if (typeof closeCounterProofModal === 'function') { closeCounterProofModal(); return true; }
+      }
+
+      // 3. More proof modal
+      var proofModal = document.getElementById('more-proof-modal');
+      if (proofModal && !proofModal.classList.contains('hidden') && proofModal.style.display !== 'none') {
+        if (typeof closeMoreProofModal === 'function') { closeMoreProofModal(); return true; }
+      }
+
+      // 4. Appeal modal
+      var appealModal = document.getElementById('appeal-bottom-sheet-modal');
+      if (appealModal && !appealModal.classList.contains('hidden') && appealModal.style.display !== 'none') {
+        if (typeof closeAppealModal === 'function') { closeAppealModal(); return true; }
+      }
+
+      // 5. Shipping details modal
+      var shipDetailsModal = document.getElementById('shipping-details-modal');
+      if (shipDetailsModal && !shipDetailsModal.classList.contains('hidden') && shipDetailsModal.style.display !== 'none') {
+        if (typeof closeShippingDetailsModal === 'function') { closeShippingDetailsModal(); return true; }
+      }
+
+      // 6. Payment receipt modal
+      var payReceiptModal = document.getElementById('payment-receipt-modal');
+      if (payReceiptModal && !payReceiptModal.classList.contains('hidden') && !payReceiptModal.classList.contains('invisible') && payReceiptModal.style.display !== 'none') {
+        if (typeof closePaymentReceiptModal === 'function') { closePaymentReceiptModal(); return true; }
+      }
+
+      // 7. Shipping status bottom sheet
+      var shipStatusSheet = document.getElementById('shipping-status-modal');
+      if (shipStatusSheet && !shipStatusSheet.classList.contains('hidden') && shipStatusSheet.style.display !== 'none') {
+        if (typeof closeShippingStatusBottomSheet === 'function') { closeShippingStatusBottomSheet(); return true; }
+      }
+
+      // 8. Awaiting order details bottom sheet
+      var awaitingSheet = document.getElementById('awaiting-order-details-modal');
+      if (awaitingSheet && !awaitingSheet.classList.contains('hidden') && awaitingSheet.style.display !== 'none') {
+        if (typeof closeAwaitingOrderDetailsBottomSheet === 'function') { closeAwaitingOrderDetailsBottomSheet(); return true; }
+      }
+
+      // 9. Order help bottom sheet modal
+      var orderHelpModal = document.getElementById('order-help-bottom-sheet-modal');
+      if (orderHelpModal && !orderHelpModal.classList.contains('hidden') && orderHelpModal.style.display !== 'none') {
+        if (typeof closeOrderHelpModal === 'function') { closeOrderHelpModal(); return true; }
+      }
+
+      // 10. Order details modal (dispute ongoing)
+      var orderDetailsModal = document.getElementById('order-details-modal');
+      if (orderDetailsModal && !orderDetailsModal.classList.contains('hidden') && orderDetailsModal.style.display !== 'none') {
+        if (typeof closeOrderDetailsModal === 'function') { closeOrderDetailsModal(); return true; }
+      }
+
+      // 11. Generic Action Modal
+      var actionModal = document.getElementById('action-modal');
+      if (actionModal && !actionModal.classList.contains('hidden') && actionModal.style.display !== 'none') {
+        if (typeof closeActionModal === 'function') { closeActionModal(); return true; }
+      }
+
+      // 12. Activity receipt modal
+      var actReceiptModal = document.getElementById('activity-receipt-modal');
+      if (actReceiptModal && !actReceiptModal.classList.contains('hidden') && actReceiptModal.style.display !== 'none') {
+        if (typeof closeActivityReceipt === 'function') { closeActivityReceipt(); return true; }
+      }
+
+      // 13. Help modal
+      var helpModal = document.getElementById('help-bottom-sheet-modal');
+      if (helpModal && !helpModal.classList.contains('hidden') && helpModal.style.display !== 'none') {
+        if (typeof closeHelpModal === 'function') { closeHelpModal(); return true; }
+      }
+
+      // 14. Any open dropdown menus
+      var activeDropdowns = document.querySelectorAll('[id$="-pr-custom-dropdown-menu"]:not(.hidden), [id$="-custom-dropdown-menu"]:not(.hidden), .custom-select-wrapper.active');
+      if (activeDropdowns.length > 0) {
+        activeDropdowns.forEach(function (d) {
+          d.classList.add('hidden');
+          d.classList.remove('active');
+        });
+        return true;
+      }
+
+      return false;
+    }
+
+    // Phone / Browser Back Button Event Listener
+    window.addEventListener('popstate', function (event) {
+      // 1. If any modal/sheet/drawer is active -> close it
+      if (closeTopmostActiveModal()) {
+        return;
+      }
+
+      // 2. If Payment Room detail is open on Mobile -> close detail and return to orders list
+      var mDetail = document.getElementById('m-pr-detail');
+      if (mDetail && !mDetail.classList.contains('hidden') && mDetail.style.display !== 'none') {
+        if (typeof closePRDetail === 'function') {
+          closePRDetail();
+          return;
+        }
+      }
+
+      // 3. Navigate back to previous view in app history
+      if (event.state && event.state.view) {
+        switchView(event.state.view, false, true);
+        return;
+      }
+
+      var hash = (window.location.hash || '').replace('#', '').trim();
+      if (hash && ['home', 'activity', 'withdrawals', 'profile', 'notifications', 'payment-room', 'help'].includes(hash)) {
+        switchView(hash, false, true);
+        return;
+      }
+
+      if (appViewHistory && appViewHistory.length > 1) {
+        appViewHistory.pop(); // remove current view
+        var prevView = appViewHistory[appViewHistory.length - 1] || 'home';
+        switchView(prevView, false, true);
+      }
+    });
+
     // Seamless Instant SPA View Switching System
-    function switchView(targetView, keepDetailOpen) {
+    function switchView(targetView, keepDetailOpen, fromPopState) {
       if (targetView === 'payment-room' || targetView === 'payment_room' || targetView === 'paymentroom') {
         targetView = 'notifications';
+      }
+
+      // Track view history if navigating forward
+      if (!fromPopState) {
+        if (!appViewHistory) appViewHistory = ['home'];
+        if (appViewHistory[appViewHistory.length - 1] !== targetView) {
+          appViewHistory.push(targetView);
+        }
+        try {
+          if (window.location.protocol !== 'file:') {
+            window.history.pushState({ type: 'view', view: targetView }, '', '#' + targetView);
+          }
+        } catch (e) {}
       }
 
       // Show/Hide External Mobile Top Header (Hidden on Home/Dashboard, visible on other views)
@@ -10274,16 +10433,16 @@
       const bottomNavLinks = document.querySelectorAll('.nav-bottom-link');
       bottomNavLinks.forEach(link => {
         if (link.getAttribute('data-target') === targetView) {
-          link.className = "nav-bottom-link text-brand-blue flex flex-col items-center gap-0.5 font-bold transition-colors";
+          link.className = "nav-bottom-link text-brand-blue dark:text-emerald-400 flex flex-col items-center gap-0.5 font-bold transition-all cursor-pointer px-2 py-1 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 active:scale-95";
         } else {
-          link.className = "nav-bottom-link text-gray-500 hover:text-brand-blue flex flex-col items-center gap-0.5 transition-colors";
+          link.className = "nav-bottom-link text-gray-500 dark:text-neutral-400 hover:text-brand-blue dark:hover:text-white flex flex-col items-center gap-0.5 transition-all cursor-pointer px-2 py-1 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 active:scale-95";
         }
       });
 
       // Sync Hash
       try {
         if (window.location.protocol !== 'file:') {
-          window.history.replaceState(null, null, `#${targetView}`);
+          window.history.replaceState({ type: 'view', view: targetView }, null, `#${targetView}`);
         }
       } catch (e) {
         // Safe fallback for local file:// protocol
@@ -10318,14 +10477,14 @@
     window.addEventListener('DOMContentLoaded', function () {
       const hash = (window.location.hash || '').replace('#', '').trim();
       if (hash && ['home', 'activity', 'withdrawals', 'profile', 'notifications', 'payment-room', 'help'].includes(hash)) {
-        switchView(hash);
+        switchView(hash, false, true);
       }
     });
 
     window.addEventListener('hashchange', function () {
       const hash = (window.location.hash || '').replace('#', '').trim();
       if (hash && ['home', 'activity', 'withdrawals', 'profile', 'notifications', 'payment-room', 'help'].includes(hash)) {
-        switchView(hash);
+        switchView(hash, false, true);
       }
     });
 
@@ -10935,6 +11094,7 @@
       }
 
       // Smooth Bottom-to-Top slide animation
+      pushAppModalState('activity-receipt-modal');
       modal.classList.remove("hidden");
       requestAnimationFrame(() => {
         modal.classList.remove("opacity-0");
@@ -11016,6 +11176,7 @@
     // --- KUDA-STYLE BOTTOM SHEET MODAL GENERATOR ---
     function openActionModal(title, event) {
       if (event) event.stopPropagation();
+      pushAppModalState('action-modal');
       const modal = document.getElementById("action-modal");
       const modalContent = document.getElementById("modal-content");
       const modalBody = document.getElementById("modal-body");
@@ -11831,6 +11992,14 @@
         }
       }
 
+      // Preserve list scroll: only keep is-pr-active if mobile detail view is open
+      var mDetail = document.getElementById('m-pr-detail');
+      var isMobileDetailOpen = mDetail && !mDetail.classList.contains('hidden');
+      var mNotif = document.getElementById('m-view-notifications');
+      if (mNotif && !isMobileDetailOpen) {
+        mNotif.classList.remove('is-pr-active');
+      }
+
       if (typeof showToast === 'function') {
         showToast('Switched to ' + (role === 'buyer' ? 'Buyer View (Tunde A.)' : 'Seller View (Chidi M.)'), 'swap_horiz');
       }
@@ -12094,6 +12263,8 @@
 
       // Update mobile & desktop tab button styles
       ['m-', 'd-'].forEach(function (pref) {
+        var isMobile = pref === 'm-';
+        var pxClass = isMobile ? 'px-2.5 sm:px-3.5' : 'px-5';
         var ongoingBtn = document.getElementById(pref + 'tab-ongoing');
         var fulfilledBtn = document.getElementById(pref + 'tab-fulfilled');
         var ongoingBadge = document.getElementById(pref + 'cnt-ongoing');
@@ -12101,19 +12272,19 @@
 
         if (currentPRTab === 'ongoing') {
           if (ongoingBtn) {
-            ongoingBtn.className = 'pr-tab-btn h-[34px] md:h-[38px] px-3.5 md:px-5 rounded-xl font-heading text-xs font-bold transition-all bg-brand-blue text-white shadow-sm flex items-center gap-1.5 md:gap-2.5 cursor-pointer';
+            ongoingBtn.className = 'pr-tab-btn h-[34px] md:h-[38px] ' + pxClass + ' rounded-xl font-heading text-xs font-bold transition-all bg-brand-blue text-white shadow-sm flex items-center gap-1.5 md:gap-2.5 cursor-pointer';
           }
           if (fulfilledBtn) {
-            fulfilledBtn.className = 'pr-tab-btn h-[34px] md:h-[38px] px-3.5 md:px-5 rounded-xl font-heading text-xs font-bold transition-all bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/10 border border-transparent dark:border-white/10 flex items-center gap-1.5 md:gap-2.5 cursor-pointer';
+            fulfilledBtn.className = 'pr-tab-btn h-[34px] md:h-[38px] ' + pxClass + ' rounded-xl font-heading text-xs font-bold transition-all bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/10 border border-transparent dark:border-white/10 flex items-center gap-1.5 md:gap-2.5 cursor-pointer';
           }
           if (ongoingBadge) ongoingBadge.className = 'px-1.5 md:px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-white/20 text-white';
           if (fulfilledBadge) fulfilledBadge.className = 'px-1.5 md:px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-gray-200 dark:bg-white/15 text-gray-700 dark:text-gray-200';
         } else {
           if (fulfilledBtn) {
-            fulfilledBtn.className = 'pr-tab-btn h-[34px] md:h-[38px] px-3.5 md:px-5 rounded-xl font-heading text-xs font-bold transition-all bg-brand-blue text-white shadow-sm flex items-center gap-1.5 md:gap-2.5 cursor-pointer';
+            fulfilledBtn.className = 'pr-tab-btn h-[34px] md:h-[38px] ' + pxClass + ' rounded-xl font-heading text-xs font-bold transition-all bg-brand-blue text-white shadow-sm flex items-center gap-1.5 md:gap-2.5 cursor-pointer';
           }
           if (ongoingBtn) {
-            ongoingBtn.className = 'pr-tab-btn h-[34px] md:h-[38px] px-3.5 md:px-5 rounded-xl font-heading text-xs font-bold transition-all bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/10 border border-transparent dark:border-white/10 flex items-center gap-1.5 md:gap-2.5 cursor-pointer';
+            ongoingBtn.className = 'pr-tab-btn h-[34px] md:h-[38px] ' + pxClass + ' rounded-xl font-heading text-xs font-bold transition-all bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/10 border border-transparent dark:border-white/10 flex items-center gap-1.5 md:gap-2.5 cursor-pointer';
           }
           if (fulfilledBadge) fulfilledBadge.className = 'px-1.5 md:px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-white/20 text-white';
           if (ongoingBadge) ongoingBadge.className = 'px-1.5 md:px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-gray-200 dark:bg-white/15 text-gray-700 dark:text-gray-200';
@@ -12245,6 +12416,7 @@
 
     function openPRDetail(dealId) {
       if (dealId) currentPRDealId = dealId;
+      pushAppModalState('pr-detail');
 
       // Ensure the payment room view is active on both mobile and desktop
       switchView('notifications', true);
@@ -12355,6 +12527,7 @@
       var dId = dealId || currentPRDealId || 'ST-8841';
       var deal = prDealsList.find(function (d) { return d.id === dId; }) || prDealsList[0];
       populatePRDealData(deal);
+      pushAppModalState('order-details-modal');
       var modal = document.getElementById('order-details-modal');
       var content = document.getElementById('order-details-modal-content');
       if (modal) {
@@ -12891,8 +13064,16 @@
       }
       currentPRSubScreen = screenName;
 
+      var mDetail = document.getElementById('m-pr-detail');
+      var isMobileDetailOpen = mDetail && !mDetail.classList.contains('hidden');
       var mNotif = document.getElementById('m-view-notifications');
-      if (mNotif) mNotif.classList.add('is-pr-active');
+      if (mNotif) {
+        if (isMobileDetailOpen) {
+          mNotif.classList.add('is-pr-active');
+        } else {
+          mNotif.classList.remove('is-pr-active');
+        }
+      }
 
       // The list of all possible sub-states
       const states = ['awaiting', 'received', 'transit', 'verify', 'progress', 'completed', 'help', 'appeal', 'overview'];
@@ -13302,6 +13483,7 @@
       var card = document.getElementById('order-help-modal-card');
 
       renderHelpModalContent();
+      pushAppModalState('order-help-bottom-sheet-modal');
 
       if (!modal) return;
       modal.classList.remove('hidden');
@@ -13474,6 +13656,7 @@
       } catch (e) { }
 
       renderAppealReasonOptions();
+      pushAppModalState('appeal-bottom-sheet-modal');
 
       if (!modal) return;
       modal.classList.remove('hidden');
@@ -14206,6 +14389,7 @@
     }
 
     function openPRChat() {
+      pushAppModalState('pr-chat-drawer');
       var drawer = document.getElementById('pr-chat-drawer');
       if (drawer) drawer.classList.remove('closed');
       var mNav = document.getElementById('m-bottom-nav');
@@ -17149,6 +17333,7 @@
       var card = document.getElementById('help-modal-card');
 
       if (!modal) return;
+      pushAppModalState('help-bottom-sheet-modal');
       modal.classList.remove('hidden');
       modal.classList.remove('pointer-events-none');
       isSupportModalAnimating = true;
@@ -20129,6 +20314,7 @@
 
       showShippingStatusMainView();
       updateShippingStatusTimeline();
+      pushAppModalState('shipping-status-modal');
 
       document.querySelectorAll('.shipping-status-arrow-icon').forEach(function (arrow) {
         arrow.style.transform = 'rotate(180deg)';
@@ -20175,6 +20361,8 @@
       var modal = document.getElementById('awaiting-order-details-modal') || document.getElementById('order-details-modal');
       var backdrop = document.getElementById('order-details-backdrop');
       var card = document.getElementById('order-details-sheet-card');
+
+      pushAppModalState('awaiting-order-details-modal');
 
       // 1. Immediately rotate arrow to point UP
       document.querySelectorAll('#awaiting-order-details-arrow, #d-awaiting-order-details-arrow, .awaiting-details-arrow-icon').forEach(function (arrow) {
@@ -20224,6 +20412,7 @@
     }
 
     function openPaymentReceiptModal(targetRole) {
+      pushAppModalState('payment-receipt-modal');
       var currentRole = targetRole || role || 'buyer';
       // Find current active deal or fallback
       var deal = prDealsList.find(function (d) { return d.id === currentPRDealId; }) || prDealsList.find(function (d) { return d.deliveryStatus === 'payment_received'; }) || prDealsList[0];
@@ -20352,6 +20541,7 @@
       var modal = document.getElementById('shipping-details-modal');
       var backdrop = document.getElementById('shipping-details-backdrop');
       var card = document.getElementById('shipping-modal-card');
+      pushAppModalState('shipping-details-modal');
 
       // Populate current deal info into the modal
       try {
