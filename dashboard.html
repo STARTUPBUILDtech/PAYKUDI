@@ -2051,7 +2051,7 @@
 
       <!-- Mobile Sticky Glass Header (For Sub-Views: Activity, Payment Room, Profile, Help) -->
       <header id="mobile-top-header"
-        class="flex-none bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md z-[100000] relative px-3.5 py-1.5 flex justify-between items-center border-b border-gray-200/80 dark:border-white/10 shadow-xs hidden">
+        class="flex-none bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md z-[100000] relative px-3.5 py-2 flex justify-between items-center border-b border-gray-200/80 dark:border-white/10 shadow-xs hidden">
         <button onclick="switchView('home')" class="flex items-center cursor-pointer">
           <img src="paykudi-logo.png" alt="PayKudi" style="height: 22px; max-height: 22px; width: auto;"
             class="h-[22px] max-h-[22px] w-auto object-contain dark:hidden" />
@@ -2059,13 +2059,18 @@
             class="h-[22px] max-h-[22px] w-auto object-contain hidden dark:block" />
         </button>
 
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-3">
+          <!-- Plain Text "Switch role" Button -->
+          <button type="button" onclick="switchRoleDemo()"
+            class="text-xs sm:text-[13px] font-bold text-neutral-500 dark:text-neutral-400 hover:text-brand-dark dark:hover:text-white cursor-pointer transition-colors underline underline-offset-2 select-none flex-shrink-0"
+            title="Switch between Buyer and Seller views">Switch role</button>
+
           <!-- Mobile Theme Toggle Button -->
           <button onclick="toggleTheme()"
-            class="w-7 h-7 rounded-full flex items-center justify-center bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-white/10 shadow-2xs hover:scale-105 transition-all cursor-pointer"
+            class="w-8 h-8 rounded-full flex items-center justify-center bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-white/10 shadow-2xs hover:scale-105 transition-all cursor-pointer"
             title="Toggle Theme">
-            <span class="material-symbols-outlined text-[16px] text-amber-500 dark:hidden">light_mode</span>
-            <span class="material-symbols-outlined text-[16px] text-blue-400 hidden dark:inline">dark_mode</span>
+            <span class="material-symbols-outlined text-[17px] text-amber-500 dark:hidden">light_mode</span>
+            <span class="material-symbols-outlined text-[17px] text-blue-400 hidden dark:inline">dark_mode</span>
           </button>
         </div>
       </header>
@@ -2077,21 +2082,26 @@
         <div class="flex-none relative z-20">
           <!-- Deep Forest Green Unified Hero & Header Card -->
           <div class="relative w-full bg-gradient-to-b from-[#0A4328] via-[#073620] to-[#042415] text-white pt-0 pb-12 px-4 rounded-b-[36px] sm:rounded-b-[40px] shadow-[0_16px_32px_-8px_rgba(4,36,21,0.4)] overflow-hidden flex-none border-0">
-            <!-- Top Row: Logo on Left, Theme Toggle on Right (Identical alignment to sub-view headers) -->
-            <div class="relative z-10 -mx-4 px-3.5 py-1.5 flex items-center justify-between mb-3">
+            <!-- Top Row: Logo on Left, Switch Role & Theme Toggle on Right -->
+            <div class="relative z-10 -mx-4 px-3.5 py-2 flex items-center justify-between mb-3">
               <!-- White PayKudi Logo -->
               <button type="button" onclick="switchView('home')" class="flex items-center cursor-pointer">
                 <img src="logodarkmode.png" alt="PayKudi" style="height: 22px; max-height: 22px; width: auto;"
                   class="h-[22px] max-h-[22px] w-auto object-contain" />
               </button>
 
-              <!-- Mobile Theme Toggle Button -->
-              <div class="flex items-center gap-2">
+              <!-- Switch Role & Theme Toggle Buttons -->
+              <div class="flex items-center gap-3">
+                <!-- Plain Text "Switch role" Button -->
+                <button type="button" onclick="switchRoleDemo()"
+                  class="text-xs sm:text-[13px] font-bold text-white/80 hover:text-white cursor-pointer transition-colors underline underline-offset-2 select-none flex-shrink-0"
+                  title="Switch between Buyer and Seller views">Switch role</button>
+
                 <button type="button" onclick="toggleTheme()"
-                  class="w-7 h-7 rounded-full flex items-center justify-center bg-white/15 text-white border border-white/20 shadow-2xs hover:scale-105 transition-all cursor-pointer"
+                  class="w-8 h-8 rounded-full flex items-center justify-center bg-white/15 text-white border border-white/20 shadow-2xs hover:scale-105 transition-all cursor-pointer"
                   title="Toggle Theme">
-                  <span class="material-symbols-outlined text-[16px] text-amber-300 dark:hidden">light_mode</span>
-                  <span class="material-symbols-outlined text-[16px] text-blue-300 hidden dark:inline">dark_mode</span>
+                  <span class="material-symbols-outlined text-[17px] text-amber-300 dark:hidden">light_mode</span>
+                  <span class="material-symbols-outlined text-[17px] text-blue-300 hidden dark:inline">dark_mode</span>
                 </button>
               </div>
             </div>
@@ -2772,7 +2782,7 @@
           <!-- STATE 1: AWAITING PAYMENT (#pr-sub-awaiting)                      -->
           <!-- ================================================================= -->
           <div id="pr-sub-awaiting" class="pr-sub-screen w-full max-w-[420px] mx-auto hidden pb-4">
-            <!-- Header: Clean transparent back button + Title + "Switch role" text + Help + Chat -->
+            <!-- Header: Clean transparent back button + Title + Help + Chat -->
             <div
               class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-2.5 sm:px-3.5 py-3 flex items-center justify-between mb-3.5 gap-2.5">
               <div class="flex items-center gap-2.5 min-w-0 flex-1">
@@ -2782,11 +2792,6 @@
                   <span class="material-symbols-outlined text-[22px] leading-none select-none">arrow_back</span>
                 </button>
                 <h2 class="text-base sm:text-lg font-black text-brand-dark dark:text-white font-heading truncate leading-tight">Awaiting Payment</h2>
-
-                <!-- Plain Text "Switch role" Button -->
-                <button type="button" onclick="switchRoleDemo()"
-                  class="text-xs sm:text-[13px] font-bold text-neutral-500 dark:text-neutral-400 hover:text-brand-dark dark:hover:text-white cursor-pointer transition-colors underline underline-offset-2 ml-1 select-none flex-shrink-0"
-                  title="Switch between Buyer and Seller views">Switch role</button>
               </div>
 
               <!-- Right Header Actions: Help Button + Chat Button -->
@@ -3228,7 +3233,7 @@
           <!-- STATE 2: PAYMENT RECEIVED (#pr-sub-received)                      -->
           <!-- ================================================================= -->
           <div id="pr-sub-received" class="pr-sub-screen w-full max-w-[420px] mx-auto hidden pb-4">
-            <!-- Header: Clean transparent back button + Title + "Switch role" text + Help + Chat -->
+            <!-- Header: Clean transparent back button + Title + Help + Chat -->
             <div
               class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-2.5 sm:px-3.5 py-3 flex items-center justify-between mb-3.5 gap-2.5">
               <div class="flex items-center gap-2.5 min-w-0 flex-1">
@@ -3239,11 +3244,6 @@
                 </button>
                 <h2 class="text-base sm:text-lg font-black text-brand-dark dark:text-white font-heading truncate leading-tight">Payment
                   Received</h2>
-
-                <!-- Plain Text "Switch role" Button -->
-                <button type="button" onclick="switchRoleDemo()"
-                  class="text-xs sm:text-[13px] font-bold text-neutral-500 dark:text-neutral-400 hover:text-brand-dark dark:hover:text-white cursor-pointer transition-colors underline underline-offset-2 ml-1 select-none flex-shrink-0"
-                  title="Switch between Buyer and Seller views">Switch role</button>
               </div>
 
               <!-- Right Header Actions: Help Button + Chat Button -->
@@ -3705,7 +3705,7 @@
           <!-- STATE 3: IN TRANSIT (#pr-sub-transit)                             -->
           <!-- ================================================================= -->
           <div id="pr-sub-transit" class="pr-sub-screen w-full max-w-[420px] mx-auto hidden pb-4">
-            <!-- Header: Clean transparent back button + Title + "Switch role" text + Help + Chat -->
+            <!-- Header: Clean transparent back button + Title + Help + Chat -->
             <div
               class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-2.5 sm:px-3.5 py-3 flex items-center justify-between mb-3.5 gap-2.5">
               <div class="flex items-center gap-2.5 min-w-0 flex-1">
@@ -3716,11 +3716,6 @@
                 </button>
                 <h2 class="text-base sm:text-lg font-black text-brand-dark dark:text-white font-heading truncate leading-tight">In
                   Transit</h2>
-
-                <!-- Plain Text "Switch role" Button -->
-                <button type="button" onclick="switchRoleDemo()"
-                  class="text-xs sm:text-[13px] font-bold text-neutral-500 dark:text-neutral-400 hover:text-brand-dark dark:hover:text-white cursor-pointer transition-colors underline underline-offset-2 ml-1 select-none flex-shrink-0"
-                  title="Switch between Buyer and Seller views">Switch role</button>
               </div>
 
               <!-- Right Header Actions: Help Button + Chat Button -->
@@ -4171,7 +4166,7 @@
           <!-- STATE 4: DELIVERED / CONFIRM DELIVERY (#pr-sub-verify)             -->
           <!-- ================================================================= -->
           <div id="pr-sub-verify" class="pr-sub-screen w-full max-w-[420px] mx-auto hidden pb-4">
-            <!-- Header: Clean transparent back button + Title + "Switch role" text + Help + Chat -->
+            <!-- Header: Clean transparent back button + Title + Help + Chat -->
             <div
               class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-2.5 sm:px-3.5 py-3 flex items-center justify-between mb-3.5 gap-2.5">
               <div class="flex items-center gap-2.5 min-w-0 flex-1">
@@ -4182,11 +4177,6 @@
                 </button>
                 <h2 class="text-base sm:text-lg font-black text-brand-dark dark:text-white font-heading truncate leading-tight">Confirm
                   Delivery</h2>
-
-                <!-- Plain Text "Switch role" Button -->
-                <button type="button" onclick="switchRoleDemo()"
-                  class="text-xs sm:text-[13px] font-bold text-neutral-500 dark:text-neutral-400 hover:text-brand-dark dark:hover:text-white cursor-pointer transition-colors underline underline-offset-2 ml-1 select-none flex-shrink-0"
-                  title="Switch between Buyer and Seller views">Switch role</button>
               </div>
 
               <!-- Right Header Actions: Help Button + Chat Button -->
@@ -4864,7 +4854,7 @@
           <!-- MOBILE STATE 5: DISPUTE ONGOING (#pr-sub-progress)                      -->
           <!-- ================================================================= -->
           <div id="pr-sub-progress" class="pr-sub-screen w-full max-w-[420px] mx-auto hidden pb-4">
-            <!-- 1. Header: Clean transparent back button + Title + "Switch role" text + Help + Chat -->
+            <!-- 1. Header: Clean transparent back button + Title + Help + Chat -->
             <div
               class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-2.5 sm:px-3.5 py-3 flex items-center justify-between mb-3.5 gap-2.5">
               <div class="flex items-center gap-2.5 min-w-0 flex-1">
@@ -4875,10 +4865,6 @@
                 </button>
                 <h2 class="text-base sm:text-lg font-black text-brand-dark dark:text-white font-heading truncate leading-tight">Dispute
                   Ongoing</h2>
-                <!-- Plain Text "Switch role" Button -->
-                <button type="button" onclick="switchRoleDemo()"
-                  class="text-xs sm:text-[13px] font-bold text-neutral-500 dark:text-neutral-400 hover:text-brand-dark dark:hover:text-white cursor-pointer transition-colors underline underline-offset-2 ml-1 select-none flex-shrink-0"
-                  title="Switch between Buyer and Seller views">Switch role</button>
               </div>
 
               <!-- Right Header Actions: Help Button + Chat Button -->
@@ -5126,11 +5112,6 @@
                 </button>
                 <h2 class="text-base sm:text-lg font-black text-brand-dark dark:text-white font-heading truncate leading-tight">
                   Completed</h2>
-
-                <!-- Plain Text "Switch role" Button -->
-                <button type="button" onclick="switchRoleDemo()"
-                  class="text-xs sm:text-[13px] font-bold text-neutral-500 dark:text-neutral-400 hover:text-brand-dark dark:hover:text-white cursor-pointer transition-colors underline underline-offset-2 ml-1 select-none flex-shrink-0"
-                  title="Switch between Buyer and Seller views">Switch role</button>
               </div>
 
               <!-- Right Header Actions: Help Button + Chat Button -->
@@ -6113,7 +6094,7 @@
             <!-- Left Column: Recent Activity (7 cols) -->
             <div class="lg:col-span-7 flex flex-col justify-between">
               <div class="flex justify-between items-center mb-2.5 px-1">
-                <h3 class="text-lg sm:text-xl font-bold text-brand-dark dark:text-white font-heading">Recent Activity</h3>
+                <h3 class="text-xl sm:text-2xl font-black text-brand-dark dark:text-white font-heading tracking-tight">Recent Activity</h3>
                 <button type="button" onclick="switchView('activity')"
                   class="text-emerald-700 dark:text-emerald-400 font-bold text-xs sm:text-sm hover:underline cursor-pointer font-heading">
                   View all
@@ -6275,7 +6256,7 @@
 
           <!-- Activities Header & Filters on one line -->
           <div class="flex items-center justify-between gap-3 pb-1">
-            <h2 class="fluid-title-md font-bold text-brand-dark dark:text-white font-heading flex-shrink-0">Activities</h2>
+            <h2 class="text-2xl sm:text-3xl font-black text-brand-dark dark:text-white font-heading flex-shrink-0 tracking-tight">Activities</h2>
 
             <div class="flex items-center gap-2.5">
               <!-- Integrated Search Bar with Filter Inside -->
@@ -6965,29 +6946,29 @@
                 <div id="d-pr-sub-awaiting" class="pr-sub-screen w-full hidden pb-4">
               <!-- Header: Clean transparent back button + Title + "Switch role" text + Help + Chat -->
               <div
-                class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-1 py-2 flex items-center justify-between mb-3 gap-2">
-                <div class="flex items-center gap-2 min-w-0 flex-1">
+                class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-1 py-2.5 flex items-center justify-between mb-3.5 gap-2.5">
+                <div class="flex items-center gap-2.5 min-w-0 flex-1">
                   <button type="button" onclick="closePRDetail()"
-                    class="w-8 h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-10 h-10 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Back to list">
-                    <span class="material-symbols-outlined text-[18px] leading-none select-none">arrow_back</span>
+                    <span class="material-symbols-outlined text-[20px] leading-none select-none">arrow_back</span>
                   </button>
-                  <h2 class="text-sm sm:text-base font-bold text-brand-dark dark:text-white font-heading truncate">
+                  <h2 class="text-base sm:text-lg lg:text-xl font-black text-brand-dark dark:text-white font-heading truncate">
                     Awaiting Payment</h2>
 
                   <!-- Plain Text "Switch role" Button -->
                   <button type="button" onclick="switchRoleDemo()"
-                    class="text-xs font-semibold text-neutral-500 dark:text-neutral-400 hover:text-brand-dark dark:hover:text-white cursor-pointer transition-colors underline underline-offset-2 ml-1 select-none flex-shrink-0"
+                    class="text-xs sm:text-[13px] font-bold text-neutral-500 dark:text-neutral-400 hover:text-brand-dark dark:hover:text-white cursor-pointer transition-colors underline underline-offset-2 ml-1.5 select-none flex-shrink-0"
                     title="Switch between Buyer and Seller views">Switch role</button>
                 </div>
 
                 <!-- Right Header Actions: Help Button -->
-                <div class="flex items-center gap-1.5 flex-shrink-0">
+                <div class="flex items-center gap-2 flex-shrink-0">
                   <button type="button" onclick="openOrderHelpModal()"
-                    class="w-8 h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-10 h-10 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Help & Support">
                     <span
-                      class="material-symbols-outlined text-[17px] leading-none select-none text-neutral-600 dark:text-neutral-300">help_outline</span>
+                      class="material-symbols-outlined text-[20px] leading-none select-none text-neutral-600 dark:text-neutral-300">help_outline</span>
                   </button>
                 </div>
               </div>
@@ -7415,29 +7396,29 @@
             <div id="d-pr-sub-received" class="pr-sub-screen w-full hidden pb-4">
               <!-- Header: Clean transparent back button + Title + "Switch role" text + Help + Chat -->
               <div
-                class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-1 py-2 flex items-center justify-between mb-3 gap-2">
-                <div class="flex items-center gap-2 min-w-0 flex-1">
+                class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-1 py-2.5 flex items-center justify-between mb-3.5 gap-2.5">
+                <div class="flex items-center gap-2.5 min-w-0 flex-1">
                   <button type="button" onclick="closePRDetail()"
-                    class="w-8 h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-10 h-10 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Back to list">
-                    <span class="material-symbols-outlined text-[18px] leading-none select-none">arrow_back</span>
+                    <span class="material-symbols-outlined text-[20px] leading-none select-none">arrow_back</span>
                   </button>
-                  <h2 class="text-sm sm:text-base font-bold text-brand-dark dark:text-white font-heading truncate">
+                  <h2 class="text-base sm:text-lg lg:text-xl font-black text-brand-dark dark:text-white font-heading truncate">
                     Payment Received</h2>
 
                   <!-- Plain Text "Switch role" Button -->
                   <button type="button" onclick="switchRoleDemo()"
-                    class="text-xs font-semibold text-neutral-500 dark:text-neutral-400 hover:text-brand-dark dark:hover:text-white cursor-pointer transition-colors underline underline-offset-2 ml-1 select-none flex-shrink-0"
+                    class="text-xs sm:text-[13px] font-bold text-neutral-500 dark:text-neutral-400 hover:text-brand-dark dark:hover:text-white cursor-pointer transition-colors underline underline-offset-2 ml-1.5 select-none flex-shrink-0"
                     title="Switch between Buyer and Seller views">Switch role</button>
                 </div>
 
                 <!-- Right Header Actions: Help Button -->
-                <div class="flex items-center gap-1.5 flex-shrink-0">
+                <div class="flex items-center gap-2 flex-shrink-0">
                   <button type="button" onclick="openOrderHelpModal()"
-                    class="w-8 h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-10 h-10 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Help & Support">
                     <span
-                      class="material-symbols-outlined text-[17px] leading-none select-none text-neutral-600 dark:text-neutral-300">help_outline</span>
+                      class="material-symbols-outlined text-[20px] leading-none select-none text-neutral-600 dark:text-neutral-300">help_outline</span>
                   </button>
                 </div>
               </div>
@@ -7890,29 +7871,29 @@
             <div id="d-pr-sub-transit" class="pr-sub-screen w-full hidden pb-4">
               <!-- Header: Clean transparent back button + Title + "Switch role" text + Help + Chat -->
               <div
-                class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-1 py-2 flex items-center justify-between mb-3 gap-2">
-                <div class="flex items-center gap-2 min-w-0 flex-1">
+                class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-1 py-2.5 flex items-center justify-between mb-3.5 gap-2.5">
+                <div class="flex items-center gap-2.5 min-w-0 flex-1">
                   <button type="button" onclick="closePRDetail()"
-                    class="w-8 h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-10 h-10 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Back to list">
-                    <span class="material-symbols-outlined text-[18px] leading-none select-none">arrow_back</span>
+                    <span class="material-symbols-outlined text-[20px] leading-none select-none">arrow_back</span>
                   </button>
-                  <h2 class="text-sm sm:text-base font-bold text-brand-dark dark:text-white font-heading truncate">In
+                  <h2 class="text-base sm:text-lg lg:text-xl font-black text-brand-dark dark:text-white font-heading truncate">In
                     Transit</h2>
 
                   <!-- Plain Text "Switch role" Button -->
                   <button type="button" onclick="switchRoleDemo()"
-                    class="text-xs font-semibold text-neutral-500 dark:text-neutral-400 hover:text-brand-dark dark:hover:text-white cursor-pointer transition-colors underline underline-offset-2 ml-1 select-none flex-shrink-0"
+                    class="text-xs sm:text-[13px] font-bold text-neutral-500 dark:text-neutral-400 hover:text-brand-dark dark:hover:text-white cursor-pointer transition-colors underline underline-offset-2 ml-1.5 select-none flex-shrink-0"
                     title="Switch between Buyer and Seller views">Switch role</button>
                 </div>
 
                 <!-- Right Header Actions: Help Button -->
-                <div class="flex items-center gap-1.5 flex-shrink-0">
+                <div class="flex items-center gap-2 flex-shrink-0">
                   <button type="button" onclick="openOrderHelpModal()"
-                    class="w-8 h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-10 h-10 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Help & Support">
                     <span
-                      class="material-symbols-outlined text-[17px] leading-none select-none text-neutral-600 dark:text-neutral-300">help_outline</span>
+                      class="material-symbols-outlined text-[20px] leading-none select-none text-neutral-600 dark:text-neutral-300">help_outline</span>
                   </button>
                 </div>
               </div>
@@ -8350,29 +8331,29 @@
             <div id="d-pr-sub-verify" class="pr-sub-screen w-full hidden pb-4">
               <!-- Header: Clean transparent back button + Title + "Switch role" text + Help -->
               <div
-                class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-1 py-2 flex items-center justify-between mb-3 gap-2">
-                <div class="flex items-center gap-2 min-w-0 flex-1">
+                class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-1 py-2.5 flex items-center justify-between mb-3.5 gap-2.5">
+                <div class="flex items-center gap-2.5 min-w-0 flex-1">
                   <button type="button" onclick="closePRDetail()"
-                    class="w-8 h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-10 h-10 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Back to list">
-                    <span class="material-symbols-outlined text-[18px] leading-none select-none">arrow_back</span>
+                    <span class="material-symbols-outlined text-[20px] leading-none select-none">arrow_back</span>
                   </button>
-                  <h2 class="text-sm sm:text-base font-bold text-brand-dark dark:text-white font-heading truncate">
+                  <h2 class="text-base sm:text-lg lg:text-xl font-black text-brand-dark dark:text-white font-heading truncate">
                     Confirm Delivery</h2>
 
                   <!-- Plain Text "Switch role" Button -->
                   <button type="button" onclick="switchRoleDemo()"
-                    class="text-xs font-semibold text-neutral-500 dark:text-neutral-400 hover:text-brand-dark dark:hover:text-white cursor-pointer transition-colors underline underline-offset-2 ml-1 select-none flex-shrink-0"
+                    class="text-xs sm:text-[13px] font-bold text-neutral-500 dark:text-neutral-400 hover:text-brand-dark dark:hover:text-white cursor-pointer transition-colors underline underline-offset-2 ml-1.5 select-none flex-shrink-0"
                     title="Switch between Buyer and Seller views">Switch role</button>
                 </div>
 
                 <!-- Right Header Actions: Help Button -->
-                <div class="flex items-center gap-1.5 flex-shrink-0">
+                <div class="flex items-center gap-2 flex-shrink-0">
                   <button type="button" onclick="openOrderHelpModal()"
-                    class="w-8 h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-10 h-10 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Help & Support">
                     <span
-                      class="material-symbols-outlined text-[17px] leading-none select-none text-neutral-600 dark:text-neutral-300">help_outline</span>
+                      class="material-symbols-outlined text-[20px] leading-none select-none text-neutral-600 dark:text-neutral-300">help_outline</span>
                   </button>
                 </div>
               </div>
@@ -8837,14 +8818,14 @@
 
             <div id="d-pr-sub-help" class="pr-sub-screen space-y-4 w-full max-w-2xl mx-auto hidden">
               <div
-                class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md -mx-4 px-4 py-2.5 flex items-center justify-between border-b border-gray-200/60 dark:border-white/10">
+                class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md -mx-4 px-4 py-3 flex items-center justify-between border-b border-gray-200/60 dark:border-white/10">
                 <div class="flex items-center gap-3">
                   <button type="button" onclick="backFromPRSubScreen('d-')"
-                    class="w-9 h-9 rounded-full bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 active:scale-95 text-brand-dark dark:text-gray-200 flex items-center justify-center transition-all cursor-pointer"
+                    class="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 active:scale-95 text-brand-dark dark:text-gray-200 flex items-center justify-center transition-all cursor-pointer"
                     title="Back">
                     <span class="material-symbols-outlined text-[20px]">arrow_back</span>
                   </button>
-                  <h2 class="text-base font-extrabold text-brand-dark dark:text-white font-heading">Help</h2>
+                  <h2 class="text-lg sm:text-xl font-black text-brand-dark dark:text-white font-heading">Help</h2>
                 </div>
               </div>
 
@@ -8897,14 +8878,14 @@
             <!-- SUB-ROOM 3: APPEAL / FILE DISPUTE -->
             <div id="d-pr-sub-appeal" class="pr-sub-screen space-y-4 w-full max-w-2xl mx-auto hidden">
               <div
-                class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md -mx-4 px-4 py-2.5 flex items-center justify-between border-b border-gray-200/60 dark:border-white/10">
+                class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md -mx-4 px-4 py-3 flex items-center justify-between border-b border-gray-200/60 dark:border-white/10">
                 <div class="flex items-center gap-3">
                   <button type="button" onclick="switchPRSubScreen('help', 'd-')"
-                    class="w-9 h-9 rounded-full bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 active:scale-95 text-brand-dark dark:text-gray-200 flex items-center justify-center transition-all cursor-pointer"
+                    class="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 active:scale-95 text-brand-dark dark:text-gray-200 flex items-center justify-center transition-all cursor-pointer"
                     title="Back to help">
                     <span class="material-symbols-outlined text-[20px]">arrow_back</span>
                   </button>
-                  <h2 class="text-base font-extrabold text-brand-dark dark:text-white font-heading">Appeal</h2>
+                  <h2 class="text-lg sm:text-xl font-black text-brand-dark dark:text-white font-heading">Appeal</h2>
                 </div>
               </div>
 
@@ -9000,28 +8981,28 @@
             <div id="d-pr-sub-progress" class="pr-sub-screen w-full hidden pb-4">
               <!-- 1. Header: Clean transparent back button + Title + "Switch role" text + Help + Chat -->
               <div
-                class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-1 py-2 flex items-center justify-between mb-3 gap-2">
-                <div class="flex items-center gap-2 min-w-0 flex-1">
+                class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-1 py-2.5 flex items-center justify-between mb-3.5 gap-2.5">
+                <div class="flex items-center gap-2.5 min-w-0 flex-1">
                   <button type="button" onclick="closePRDetail()"
-                    class="w-8 h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-10 h-10 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Back to list">
-                    <span class="material-symbols-outlined text-[18px] leading-none select-none">arrow_back</span>
+                    <span class="material-symbols-outlined text-[20px] leading-none select-none">arrow_back</span>
                   </button>
-                  <h2 class="text-sm sm:text-base font-bold text-brand-dark dark:text-white font-heading truncate">
+                  <h2 class="text-base sm:text-lg lg:text-xl font-black text-brand-dark dark:text-white font-heading truncate">
                     Dispute Ongoing</h2>
                   <!-- Plain Text "Switch role" Button -->
                   <button type="button" onclick="switchRoleDemo()"
-                    class="text-xs font-semibold text-neutral-500 dark:text-neutral-400 hover:text-brand-dark dark:hover:text-white cursor-pointer transition-colors underline underline-offset-2 ml-1 select-none flex-shrink-0"
+                    class="text-xs sm:text-[13px] font-bold text-neutral-500 dark:text-neutral-400 hover:text-brand-dark dark:hover:text-white cursor-pointer transition-colors underline underline-offset-2 ml-1.5 select-none flex-shrink-0"
                     title="Switch between Buyer and Seller views">Switch role</button>
                 </div>
 
                 <!-- Right Header Actions: Help Button -->
-                <div class="flex items-center gap-1.5 flex-shrink-0">
+                <div class="flex items-center gap-2 flex-shrink-0">
                   <button type="button" onclick="openOrderHelpModal()"
-                    class="w-8 h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-10 h-10 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Help & Support">
                     <span
-                      class="material-symbols-outlined text-[17px] leading-none select-none text-neutral-600 dark:text-neutral-300">help_outline</span>
+                      class="material-symbols-outlined text-[20px] leading-none select-none text-neutral-600 dark:text-neutral-300">help_outline</span>
                   </button>
                 </div>
               </div>
@@ -9243,29 +9224,29 @@
             <div id="d-pr-sub-completed" class="pr-sub-screen w-full hidden pb-4">
               <!-- Header: Clean transparent back button + Title + "Switch role" text + Help + Chat -->
               <div
-                class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-1 py-2 flex items-center justify-between mb-3 gap-2">
-                <div class="flex items-center gap-2 min-w-0 flex-1">
+                class="sticky top-0 z-30 bg-[#FAF7F2]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-1 py-2.5 flex items-center justify-between mb-3.5 gap-2.5">
+                <div class="flex items-center gap-2.5 min-w-0 flex-1">
                   <button type="button" onclick="closePRDetail()"
-                    class="w-8 h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-10 h-10 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Back to list">
-                    <span class="material-symbols-outlined text-[18px] leading-none select-none">arrow_back</span>
+                    <span class="material-symbols-outlined text-[20px] leading-none select-none">arrow_back</span>
                   </button>
-                  <h2 class="text-sm sm:text-base font-bold text-brand-dark dark:text-white font-heading truncate">
+                  <h2 class="text-base sm:text-lg lg:text-xl font-black text-brand-dark dark:text-white font-heading truncate">
                     Completed</h2>
 
                   <!-- Plain Text "Switch role" Button -->
                   <button type="button" onclick="switchRoleDemo()"
-                    class="text-xs font-semibold text-neutral-500 dark:text-neutral-400 hover:text-brand-dark dark:hover:text-white cursor-pointer transition-colors underline underline-offset-2 ml-1 select-none flex-shrink-0"
+                    class="text-xs sm:text-[13px] font-bold text-neutral-500 dark:text-neutral-400 hover:text-brand-dark dark:hover:text-white cursor-pointer transition-colors underline underline-offset-2 ml-1.5 select-none flex-shrink-0"
                     title="Switch between Buyer and Seller views">Switch role</button>
                 </div>
 
                 <!-- Right Header Actions: Help Button -->
-                <div class="flex items-center gap-1.5 flex-shrink-0">
+                <div class="flex items-center gap-2 flex-shrink-0">
                   <button type="button" onclick="openOrderHelpModal()"
-                    class="w-8 h-8 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-10 h-10 rounded-full bg-white dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Help & Support">
                     <span
-                      class="material-symbols-outlined text-[17px] leading-none select-none text-neutral-600 dark:text-neutral-300">help_outline</span>
+                      class="material-symbols-outlined text-[20px] leading-none select-none text-neutral-600 dark:text-neutral-300">help_outline</span>
                   </button>
                 </div>
               </div>
@@ -9725,12 +9706,12 @@
               <!-- Right Column (6 cols): Chat Modal (Consistent exact size, position, and height down to protection note across all activities) -->
               <div class="lg:col-span-6 xl:col-span-6 flex flex-col h-[720px] min-h-[720px] max-h-[720px] bg-white dark:bg-[#181A20] rounded-2xl border border-gray-200 dark:border-white/10 shadow-md overflow-hidden sticky top-2">
                 <!-- Chat Header: Green Background with Counterparty Name + Order Number -->
-                <div class="px-4 py-3.5 bg-brand-green text-white flex items-center justify-between flex-shrink-0 shadow-xs">
+                <div class="px-5 py-4 bg-brand-green text-white flex items-center justify-between flex-shrink-0 shadow-xs">
                   <div class="min-w-0 flex-1">
-                    <h3 class="disp-deal-seller text-sm sm:text-base font-extrabold text-white font-heading truncate leading-tight">
+                    <h3 class="disp-deal-seller text-base sm:text-lg font-black text-white font-heading truncate leading-tight">
                       Emeka Tech Hub
                     </h3>
-                    <p class="disp-deal-order-num text-[11.5px] text-emerald-100 font-mono font-bold truncate mt-0.5 tracking-wide">
+                    <p class="disp-deal-order-num text-xs text-emerald-100 font-mono font-bold truncate mt-0.5 tracking-wide">
                       ORD-992384
                     </p>
                   </div>
