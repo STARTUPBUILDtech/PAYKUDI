@@ -1905,15 +1905,33 @@
       #m-pr-detail .pr-sub-screen .payment-made-cta-btn,
       #d-pr-detail .pr-sub-screen .payment-made-cta-btn,
       #m-pr-detail .pr-sub-screen .paykudi-btn-primary,
-      #d-pr-detail .pr-sub-screen .paykudi-btn-primary {
+      #d-pr-detail .pr-sub-screen .paykudi-btn-primary,
+      #m-pr-detail .pr-sub-screen .pr-confirm-btn,
+      #d-pr-detail .pr-sub-screen .pr-confirm-btn,
+      #m-pr-detail .pr-sub-screen .pr-report-btn,
+      #d-pr-detail .pr-sub-screen .pr-report-btn,
+      #m-pr-detail .pr-sub-screen .pr-proof-btn,
+      #d-pr-detail .pr-sub-screen .pr-proof-btn {
         min-width: 0 !important;
-        min-height: var(--pr-action-height);
-        height: var(--pr-action-height) !important;
-        padding-inline: clamp(0.75rem, 3cqw, 1.25rem) !important;
+        height: auto !important;
+        min-height: 44px !important;
+        padding-block: 0.875rem !important; /* py-3.5 */
+        padding-inline: 1rem !important; /* px-4 */
+        border-radius: 0.75rem !important; /* rounded-xl */
+        font-size: 0.75rem !important; /* text-xs */
+        font-weight: 800 !important; /* font-extrabold */
+        font-family: 'Hanken Grotesk', sans-serif !important;
+        letter-spacing: normal !important;
+        text-transform: none !important;
         white-space: nowrap !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
         flex-shrink: 0;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0.5rem !important;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1) !important;
+        transition: all 0.2s ease !important;
+        cursor: pointer !important;
       }
 
       /* Confirm Delivery / Report an Issue (+ the protection note beneath
@@ -1924,33 +1942,19 @@
          own height (cqh), so it keeps breathing room at any box size. */
       #m-pr-detail .pr-sub-screen .pr-action-buttons,
       #d-pr-detail .pr-sub-screen .pr-action-buttons {
-        padding-top: clamp(0.5rem, 1.8cqh, 1.05rem) !important;
-        gap: clamp(0.5rem, 1.6cqh, 0.9rem) !important;
+        padding-top: 0.5rem !important;
+        gap: 0.625rem !important;
       }
 
-      #m-pr-detail .pr-sub-screen .pr-confirm-btn,
-      #d-pr-detail .pr-sub-screen .pr-confirm-btn,
-      #m-pr-detail .pr-sub-screen .pr-report-btn,
-      #d-pr-detail .pr-sub-screen .pr-report-btn,
-      #m-pr-detail .pr-sub-screen .pr-proof-btn,
-      #d-pr-detail .pr-sub-screen .pr-proof-btn {
-        height: var(--pr-action-height) !important;
-        min-height: var(--pr-action-height) !important;
-        padding-block: 0 !important;
-        padding-inline: clamp(0.65rem, 2.5cqw, 1rem) !important;
-        border-radius: clamp(0.65rem, 1.5cqw, 0.85rem) !important;
-        font-size: clamp(0.7rem, 2.8cqw, 0.76rem) !important;
-        font-weight: 800 !important;
-        letter-spacing: 0.04em !important;
-      }
-
+      #m-pr-detail .pr-sub-screen .payment-made-cta-btn .material-symbols-outlined,
+      #d-pr-detail .pr-sub-screen .payment-made-cta-btn .material-symbols-outlined,
       #m-pr-detail .pr-sub-screen .pr-confirm-btn .material-symbols-outlined,
       #d-pr-detail .pr-sub-screen .pr-confirm-btn .material-symbols-outlined,
       #m-pr-detail .pr-sub-screen .pr-report-btn .material-symbols-outlined,
       #d-pr-detail .pr-sub-screen .pr-report-btn .material-symbols-outlined,
       #m-pr-detail .pr-sub-screen .pr-proof-btn .material-symbols-outlined,
       #d-pr-detail .pr-sub-screen .pr-proof-btn .material-symbols-outlined {
-        font-size: clamp(0.95rem, 2.2cqh, 1.1rem) !important;
+        font-size: 16px !important;
       }
 
       #m-pr-detail .pr-protection-note,
@@ -2009,7 +2013,7 @@
         }
       }
 
-      /* In mobile view, the CTA button sits cleanly in flow with clamp height */
+      /* In mobile view, the CTA button sits cleanly in flow with standardized button size */
       @media (max-width: 767px) {
         #m-pr-detail .payment-made-cta-btn {
           position: relative !important;
@@ -2018,17 +2022,19 @@
           left: auto !important;
           z-index: 10;
           width: 100% !important;
-          height: var(--pr-action-height) !important;
-          min-height: var(--pr-action-height) !important;
-          border-radius: clamp(0.65rem, 1.5cqw, 0.85rem) !important;
-          font-size: clamp(0.7rem, 2.8cqw, 0.76rem) !important;
-          padding-inline: clamp(0.65rem, 2.5cqw, 1rem) !important;
+          height: auto !important;
+          min-height: 44px !important;
+          padding-block: 0.875rem !important;
+          padding-inline: 1rem !important;
+          border-radius: 0.75rem !important;
+          font-size: 0.75rem !important;
+          font-weight: 800 !important;
           margin-top: clamp(0.35rem, 1cqh, 0.6rem) !important;
           margin-bottom: 0.15rem !important;
         }
 
         #m-pr-detail .payment-made-cta-btn .payment-btn-icon {
-          font-size: clamp(0.95rem, 2.2cqh, 1.1rem) !important;
+          font-size: 16px !important;
         }
       }
     </style>
@@ -2990,7 +2996,7 @@
                   <!-- 4. Primary Action: I HAVE MADE PAYMENT (Directly below Order details) -->
                   <div class="pt-2">
                     <button type="button" onclick="confirmPaymentMade(this)"
-                      class="payment-made-cta-btn relative overflow-hidden w-full h-[clamp(2.15rem,4.5vh,2.5rem)] px-4 rounded-xl bg-brand-green hover:bg-emerald-700 active:scale-[0.98] text-white font-extrabold text-[11.5px] sm:text-xs font-heading shadow-[0_4px_16px_rgba(46,160,67,0.32)] hover:shadow-[0_6px_20px_rgba(46,160,67,0.45)] transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer uppercase tracking-wider">
+                      class="payment-made-cta-btn relative overflow-hidden w-full py-3.5 px-4 rounded-xl bg-brand-green hover:bg-emerald-700 active:scale-95 text-white font-extrabold text-xs font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer">
                       <!-- Sliding Progress Fill Bar (Animates Left to Right) -->
                       <div
                         class="payment-btn-progress absolute inset-y-0 left-0 bg-emerald-800/80 dark:bg-emerald-600/80 w-0 transition-all duration-[1200ms] ease-out pointer-events-none rounded-xl">
@@ -3000,9 +3006,9 @@
                         class="payment-btn-shimmer absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent w-full transition-transform duration-[1200ms] ease-out pointer-events-none">
                       </div>
                       <!-- Foreground Text & Icon (Stays crisp & visible on top) -->
-                      <div class="relative z-10 flex items-center justify-center gap-1.5">
+                      <div class="relative z-10 flex items-center justify-center gap-2">
                         <span
-                          class="payment-btn-icon material-symbols-outlined text-[17px] leading-none select-none">check_circle</span>
+                          class="payment-btn-icon material-symbols-outlined text-[16px] leading-none select-none">check_circle</span>
                         <span class="payment-btn-text">I Have Made Payment</span>
                       </div>
                     </button>
@@ -4409,12 +4415,12 @@
                 </div>
               </div>
 
-              <!-- Action Buttons for Buyer: Confirm Delivery & Report Issue (Exact Same Size & Typography as I Have Made Payment) -->
+              <!-- Action Buttons for Buyer: Confirm Delivery & Report Issue (Exact Same Size & Typography as Submit Additional Proof) -->
               <div class="pr-action-buttons pt-1 sm:pt-1.5 flex flex-col gap-2">
                 <button onclick="confirmDelivery()" type="button"
-                  class="pr-confirm-btn relative overflow-hidden w-full h-[clamp(2.15rem,4.5vh,2.5rem)] px-4 rounded-xl bg-brand-green hover:bg-emerald-700 active:scale-[0.98] text-white font-extrabold text-[11.5px] sm:text-xs font-heading shadow-[0_4px_16px_rgba(46,160,67,0.32)] hover:shadow-[0_6px_20px_rgba(46,160,67,0.45)] transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer uppercase tracking-wider">
-                  <span class="material-symbols-outlined text-[17px] leading-none select-none">check_circle</span>
-                  <span class="font-extrabold text-[11.5px] sm:text-xs tracking-wider uppercase">Confirm Delivery</span>
+                  class="pr-confirm-btn relative overflow-hidden w-full py-3.5 px-4 rounded-xl bg-brand-green hover:bg-emerald-700 active:scale-95 text-white font-extrabold text-xs font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer">
+                  <span class="material-symbols-outlined text-[16px] leading-none select-none">check_circle</span>
+                  <span class="font-extrabold text-xs">Confirm Delivery</span>
                   <div
                     class="delivery-countdown-timer absolute right-3 sm:right-3.5 flex items-center gap-1 text-amber-300 font-mono font-black text-[10.5px] sm:text-[11.5px] tracking-wider drop-shadow-sm">
                     <span
@@ -4423,9 +4429,9 @@
                   </div>
                 </button>
                 <button onclick="openAppealModal()" type="button"
-                  class="pr-report-btn relative overflow-hidden w-full h-[clamp(2.15rem,4.5vh,2.5rem)] px-4 rounded-xl bg-red-600 hover:bg-red-700 active:scale-[0.98] text-white font-extrabold text-[11.5px] sm:text-xs font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer uppercase tracking-wider">
-                  <span class="material-symbols-outlined text-[17px] text-white leading-none select-none">gavel</span>
-                  <span class="font-extrabold text-[11.5px] sm:text-xs text-white tracking-wider uppercase">Report an Issue</span>
+                  class="pr-report-btn relative overflow-hidden w-full py-3.5 px-4 rounded-xl bg-red-600 hover:bg-red-700 active:scale-95 text-white font-extrabold text-xs font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer">
+                  <span class="material-symbols-outlined text-[16px] text-white leading-none select-none">gavel</span>
+                  <span class="font-extrabold text-xs text-white">Report an Issue</span>
                 </button>
               </div>
 
@@ -4653,12 +4659,12 @@
                 </div>
               </div>
 
-              <!-- Action Button for Seller: Report Issue (Exact Same Size & Typography as I Have Made Payment) -->
+              <!-- Action Button for Seller: Report Issue (Exact Same Size & Typography as Submit Additional Proof) -->
               <div class="pr-action-buttons pt-1 sm:pt-1.5 flex flex-col gap-2">
                 <button onclick="openAppealModal()" type="button"
-                  class="pr-report-btn relative overflow-hidden w-full h-[clamp(2.15rem,4.5vh,2.5rem)] px-4 rounded-xl bg-red-600 hover:bg-red-700 active:scale-[0.98] text-white font-extrabold text-[11.5px] sm:text-xs font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer uppercase tracking-wider">
-                  <span class="material-symbols-outlined text-[17px] text-white leading-none select-none">gavel</span>
-                  <span class="font-extrabold text-[11.5px] sm:text-xs text-white tracking-wider uppercase">Report an Issue</span>
+                  class="pr-report-btn relative overflow-hidden w-full py-3.5 px-4 rounded-xl bg-red-600 hover:bg-red-700 active:scale-95 text-white font-extrabold text-xs font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer">
+                  <span class="material-symbols-outlined text-[16px] text-white leading-none select-none">gavel</span>
+                  <span class="font-extrabold text-xs text-white">Report an Issue</span>
                 </button>
               </div>
 
@@ -5072,9 +5078,9 @@
               <!-- Buyer Role View: Submit More Proof + Payment Protection -->
               <div class="buyer-only pt-1 sm:pt-1.5 flex flex-col gap-2">
                 <button onclick="openProvideMoreInfoModal('buyer')" type="button"
-                  class="pr-proof-btn relative overflow-hidden w-full h-[clamp(2.15rem,4.5vh,2.5rem)] px-4 rounded-xl bg-red-600 hover:bg-red-700 active:scale-[0.98] text-white font-extrabold text-[11.5px] sm:text-xs font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer uppercase tracking-wider">
-                  <span class="material-symbols-outlined text-[17px] text-white leading-none select-none">add_photo_alternate</span>
-                  <span class="font-extrabold text-[11.5px] sm:text-xs text-white tracking-wider uppercase">Submit More Proof</span>
+                  class="pr-proof-btn relative overflow-hidden w-full py-3.5 px-4 rounded-xl bg-red-600 hover:bg-red-700 active:scale-95 text-white font-extrabold text-xs font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer">
+                  <span class="material-symbols-outlined text-[16px] text-white leading-none select-none">add_photo_alternate</span>
+                  <span class="font-extrabold text-xs text-white">Submit More Proof</span>
                 </button>
                 <div
                   class="pr-protection-note flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium text-center select-none">
@@ -5089,9 +5095,9 @@
               <!-- Seller Role View: Submit Counter Proof + Payout Protection -->
               <div class="seller-only pt-1 sm:pt-1.5 flex flex-col gap-2">
                 <button onclick="openProvideMoreInfoModal('seller')" type="button"
-                  class="pr-proof-btn relative overflow-hidden w-full h-[clamp(2.15rem,4.5vh,2.5rem)] px-4 rounded-xl bg-red-600 hover:bg-red-700 active:scale-[0.98] text-white font-extrabold text-[11.5px] sm:text-xs font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer uppercase tracking-wider">
-                  <span class="material-symbols-outlined text-[17px] text-white leading-none select-none">add_photo_alternate</span>
-                  <span class="font-extrabold text-[11.5px] sm:text-xs text-white tracking-wider uppercase">Submit Counter Proof</span>
+                  class="pr-proof-btn relative overflow-hidden w-full py-3.5 px-4 rounded-xl bg-red-600 hover:bg-red-700 active:scale-95 text-white font-extrabold text-xs font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer">
+                  <span class="material-symbols-outlined text-[16px] text-white leading-none select-none">gavel</span>
+                  <span class="font-extrabold text-xs text-white">Submit Counter Proof</span>
                 </button>
                 <div
                   class="pr-protection-note flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium text-center select-none">
@@ -7176,16 +7182,16 @@
                     <!-- 4. Primary Action: I HAVE MADE PAYMENT (Directly below Order details) -->
                     <div class="pt-3">
                       <button type="button" onclick="confirmPaymentMade(this)"
-                        class="payment-made-cta-btn relative overflow-hidden w-full h-[48px] px-5 rounded-2xl bg-brand-green hover:bg-emerald-700 active:scale-[0.98] text-white font-extrabold text-xs sm:text-[13px] font-heading shadow-[0_4px_16px_rgba(46,160,67,0.32)] hover:shadow-[0_6px_20px_rgba(46,160,67,0.45)] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider">
+                        class="payment-made-cta-btn relative overflow-hidden w-full py-3.5 px-4 rounded-xl bg-brand-green hover:bg-emerald-700 active:scale-95 text-white font-extrabold text-xs font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer">
                         <div
-                          class="payment-btn-progress absolute inset-y-0 left-0 bg-emerald-800/80 dark:bg-emerald-600/80 w-0 transition-all duration-[1200ms] ease-out pointer-events-none rounded-2xl">
+                          class="payment-btn-progress absolute inset-y-0 left-0 bg-emerald-800/80 dark:bg-emerald-600/80 w-0 transition-all duration-[1200ms] ease-out pointer-events-none rounded-xl">
                         </div>
                         <div
                           class="payment-btn-shimmer absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent w-full transition-transform duration-[1200ms] ease-out pointer-events-none">
                         </div>
                         <div class="relative z-10 flex items-center justify-center gap-2">
                           <span
-                            class="payment-btn-icon material-symbols-outlined text-[19px] leading-none select-none">check_circle</span>
+                            class="payment-btn-icon material-symbols-outlined text-[16px] leading-none select-none">check_circle</span>
                           <span class="payment-btn-text">I Have Made Payment</span>
                         </div>
                       </button>
@@ -8582,12 +8588,12 @@
                   </div>
                 </div>
 
-                <!-- Action Buttons for Buyer: Confirm Delivery & Report Issue (Exact Same Size & Typography as I Have Made Payment) -->
+                <!-- Action Buttons for Buyer: Confirm Delivery & Report Issue (Exact Same Size & Typography as Submit Additional Proof) -->
                 <div class="pr-action-buttons pt-2 flex flex-col gap-2.5">
                   <button onclick="confirmDelivery()" type="button"
-                    class="pr-confirm-btn relative overflow-hidden w-full h-[48px] px-5 rounded-2xl bg-brand-green hover:bg-emerald-700 active:scale-[0.98] text-white font-extrabold text-xs sm:text-[13px] font-heading shadow-[0_4px_16px_rgba(46,160,67,0.32)] hover:shadow-[0_6px_20px_rgba(46,160,67,0.45)] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider">
-                    <span class="material-symbols-outlined text-[19px] leading-none select-none">check_circle</span>
-                    <span class="font-extrabold text-xs sm:text-[13px] tracking-wider uppercase">Confirm Delivery</span>
+                    class="pr-confirm-btn relative overflow-hidden w-full py-3.5 px-4 rounded-xl bg-brand-green hover:bg-emerald-700 active:scale-95 text-white font-extrabold text-xs font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer">
+                    <span class="material-symbols-outlined text-[16px] leading-none select-none">check_circle</span>
+                    <span class="font-extrabold text-xs">Confirm Delivery</span>
                     <div
                       class="delivery-countdown-timer absolute right-3.5 flex items-center gap-1 text-amber-300 font-mono font-black text-xs sm:text-[13px] tracking-wider drop-shadow-sm">
                       <span
@@ -8596,9 +8602,9 @@
                     </div>
                   </button>
                   <button onclick="openAppealModal()" type="button"
-                    class="pr-report-btn relative overflow-hidden w-full h-[48px] px-5 rounded-2xl bg-red-600 hover:bg-red-700 active:scale-[0.98] text-white font-extrabold text-xs sm:text-[13px] font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider">
-                    <span class="material-symbols-outlined text-[19px] text-white leading-none select-none">gavel</span>
-                    <span class="font-extrabold text-xs sm:text-[13px] text-white tracking-wider uppercase">Report an Issue</span>
+                    class="pr-report-btn relative overflow-hidden w-full py-3.5 px-4 rounded-xl bg-red-600 hover:bg-red-700 active:scale-95 text-white font-extrabold text-xs font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer">
+                    <span class="material-symbols-outlined text-[16px] text-white leading-none select-none">gavel</span>
+                    <span class="font-extrabold text-xs text-white">Report an Issue</span>
                   </button>
                 </div>
 
@@ -8808,12 +8814,12 @@
                   </div>
                 </div>
 
-                <!-- Action Button for Seller: Report Issue (Exact Same Size & Typography as I Have Made Payment) -->
+                <!-- Action Button for Seller: Report Issue (Exact Same Size & Typography as Submit Additional Proof) -->
                 <div class="pr-action-buttons pt-2 flex flex-col gap-2.5">
                   <button onclick="openAppealModal()" type="button"
-                    class="pr-report-btn relative overflow-hidden w-full h-[48px] px-5 rounded-2xl bg-red-600 hover:bg-red-700 active:scale-[0.98] text-white font-extrabold text-xs sm:text-[13px] font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider">
-                    <span class="material-symbols-outlined text-[19px] text-white leading-none select-none">gavel</span>
-                    <span class="font-extrabold text-xs sm:text-[13px] text-white tracking-wider uppercase">Report an Issue</span>
+                    class="pr-report-btn relative overflow-hidden w-full py-3.5 px-4 rounded-xl bg-red-600 hover:bg-red-700 active:scale-95 text-white font-extrabold text-xs font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer">
+                    <span class="material-symbols-outlined text-[16px] text-white leading-none select-none">gavel</span>
+                    <span class="font-extrabold text-xs text-white">Report an Issue</span>
                   </button>
                 </div>
 
@@ -9198,9 +9204,9 @@
                 <!-- Buyer Role View: Submit More Proof + Payment Protection -->
                 <div class="buyer-only pt-2 flex flex-col gap-2.5">
                   <button onclick="openProvideMoreInfoModal('buyer')" type="button"
-                    class="pr-proof-btn relative overflow-hidden w-full h-[48px] px-5 rounded-2xl bg-red-600 hover:bg-red-700 active:scale-[0.98] text-white font-extrabold text-xs sm:text-[13px] font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider">
-                    <span class="material-symbols-outlined text-[19px] text-white leading-none select-none">add_photo_alternate</span>
-                    <span class="font-extrabold text-xs sm:text-[13px] text-white tracking-wider uppercase">Submit More Proof</span>
+                    class="pr-proof-btn relative overflow-hidden w-full py-3.5 px-4 rounded-xl bg-red-600 hover:bg-red-700 active:scale-95 text-white font-extrabold text-xs font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer">
+                    <span class="material-symbols-outlined text-[16px] text-white leading-none select-none">add_photo_alternate</span>
+                    <span class="font-extrabold text-xs text-white">Submit More Proof</span>
                   </button>
                   <div
                     class="pr-protection-note flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-1 mb-1 text-center select-none">
@@ -9215,9 +9221,9 @@
                 <!-- Seller Role View: Submit Counter Proof + Payout Protection -->
                 <div class="seller-only pt-2 flex flex-col gap-2.5">
                   <button onclick="openProvideMoreInfoModal('seller')" type="button"
-                    class="pr-proof-btn relative overflow-hidden w-full h-[48px] px-5 rounded-2xl bg-red-600 hover:bg-red-700 active:scale-[0.98] text-white font-extrabold text-xs sm:text-[13px] font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider">
-                    <span class="material-symbols-outlined text-[19px] text-white leading-none select-none">add_photo_alternate</span>
-                    <span class="font-extrabold text-xs sm:text-[13px] text-white tracking-wider uppercase">Submit Counter Proof</span>
+                    class="pr-proof-btn relative overflow-hidden w-full py-3.5 px-4 rounded-xl bg-red-600 hover:bg-red-700 active:scale-95 text-white font-extrabold text-xs font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer">
+                    <span class="material-symbols-outlined text-[16px] text-white leading-none select-none">gavel</span>
+                    <span class="font-extrabold text-xs text-white">Submit Counter Proof</span>
                   </button>
                   <div
                     class="pr-protection-note flex items-center justify-center gap-1 text-[11px] sm:text-[11.5px] text-neutral-500 dark:text-neutral-400 font-medium mt-1 mb-1 text-center select-none">
@@ -12140,25 +12146,32 @@
           // Payment / Awaiting Payment = Orange, Received = Blue, In Transit = Purple, Delivered = Dark Green, Completed = Light Green, Dispute = Red
           var statusText = deal.statusText || 'Payment Received';
           var statusColor = 'text-brand-blue dark:text-blue-400';
+          var hoverColor = 'group-hover:text-brand-blue dark:group-hover:text-blue-400';
 
           if (state.dispute || deal.deliveryStatus === 'dispute_ongoing') {
             statusText = 'Dispute Ongoing';
             statusColor = 'text-red-600 dark:text-red-400';
+            hoverColor = 'group-hover:text-red-600 dark:group-hover:text-red-400';
           } else if (deal.deliveryStatus === 'awaiting_payment') {
             statusText = 'Awaiting Payment';
             statusColor = 'text-amber-600 dark:text-amber-400';
+            hoverColor = 'group-hover:text-amber-600 dark:group-hover:text-amber-400';
           } else if (deal.deliveryStatus === 'payment_received') {
             statusText = 'Payment Received';
             statusColor = 'text-brand-blue dark:text-blue-400';
+            hoverColor = 'group-hover:text-brand-blue dark:group-hover:text-blue-400';
           } else if (deal.deliveryStatus === 'in_transit') {
             statusText = 'In Transit';
             statusColor = 'text-purple-600 dark:text-purple-400';
+            hoverColor = 'group-hover:text-purple-600 dark:group-hover:text-purple-400';
           } else if (deal.deliveryStatus === 'delivered') {
             statusText = 'Delivered';
             statusColor = 'text-emerald-800 dark:text-emerald-300';
+            hoverColor = 'group-hover:text-emerald-800 dark:group-hover:text-emerald-300';
           } else if (deal.deliveryStatus === 'completed') {
             statusText = 'Completed';
             statusColor = 'text-emerald-600 dark:text-emerald-400';
+            hoverColor = 'group-hover:text-emerald-600 dark:group-hover:text-emerald-400';
           }
 
           var roleColor = isBuying ? 'text-brand-green dark:text-emerald-400' : 'text-red-600 dark:text-red-400';
@@ -12168,10 +12181,9 @@
             '<div class="w-full flex items-center justify-between gap-2">' +
             '<span class="pr-room-role text-xs font-bold font-heading ' + roleColor + '">' + roleText + '</span>' +
             '</div>' +
-
             '<!-- Main Row: Product Name & Price (Price stands out on right, Title on left) -->' +
             '<div class="w-full flex items-center justify-between gap-3">' +
-            '<h4 class="pr-room-title text-xs sm:text-sm font-semibold text-neutral-800 dark:text-neutral-200 truncate font-heading leading-snug group-hover:text-brand-blue dark:group-hover:text-blue-400 transition-colors flex-1 min-w-0 pr-2">' + deal.title + '</h4>' +
+            '<h4 class="pr-room-title text-xs sm:text-sm font-semibold text-neutral-800 dark:text-neutral-200 truncate font-heading leading-snug ' + hoverColor + ' transition-colors flex-1 min-w-0 pr-2">' + deal.title + '</h4>' +
             '<span class="pr-room-price text-base sm:text-lg md:text-xl font-black text-brand-dark dark:text-white font-heading whitespace-nowrap flex-shrink-0 tracking-tight ml-auto text-right">' + deal.price + '</span>' +
             '</div>' +
 
