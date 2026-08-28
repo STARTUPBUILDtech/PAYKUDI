@@ -77,11 +77,31 @@
   </script>
 
   <style>
-    /* Complete prevention of unwanted mobile viewport auto-zooming on input focus */
+    /* Complete prevention of unwanted mobile viewport auto-zooming on input focus and sticky tap highlights */
+    *, *::before, *::after {
+      -webkit-tap-highlight-color: transparent !important;
+    }
+
     html, body {
       touch-action: manipulation;
       -webkit-text-size-adjust: 100%;
       text-size-adjust: 100%;
+    }
+
+    .nav-bottom-link,
+    .nav-bottom-link * {
+      -webkit-tap-highlight-color: transparent !important;
+      outline: none !important;
+      user-select: none !important;
+      -webkit-user-select: none !important;
+      -webkit-touch-callout: none !important;
+    }
+    .nav-bottom-link:focus,
+    .nav-bottom-link:focus-visible,
+    .nav-bottom-link:active {
+      outline: none !important;
+      box-shadow: none !important;
+      background-color: transparent !important;
     }
 
     @media screen and (max-width: 768px) {
@@ -95,11 +115,13 @@
         font-size: 14px;
       }
 
-      /* Specific mobile override for compact Payment Room search bar */
-      #m-pr-search {
+      /* Specific mobile override for compact Payment Room & Activity search bars */
+      #m-pr-search,
+      #m-activity-search {
         font-size: 11px !important;
       }
-      #m-pr-search::placeholder {
+      #m-pr-search::placeholder,
+      #m-activity-search::placeholder {
         font-size: 11px !important;
       }
 
@@ -670,11 +692,28 @@
       border-color: rgba(225, 217, 203, 0.9) !important;
     }
 
-    html.dark .flex.items-center.bg-white.rounded-full,
-    html.dark .bg-white.rounded-full,
+    html.dark .flex.items-center.bg-white.rounded-full:not(.promo-code-pill),
+    html.dark .bg-white.rounded-full:not(.promo-code-pill),
     html.dark div.bg-white.border.border-gray-200.rounded-full {
       background-color: rgba(22, 31, 48, 0.85) !important;
       border-color: rgba(255, 255, 255, 0.1) !important;
+    }
+
+    .promo-code-pill,
+    html.dark .promo-code-pill {
+      background-color: rgba(255, 255, 255, 0.25) !important;
+      color: #FFFFFF !important;
+      border: 1px solid rgba(255, 255, 255, 0.38) !important;
+      backdrop-filter: blur(8px) !important;
+      -webkit-backdrop-filter: blur(8px) !important;
+    }
+    .promo-code-pill:hover,
+    html.dark .promo-code-pill:hover {
+      background-color: rgba(255, 255, 255, 0.38) !important;
+    }
+    .promo-code-pill *,
+    html.dark .promo-code-pill * {
+      color: #FFFFFF !important;
     }
 
     html.dark input[type="text"] {
@@ -1406,12 +1445,12 @@
       }
 
       /* Unified Theme Cards: Match Body Theme Color & Theme Border */
-      #m-pr-detail .bg-white,
-      #m-pr-detail .dark\:bg-\[\#181A20\],
-      #d-pr-detail .bg-white,
-      #d-pr-detail .dark\:bg-\[\#181A20\],
-      .pr-sub-screen .bg-white,
-      .pr-sub-screen .dark\:bg-\[\#181A20\],
+      #m-pr-detail .bg-white:not(.pr-order-header-card):not(.promo-code-pill),
+      #m-pr-detail .dark\:bg-\[\#181A20\]:not(.pr-order-header-card):not(.promo-code-pill),
+      #d-pr-detail .bg-white:not(.pr-order-header-card):not(.promo-code-pill),
+      #d-pr-detail .dark\:bg-\[\#181A20\]:not(.pr-order-header-card):not(.promo-code-pill),
+      .pr-sub-screen .bg-white:not(.pr-order-header-card):not(.promo-code-pill),
+      .pr-sub-screen .dark\:bg-\[\#181A20\]:not(.pr-order-header-card):not(.promo-code-pill),
       #m-pr-list-container .pr-room-card,
       #d-pr-list-container .pr-room-card,
       #awaiting-order-details-modal #order-details-sheet-card,
@@ -1470,12 +1509,32 @@
         width: 100% !important;
       }
 
-      html.dark #m-pr-detail .bg-white,
-      html.dark #m-pr-detail .dark\:bg-\[\#181A20\],
-      html.dark #d-pr-detail .bg-white,
-      html.dark #d-pr-detail .dark\:bg-\[\#181A20\],
-      html.dark .pr-sub-screen .bg-white,
-      html.dark .pr-sub-screen .dark\:bg-\[\#181A20\],
+      /* =========================================================================
+         CLEAN SHADOWLESS NEUMORPHISM (TACTILE SOFT BEVEL & INSET INNER DEPTH)
+         ========================================================================= */
+      .pr-order-header-card {
+        background: linear-gradient(145deg, #FFFFFF 0%, #FAF6EE 100%) !important;
+        border: 1px solid #EBE3D5 !important;
+        border-radius: 20px !important;
+        box-shadow: inset 1.5px 1.5px 1px rgba(255, 255, 255, 0.95),
+                    inset -1.5px -1.5px 1px rgba(210, 198, 180, 0.3) !important;
+        transition: all 0.25s ease !important;
+      }
+
+      html.dark .pr-order-header-card {
+        background: linear-gradient(145deg, #1A212D 0%, #121620 100%) !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        border-radius: 20px !important;
+        box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.1),
+                    inset -1px -1px 1px rgba(0, 0, 0, 0.45) !important;
+      }
+
+      html.dark #m-pr-detail .bg-white:not(.promo-code-pill):not(.pr-order-header-card),
+      html.dark #m-pr-detail .dark\:bg-\[\#181A20\]:not(.promo-code-pill):not(.pr-order-header-card),
+      html.dark #d-pr-detail .bg-white:not(.promo-code-pill):not(.pr-order-header-card),
+      html.dark #d-pr-detail .dark\:bg-\[\#181A20\]:not(.promo-code-pill):not(.pr-order-header-card),
+      html.dark .pr-sub-screen .bg-white:not(.promo-code-pill):not(.pr-order-header-card),
+      html.dark .pr-sub-screen .dark\:bg-\[\#181A20\]:not(.promo-code-pill):not(.pr-order-header-card),
       html.dark #m-pr-list-container .pr-room-card,
       html.dark #d-pr-list-container .pr-room-card,
       html.dark #awaiting-order-details-modal #order-details-sheet-card,
@@ -1846,12 +1905,6 @@
         height: var(--pr-step-circle) !important;
       }
 
-      #m-pr-detail .pr-sub-screen .awaiting-countdown-badge,
-      #d-pr-detail .pr-sub-screen .awaiting-countdown-badge {
-        width: var(--pr-icon-btn) !important;
-        height: var(--pr-icon-btn) !important;
-      }
-
       /* Section and row spacing: replaces fixed space-y-*/mb-*/pt-*/px-3.5
          gaps with continuous values driven by available height/width. */
       #m-pr-detail .pr-sub-screen .space-y-1\.5 > :not([hidden]) ~ :not([hidden]),
@@ -1884,15 +1937,13 @@
       }
 
       #m-pr-detail .pr-sub-screen .pt-2\.5,
-      #d-pr-detail .pr-sub-screen .pt-2\.5,
-      #m-pr-detail .pr-sub-screen .py-2\.5,
-      #d-pr-detail .pr-sub-screen .py-2\.5 {
+      #d-pr-detail .pr-sub-screen .pt-2\.5 {
         padding-top: var(--pr-gap) !important;
       }
 
       #m-pr-detail .pr-sub-screen .py-2\.5,
       #d-pr-detail .pr-sub-screen .py-2\.5 {
-        padding-bottom: var(--pr-gap) !important;
+        padding-block: var(--pr-gap) !important;
       }
 
       #m-pr-detail .pr-sub-screen .space-y-4 > :not([hidden]) ~ :not([hidden]),
@@ -1997,11 +2048,7 @@
       #m-pr-detail .pr-protection-note,
       #d-pr-detail .pr-protection-note,
       #m-pr-detail .seller-protection-note,
-      #d-pr-detail .seller-protection-note,
-      #m-pr-detail .pr-sub-screen .pr-protection-note,
-      #d-pr-detail .pr-sub-screen .pr-protection-note,
-      #m-pr-detail .pr-sub-screen .seller-protection-note,
-      #d-pr-detail .pr-sub-screen .seller-protection-note {
+      #d-pr-detail .seller-protection-note {
         margin-top: auto !important;
         margin-bottom: clamp(0.15rem, 0.5cqh, 0.35rem) !important;
         padding-top: clamp(0.35rem, 0.8cqh, 0.55rem) !important;
@@ -2322,9 +2369,9 @@
                   <p class="text-[9px] text-white/90 font-medium mt-0.5 truncate">Package discount coupon</p>
                   
                   <button type="button" onclick="copyPromoCode('ST-V2586')"
-                    class="bg-white hover:bg-white/90 text-[#FF5E36] px-2 py-0.5 rounded-full inline-flex items-center gap-1 text-[10px] font-bold shadow-xs mt-1.5 active:scale-95 transition-all cursor-pointer select-none">
-                    <span class="material-symbols-outlined text-[11px]">content_copy</span>
-                    <span>ST-V2586</span>
+                    class="promo-code-pill bg-white/25 hover:bg-white/35 text-white border border-white/35 backdrop-blur-sm px-2.5 py-0.5 rounded-full inline-flex items-center gap-1 text-[10px] font-extrabold shadow-xs mt-1.5 active:scale-95 transition-all cursor-pointer select-none">
+                    <span class="material-symbols-outlined text-[11px] text-white">content_copy</span>
+                    <span class="font-mono tracking-wider text-white">ST-V2586</span>
                   </button>
                 </div>
 
@@ -2345,9 +2392,9 @@
                   <p class="text-[9px] text-white/90 font-medium mt-0.5 truncate">Discount on first order</p>
                   
                   <button type="button" onclick="copyPromoCode('FO-404030')"
-                    class="bg-white hover:bg-white/90 text-[#072417] px-2 py-0.5 rounded-full inline-flex items-center gap-1 text-[10px] font-bold shadow-xs mt-1.5 active:scale-95 transition-all cursor-pointer select-none">
-                    <span class="material-symbols-outlined text-[11px]">content_copy</span>
-                    <span>FO-404030</span>
+                    class="promo-code-pill bg-white/25 hover:bg-white/35 text-white border border-white/35 backdrop-blur-sm px-2.5 py-0.5 rounded-full inline-flex items-center gap-1 text-[10px] font-extrabold shadow-xs mt-1.5 active:scale-95 transition-all cursor-pointer select-none">
+                    <span class="material-symbols-outlined text-[11px] text-white">content_copy</span>
+                    <span class="font-mono tracking-wider text-white">FO-404030</span>
                   </button>
                 </div>
 
@@ -2368,9 +2415,9 @@
                   <p class="text-[9px] text-white/90 font-medium mt-0.5 truncate">Package discount coupon</p>
                   
                   <button type="button" onclick="copyPromoCode('UP15-586')"
-                    class="bg-white hover:bg-white/90 text-[#0F356E] px-2 py-0.5 rounded-full inline-flex items-center gap-1 text-[10px] font-bold shadow-xs mt-1.5 active:scale-95 transition-all cursor-pointer select-none">
-                    <span class="material-symbols-outlined text-[11px]">content_copy</span>
-                    <span>UP15-586</span>
+                    class="promo-code-pill bg-white/25 hover:bg-white/35 text-white border border-white/35 backdrop-blur-sm px-2.5 py-0.5 rounded-full inline-flex items-center gap-1 text-[10px] font-extrabold shadow-xs mt-1.5 active:scale-95 transition-all cursor-pointer select-none">
+                    <span class="material-symbols-outlined text-[11px] text-white">content_copy</span>
+                    <span class="font-mono tracking-wider text-white">UP15-586</span>
                   </button>
                 </div>
 
@@ -2391,9 +2438,9 @@
                   <p class="text-[9px] text-white/90 font-medium mt-0.5 truncate">Package discount coupon</p>
                   
                   <button type="button" onclick="copyPromoCode('UP5-E586')"
-                    class="bg-white hover:bg-white/90 text-[#0E6838] px-2 py-0.5 rounded-full inline-flex items-center gap-1 text-[10px] font-bold shadow-xs mt-1.5 active:scale-95 transition-all cursor-pointer select-none">
-                    <span class="material-symbols-outlined text-[11px]">content_copy</span>
-                    <span>UP5-E586</span>
+                    class="promo-code-pill bg-white/25 hover:bg-white/35 text-white border border-white/35 backdrop-blur-sm px-2.5 py-0.5 rounded-full inline-flex items-center gap-1 text-[10px] font-extrabold shadow-xs mt-1.5 active:scale-95 transition-all cursor-pointer select-none">
+                    <span class="material-symbols-outlined text-[11px] text-white">content_copy</span>
+                    <span class="font-mono tracking-wider text-white">UP5-E586</span>
                   </button>
                 </div>
 
@@ -2467,17 +2514,17 @@
             <!-- Integrated Search Bar with Filter inside -->
             <div class="relative max-w-[245px] sm:max-w-[270px] flex-1 min-w-0 ml-auto">
               <div
-                class="flex items-center bg-[#FAF7F2] dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/20 rounded-xl pl-2.5 pr-1 py-1 shadow-xs focus-within:ring-2 focus-within:ring-brand-blue/20 dark:focus-within:border-white/40 transition-all">
+                class="h-[34px] flex items-center bg-[#FAF7F2] dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/20 rounded-xl pl-2 pr-1 shadow-xs focus-within:ring-2 focus-within:ring-brand-blue/20 dark:focus-within:border-white/40 transition-all">
                 <span class="material-symbols-outlined text-gray-400 dark:text-gray-400 text-[14px] flex-shrink-0">search</span>
                 <input type="text" id="m-activity-search" oninput="filterActivities('mobile')"
                   placeholder="Search activities"
-                  class="w-full min-w-0 bg-transparent border-0 pl-1.5 pr-1 py-0.5 text-[11px] font-medium text-brand-dark dark:text-white placeholder-gray-400 focus:outline-none focus:ring-0" />
+                  class="w-full min-w-0 bg-transparent border-0 pl-1 pr-1 py-0 h-full text-[11px] font-medium text-brand-dark dark:text-white placeholder-gray-400 focus:outline-none focus:ring-0" />
 
                 <!-- Integrated Filter Button & Dropdown Inside Search Bar -->
                 <div class="relative text-left flex-shrink-0" id="m-custom-dropdown-wrap">
                   <button type="button" onclick="toggleCustomDropdown('mobile')" id="m-custom-dropdown-btn"
-                    class="inline-flex items-center gap-1 bg-transparent hover:bg-black/5 dark:hover:bg-white/10 rounded-lg px-2 py-0.5 text-[10.5px] font-semibold text-brand-dark dark:text-gray-200 focus:outline-none font-heading cursor-pointer transition-all">
-                    <span class="material-symbols-outlined text-[13px] text-gray-600 dark:text-gray-400">tune</span>
+                    class="h-6 inline-flex items-center gap-1 bg-transparent hover:bg-black/5 dark:hover:bg-white/10 rounded-lg px-1.5 text-[10.5px] font-semibold text-brand-dark dark:text-gray-200 focus:outline-none font-heading cursor-pointer transition-all">
+                    <span class="material-symbols-outlined text-[12px] text-gray-600 dark:text-gray-400">tune</span>
                     <span id="m-custom-dropdown-label">Filter</span>
                     <span id="m-filter-badge"
                       class="hidden w-3.5 h-3.5 rounded-full bg-brand-blue text-white text-[8.5px] font-extrabold items-center justify-center leading-none">0</span>
@@ -2852,7 +2899,7 @@
             <div class="buyer-only space-y-4 px-3.5 sm:px-4">
               <!-- 1. Order Amount & 5-State Stepper Card -->
               <div
-                class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3.5 shadow-2xs">
+                class="pr-order-header-card p-3.5 sm:p-4">
                 <div class="flex items-center justify-between">
                   <div>
                     <span
@@ -2861,10 +2908,10 @@
                     <span
                       class="disp-deal-price text-2xl font-black text-brand-dark dark:text-white font-heading block mt-0.5 tracking-tight">₦50,000</span>
                   </div>
-                  <div
-                    class="flex items-center justify-center w-8 h-8 rounded-full border border-amber-500 bg-white dark:bg-[#181A20] text-amber-600 dark:text-amber-400 font-bold text-[11px] font-mono awaiting-countdown-badge shadow-2xs flex-shrink-0">
+                  <span
+                    class="text-sm sm:text-base font-black font-mono text-amber-600 dark:text-amber-400 awaiting-countdown-badge flex-shrink-0 mr-2 sm:mr-3">
                     120s
-                  </div>
+                  </span>
                 </div>
 
                 <!-- Horizontal Separator & 5 Stepper States (Active Glowing Yellow for Awaiting, Others Greyed Out) -->
@@ -3073,7 +3120,7 @@
             <div class="seller-only space-y-4 px-3.5 sm:px-4">
               <!-- 1. Order Amount & 5-State Stepper Card -->
               <div
-                class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3.5 shadow-2xs">
+                class="pr-order-header-card p-3.5 sm:p-4">
                 <div class="flex items-center justify-between">
                   <div>
                     <span
@@ -3082,10 +3129,10 @@
                     <span
                       class="disp-deal-price text-2xl font-black text-brand-dark dark:text-white font-heading block mt-0.5 tracking-tight">₦50,000</span>
                   </div>
-                  <div
-                    class="flex items-center justify-center w-8 h-8 rounded-full border border-amber-500 bg-white dark:bg-[#181A20] text-amber-600 dark:text-amber-400 font-bold text-[11px] font-mono awaiting-countdown-badge shadow-2xs flex-shrink-0">
+                  <span
+                    class="text-sm sm:text-base font-black font-mono text-amber-600 dark:text-amber-400 awaiting-countdown-badge flex-shrink-0 mr-2 sm:mr-3">
                     120s
-                  </div>
+                  </span>
                 </div>
 
                 <!-- Horizontal Separator & 5 Stepper States (Active Glowing Yellow for Awaiting, Others Greyed Out) -->
@@ -3304,7 +3351,7 @@
             <div class="buyer-only space-y-4 px-3.5 sm:px-4">
               <!-- 1. Order Amount & 5-State Stepper Card -->
               <div
-                class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3.5 shadow-2xs">
+                class="pr-order-header-card p-3.5 sm:p-4">
                 <div class="flex items-center justify-between">
                   <div>
                     <span
@@ -3521,7 +3568,7 @@
             <div class="seller-only space-y-4 px-3.5 sm:px-4">
               <!-- 1. Order Amount & 5-State Stepper Card -->
               <div
-                class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3.5 shadow-2xs">
+                class="pr-order-header-card p-3.5 sm:p-4">
                 <div class="flex items-center justify-between">
                   <div>
                     <span
@@ -3776,7 +3823,7 @@
             <div class="buyer-only space-y-4 px-3.5 sm:px-4">
               <!-- 1. Order Amount & 5-State Stepper Card -->
               <div
-                class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3.5 shadow-2xs">
+                class="pr-order-header-card p-3.5 sm:p-4">
                 <div class="flex items-center justify-between">
                   <div>
                     <span
@@ -3989,7 +4036,7 @@
             <div class="seller-only space-y-4 px-3.5 sm:px-4">
               <!-- 1. Order Amount & 5-State Stepper Card -->
               <div
-                class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3.5 shadow-2xs">
+                class="pr-order-header-card p-3.5 sm:p-4">
                 <div class="flex items-center justify-between">
                   <div>
                     <span
@@ -4235,7 +4282,7 @@
             <div class="buyer-only space-y-4 px-3.5 sm:px-4">
               <!-- 1. Order Amount & 5-State Stepper Card -->
               <div
-                class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3.5 shadow-2xs">
+                class="pr-order-header-card p-3.5 sm:p-4">
                 <div class="flex items-center justify-between">
                   <div>
                     <span
@@ -4477,7 +4524,7 @@
             <div class="seller-only space-y-4 px-3.5 sm:px-4">
               <!-- 1. Order Amount & 5-State Stepper Card -->
               <div
-                class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3.5 shadow-2xs">
+                class="pr-order-header-card p-3.5 sm:p-4">
                 <div class="flex items-center justify-between">
                   <div>
                     <span
@@ -4928,7 +4975,7 @@
             <div class="space-y-4 px-3.5 sm:px-4">
               <!-- 2. TOP CARD: Order Amount & 3-Step Dispute Stepper Card -->
               <div
-                class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3.5 shadow-2xs">
+                class="pr-order-header-card p-3.5 sm:p-4">
                 <div class="flex items-center justify-between">
                   <div>
                     <span
@@ -5172,7 +5219,7 @@
             <div class="buyer-only space-y-4 px-3.5 sm:px-4">
               <!-- 1. Order Amount & 5-State Stepper Card -->
               <div
-                class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3.5 shadow-2xs">
+                class="pr-order-header-card p-3.5 sm:p-4">
                 <div class="flex items-center justify-between">
                   <div>
                     <span
@@ -5374,7 +5421,7 @@
             <div class="seller-only space-y-4 px-3.5 sm:px-4">
               <!-- 1. Order Amount & 5-State Stepper Card -->
               <div
-                class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3.5 shadow-2xs">
+                class="pr-order-header-card p-3.5 sm:p-4">
                 <div class="flex items-center justify-between">
                   <div>
                     <span
@@ -5949,19 +5996,19 @@
       <nav id="m-bottom-nav"
         class="fixed bottom-4 inset-x-4 max-w-[390px] mx-auto bg-white/92 dark:bg-[#181A20]/92 backdrop-blur-2xl border border-[#EBE3D5] dark:border-white/15 rounded-[26px] shadow-[0_12px_36px_-6px_rgba(16,43,27,0.18)] dark:shadow-[0_16px_40px_rgba(0,0,0,0.65)] px-4 py-2 flex justify-between items-center z-[9999] select-none pointer-events-auto transition-all">
         <button onclick="switchView('home')" id="m-nav-home"
-          class="nav-bottom-link text-brand-blue dark:text-emerald-400 flex flex-col items-center gap-0.5 font-bold transition-all cursor-pointer px-2 py-1 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 active:scale-95"
+          class="nav-bottom-link text-brand-blue dark:text-emerald-400 flex flex-col items-center gap-0.5 font-bold transition-all cursor-pointer px-2 py-1 select-none focus:outline-none active:scale-95"
           data-target="home">
           <span class="material-symbols-outlined text-[23px]">dashboard</span>
           <span class="text-[10px] font-heading">Dashboard</span>
         </button>
         <button onclick="switchView('activity')" id="m-nav-activity"
-          class="nav-bottom-link text-gray-500 dark:text-neutral-400 hover:text-brand-blue dark:hover:text-white flex flex-col items-center gap-0.5 transition-all cursor-pointer px-2 py-1 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 active:scale-95"
+          class="nav-bottom-link text-gray-500 dark:text-neutral-400 hover:text-brand-blue dark:hover:text-white flex flex-col items-center gap-0.5 transition-all cursor-pointer px-2 py-1 select-none focus:outline-none active:scale-95"
           data-target="activity">
           <span class="material-symbols-outlined text-[23px]">analytics</span>
           <span class="text-[10px] font-heading">Activity</span>
         </button>
         <button onclick="switchView('notifications')" id="m-nav-notifications"
-          class="nav-bottom-link text-gray-500 dark:text-neutral-400 hover:text-brand-blue dark:hover:text-white flex flex-col items-center gap-0.5 transition-all relative cursor-pointer px-2 py-1 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 active:scale-95"
+          class="nav-bottom-link text-gray-500 dark:text-neutral-400 hover:text-brand-blue dark:hover:text-white flex flex-col items-center gap-0.5 transition-all relative cursor-pointer px-2 py-1 select-none focus:outline-none active:scale-95"
           data-target="notifications">
           <div class="relative inline-flex items-center justify-center">
             <span class="material-symbols-outlined text-[23px]">payments</span>
@@ -5971,7 +6018,7 @@
           <span class="text-[10px] font-heading">Payment Room</span>
         </button>
         <button onclick="switchView('profile')" id="m-nav-profile"
-          class="nav-bottom-link text-gray-500 dark:text-neutral-400 hover:text-brand-blue dark:hover:text-white flex flex-col items-center gap-0.5 transition-all cursor-pointer px-2 py-1 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 active:scale-95"
+          class="nav-bottom-link text-gray-500 dark:text-neutral-400 hover:text-brand-blue dark:hover:text-white flex flex-col items-center gap-0.5 transition-all cursor-pointer px-2 py-1 select-none focus:outline-none active:scale-95"
           data-target="profile">
           <div class="flex items-center gap-1">
             <span class="material-symbols-outlined text-[21px]">person</span>
@@ -7014,7 +7061,7 @@
               <div class="buyer-only space-y-4 px-0">
                 <!-- 1. Order Amount & 5-State Stepper Card -->
                 <div
-                  class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3.5 shadow-2xs">
+                  class="pr-order-header-card p-3.5 sm:p-4">
                   <div class="flex items-center justify-between">
                     <div>
                       <span
@@ -7023,10 +7070,10 @@
                       <span
                         class="disp-deal-price text-2xl font-black text-brand-dark dark:text-white font-heading block mt-0.5 tracking-tight">₦50,000</span>
                     </div>
-                    <div
-                      class="flex items-center justify-center w-8 h-8 rounded-full border border-amber-500 bg-white dark:bg-[#181A20] text-amber-600 dark:text-amber-400 font-bold text-[11px] font-mono awaiting-countdown-badge shadow-2xs flex-shrink-0">
+                    <span
+                      class="text-sm sm:text-base font-black font-mono text-amber-600 dark:text-amber-400 awaiting-countdown-badge flex-shrink-0 mr-2 sm:mr-3">
                       120s
-                    </div>
+                    </span>
                   </div>
 
                   <!-- Horizontal Separator & 5 Stepper States (Active Glowing Yellow for Awaiting, Others Greyed Out) -->
@@ -7232,7 +7279,7 @@
               <div class="seller-only space-y-4 px-0">
                 <!-- 1. Order Amount & 5-State Stepper Card -->
                 <div
-                  class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3.5 shadow-2xs">
+                  class="pr-order-header-card p-3.5 sm:p-4">
                   <div class="flex items-center justify-between">
                     <div>
                       <span
@@ -7241,10 +7288,10 @@
                       <span
                         class="disp-deal-price text-2xl font-black text-brand-dark dark:text-white font-heading block mt-0.5 tracking-tight">₦50,000</span>
                     </div>
-                    <div
-                      class="flex items-center justify-center w-8 h-8 rounded-full border border-amber-500 bg-white dark:bg-[#181A20] text-amber-600 dark:text-amber-400 font-bold text-[11px] font-mono awaiting-countdown-badge shadow-2xs flex-shrink-0">
+                    <span
+                      class="text-sm sm:text-base font-black font-mono text-amber-600 dark:text-amber-400 awaiting-countdown-badge flex-shrink-0 mr-2 sm:mr-3">
                       120s
-                    </div>
+                    </span>
                   </div>
 
                   <!-- Horizontal Separator & 5 Stepper States (Active Glowing Yellow for Awaiting, Others Greyed Out) -->
@@ -7464,7 +7511,7 @@
               <div class="buyer-only space-y-4 px-0">
                 <!-- 1. Order Amount & 5-State Stepper Card -->
                 <div
-                  class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3.5 shadow-2xs">
+                  class="pr-order-header-card p-3.5 sm:p-4">
                   <div class="flex items-center justify-between">
                     <div>
                       <span
@@ -7682,7 +7729,7 @@
               <div class="seller-only space-y-4 px-0">
                 <!-- 1. Order Amount & 5-State Stepper Card -->
                 <div
-                  class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3.5 shadow-2xs">
+                  class="pr-order-header-card p-3.5 sm:p-4">
                   <div class="flex items-center justify-between">
                     <div>
                       <span
@@ -7939,7 +7986,7 @@
               <div class="buyer-only space-y-4 px-0">
                 <!-- 1. Order Amount & 5-State Stepper Card -->
                 <div
-                  class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3.5 shadow-2xs">
+                  class="pr-order-header-card p-3.5 sm:p-4">
                   <div class="flex items-center justify-between">
                     <div>
                       <span
@@ -8152,7 +8199,7 @@
               <div class="seller-only space-y-4 px-0">
                 <!-- 1. Order Amount & 5-State Stepper Card -->
                 <div
-                  class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3.5 shadow-2xs">
+                  class="pr-order-header-card p-3.5 sm:p-4">
                   <div class="flex items-center justify-between">
                     <div>
                       <span
@@ -8399,7 +8446,7 @@
               <div class="buyer-only space-y-4 px-0">
                 <!-- 1. Order Amount & 5-State Stepper Card -->
                 <div
-                  class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3.5 shadow-2xs">
+                  class="pr-order-header-card p-3.5 sm:p-4">
                   <div class="flex items-center justify-between">
                     <div>
                       <span
@@ -8641,7 +8688,7 @@
               <div class="seller-only space-y-4 px-0">
                 <!-- 1. Order Amount & 5-State Stepper Card -->
                 <div
-                  class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3.5 shadow-2xs">
+                  class="pr-order-header-card p-3.5 sm:p-4">
                   <div class="flex items-center justify-between">
                     <div>
                       <span
@@ -9048,7 +9095,7 @@
               <div class="space-y-4 px-0">
                 <!-- 2. TOP CARD: Order Amount & 3-Step Dispute Stepper Card -->
                 <div
-                  class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3.5 shadow-2xs">
+                  class="pr-order-header-card p-3.5 sm:p-4">
                   <div class="flex items-center justify-between">
                     <div>
                       <span
@@ -9292,7 +9339,7 @@
               <div class="buyer-only space-y-4 px-0">
                 <!-- 1. Order Amount & 5-State Stepper Card -->
                 <div
-                  class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3.5 shadow-2xs">
+                  class="pr-order-header-card p-3.5 sm:p-4">
                   <div class="flex items-center justify-between">
                     <div>
                       <span
@@ -9494,7 +9541,7 @@
               <div class="seller-only space-y-4 px-0">
                 <!-- 1. Order Amount & 5-State Stepper Card -->
                 <div
-                  class="bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3.5 shadow-2xs">
+                  class="pr-order-header-card p-3.5 sm:p-4">
                   <div class="flex items-center justify-between">
                     <div>
                       <span
@@ -10001,7 +10048,7 @@
     class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[999999] flex items-end sm:items-center justify-center hidden opacity-0 transition-opacity duration-300"
     onclick="if(event.target===this) closeActivityReceipt();">
     <div
-      class="bg-[#FAF7F2] dark:bg-[#121218] rounded-t-[32px] sm:rounded-3xl p-5 sm:p-6 max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl space-y-4 transform translate-y-full sm:translate-y-6 opacity-0 transition-all duration-300 ease-out border border-[#EBE3D5] dark:border-white/10 relative custom-scroll"
+      class="bg-[#FAF7F2] dark:bg-[#121218] rounded-t-[32px] sm:rounded-3xl p-5 sm:p-6 max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl space-y-4 transform translate-y-full sm:translate-y-6 opacity-0 transition-all duration-500 ease-out border border-[#EBE3D5] dark:border-white/10 relative custom-scroll"
       id="activity-receipt-content">
       <!-- Drag pill for mobile -->
       <div class="w-12 h-1.5 bg-gray-300 dark:bg-white/20 rounded-full mx-auto -mt-1 mb-2 sm:hidden cursor-pointer"
@@ -10102,7 +10149,7 @@
     class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[999999] flex items-end sm:items-center justify-center hidden opacity-0 transition-opacity duration-300"
     onclick="if(event.target===this) closeOrderDetailsModal();">
     <div
-      class="bg-white dark:bg-[#121218] rounded-t-[28px] sm:rounded-3xl p-5 sm:p-6 max-w-lg w-full max-h-[85vh] overflow-y-auto shadow-2xl space-y-3.5 transform translate-y-full sm:translate-y-0 sm:scale-95 transition-all duration-300 ease-out border border-gray-200/80 dark:border-white/10 relative custom-scroll"
+      class="bg-white dark:bg-[#121218] rounded-t-[28px] sm:rounded-3xl p-5 sm:p-6 max-w-lg w-full max-h-[85vh] overflow-y-auto shadow-2xl space-y-3.5 transform translate-y-full sm:translate-y-0 sm:scale-95 transition-all duration-500 ease-out border border-gray-200/80 dark:border-white/10 relative custom-scroll"
       id="order-details-modal-content">
       <!-- Drag pill for mobile -->
       <div class="w-12 h-1.5 bg-gray-300 dark:bg-white/20 rounded-full mx-auto -mt-1 mb-1 sm:hidden cursor-pointer"
@@ -10211,7 +10258,7 @@
     class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[999999] flex items-end justify-center hidden opacity-0 transition-opacity duration-300"
     onclick="if(event.target===this) closeActionModal();">
     <div
-      class="bg-white dark:bg-[#121218] rounded-t-[32px] sm:rounded-t-[36px] rounded-b-none p-6 pb-8 max-w-lg w-full shadow-2xl space-y-2 transform translate-y-full transition-transform duration-300 ease-out border-t border-gray-200/80 dark:border-white/10 relative"
+      class="bg-white dark:bg-[#121218] rounded-t-[32px] sm:rounded-t-[36px] rounded-b-none p-6 pb-8 max-w-lg w-full shadow-2xl space-y-2 transform translate-y-full transition-transform duration-500 ease-out border-t border-gray-200/80 dark:border-white/10 relative"
       id="modal-content">
       <!-- Drag / Pull Indicator Pill -->
       <div class="w-12 h-1.5 bg-gray-300 dark:bg-white/20 rounded-full mx-auto -mt-2 mb-2 cursor-pointer"
@@ -10433,9 +10480,9 @@
       const bottomNavLinks = document.querySelectorAll('.nav-bottom-link');
       bottomNavLinks.forEach(link => {
         if (link.getAttribute('data-target') === targetView) {
-          link.className = "nav-bottom-link text-brand-blue dark:text-emerald-400 flex flex-col items-center gap-0.5 font-bold transition-all cursor-pointer px-2 py-1 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 active:scale-95";
+          link.className = "nav-bottom-link text-brand-blue dark:text-emerald-400 flex flex-col items-center gap-0.5 font-bold transition-all cursor-pointer px-2 py-1 select-none focus:outline-none active:scale-95";
         } else {
-          link.className = "nav-bottom-link text-gray-500 dark:text-neutral-400 hover:text-brand-blue dark:hover:text-white flex flex-col items-center gap-0.5 transition-all cursor-pointer px-2 py-1 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 active:scale-95";
+          link.className = "nav-bottom-link text-gray-500 dark:text-neutral-400 flex flex-col items-center gap-0.5 transition-all cursor-pointer px-2 py-1 select-none focus:outline-none active:scale-95";
         }
       });
 
@@ -11114,7 +11161,7 @@
 
       setTimeout(() => {
         modal.classList.add("hidden");
-      }, 300);
+      }, 400);
     }
 
     function copyReceiptOrderNum() {
@@ -11613,7 +11660,7 @@
         setTimeout(() => {
           modal.classList.add("hidden");
           modal.style.display = "none";
-        }, 300);
+        }, 400);
       }
     }
 
@@ -12553,7 +12600,7 @@
         }
         setTimeout(function () {
           modal.classList.add('hidden');
-        }, 300);
+        }, 400);
       }
     }
 
@@ -15681,7 +15728,7 @@
 
     <!-- Receipt Card (Slide-up from bottom) -->
     <div id="receipt-modal-card"
-      class="relative w-full max-w-md bg-[#FAF7F2] dark:bg-[#121218] rounded-t-[32px] sm:rounded-3xl shadow-2xl border border-[#EBE3D5] dark:border-white/10 overflow-hidden transform translate-y-full sm:translate-y-6 transition-all duration-300 ease-out z-10 max-h-[90vh] flex flex-col pointer-events-auto p-5 sm:p-6 space-y-4">
+      class="relative w-full max-w-md bg-[#FAF7F2] dark:bg-[#121218] rounded-t-[32px] sm:rounded-3xl shadow-2xl border border-[#EBE3D5] dark:border-white/10 overflow-hidden transform translate-y-full sm:translate-y-6 transition-all duration-500 ease-out z-10 max-h-[90vh] flex flex-col pointer-events-auto p-5 sm:p-6 space-y-4">
 
       <!-- Drag pill for mobile -->
       <div class="w-12 h-1.5 bg-gray-300 dark:bg-white/20 rounded-full mx-auto -mt-1 mb-2 sm:hidden cursor-pointer"
@@ -15791,7 +15838,7 @@
 
     <!-- Bottom Sheet Card (Slide-up from bottom) -->
     <div id="order-details-sheet-card"
-      class="relative w-full max-w-md bg-[#FAF7F2] dark:bg-[#181A20] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-300 ease-out z-10 max-h-[85vh] flex flex-col pointer-events-auto">
+      class="relative w-full max-w-md bg-[#FAF7F2] dark:bg-[#181A20] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-500 ease-out z-10 max-h-[85vh] flex flex-col pointer-events-auto">
 
       <!-- Top Grab Bar / Handle -->
       <div class="pt-3 pb-1 cursor-pointer flex justify-center flex-shrink-0"
@@ -15972,7 +16019,7 @@
 
     <!-- Bottom Sheet Card (Fixed Consistent Size across all sub-views) -->
     <div id="shipping-status-sheet-card"
-      class="relative w-full max-w-md bg-[#FAF7F2] dark:bg-[#181A20] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-300 ease-out z-10 h-[82vh] max-h-[620px] min-h-[480px] flex flex-col pointer-events-auto">
+      class="relative w-full max-w-md bg-[#FAF7F2] dark:bg-[#181A20] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-500 ease-out z-10 h-[82vh] max-h-[620px] min-h-[480px] flex flex-col pointer-events-auto">
 
       <!-- Top Grab Bar / Handle -->
       <div class="pt-3 pb-1 cursor-pointer flex justify-center flex-shrink-0"
@@ -16488,7 +16535,7 @@
 
     <!-- Bottom Sheet Card (Slide-up from bottom) -->
     <div id="shipping-modal-card"
-      class="relative w-full max-w-md bg-[#FAF7F2] dark:bg-[#181A20] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-300 ease-out z-10 max-h-[88vh] flex flex-col pointer-events-auto">
+      class="relative w-full max-w-md bg-[#FAF7F2] dark:bg-[#181A20] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-500 ease-out z-10 max-h-[88vh] flex flex-col pointer-events-auto">
 
       <!-- Top Grab Bar / Handle -->
       <div class="pt-3 pb-1 cursor-pointer flex justify-center flex-shrink-0" onclick="closeShippingDetailsModal()">
@@ -16686,7 +16733,7 @@
 
     <!-- Bottom Sheet Card (Slide-Up from Bottom) -->
     <div id="counter-proof-modal-card"
-      class="relative w-full max-w-md bg-[#FAF7F2] dark:bg-[#181A20] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-300 ease-out z-10 max-h-[88vh] flex flex-col pointer-events-auto">
+      class="relative w-full max-w-md bg-[#FAF7F2] dark:bg-[#181A20] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-500 ease-out z-10 max-h-[88vh] flex flex-col pointer-events-auto">
 
       <!-- Top Grab Bar / Handle -->
       <div class="pt-3 pb-1 cursor-pointer flex justify-center flex-shrink-0" onclick="closeCounterProofModal()">
@@ -16816,7 +16863,7 @@
 
     <!-- Bottom Sheet Card (Slide-Up from Bottom) -->
     <div id="more-proof-modal-card"
-      class="relative w-full max-w-md bg-[#FAF7F2] dark:bg-[#181A20] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-300 ease-out z-10 max-h-[88vh] flex flex-col pointer-events-auto">
+      class="relative w-full max-w-md bg-[#FAF7F2] dark:bg-[#181A20] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-500 ease-out z-10 max-h-[88vh] flex flex-col pointer-events-auto">
 
       <!-- Top Grab Bar / Handle -->
       <div class="pt-3 pb-1 cursor-pointer flex justify-center flex-shrink-0" onclick="closeMoreProofModal()">
@@ -18250,7 +18297,7 @@
 
     <!-- Receipt Card (Slide-up from bottom) -->
     <div id="receipt-modal-card"
-      class="relative w-full max-w-md bg-[#FAF7F2] dark:bg-[#121218] rounded-t-[32px] sm:rounded-3xl shadow-2xl border border-[#EBE3D5] dark:border-white/10 overflow-hidden transform translate-y-full sm:translate-y-6 transition-all duration-300 ease-out z-10 max-h-[90vh] flex flex-col pointer-events-auto p-5 sm:p-6 space-y-4">
+      class="relative w-full max-w-md bg-[#FAF7F2] dark:bg-[#121218] rounded-t-[32px] sm:rounded-3xl shadow-2xl border border-[#EBE3D5] dark:border-white/10 overflow-hidden transform translate-y-full sm:translate-y-6 transition-all duration-500 ease-out z-10 max-h-[90vh] flex flex-col pointer-events-auto p-5 sm:p-6 space-y-4">
 
       <!-- Drag pill for mobile -->
       <div class="w-12 h-1.5 bg-gray-300 dark:bg-white/20 rounded-full mx-auto -mt-1 mb-2 sm:hidden cursor-pointer"
@@ -18360,7 +18407,7 @@
 
     <!-- Bottom Sheet Card (Slide-up from bottom) -->
     <div id="order-details-sheet-card"
-      class="relative w-full max-w-md bg-[#FAF7F2] dark:bg-[#181A20] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-300 ease-out z-10 max-h-[85vh] flex flex-col pointer-events-auto">
+      class="relative w-full max-w-md bg-[#FAF7F2] dark:bg-[#181A20] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-500 ease-out z-10 max-h-[85vh] flex flex-col pointer-events-auto">
 
       <!-- Top Grab Bar / Handle -->
       <div class="pt-3 pb-1 cursor-pointer flex justify-center flex-shrink-0"
@@ -18541,7 +18588,7 @@
 
     <!-- Bottom Sheet Card (Fixed Consistent Size across all sub-views) -->
     <div id="shipping-status-sheet-card"
-      class="relative w-full max-w-md bg-[#FAF7F2] dark:bg-[#181A20] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-300 ease-out z-10 h-[82vh] max-h-[620px] min-h-[480px] flex flex-col pointer-events-auto">
+      class="relative w-full max-w-md bg-[#FAF7F2] dark:bg-[#181A20] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-500 ease-out z-10 h-[82vh] max-h-[620px] min-h-[480px] flex flex-col pointer-events-auto">
 
       <!-- Top Grab Bar / Handle -->
       <div class="pt-3 pb-1 cursor-pointer flex justify-center flex-shrink-0"
@@ -19057,7 +19104,7 @@
 
     <!-- Bottom Sheet Card (Slide-up from bottom) -->
     <div id="shipping-modal-card"
-      class="relative w-full max-w-md bg-[#FAF7F2] dark:bg-[#181A20] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-300 ease-out z-10 max-h-[88vh] flex flex-col pointer-events-auto">
+      class="relative w-full max-w-md bg-[#FAF7F2] dark:bg-[#181A20] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-500 ease-out z-10 max-h-[88vh] flex flex-col pointer-events-auto">
 
       <!-- Top Grab Bar / Handle -->
       <div class="pt-3 pb-1 cursor-pointer flex justify-center flex-shrink-0" onclick="closeShippingDetailsModal()">
@@ -19255,7 +19302,7 @@
 
     <!-- Bottom Sheet Card (Slide-Up from Bottom) -->
     <div id="counter-proof-modal-card"
-      class="relative w-full max-w-md bg-[#FAF7F2] dark:bg-[#181A20] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-300 ease-out z-10 max-h-[88vh] flex flex-col pointer-events-auto">
+      class="relative w-full max-w-md bg-[#FAF7F2] dark:bg-[#181A20] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-500 ease-out z-10 max-h-[88vh] flex flex-col pointer-events-auto">
 
       <!-- Top Grab Bar / Handle -->
       <div class="pt-3 pb-1 cursor-pointer flex justify-center flex-shrink-0" onclick="closeCounterProofModal()">
@@ -19385,7 +19432,7 @@
 
     <!-- Bottom Sheet Card (Slide-Up from Bottom) -->
     <div id="more-proof-modal-card"
-      class="relative w-full max-w-md bg-[#FAF7F2] dark:bg-[#181A20] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-300 ease-out z-10 max-h-[88vh] flex flex-col pointer-events-auto">
+      class="relative w-full max-w-md bg-[#FAF7F2] dark:bg-[#181A20] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-500 ease-out z-10 max-h-[88vh] flex flex-col pointer-events-auto">
 
       <!-- Top Grab Bar / Handle -->
       <div class="pt-3 pb-1 cursor-pointer flex justify-center flex-shrink-0" onclick="closeMoreProofModal()">
@@ -20331,7 +20378,7 @@
             card.classList.add('translate-y-0');
           });
         }
-      }, 160);
+      }, 30);
     }
 
     function closeShippingStatusBottomSheet() {
@@ -20353,7 +20400,7 @@
             modal.classList.add('hidden', 'pointer-events-none');
             showShippingStatusMainView();
           }
-        }, 300);
+        }, 400);
       }
     }
 
@@ -20370,7 +20417,6 @@
       });
 
       if (modal) modal.classList.remove('hidden');
-      // 2. Animate modal to slide UP after arrow visibly flips
       setTimeout(function () {
         if (modal && backdrop && card) {
           modal.classList.remove('pointer-events-none');
@@ -20381,7 +20427,7 @@
             card.classList.add('translate-y-0');
           });
         }
-      }, 160);
+      }, 30);
     }
 
     function closeAwaitingOrderDetailsBottomSheet() {
@@ -20403,7 +20449,7 @@
           if (modal) {
             modal.classList.add('hidden', 'pointer-events-none');
           }
-        }, 300);
+        }, 400);
       }
     }
 
@@ -20511,7 +20557,7 @@
 
       setTimeout(function () {
         modal.classList.add('invisible');
-      }, 300);
+      }, 400);
     }
 
     function sharePaymentRoomReceipt() {
@@ -20565,7 +20611,7 @@
             card.classList.add('translate-y-0');
           });
         }
-      }, 50);
+      }, 30);
     }
 
     function closeShippingDetailsModal() {
@@ -20582,7 +20628,7 @@
           if (modal) {
             modal.classList.add('hidden', 'pointer-events-none');
           }
-        }, 300);
+        }, 400);
       } else if (modal) {
         modal.classList.add('hidden', 'pointer-events-none');
       }
