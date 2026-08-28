@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
   <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
   <title>PayKudi - All-in-One Dashboard</title>
   <link rel="shortcut icon" href="paykudi-favicon.png?v=2">
@@ -77,6 +77,35 @@
   </script>
 
   <style>
+    /* Complete prevention of unwanted mobile viewport auto-zooming on input focus */
+    html, body {
+      touch-action: manipulation;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    @media screen and (max-width: 768px) {
+      input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+      select,
+      textarea {
+        font-size: 16px !important;
+      }
+      
+      input::placeholder, textarea::placeholder {
+        font-size: 14px;
+      }
+
+      #m-act-day, #m-pr-date-day {
+        width: 22px !important;
+      }
+      #m-act-month, #m-pr-date-month {
+        width: 24px !important;
+      }
+      #m-act-year, #m-pr-date-year {
+        width: 38px !important;
+      }
+    }
+
     /* Subtle outward expanding fade glow for active step circles */
     @keyframes subtleFadeGlow {
       0% {
@@ -10271,6 +10300,13 @@
           closePRDetail();
         }
         renderPaymentRoomsList();
+      } else {
+        closePRDetail();
+        const mBottomNav = document.getElementById('m-bottom-nav');
+        if (mBottomNav) {
+          mBottomNav.classList.remove('pr-nav-hidden');
+          mBottomNav.classList.remove('hidden');
+        }
       }
 
       if (targetView === 'profile') {
@@ -12237,7 +12273,10 @@
       if (mNotif) mNotif.classList.remove('is-pr-active');
 
       var mBottomNav = document.getElementById('m-bottom-nav');
-      if (mBottomNav) mBottomNav.classList.remove('pr-nav-hidden');
+      if (mBottomNav) {
+        mBottomNav.classList.remove('pr-nav-hidden');
+        mBottomNav.classList.remove('hidden');
+      }
 
       var mLanding = document.getElementById('m-pr-landing') || document.getElementById('m-pr-list-view');
       var mDetail = document.getElementById('m-pr-detail');
@@ -20516,6 +20555,16 @@
         }
       }, 300);
     }
+
+    // Automatically reset scroll & viewport offset when mobile inputs lose focus
+    document.addEventListener('blur', function (e) {
+      if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT')) {
+        setTimeout(function () {
+          window.scrollTo(0, 0);
+          if (document.body) document.body.scrollTop = 0;
+        }, 50);
+      }
+    }, true);
   </script>
 </body>
 
