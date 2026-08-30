@@ -724,10 +724,27 @@
       color: #94A3B8 !important;
     }
 
+    .pr-tab-btn:not(.bg-brand-blue) {
+      background-color: #FAF7F2 !important;
+      border: 1px solid #EBE3D5 !important;
+      color: #102B1B !important;
+      box-shadow: 0 1px 2px 0 rgba(16, 43, 27, 0.04) !important;
+    }
+
+    .pr-tab-btn:not(.bg-brand-blue):hover {
+      background-color: #F2ECE0 !important;
+      border-color: #DFD5C4 !important;
+    }
+
     html.dark .pr-tab-btn:not(.bg-brand-blue) {
-      background-color: #161F30 !important;
+      background-color: #181A20 !important;
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
       color: #E2E8F0 !important;
-      border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    }
+
+    html.dark .pr-tab-btn:not(.bg-brand-blue):hover {
+      background-color: rgba(255, 255, 255, 0.08) !important;
+      border-color: rgba(255, 255, 255, 0.2) !important;
     }
 
     /* Filter Dropdown Styling matching Main Body Background & Floating High Z-Index */
@@ -2762,10 +2779,10 @@
                   id="m-cnt-ongoing">5</span>
               </button>
               <button id="m-tab-fulfilled" onclick="switchPRTab('fulfilled')"
-                class="pr-tab-btn h-[34px] px-2.5 sm:px-3.5 rounded-xl font-heading text-xs font-bold transition-all bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/10 border border-transparent dark:border-white/10 flex items-center gap-1.5 cursor-pointer">
+                class="pr-tab-btn h-[34px] px-2.5 sm:px-3.5 rounded-xl font-heading text-xs font-bold transition-all bg-[#FAF7F2] dark:bg-[#181A20] text-brand-dark dark:text-gray-300 hover:bg-[#F2ECE0] dark:hover:bg-white/10 border border-[#EBE3D5] dark:border-white/15 shadow-xs flex items-center gap-1.5 cursor-pointer">
                 <span>Fulfilled</span>
                 <span
-                  class="px-1.5 py-0.5 rounded-full text-[10px] font-extrabold bg-gray-200 dark:bg-white/15 text-gray-700 dark:text-gray-200"
+                  class="px-1.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#EBE3D5]/80 dark:bg-white/15 text-brand-dark dark:text-gray-200"
                   id="m-cnt-fulfilled">2</span>
               </button>
             </div>
@@ -6184,62 +6201,82 @@
                   View all
                 </button>
               </div>
-              <div class="bg-white dark:bg-[#181A20] rounded-[1.5rem] p-2 card-shadow border border-[#EBE3D5] dark:border-white/10 overflow-hidden flex-1 flex flex-col justify-between">
-                <!-- Activity Item 1 -->
+              <div class="bg-[#FAF7F2] dark:bg-[#0B0F17] rounded-2xl overflow-hidden flex-1 flex flex-col justify-between">
+                <!-- Activity Item 1: Payment sent -->
                 <div onclick="openActivityReceipt('ST-8843')"
-                  class="flex items-center justify-between p-3.5 sm:p-4 border-b border-gray-100 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-all cursor-pointer rounded-xl">
-                  <div class="flex items-center gap-3.5 min-w-0">
-                    <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-red-500/15 text-red-500 flex items-center justify-center flex-shrink-0">
-                      <span class="material-symbols-outlined text-[20px]">near_me</span>
-                    </div>
+                  class="activity-item-row flex items-center gap-3.5 pl-3.5 sm:pl-4 pr-0 hover:bg-[#F3EDE2] dark:hover:bg-white/5 transition-all cursor-pointer">
+                  <div class="activity-item-icon w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-red-500/10 dark:bg-red-500/20 text-red-500 dark:text-red-400 flex items-center justify-center flex-shrink-0">
+                    <svg class="w-[18px] h-[18px] sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M22 2L11 13M22 2L15 22L11 13L2 9L22 2Z"></path>
+                    </svg>
+                  </div>
+                  <div class="activity-item-inner flex-1 min-w-0 flex items-center justify-between border-b border-[#EBE3D5] dark:border-white/10 py-3.5 sm:py-4 pr-4">
                     <div class="min-w-0">
-                      <h4 class="font-bold text-brand-dark dark:text-white text-sm sm:text-base font-heading truncate">Payment sent</h4>
-                      <p class="text-xs text-gray-400 dark:text-neutral-400 mt-0.5">Today &middot; 12:31 PM</p>
+                      <h4 class="activity-item-title text-[13.5px] sm:text-[15px] font-extrabold text-brand-dark dark:text-white font-heading leading-tight truncate">Payment sent</h4>
+                      <p class="activity-item-time text-[11px] sm:text-[12.5px] text-gray-400 dark:text-neutral-400 mt-0.5 font-medium">Today &middot; 12:31 PM</p>
+                    </div>
+                    <div class="activity-item-amount text-right flex-shrink-0 pl-3">
+                      <p class="text-[13.5px] sm:text-[15.5px] font-black text-red-500 dark:text-red-400 font-heading">₦50,000.00</p>
                     </div>
                   </div>
-                  <span class="font-black text-red-500 text-sm sm:text-base font-heading pl-3 flex-shrink-0">₦50,000.00</span>
                 </div>
-                <!-- Activity Item 2 -->
+
+                <!-- Activity Item 2: Payment Received -->
                 <div onclick="openActivityReceipt('ST-8844')"
-                  class="flex items-center justify-between p-3.5 sm:p-4 border-b border-gray-100 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-all cursor-pointer rounded-xl">
-                  <div class="flex items-center gap-3.5 min-w-0">
-                    <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center flex-shrink-0">
-                      <span class="material-symbols-outlined text-[20px]">arrow_downward</span>
-                    </div>
+                  class="activity-item-row flex items-center gap-3.5 pl-3.5 sm:pl-4 pr-0 hover:bg-[#F3EDE2] dark:hover:bg-white/5 transition-all cursor-pointer">
+                  <div class="activity-item-icon w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center flex-shrink-0">
+                    <svg class="w-[18px] h-[18px] sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 4v16m0 0l-6-6m6 6l6-6"></path>
+                    </svg>
+                  </div>
+                  <div class="activity-item-inner flex-1 min-w-0 flex items-center justify-between border-b border-[#EBE3D5] dark:border-white/10 py-3.5 sm:py-4 pr-4">
                     <div class="min-w-0">
-                      <h4 class="font-bold text-brand-dark dark:text-white text-sm sm:text-base font-heading truncate">Payment Received</h4>
-                      <p class="text-xs text-gray-400 dark:text-neutral-400 mt-0.5">Today &middot; 11:15 AM</p>
+                      <h4 class="activity-item-title text-[13.5px] sm:text-[15px] font-extrabold text-brand-dark dark:text-white font-heading leading-tight truncate">Payment Received</h4>
+                      <p class="activity-item-time text-[11px] sm:text-[12.5px] text-gray-400 dark:text-neutral-400 mt-0.5 font-medium">Today &middot; 11:15 AM</p>
+                    </div>
+                    <div class="activity-item-amount text-right flex-shrink-0 pl-3">
+                      <p class="text-[13.5px] sm:text-[15.5px] font-black text-emerald-600 dark:text-emerald-400 font-heading">₦50,000.00</p>
                     </div>
                   </div>
-                  <span class="font-black text-emerald-600 dark:text-emerald-400 text-sm sm:text-base font-heading pl-3 flex-shrink-0">₦50,000.00</span>
                 </div>
-                <!-- Activity Item 3 -->
+
+                <!-- Activity Item 3: Payout sent -->
                 <div onclick="openActivityReceipt('ST-8845')"
-                  class="flex items-center justify-between p-3.5 sm:p-4 border-b border-gray-100 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-all cursor-pointer rounded-xl">
-                  <div class="flex items-center gap-3.5 min-w-0">
-                    <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center flex-shrink-0">
-                      <span class="material-symbols-outlined text-[20px]">near_me</span>
-                    </div>
+                  class="activity-item-row flex items-center gap-3.5 pl-3.5 sm:pl-4 pr-0 hover:bg-[#F3EDE2] dark:hover:bg-white/5 transition-all cursor-pointer">
+                  <div class="activity-item-icon w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center flex-shrink-0">
+                    <svg class="w-[18px] h-[18px] sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M22 2L11 13M22 2L15 22L11 13L2 9L22 2Z"></path>
+                    </svg>
+                  </div>
+                  <div class="activity-item-inner flex-1 min-w-0 flex items-center justify-between border-b border-[#EBE3D5] dark:border-white/10 py-3.5 sm:py-4 pr-4">
                     <div class="min-w-0">
-                      <h4 class="font-bold text-brand-dark dark:text-white text-sm sm:text-base font-heading truncate">Payout sent</h4>
-                      <p class="text-xs text-gray-400 dark:text-neutral-400 mt-0.5">Yesterday &middot; 04:45 PM</p>
+                      <h4 class="activity-item-title text-[13.5px] sm:text-[15px] font-extrabold text-brand-dark dark:text-white font-heading leading-tight truncate">Payout sent</h4>
+                      <p class="activity-item-time text-[11px] sm:text-[12.5px] text-gray-400 dark:text-neutral-400 mt-0.5 font-medium">Yesterday &middot; 04:45 PM</p>
+                    </div>
+                    <div class="activity-item-amount text-right flex-shrink-0 pl-3">
+                      <p class="text-[13.5px] sm:text-[15.5px] font-black text-emerald-600 dark:text-emerald-400 font-heading">₦1,200,000.00</p>
                     </div>
                   </div>
-                  <span class="font-black text-emerald-600 dark:text-emerald-400 text-sm sm:text-base font-heading pl-3 flex-shrink-0">₦1,200,000.00</span>
                 </div>
-                <!-- Activity Item 4 -->
+
+                <!-- Activity Item 4: Refund sent -->
                 <div onclick="openActivityReceipt('ST-8842')"
-                  class="flex items-center justify-between p-3.5 sm:p-4 hover:bg-black/5 dark:hover:bg-white/5 transition-all cursor-pointer rounded-xl">
-                  <div class="flex items-center gap-3.5 min-w-0">
-                    <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-red-500/15 text-red-500 flex items-center justify-center flex-shrink-0">
-                      <span class="material-symbols-outlined text-[20px]">undo</span>
-                    </div>
+                  class="activity-item-row flex items-center gap-3.5 pl-3.5 sm:pl-4 pr-0 hover:bg-[#F3EDE2] dark:hover:bg-white/5 transition-all cursor-pointer">
+                  <div class="activity-item-icon w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-red-500/10 dark:bg-red-500/20 text-red-500 dark:text-red-400 flex items-center justify-center flex-shrink-0">
+                    <svg class="w-[18px] h-[18px] sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M9 14L4 9l5-5"></path>
+                      <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11"></path>
+                    </svg>
+                  </div>
+                  <div class="activity-item-inner flex-1 min-w-0 flex items-center justify-between py-3.5 sm:py-4 pr-4">
                     <div class="min-w-0">
-                      <h4 class="font-bold text-brand-dark dark:text-white text-sm sm:text-base font-heading truncate">Refund sent</h4>
-                      <p class="text-xs text-gray-400 dark:text-neutral-400 mt-0.5">Yesterday &middot; 10:15 AM</p>
+                      <h4 class="activity-item-title text-[13.5px] sm:text-[15px] font-extrabold text-brand-dark dark:text-white font-heading leading-tight truncate">Refund sent</h4>
+                      <p class="activity-item-time text-[11px] sm:text-[12.5px] text-gray-400 dark:text-neutral-400 mt-0.5 font-medium">Yesterday &middot; 10:15 AM</p>
+                    </div>
+                    <div class="activity-item-amount text-right flex-shrink-0 pl-3">
+                      <p class="text-[13.5px] sm:text-[15.5px] font-black text-red-500 dark:text-red-400 font-heading">₦25,000.00</p>
                     </div>
                   </div>
-                  <span class="font-black text-red-500 text-sm sm:text-base font-heading pl-3 flex-shrink-0">₦25,000.00</span>
                 </div>
               </div>
             </div>
@@ -6921,10 +6958,10 @@
                   id="d-cnt-ongoing">5</span>
               </button>
               <button id="d-tab-fulfilled" onclick="switchPRTab('fulfilled')"
-                class="pr-tab-btn h-[38px] px-5 rounded-xl font-heading text-xs font-bold transition-all bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/10 border border-transparent dark:border-white/10 flex items-center gap-2.5 cursor-pointer">
+                class="pr-tab-btn h-[38px] px-5 rounded-xl font-heading text-xs font-bold transition-all bg-[#FAF7F2] dark:bg-[#181A20] text-brand-dark dark:text-gray-300 hover:bg-[#F2ECE0] dark:hover:bg-white/10 border border-[#EBE3D5] dark:border-white/15 shadow-xs flex items-center gap-2.5 cursor-pointer">
                 <span>Fulfilled</span>
                 <span
-                  class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-gray-200 dark:bg-white/15 text-gray-700 dark:text-gray-200"
+                  class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#EBE3D5]/80 dark:bg-white/15 text-brand-dark dark:text-gray-200"
                   id="d-cnt-fulfilled">2</span>
               </button>
             </div>
@@ -12203,7 +12240,7 @@
         trackingNumber: 'GIG2208471',
         estimatedDelivery: 'Delivered Today',
         deliveryStatus: 'delivered',
-        statusText: 'Delivered',
+        statusText: 'Confirm delivery',
         badgeBg: 'bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 border-emerald-500/30',
         dotBg: 'bg-emerald-500 animate-pulse',
         date: '17 Aug 2026',
@@ -12322,19 +12359,19 @@
             ongoingBtn.className = 'pr-tab-btn h-[34px] md:h-[38px] ' + pxClass + ' rounded-xl font-heading text-xs font-bold transition-all bg-brand-blue text-white shadow-sm flex items-center gap-1.5 md:gap-2.5 cursor-pointer';
           }
           if (fulfilledBtn) {
-            fulfilledBtn.className = 'pr-tab-btn h-[34px] md:h-[38px] ' + pxClass + ' rounded-xl font-heading text-xs font-bold transition-all bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/10 border border-transparent dark:border-white/10 flex items-center gap-1.5 md:gap-2.5 cursor-pointer';
+            fulfilledBtn.className = 'pr-tab-btn h-[34px] md:h-[38px] ' + pxClass + ' rounded-xl font-heading text-xs font-bold transition-all bg-[#FAF7F2] dark:bg-[#181A20] text-brand-dark dark:text-gray-300 hover:bg-[#F2ECE0] dark:hover:bg-white/10 border border-[#EBE3D5] dark:border-white/15 shadow-xs flex items-center gap-1.5 md:gap-2.5 cursor-pointer';
           }
           if (ongoingBadge) ongoingBadge.className = 'px-1.5 md:px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-white/20 text-white';
-          if (fulfilledBadge) fulfilledBadge.className = 'px-1.5 md:px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-gray-200 dark:bg-white/15 text-gray-700 dark:text-gray-200';
+          if (fulfilledBadge) fulfilledBadge.className = 'px-1.5 md:px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#EBE3D5]/80 dark:bg-white/15 text-brand-dark dark:text-gray-200';
         } else {
           if (fulfilledBtn) {
             fulfilledBtn.className = 'pr-tab-btn h-[34px] md:h-[38px] ' + pxClass + ' rounded-xl font-heading text-xs font-bold transition-all bg-brand-blue text-white shadow-sm flex items-center gap-1.5 md:gap-2.5 cursor-pointer';
           }
           if (ongoingBtn) {
-            ongoingBtn.className = 'pr-tab-btn h-[34px] md:h-[38px] ' + pxClass + ' rounded-xl font-heading text-xs font-bold transition-all bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/10 border border-transparent dark:border-white/10 flex items-center gap-1.5 md:gap-2.5 cursor-pointer';
+            ongoingBtn.className = 'pr-tab-btn h-[34px] md:h-[38px] ' + pxClass + ' rounded-xl font-heading text-xs font-bold transition-all bg-[#FAF7F2] dark:bg-[#181A20] text-brand-dark dark:text-gray-300 hover:bg-[#F2ECE0] dark:hover:bg-white/10 border border-[#EBE3D5] dark:border-white/15 shadow-xs flex items-center gap-1.5 md:gap-2.5 cursor-pointer';
           }
           if (fulfilledBadge) fulfilledBadge.className = 'px-1.5 md:px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-white/20 text-white';
-          if (ongoingBadge) ongoingBadge.className = 'px-1.5 md:px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-gray-200 dark:bg-white/15 text-gray-700 dark:text-gray-200';
+          if (ongoingBadge) ongoingBadge.className = 'px-1.5 md:px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#EBE3D5]/80 dark:bg-white/15 text-brand-dark dark:text-gray-200';
         }
       });
 
@@ -12383,7 +12420,7 @@
           var statusColor = 'text-brand-blue dark:text-blue-400';
           var hoverColor = 'group-hover:text-brand-blue dark:group-hover:text-blue-400';
 
-          if (state.dispute || deal.deliveryStatus === 'dispute_ongoing') {
+          if (deal.deliveryStatus === 'dispute_ongoing' || (deal.id === 'ST-8841' && state.dispute)) {
             statusText = 'Dispute Ongoing';
             statusColor = 'text-red-600 dark:text-red-400';
             hoverColor = 'group-hover:text-red-600 dark:group-hover:text-red-400';
@@ -12400,9 +12437,9 @@
             statusColor = 'text-purple-600 dark:text-purple-400';
             hoverColor = 'group-hover:text-purple-600 dark:group-hover:text-purple-400';
           } else if (deal.deliveryStatus === 'delivered') {
-            statusText = 'Delivered';
-            statusColor = 'text-emerald-800 dark:text-emerald-300';
-            hoverColor = 'group-hover:text-emerald-800 dark:group-hover:text-emerald-300';
+            statusText = (state.dispute && deal.id !== 'ST-8842') ? 'Dispute Ongoing' : 'Confirm delivery';
+            statusColor = (state.dispute && deal.id !== 'ST-8842') ? 'text-red-600 dark:text-red-400' : 'text-emerald-800 dark:text-emerald-300';
+            hoverColor = (state.dispute && deal.id !== 'ST-8842') ? 'group-hover:text-red-600 dark:group-hover:text-red-400' : 'group-hover:text-emerald-800 dark:group-hover:text-emerald-300';
           } else if (deal.deliveryStatus === 'completed') {
             statusText = 'Completed';
             statusColor = 'text-emerald-600 dark:text-emerald-400';
@@ -12513,7 +12550,7 @@
 
     function getDealStorageKey(dealId) {
       var dId = dealId || currentPRDealId || 'ST-8842';
-      return 'paykudi_deal_' + dId + '_state_v4';
+      return 'paykudi_deal_' + dId + '_state_v5';
     }
 
     function getDealState(dealId) {
@@ -12521,13 +12558,9 @@
       try {
         var raw = localStorage.getItem(getDealStorageKey(dId));
         if (raw) return JSON.parse(raw);
-        if (dId === 'ST-8842') {
-          var oldRaw = localStorage.getItem('paykudi_deal_ST8842_state_v4');
-          if (oldRaw) return JSON.parse(oldRaw);
-        }
       } catch (e) { }
       return {
-        dispute: null
+        dispute: (dId === 'ST-8841') ? { active: true, reason: 'Item arrived damaged' } : null
       };
     }
 
@@ -14641,7 +14674,7 @@
       // State 4: 'delivered' -> #pr-sub-verify
       // State 5: 'dispute_ongoing' or active state.dispute -> #pr-sub-progress
       // State 6: 'completed' -> #pr-sub-completed
-      if (state.dispute || deal.deliveryStatus === 'dispute_ongoing' || deal.statusText === 'Dispute Ongoing') {
+      if (deal.deliveryStatus === 'dispute_ongoing' || (deal.id === 'ST-8841' && state.dispute) || deal.statusText === 'Dispute Ongoing') {
         switchPRSubScreen('progress');
       } else if (deal.deliveryStatus === 'awaiting_payment' || deal.statusText === 'Awaiting Payment') {
         switchPRSubScreen('awaiting');
@@ -14651,7 +14684,7 @@
         switchPRSubScreen('transit');
       } else if (deal.deliveryStatus === 'completed' || deal.statusText === 'Transaction Completed' || deal.statusText === 'Fulfilled & Released') {
         switchPRSubScreen('completed');
-      } else if (deal.deliveryStatus === 'delivered' || deal.statusText === 'Delivered') {
+      } else if (deal.deliveryStatus === 'delivered' || deal.statusText === 'Delivered' || deal.statusText === 'Confirm delivery' || deal.statusText === 'Confirm Delivery') {
         switchPRSubScreen('verify');
       } else {
         switchPRSubScreen('verify');
