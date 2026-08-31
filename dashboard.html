@@ -919,6 +919,13 @@
       transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
+    /* Modal & Bottom Sheet Backdrops: Screen Blurring */
+    [id*="backdrop"],
+    .modal-backdrop-blur {
+      backdrop-filter: blur(8px) !important;
+      -webkit-backdrop-filter: blur(8px) !important;
+    }
+
     /* Clean PayKudi Theme Utilities */
     .card {
       background: var(--surface, rgba(255, 255, 255, 0.45));
@@ -1323,26 +1330,27 @@
         font-size: clamp(25px, 7.8vw, 34px) !important;
       }
       .mobile-action-bar {
-        padding: 5px !important;
-        gap: 4px !important;
-        border-radius: 22px !important;
+        padding: 8px 10px !important;
+        gap: 6px !important;
+        border-radius: 9999px !important;
       }
       .mobile-action-bar .add-money-btn {
-        padding-left: 10px !important;
-        padding-right: 10px !important;
-        padding-top: 6px !important;
-        padding-bottom: 6px !important;
-        font-size: 11px !important;
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+        height: 48px !important;
+        font-size: 13px !important;
+        border-radius: 9999px !important;
       }
       .mobile-action-bar .add-money-btn span.material-symbols-outlined {
-        font-size: 16px !important;
+        font-size: 19px !important;
       }
       .mobile-action-bar .action-round-btn {
-        width: 36px !important;
-        height: 36px !important;
+        width: 48px !important;
+        height: 48px !important;
+        border-radius: 9999px !important;
       }
       .mobile-action-bar .action-round-btn span {
-        font-size: 17px !important;
+        font-size: 20px !important;
       }
       .activity-item-row {
         padding-left: 10px !important;
@@ -2242,35 +2250,35 @@
           </div>
 
           <!-- Floating Action Bar Card (Overlaps the green hero section) -->
-          <div class="relative -mt-7 px-4 z-20">
+          <div class="relative -mt-8 px-4 z-20">
             <div
-              class="mobile-action-bar bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-[28px] p-2 sm:p-2.5 shadow-xl flex items-center justify-between gap-1.5 sm:gap-2">
+              class="mobile-action-bar bg-white dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-full p-2.5 sm:p-3 shadow-xl shadow-black/8 dark:shadow-black/40 flex items-center justify-between gap-2 sm:gap-2.5">
               <!-- + Add money (Main Pill Button) -->
               <button type="button" onclick="openActionModal('Add Funds')"
-                class="add-money-btn flex-1 bg-[#0A4328] hover:bg-[#073620] dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white font-extrabold text-xs sm:text-[13px] font-heading py-2.5 px-4 rounded-full flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all cursor-pointer">
-                <span class="material-symbols-outlined text-[18px]">add_circle</span>
+                class="add-money-btn flex-1 bg-[#0A4328] hover:bg-[#073620] dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white font-extrabold text-xs sm:text-[13.5px] font-heading h-12 sm:h-13 px-4 sm:px-5 rounded-full flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all cursor-pointer">
+                <span class="material-symbols-outlined text-[19px] sm:text-[20px]">add_circle</span>
                 <span>Add money</span>
               </button>
 
               <!-- Send / Withdraw (PayKudi Outbox Icon) -->
               <button type="button" onclick="switchView('withdrawals')"
-                class="action-round-btn w-11 h-11 rounded-full bg-[#18231C] hover:bg-black dark:bg-white/10 dark:hover:bg-white/20 text-white flex items-center justify-center shadow-xs active:scale-95 transition-all cursor-pointer flex-shrink-0"
+                class="action-round-btn w-12 h-12 sm:w-13 sm:h-13 rounded-full bg-[#18231C] hover:bg-black dark:bg-white/10 dark:hover:bg-white/20 text-white flex items-center justify-center shadow-xs active:scale-95 transition-all cursor-pointer flex-shrink-0"
                 title="Withdraw Funds">
-                <span class="material-symbols-outlined text-[20px]">outbox</span>
+                <span class="material-symbols-outlined text-[20px] sm:text-[21px]">outbox</span>
               </button>
 
               <!-- Request Payment (PayKudi Call Received Icon) -->
               <button type="button" onclick="openActionModal('Request Payment')"
-                class="action-round-btn w-11 h-11 rounded-full bg-[#18231C] hover:bg-black dark:bg-white/10 dark:hover:bg-white/20 text-white flex items-center justify-center shadow-xs active:scale-95 transition-all cursor-pointer flex-shrink-0"
+                class="action-round-btn w-12 h-12 sm:w-13 sm:h-13 rounded-full bg-[#18231C] hover:bg-black dark:bg-white/10 dark:hover:bg-white/20 text-white flex items-center justify-center shadow-xs active:scale-95 transition-all cursor-pointer flex-shrink-0"
                 title="Request Payment">
-                <span class="material-symbols-outlined text-[20px]">call_received</span>
+                <span class="material-symbols-outlined text-[20px] sm:text-[21px]">call_received</span>
               </button>
 
               <!-- Payment Link (PayKudi Link Icon) -->
               <button type="button" onclick="openActionModal('Generate Payment Link')"
-                class="action-round-btn w-11 h-11 rounded-full bg-[#18231C] hover:bg-black dark:bg-white/10 dark:hover:bg-white/20 text-white flex items-center justify-center shadow-xs active:scale-95 transition-all cursor-pointer flex-shrink-0"
+                class="action-round-btn w-12 h-12 sm:w-13 sm:h-13 rounded-full bg-[#18231C] hover:bg-black dark:bg-white/10 dark:hover:bg-white/20 text-white flex items-center justify-center shadow-xs active:scale-95 transition-all cursor-pointer flex-shrink-0"
                 title="Generate Payment Link">
-                <span class="material-symbols-outlined text-[20px]">link</span>
+                <span class="material-symbols-outlined text-[20px] sm:text-[21px]">link</span>
               </button>
             </div>
           </div>
@@ -4508,7 +4516,7 @@
 
               <!-- Action Buttons for Buyer: Confirm Delivery & Report Issue (Exact Same Size & Typography as Submit Additional Proof) -->
               <div class="pr-action-buttons pt-1 sm:pt-1.5 flex flex-col gap-2">
-                <button onclick="confirmDelivery()" type="button"
+                <button onclick="openConfirmDeliveryModal()" type="button"
                   class="pr-confirm-btn relative overflow-hidden w-full py-3.5 px-4 rounded-xl bg-brand-green hover:bg-emerald-700 active:scale-95 text-white font-extrabold text-sm font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer">
                   <span class="material-symbols-outlined text-[18px] leading-none select-none">check_circle</span>
                   <span class="font-extrabold text-sm">Confirm Delivery</span>
@@ -8692,7 +8700,7 @@
 
                 <!-- Action Buttons for Buyer: Confirm Delivery & Report Issue (Exact Same Size & Typography as Submit Additional Proof) -->
                 <div class="pr-action-buttons flex flex-col gap-2">
-                  <button onclick="confirmDelivery()" type="button"
+                  <button onclick="openConfirmDeliveryModal()" type="button"
                     class="pr-confirm-btn relative overflow-hidden w-full py-3.5 px-4 rounded-xl bg-brand-green hover:bg-emerald-700 active:scale-95 text-white font-extrabold text-sm font-heading shadow-md transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer">
                     <span class="material-symbols-outlined text-[18px] leading-none select-none">check_circle</span>
                     <span class="font-extrabold text-sm">Confirm Delivery</span>
@@ -10344,6 +10352,12 @@
         if (typeof closeAppealModal === 'function') { closeAppealModal(); return true; }
       }
 
+      // 4b. Confirm delivery modal
+      var confirmModal = document.getElementById('confirm-delivery-modal');
+      if (confirmModal && !confirmModal.classList.contains('hidden') && confirmModal.style.display !== 'none') {
+        if (typeof closeConfirmDeliveryModal === 'function') { closeConfirmDeliveryModal(); return true; }
+      }
+
       // 5. Shipping details modal
       var shipDetailsModal = document.getElementById('shipping-details-modal');
       if (shipDetailsModal && !shipDetailsModal.classList.contains('hidden') && shipDetailsModal.style.display !== 'none') {
@@ -10807,7 +10821,9 @@
     }
 
     function showSlideInfo() {
-      alert(slidesData[activeSlideIndex].info);
+      if (typeof showToast === 'function') {
+        showToast(slidesData[activeSlideIndex].info, 'info');
+      }
     }
 
     // Auto switch slides every 30 seconds
@@ -11324,7 +11340,7 @@
             </div>
             <div class="flex items-center gap-3 pt-2">
               <button type="button" onclick="closeActionModal()" class="flex-1 bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/15 text-brand-dark dark:text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all cursor-pointer">Cancel</button>
-              <button type="button" onclick="closeActionModal(); alert('BVN verified successfully!');" class="flex-1 bg-brand-blue hover:bg-blue-900 text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all shadow-md cursor-pointer">Verify BVN</button>
+              <button type="button" onclick="closeActionModal(); showToast('BVN verified successfully!', 'verified');" class="flex-1 bg-brand-blue hover:bg-blue-900 text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all shadow-md cursor-pointer">Verify BVN</button>
             </div>
           </div>
         `;
@@ -11338,7 +11354,7 @@
             </div>
             <div class="flex items-center gap-3 pt-2">
               <button type="button" onclick="closeActionModal()" class="flex-1 bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/15 text-brand-dark dark:text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all cursor-pointer">Cancel</button>
-              <button type="button" onclick="closeActionModal(); alert('NIN verified successfully!');" class="flex-1 bg-brand-blue hover:bg-blue-900 text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all shadow-md cursor-pointer">Verify NIN</button>
+              <button type="button" onclick="closeActionModal(); showToast('NIN verified successfully!', 'verified');" class="flex-1 bg-brand-blue hover:bg-blue-900 text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all shadow-md cursor-pointer">Verify NIN</button>
             </div>
           </div>
         `;
@@ -11363,7 +11379,7 @@
             </div>
             <div class="flex items-center gap-3 pt-2">
               <button type="button" onclick="closeActionModal()" class="flex-1 bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/15 text-brand-dark dark:text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all cursor-pointer">Cancel</button>
-              <button type="button" onclick="closeActionModal(); alert('Business info saved!');" class="flex-1 bg-brand-blue hover:bg-blue-900 text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all shadow-md cursor-pointer">Save Business</button>
+              <button type="button" onclick="closeActionModal(); showToast('Business info saved!', 'check_circle');" class="flex-1 bg-brand-blue hover:bg-blue-900 text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all shadow-md cursor-pointer">Save Business</button>
             </div>
           </div>
         `;
@@ -11383,7 +11399,7 @@
             </div>
             <div class="flex items-center gap-3 pt-2">
               <button type="button" onclick="closeActionModal()" class="flex-1 bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/15 text-brand-dark dark:text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all cursor-pointer">Cancel</button>
-              <button type="button" onclick="closeActionModal(); alert('Transaction PIN updated successfully!');" class="flex-1 bg-brand-blue hover:bg-blue-900 text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all shadow-md cursor-pointer">Update PIN</button>
+              <button type="button" onclick="closeActionModal(); showToast('Transaction PIN updated successfully!', 'lock_reset');" class="flex-1 bg-brand-blue hover:bg-blue-900 text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all shadow-md cursor-pointer">Update PIN</button>
             </div>
           </div>
         `;
@@ -11420,7 +11436,7 @@
                   <button id="payout-btn-1" onclick="setPrimaryPayoutAccount(1)" class="hidden text-[10.5px] font-bold text-brand-blue dark:text-blue-400 hover:bg-brand-blue/10 px-2.5 py-1 rounded-xl transition-all font-heading cursor-pointer">
                     Set Primary
                   </button>
-                  <button onclick="navigator.clipboard.writeText('0123456789'); alert('Access Bank account number copied!');" class="p-2 rounded-xl text-gray-400 hover:text-brand-blue hover:bg-brand-blue/10 transition-colors cursor-pointer" title="Copy Account Number">
+                  <button onclick="navigator.clipboard.writeText('0123456789'); showToast('Access Bank account number copied!', 'content_copy');" class="p-2 rounded-xl text-gray-400 hover:text-brand-blue hover:bg-brand-blue/10 transition-colors cursor-pointer" title="Copy Account Number">
                     <span class="material-symbols-outlined text-[18px]">content_copy</span>
                   </button>
                 </div>
@@ -11445,7 +11461,7 @@
                   <button id="payout-btn-2" onclick="setPrimaryPayoutAccount(2)" class="text-[10.5px] font-bold text-brand-blue dark:text-blue-400 hover:bg-brand-blue/10 px-2.5 py-1 rounded-xl transition-all font-heading cursor-pointer">
                     Set Primary
                   </button>
-                  <button onclick="navigator.clipboard.writeText('0234567890'); alert('GTBank account number copied!');" class="p-2 rounded-xl text-gray-400 hover:text-brand-blue hover:bg-brand-blue/10 transition-colors cursor-pointer" title="Copy Account Number">
+                  <button onclick="navigator.clipboard.writeText('0234567890'); showToast('GTBank account number copied!', 'content_copy');" class="p-2 rounded-xl text-gray-400 hover:text-brand-blue hover:bg-brand-blue/10 transition-colors cursor-pointer" title="Copy Account Number">
                     <span class="material-symbols-outlined text-[18px]">content_copy</span>
                   </button>
                 </div>
@@ -11702,32 +11718,48 @@
     }
 
     function submitModalAction() {
-      alert("Action submitted successfully on PayKudi network!");
+      if (typeof showToast === 'function') {
+        showToast("Action submitted successfully on PayKudi network!", "check_circle");
+      }
       closeActionModal();
     }
 
     function saveUserPhone() {
       const input = document.getElementById("user-phone-input");
       const val = (input && input.value) ? input.value.trim() : "";
-      if (!val) { alert("Please enter a valid phone number."); return; }
+      if (!val) {
+        if (typeof showToast === 'function') {
+          showToast("Please enter a valid phone number.", "warning");
+        }
+        return;
+      }
       const mTxt = document.getElementById("m-profile-phone-txt");
       const dTxt = document.getElementById("d-profile-phone-txt");
       if (mTxt) mTxt.textContent = val;
       if (dTxt) dTxt.textContent = val;
       closeActionModal();
-      alert("Phone number updated successfully!");
+      if (typeof showToast === 'function') {
+        showToast("Phone number updated successfully!", "check_circle");
+      }
     }
 
     function saveUserAddress() {
       const input = document.getElementById("user-address-input");
       const val = (input && input.value) ? input.value.trim() : "";
-      if (!val) { alert("Please enter a valid address."); return; }
+      if (!val) {
+        if (typeof showToast === 'function') {
+          showToast("Please enter a valid address.", "warning");
+        }
+        return;
+      }
       const mTxt = document.getElementById("m-profile-address-txt");
       const dTxt = document.getElementById("d-profile-address-txt");
       if (mTxt) mTxt.textContent = val;
       if (dTxt) dTxt.textContent = val;
       closeActionModal();
-      alert("Address updated successfully!");
+      if (typeof showToast === 'function') {
+        showToast("Address updated successfully!", "check_circle");
+      }
     }
 
     // --- AUTO-COLLAPSING VERIFIED SELLER CARD LOGIC ---
@@ -11774,7 +11806,9 @@
       const emailInput = document.getElementById("user-email-input");
       const val = (emailInput && emailInput.value) ? emailInput.value.trim() : "";
       if (!val) {
-        alert("Please enter a valid email address.");
+        if (typeof showToast === 'function') {
+          showToast("Please enter a valid email address.", "warning");
+        }
         return;
       }
 
@@ -11785,7 +11819,9 @@
       if (dEmailTxt) dEmailTxt.textContent = val;
 
       closeActionModal();
-      alert("Email address saved successfully! You can now log in using this email or your WhatsApp number.");
+      if (typeof showToast === 'function') {
+        showToast("Email address saved successfully!", "check_circle");
+      }
     }
 
     function copyProfileField(text, btnEl) {
@@ -11900,7 +11936,9 @@
         if (s && e) extra = ` (${s} to ${e})`;
       }
       closeActionModal();
-      alert(`Statement report PDF for ${range}${extra} downloaded successfully!`);
+      if (typeof showToast === 'function') {
+        showToast(`Statement report PDF for ${range}${extra} downloaded!`, 'download');
+      }
     }
 
     function togglePayoutView(view) {
@@ -11950,8 +11988,6 @@
       }
       if (typeof showToast === 'function') {
         showToast(bankName + ' is now set as your primary payout account!', 'check_circle');
-      } else {
-        alert(`${bankName} is now set as your primary payout account!`);
       }
     }
 
@@ -12027,10 +12063,14 @@
       const bank = document.getElementById('new-payout-bank-val')?.textContent || 'Bank';
       const num = document.getElementById('new-payout-account-num')?.value || '';
       if (!num || num.length < 10) {
-        alert('Please enter a valid 10-digit account number.');
+        if (typeof showToast === 'function') {
+          showToast('Please enter a valid 10-digit account number.', 'warning');
+        }
         return;
       }
-      alert(`Payout Account (${bank} - ${num}) linked successfully!`);
+      if (typeof showToast === 'function') {
+        showToast(`Payout Account (${bank} - ${num}) linked successfully!`, 'verified');
+      }
       togglePayoutView('list');
     }
 
@@ -12667,8 +12707,6 @@
       var deal = prDealsList.find(function (d) { return d.id === currentPRDealId; }) || prDealsList[0];
       if (typeof showToast === 'function') {
         showToast('Downloading Official Payment Receipt for Deal #' + deal.id + '...', 'download');
-      } else {
-        alert('Official PayKudi Payment Receipt downloaded for Deal #' + deal.id);
       }
     }
 
@@ -13715,6 +13753,7 @@
       if (e.key === 'Escape') {
         closeOrderHelpModal();
         closeAppealModal();
+        closeConfirmDeliveryModal();
       }
     });
 
@@ -13785,6 +13824,126 @@
           modal.classList.add('pointer-events-none');
         }
       }, 500);
+    }
+
+    /* ===== CONFIRM DELIVERY MODAL LOGIC ===== */
+    var isConfirmDeliveryModalAnimating = false;
+
+    function openConfirmDeliveryModal() {
+      var modal = document.getElementById('confirm-delivery-modal');
+      var backdrop = document.getElementById('confirm-delivery-modal-backdrop');
+      var card = document.getElementById('confirm-delivery-modal-card');
+
+      try {
+        var deal = (typeof prDealsList !== 'undefined')
+          ? (prDealsList.find(function (d) { return d.id === currentPRDealId; }) || prDealsList[0])
+          : null;
+
+        if (deal) {
+          var orderNum = deal.orderRef || (deal.id ? ('ORD-' + deal.id.replace(/\D/g, '')) : 'ORD-884910');
+          var dealPrice = deal.priceNumeric || deal.price || '₦45,000';
+          var sellerName = deal.sellerName || 'Seller';
+
+          var orderBadge = document.getElementById('confirm-delivery-order-badge');
+          if (orderBadge) orderBadge.textContent = orderNum;
+
+          var state = (typeof getDealState === 'function') ? getDealState(deal.id) : {};
+          var warnHeading = document.getElementById('confirm-delivery-warning-heading');
+          var warnText = document.getElementById('confirm-delivery-warning-text');
+
+          if (state && state.dispute) {
+            if (warnHeading) warnHeading.textContent = 'Active Dispute in Progress';
+            if (warnText) {
+              warnText.innerHTML = 'A dispute is currently active for Order <strong>' + orderNum + '</strong>. Confirming delivery will automatically <strong>cancel the dispute</strong>, mark the order as satisfied, and immediately release <strong class="text-brand-green dark:text-emerald-400">' + dealPrice + '</strong> payout to <strong>' + sellerName + '</strong>.';
+            }
+          } else {
+            if (warnHeading) warnHeading.textContent = 'Irreversible Action';
+            if (warnText) {
+              warnText.innerHTML = 'Confirming delivery will release <strong class="text-brand-green dark:text-emerald-400">' + dealPrice + '</strong> payout to <strong>' + sellerName + '</strong> immediately. Once approved, this transaction cannot be reversed or refunded.';
+            }
+          }
+        }
+      } catch (e) { }
+
+      var chk = document.getElementById('confirm-delivery-checkbox');
+      if (chk) chk.checked = false;
+      toggleConfirmDeliveryProceedBtn();
+
+      pushAppModalState('confirm-delivery-modal');
+
+      if (!modal) return;
+      modal.classList.remove('hidden');
+      modal.classList.remove('pointer-events-none');
+      isConfirmDeliveryModalAnimating = true;
+
+      setTimeout(function () {
+        if (backdrop) {
+          backdrop.classList.remove('opacity-0');
+          backdrop.classList.add('opacity-100');
+        }
+        if (card) {
+          card.classList.remove('translate-y-full');
+          card.classList.add('translate-y-0');
+        }
+      }, 40);
+
+      setTimeout(function () {
+        isConfirmDeliveryModalAnimating = false;
+      }, 600);
+    }
+
+    function handleConfirmDeliveryBackdropClick() {
+      if (isConfirmDeliveryModalAnimating) return;
+      closeConfirmDeliveryModal();
+    }
+
+    function closeConfirmDeliveryModal() {
+      var modal = document.getElementById('confirm-delivery-modal');
+      var backdrop = document.getElementById('confirm-delivery-modal-backdrop');
+      var card = document.getElementById('confirm-delivery-modal-card');
+
+      isConfirmDeliveryModalAnimating = false;
+
+      if (backdrop) {
+        backdrop.classList.remove('opacity-100');
+        backdrop.classList.add('opacity-0');
+      }
+      if (card) {
+        card.classList.remove('translate-y-0');
+        card.classList.add('translate-y-full');
+      }
+      setTimeout(function () {
+        if (modal) {
+          modal.classList.add('hidden');
+          modal.classList.add('pointer-events-none');
+        }
+      }, 500);
+    }
+
+    function toggleConfirmDeliveryProceedBtn() {
+      var chk = document.getElementById('confirm-delivery-checkbox');
+      var btn = document.getElementById('confirm-delivery-proceed-btn');
+      if (!btn) return;
+
+      if (chk && chk.checked) {
+        btn.removeAttribute('disabled');
+        btn.classList.remove('opacity-50', 'cursor-not-allowed');
+        btn.classList.add('cursor-pointer');
+      } else {
+        btn.setAttribute('disabled', 'disabled');
+        btn.classList.add('opacity-50', 'cursor-not-allowed');
+        btn.classList.remove('cursor-pointer');
+      }
+    }
+
+    function proceedConfirmDelivery() {
+      var chk = document.getElementById('confirm-delivery-checkbox');
+      if (!chk || !chk.checked) return;
+
+      closeConfirmDeliveryModal();
+      setTimeout(function () {
+        confirmDelivery();
+      }, 350);
     }
 
     function handleAppealDescInput(textarea, prefix) {
@@ -13999,7 +14158,9 @@
       var dispEl = document.getElementById('appeal-reason-display-val');
 
       if (!reasonInput || !reasonInput.value) {
-        alert('Please select a dispute reason.');
+        if (typeof showToast === 'function') {
+          showToast('Please select a dispute reason.', 'warning');
+        }
         var wrapper = document.getElementById('appeal-reason-select-wrapper');
         if (wrapper) wrapper.classList.add('active');
         return;
@@ -14009,7 +14170,9 @@
       var desc = descInput ? descInput.value.trim() : '';
 
       if (!desc) {
-        alert('Please describe what happened for your report.');
+        if (typeof showToast === 'function') {
+          showToast('Please describe what happened for your report.', 'warning');
+        }
         if (descInput) descInput.focus();
         return;
       }
@@ -14096,8 +14259,6 @@
         if (f.size > 2 * 1024 * 1024) {
           if (typeof showToast === 'function') {
             showToast('File "' + f.name + '" exceeds 2MB limit.', 'error');
-          } else {
-            alert('File exceeds 2MB limit: ' + f.name);
           }
           return;
         }
@@ -14162,8 +14323,6 @@
       if (!desc && moreProofFiles.length === 0) {
         if (typeof showToast === 'function') {
           showToast('Please provide additional context or upload supporting files.', 'warning');
-        } else {
-          alert('Please provide additional context or upload supporting files.');
         }
         return;
       }
@@ -14172,8 +14331,6 @@
 
       if (typeof showToast === 'function') {
         showToast('Additional proof submitted! PayKudi dispute record updated.', 'verified');
-      } else {
-        alert('Additional proof submitted successfully.');
       }
     }
 
@@ -14236,8 +14393,6 @@
         if (f.size > 2 * 1024 * 1024) {
           if (typeof showToast === 'function') {
             showToast('File "' + f.name + '" exceeds 2MB limit.', 'error');
-          } else {
-            alert('File exceeds 2MB limit: ' + f.name);
           }
           return;
         }
@@ -14302,8 +14457,6 @@
       if (!desc && counterProofFiles.length === 0) {
         if (typeof showToast === 'function') {
           showToast('Please provide an explanation or upload counter evidence.', 'warning');
-        } else {
-          alert('Please provide an explanation or upload counter evidence.');
         }
         return;
       }
@@ -14312,8 +14465,6 @@
 
       if (typeof showToast === 'function') {
         showToast('Counter proof submitted! PayKudi dispute specialists are reviewing.', 'verified');
-      } else {
-        alert('Counter proof submitted successfully.');
       }
     }
 
@@ -15018,12 +15169,16 @@
       var desc = descEl ? descEl.value.trim() : '';
 
       if (!s || !s.value) {
-        alert('Please select a dispute reason before submitting.');
+        if (typeof showToast === 'function') {
+          showToast('Please select a dispute reason before submitting.', 'warning');
+        }
         return;
       }
 
       if (!desc) {
-        alert('Please describe your dispute in detail before submitting.');
+        if (typeof showToast === 'function') {
+          showToast('Please describe your dispute in detail before submitting.', 'warning');
+        }
         return;
       }
 
@@ -15060,7 +15215,9 @@
       };
 
       setDealState(state);
-      alert('Dispute claim submitted successfully.');
+      if (typeof showToast === 'function') {
+        showToast('Dispute claim submitted successfully.', 'verified');
+      }
     }
 
     var counterEvidenceGuidanceMap = {
@@ -15142,7 +15299,9 @@
     function submitCounterResponse() {
       var desc = document.getElementById('counter-desc').value.trim();
       if (!desc) {
-        alert('Please provide your counter-explanation before submitting.');
+        if (typeof showToast === 'function') {
+          showToast('Please provide your counter-explanation before submitting.', 'warning');
+        }
         return;
       }
 
@@ -15155,7 +15314,9 @@
           timestamp: Date.now()
         };
         setDealState(state);
-        alert('Counter-response submitted successfully.');
+        if (typeof showToast === 'function') {
+          showToast('Counter-response submitted successfully.', 'verified');
+        }
       }
     }
 
@@ -15170,7 +15331,7 @@
           fab.classList.remove('expanded');
         }, 4500);
       } else {
-        confirmDelivery();
+        openConfirmDeliveryModal();
       }
     }
 
@@ -15225,59 +15386,51 @@
       var dealPrice = deal.priceNumeric || deal.price || '₦45,000';
       var state = getDealState(deal.id);
 
-      var msg = state.dispute
-        ? '⚠️ A dispute is currently OPEN for Deal #' + deal.id + '.\n\nConfirming delivery will CANCEL the dispute, mark the order as delivered and satisfied, and IMMEDIATELY process ' + dealPrice + ' payout to the seller (' + (deal.sellerName || 'Seller') + ').\n\nDo you want to proceed and complete payment?'
-        : 'Are you sure you have received and inspected the item (' + deal.title + ')?\n\nThis will process ' + dealPrice + ' payout to ' + (deal.sellerName || 'the seller') + ' immediately and cannot be undone.';
+      // Clear dispute and mark deal as completed
+      setDealState({ dispute: null, completed: true }, deal.id);
+      deal.category = 'fulfilled';
+      deal.statusText = 'Transaction Completed';
+      deal.deliveryStatus = 'completed';
+      deal.badgeBg = 'bg-emerald-500/15 text-emerald-800 border-emerald-500/30 dark:bg-emerald-500/20 dark:text-emerald-300';
+      deal.dotBg = 'bg-emerald-500';
 
-      if (confirm(msg)) {
-        // Clear dispute and mark deal as completed
-        setDealState({ dispute: null, completed: true }, deal.id);
-        deal.category = 'fulfilled';
-        deal.statusText = 'Transaction Completed';
-        deal.deliveryStatus = 'completed';
-        deal.badgeBg = 'bg-emerald-500/15 text-emerald-800 border-emerald-500/30 dark:bg-emerald-500/20 dark:text-emerald-300';
-        deal.dotBg = 'bg-emerald-500';
+      renderPaymentRoomsList();
+      syncRoleSpecificUI();
 
-        renderPaymentRoomsList();
-        syncRoleSpecificUI();
-
-        ['bbar', 'd-bbar'].forEach(id => {
-          var b = document.getElementById(id);
-          if (b) {
-            b.innerHTML = '<div class="glass-card bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-500/40 rounded-2xl p-3 shadow-md flex items-center justify-center gap-2 text-brand-green font-bold text-xs font-heading"><span class="material-symbols-outlined text-[18px]">verified</span><span>Delivery Confirmed &bull; ' + dealPrice + ' Payout Sent to ' + (deal.sellerName || 'Seller') + '</span></div>';
-          }
-        });
-
-        if (typeof showToast === 'function') {
-          showToast('Delivery confirmed! ' + dealPrice + ' payout sent to seller.', 'verified');
+      ['bbar', 'd-bbar'].forEach(id => {
+        var b = document.getElementById(id);
+        if (b) {
+          b.innerHTML = '<div class="glass-card bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-500/40 rounded-2xl p-3 shadow-md flex items-center justify-center gap-2 text-brand-green font-bold text-xs font-heading"><span class="material-symbols-outlined text-[18px]">verified</span><span>Delivery Confirmed &bull; ' + dealPrice + ' Payout Sent to ' + (deal.sellerName || 'Seller') + '</span></div>';
         }
+      });
 
-        ['spill', 'd-spill'].forEach(id => {
-          const el = document.getElementById(id);
-          if (el) el.className = 'status-dot-pill bg';
-        });
-        ['sdot', 'd-sdot'].forEach(id => {
-          const el = document.getElementById(id);
-          if (el) el.style.background = 'var(--green)';
-        });
-        ['slabel-txt', 'd-slabel-txt'].forEach(id => {
-          const el = document.getElementById(id);
-          if (el) {
-            el.textContent = 'Completed';
-            el.classList.remove('hidden');
-            el.style.display = 'inline-block';
-          }
-        });
-
-        ['m-', 'd-'].forEach(pref => {
-          const pb = document.getElementById(pref + 'pay-status-buyer');
-          const ps = document.getElementById(pref + 'pay-status-seller');
-          if (pb) pb.innerHTML = '<span class="material-symbols-outlined" style="font-size:12px;">payments</span> Paid out to Seller';
-          if (ps) ps.innerHTML = '<span class="material-symbols-outlined" style="font-size:12px;">payments</span> Paid out to Seller';
-        });
-
-        alert('Delivery confirmed! Payment of ' + dealPrice + ' has been completed for ' + (deal.sellerName || 'the seller') + '.');
+      if (typeof showToast === 'function') {
+        showToast('Delivery confirmed! ' + dealPrice + ' payout sent to ' + (deal.sellerName || 'seller') + '.', 'verified');
       }
+
+      ['spill', 'd-spill'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.className = 'status-dot-pill bg';
+      });
+      ['sdot', 'd-sdot'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.background = 'var(--green)';
+      });
+      ['slabel-txt', 'd-slabel-txt'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.textContent = 'Completed';
+          el.classList.remove('hidden');
+          el.style.display = 'inline-block';
+        }
+      });
+
+      ['m-', 'd-'].forEach(pref => {
+        const pb = document.getElementById(pref + 'pay-status-buyer');
+        const ps = document.getElementById(pref + 'pay-status-seller');
+        if (pb) pb.innerHTML = '<span class="material-symbols-outlined" style="font-size:12px;">payments</span> Paid out to Seller';
+        if (ps) ps.innerHTML = '<span class="material-symbols-outlined" style="font-size:12px;">payments</span> Paid out to Seller';
+      });
     }
 
     var verifiedPayoutAccounts = [
@@ -15345,7 +15498,9 @@
       });
 
       renderProfilePayoutAccounts();
-      alert('Switched active payout account to verified account: ' + current.bank + ' (' + current.acct + ').');
+      if (typeof showToast === 'function') {
+        showToast('Switched active payout account to ' + current.bank + ' (' + current.acct + ')', 'swap_horiz');
+      }
     }
 
     // Theme Switcher Management (Default is Light)
@@ -15424,14 +15579,20 @@
 
     // Toast Notification & Promo Modals
     let toastTimeout = null;
-    function showToast(message, iconClass = 'fa-check') {
+    function showToast(message, iconClass = 'check_circle') {
       const toast = document.getElementById('paykudi-toast');
       const toastText = document.getElementById('paykudi-toast-text');
       const toastIcon = document.getElementById('paykudi-toast-icon');
       if (!toast) return;
 
       if (toastText) toastText.textContent = message;
-      if (toastIcon) toastIcon.innerHTML = '<i class="fa-solid ' + iconClass + '"></i>';
+      if (toastIcon) {
+        if (typeof iconClass === 'string' && iconClass.startsWith('fa-')) {
+          toastIcon.innerHTML = '<i class="fa-solid ' + iconClass + '"></i>';
+        } else {
+          toastIcon.innerHTML = '<span class="material-symbols-outlined text-[16px] leading-none select-none">' + (iconClass || 'check_circle') + '</span>';
+        }
+      }
 
       toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
       toast.classList.add('opacity-100', 'translate-y-0');
@@ -15865,9 +16026,10 @@
   <!-- ================================================================= -->
   <div id="awaiting-order-details-modal"
     class="fixed inset-0 z-[99999] flex items-end justify-center pointer-events-none transition-all duration-300 hidden">
-    <!-- Backdrop Overlay -->
+    <!-- Backdrop Overlay with Screen Blurring -->
     <div id="order-details-backdrop" onclick="closeAwaitingOrderDetailsBottomSheet()"
-      class="fixed inset-0 bg-black/60 backdrop-blur-xs opacity-0 transition-opacity duration-300"></div>
+      class="fixed inset-0 bg-black/60 backdrop-blur-md opacity-0 transition-opacity duration-300"
+      style="backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);"></div>
 
     <!-- Bottom Sheet Card (Slide-up from bottom) -->
     <div id="order-details-sheet-card"
@@ -16046,9 +16208,10 @@
   <!-- ================================================================= -->
   <div id="shipping-status-modal"
     class="fixed inset-0 z-[99999] flex items-end justify-center pointer-events-none transition-all duration-300 hidden">
-    <!-- Backdrop Overlay -->
+    <!-- Backdrop Overlay with Screen Blurring -->
     <div id="shipping-status-backdrop" onclick="closeShippingStatusBottomSheet()"
-      class="fixed inset-0 bg-black/60 backdrop-blur-xs opacity-0 transition-opacity duration-300"></div>
+      class="fixed inset-0 bg-black/60 backdrop-blur-md opacity-0 transition-opacity duration-300"
+      style="backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);"></div>
 
     <!-- Bottom Sheet Card (Fixed Consistent Size across all sub-views) -->
     <div id="shipping-status-sheet-card"
@@ -16100,19 +16263,19 @@
       </div>
 
       <!-- VIEW 1: Main Status View (Timeline + 3-Tile Proof Summary) -->
-      <div id="ss-view-main" class="p-4 sm:p-5 space-y-3.5 overflow-y-auto custom-scroll flex-1 text-xs">
+      <div id="ss-view-main" class="p-4 sm:p-5 space-y-4 overflow-y-auto custom-scroll flex-1 text-xs">
 
-        <!-- 1. Live Order Tracking Timeline -->
-        <div
-          class="bg-white dark:bg-[#121824] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3.5 shadow-2xs space-y-3">
+        <!-- 1. Live Order Tracking Timeline (Frameless / Unboxed) -->
+        <div class="space-y-3 pt-1">
           <h5
             class="text-[10.5px] font-bold text-neutral-400 dark:text-neutral-400 uppercase tracking-wider font-heading">
             Order Tracking</h5>
 
           <div id="ss-timeline-container"
-            class="relative pl-5 space-y-4 before:absolute before:left-2 before:top-2 before:bottom-2 before:w-0.5 before:bg-[#EBE3D5] dark:before:bg-white/10">
+            class="relative pl-5 space-y-4">
             <!-- Stage 1: Picked Up -->
             <div class="relative flex items-start justify-between">
+              <span class="absolute -left-[13px] top-4.5 -bottom-4 border-l-2 border-dotted border-brand-green dark:border-emerald-400"></span>
               <span
                 class="absolute -left-5 top-0.5 w-4 h-4 rounded-full bg-brand-green text-white flex items-center justify-center text-[9px] shadow-xs">
                 <span class="material-symbols-outlined text-[10px]">check</span>
@@ -16127,6 +16290,7 @@
 
             <!-- Stage 2: Sorted at Origin Hub -->
             <div class="relative flex items-start justify-between">
+              <span class="absolute -left-[13px] top-4.5 -bottom-4 border-l-2 border-dotted border-brand-green dark:border-emerald-400"></span>
               <span
                 class="absolute -left-5 top-0.5 w-4 h-4 rounded-full bg-brand-green text-white flex items-center justify-center text-[9px] shadow-xs">
                 <span class="material-symbols-outlined text-[10px]">check</span>
@@ -16141,9 +16305,10 @@
 
             <!-- Stage 3: In Transit -->
             <div class="relative flex items-start justify-between">
+              <span class="absolute -left-[13px] top-4.5 -bottom-4 border-l-2 border-dotted border-[#D1C7B7] dark:border-white/20"></span>
               <span
-                class="absolute -left-5 top-0.5 w-4 h-4 rounded-full bg-purple-600 text-white flex items-center justify-center text-[9px] shadow-[0_0_8px_rgba(124,58,237,0.5)] ring-2 ring-purple-500/30">
-                <span class="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>
+                class="absolute -left-5 top-0.5 w-4 h-4 rounded-full bg-purple-600 text-white flex items-center justify-center text-[9px] shadow-[0_0_12px_rgba(147,51,234,0.85)] ring-2 ring-purple-500/50">
+                <span class="material-symbols-outlined text-[10px]">local_shipping</span>
               </span>
               <div>
                 <span class="font-black text-purple-600 dark:text-purple-400 block text-xs">In Transit to
@@ -16156,6 +16321,7 @@
 
             <!-- Stage 4: Arrived at Local Facility -->
             <div class="relative flex items-start justify-between opacity-40">
+              <span class="absolute -left-[13px] top-4.5 -bottom-4 border-l-2 border-dotted border-[#D1C7B7] dark:border-white/20"></span>
               <span
                 class="absolute -left-5 top-0.5 w-4 h-4 rounded-full bg-neutral-200 dark:bg-white/10 text-neutral-500 flex items-center justify-center text-[9px]">
                 <span class="material-symbols-outlined text-[10px]">domain</span>
@@ -16171,6 +16337,7 @@
 
             <!-- Stage 5: Out for Delivery -->
             <div class="relative flex items-start justify-between opacity-40">
+              <span class="absolute -left-[13px] top-4.5 -bottom-4 border-l-2 border-dotted border-[#D1C7B7] dark:border-white/20"></span>
               <span
                 class="absolute -left-5 top-0.5 w-4 h-4 rounded-full bg-neutral-200 dark:bg-white/10 text-neutral-500 flex items-center justify-center text-[9px]">
                 <span class="material-symbols-outlined text-[10px]">two_wheeler</span>
@@ -16183,7 +16350,7 @@
               <span class="text-[10px] text-neutral-400 font-mono">Pending</span>
             </div>
 
-            <!-- Stage 6: Delivered to Buyer -->
+            <!-- Stage 6: Delivered to Buyer (Last stage - No extra line) -->
             <div class="relative flex items-start justify-between opacity-40">
               <span
                 class="absolute -left-5 top-0.5 w-4 h-4 rounded-full bg-neutral-200 dark:bg-white/10 text-neutral-500 flex items-center justify-center text-[9px]">
@@ -16199,9 +16366,8 @@
           </div>
         </div>
 
-        <!-- 2. Proof of Shipping (4 TILES WITH REAL PHOTOS + REMAINING COUNT +1) -->
-        <div
-          class="bg-white dark:bg-[#121824] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3.5 shadow-2xs space-y-2.5">
+        <!-- 2. Proof of Shipping (Frameless / Unboxed with clean divider) -->
+        <div class="space-y-2.5 pt-3 border-t border-[#EBE3D5]/80 dark:border-white/10">
           <div class="flex items-center justify-between">
             <h5
               class="text-[10.5px] font-bold text-neutral-400 dark:text-neutral-400 uppercase tracking-wider font-heading">
@@ -16212,7 +16378,7 @@
             </button>
           </div>
 
-          <!-- Small Tiles: 4 larger real picture tiles + bold +1 spaced evenly across the card -->
+          <!-- Small Tiles: 4 real picture tiles + +1 bubble -->
           <div class="flex items-start justify-between gap-1.5 sm:gap-2 py-1">
             <!-- Tile 1: Package Photo -->
             <div
@@ -16269,7 +16435,7 @@
                 Seal</span>
             </div>
 
-            <!-- Remaining Count (+1 green circular bubble moved down) -->
+            <!-- Remaining Count (+1 green circular bubble) -->
             <div class="flex flex-col items-end justify-start flex-shrink-0 min-w-[42px] sm:min-w-[48px] select-none">
               <div class="w-full aspect-square flex items-center justify-end">
                 <div
@@ -16977,9 +17143,10 @@
 
   <div id="appeal-bottom-sheet-modal"
     class="fixed inset-0 z-[99999] flex items-end justify-center pointer-events-none transition-all duration-300 hidden">
-    <!-- Backdrop Overlay -->
+    <!-- Backdrop Overlay with Screen Blurring -->
     <div id="appeal-modal-backdrop" onclick="handleAppealBackdropClick()"
-      class="fixed inset-0 bg-black/60 backdrop-blur-xs opacity-0 transition-opacity duration-300"></div>
+      class="fixed inset-0 bg-black/60 backdrop-blur-md opacity-0 transition-opacity duration-300"
+      style="backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);"></div>
 
     <!-- Bottom Sheet Card (Slide-Up from Bottom with smooth slow 500ms transition) -->
     <div id="appeal-modal-card"
@@ -17121,6 +17288,94 @@
             class="w-full py-3.5 px-4 rounded-xl bg-red-600 hover:bg-red-700 active:scale-95 text-white font-extrabold text-sm font-heading shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer">
             <span class="material-symbols-outlined text-[18px] text-white">gavel</span>
             <span>Submit Report</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- CONFIRM DELIVERY BOTTOM SHEET MODAL                               -->
+  <!-- ================================================================= -->
+  <div id="confirm-delivery-modal"
+    class="fixed inset-0 z-[99999] flex items-end justify-center pointer-events-none transition-all duration-300 hidden">
+    <!-- Backdrop Overlay with Screen Blurring -->
+    <div id="confirm-delivery-modal-backdrop" onclick="handleConfirmDeliveryBackdropClick()"
+      class="fixed inset-0 bg-black/60 backdrop-blur-md opacity-0 transition-opacity duration-300"
+      style="backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);"></div>
+
+    <!-- Bottom Sheet Card (Slide-Up from Bottom with matching 500ms transition) -->
+    <div id="confirm-delivery-modal-card"
+      class="relative w-full max-w-md bg-[#FAF7F2] dark:bg-[#181A20] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-500 ease-out z-10 max-h-[88vh] flex flex-col pointer-events-auto">
+
+      <!-- Top Grab Bar / Handle -->
+      <div class="pt-3 pb-1 cursor-pointer flex justify-center flex-shrink-0" onclick="closeConfirmDeliveryModal()">
+        <div class="w-12 h-1.5 bg-neutral-300 dark:bg-white/20 rounded-full"></div>
+      </div>
+
+      <!-- Sheet Header (Title + Dynamic Order Number Badge + Close Button) -->
+      <div
+        class="px-5 py-2.5 flex items-center justify-between border-b border-[#EBE3D5]/80 dark:border-white/10 flex-shrink-0">
+        <div class="flex items-center gap-2">
+          <h3 class="text-base font-black text-brand-dark dark:text-white font-heading">Confirm Delivery</h3>
+          <span id="confirm-delivery-order-badge"
+            class="confirm-delivery-order-num text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-brand-green/10 text-brand-green dark:text-emerald-400 font-mono">ORD-884910</span>
+        </div>
+        <button type="button" onclick="closeConfirmDeliveryModal()"
+          class="w-8 h-8 rounded-full bg-neutral-200/60 dark:bg-white/10 text-neutral-600 dark:text-neutral-300 flex items-center justify-center hover:bg-neutral-200 dark:hover:bg-white/20 transition-all cursor-pointer flex-shrink-0"
+          title="Close">
+          <span class="material-symbols-outlined text-[18px]">close</span>
+        </button>
+      </div>
+
+      <!-- Scrollable Body Content -->
+      <div class="p-5 space-y-4 overflow-y-auto custom-scroll flex-1 text-xs">
+
+        <!-- 1. Warning Notice (Frameless text with vertically centered icon) -->
+        <div id="confirm-delivery-warning-banner"
+          class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-[24px] text-amber-600 dark:text-amber-400 flex-shrink-0" id="confirm-delivery-warning-icon">warning</span>
+          <div class="flex-1 min-w-0 space-y-1">
+            <h4 class="font-extrabold text-xs font-heading text-brand-dark dark:text-white" id="confirm-delivery-warning-heading">Irreversible Action</h4>
+            <p class="text-xs leading-relaxed text-neutral-600 dark:text-neutral-300" id="confirm-delivery-warning-text">
+              Confirming delivery will release payout to the seller immediately. Once approved, this transaction cannot be reversed or refunded.
+            </p>
+          </div>
+        </div>
+
+        <!-- 2. Guidance Note (Frameless text with vertically centered icon) -->
+        <div class="flex items-center gap-3 pt-1">
+          <span class="material-symbols-outlined text-brand-blue dark:text-blue-400 text-[24px] flex-shrink-0">info</span>
+          <div class="flex-1 min-w-0 space-y-1">
+            <h4 class="font-extrabold text-xs font-heading text-brand-dark dark:text-white">Please inspect and test your item</h4>
+            <p class="text-xs leading-relaxed text-neutral-500 dark:text-neutral-400">
+              Only confirm delivery if you have unboxed and fully verified your order. If there is any defect, missing part, or issue, cancel this modal and use <strong class="text-red-600 dark:text-red-400 font-bold">"Report an Issue"</strong> instead.
+            </p>
+          </div>
+        </div>
+
+        <!-- 3. Mandatory Checkbox (Clean unboxed label with vertically centered checkbox) -->
+        <div class="pt-1">
+          <label class="flex items-center gap-3 cursor-pointer select-none group">
+            <input type="checkbox" id="confirm-delivery-checkbox" onchange="toggleConfirmDeliveryProceedBtn()"
+              class="w-4 h-4 rounded text-brand-green focus:ring-brand-green/30 border-gray-300 dark:border-white/20 accent-brand-green cursor-pointer flex-shrink-0" />
+            <span class="font-bold text-xs text-brand-dark dark:text-white leading-snug group-hover:text-brand-green transition-colors">
+              I have received my order and I am satisfied with it.
+            </span>
+          </label>
+        </div>
+
+        <!-- 4. Action Buttons -->
+        <div class="pt-2 sticky bottom-0 bg-[#FAF7F2] dark:bg-[#181A20] pb-1 z-10 flex flex-col gap-2">
+          <button type="button" id="confirm-delivery-proceed-btn" onclick="proceedConfirmDelivery()" disabled
+            class="w-full py-3.5 px-4 rounded-xl bg-brand-green hover:bg-emerald-700 active:scale-95 text-white font-extrabold text-sm font-heading shadow-md transition-all flex items-center justify-center gap-2 opacity-50 cursor-not-allowed">
+            <span class="material-symbols-outlined text-[18px]">verified</span>
+            <span>Proceed &amp; Release Payment</span>
+          </button>
+          <button type="button" onclick="closeConfirmDeliveryModal()"
+            class="w-full py-2.5 px-4 rounded-xl bg-transparent hover:bg-neutral-200/50 dark:hover:bg-white/5 text-neutral-600 dark:text-neutral-400 font-bold text-xs transition-all flex items-center justify-center cursor-pointer">
+            <span>Cancel</span>
           </button>
         </div>
 
@@ -18434,9 +18689,10 @@
   <!-- ================================================================= -->
   <div id="awaiting-order-details-modal"
     class="fixed inset-0 z-[99999] flex items-end justify-center pointer-events-none transition-all duration-300 hidden">
-    <!-- Backdrop Overlay -->
+    <!-- Backdrop Overlay with Screen Blurring -->
     <div id="order-details-backdrop" onclick="closeAwaitingOrderDetailsBottomSheet()"
-      class="fixed inset-0 bg-black/60 backdrop-blur-xs opacity-0 transition-opacity duration-300"></div>
+      class="fixed inset-0 bg-black/60 backdrop-blur-md opacity-0 transition-opacity duration-300"
+      style="backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);"></div>
 
     <!-- Bottom Sheet Card (Slide-up from bottom) -->
     <div id="order-details-sheet-card"
@@ -18615,9 +18871,10 @@
   <!-- ================================================================= -->
   <div id="shipping-status-modal"
     class="fixed inset-0 z-[99999] flex items-end justify-center pointer-events-none transition-all duration-300 hidden">
-    <!-- Backdrop Overlay -->
+    <!-- Backdrop Overlay with Screen Blurring -->
     <div id="shipping-status-backdrop" onclick="closeShippingStatusBottomSheet()"
-      class="fixed inset-0 bg-black/60 backdrop-blur-xs opacity-0 transition-opacity duration-300"></div>
+      class="fixed inset-0 bg-black/60 backdrop-blur-md opacity-0 transition-opacity duration-300"
+      style="backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);"></div>
 
     <!-- Bottom Sheet Card (Fixed Consistent Size across all sub-views) -->
     <div id="shipping-status-sheet-card"
@@ -18669,19 +18926,19 @@
       </div>
 
       <!-- VIEW 1: Main Status View (Timeline + 3-Tile Proof Summary) -->
-      <div id="ss-view-main" class="p-4 sm:p-5 space-y-3.5 overflow-y-auto custom-scroll flex-1 text-xs">
+      <div id="ss-view-main" class="p-4 sm:p-5 space-y-4 overflow-y-auto custom-scroll flex-1 text-xs">
 
-        <!-- 1. Live Order Tracking Timeline -->
-        <div
-          class="bg-white dark:bg-[#121824] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3.5 shadow-2xs space-y-3">
+        <!-- 1. Live Order Tracking Timeline (Frameless / Unboxed) -->
+        <div class="space-y-3 pt-1">
           <h5
             class="text-[10.5px] font-bold text-neutral-400 dark:text-neutral-400 uppercase tracking-wider font-heading">
             Order Tracking</h5>
 
           <div id="ss-timeline-container"
-            class="relative pl-5 space-y-4 before:absolute before:left-2 before:top-2 before:bottom-2 before:w-0.5 before:bg-[#EBE3D5] dark:before:bg-white/10">
+            class="relative pl-5 space-y-4">
             <!-- Stage 1: Picked Up -->
             <div class="relative flex items-start justify-between">
+              <span class="absolute -left-[13px] top-4.5 -bottom-4 border-l-2 border-dotted border-brand-green dark:border-emerald-400"></span>
               <span
                 class="absolute -left-5 top-0.5 w-4 h-4 rounded-full bg-brand-green text-white flex items-center justify-center text-[9px] shadow-xs">
                 <span class="material-symbols-outlined text-[10px]">check</span>
@@ -18696,6 +18953,7 @@
 
             <!-- Stage 2: Sorted at Origin Hub -->
             <div class="relative flex items-start justify-between">
+              <span class="absolute -left-[13px] top-4.5 -bottom-4 border-l-2 border-dotted border-brand-green dark:border-emerald-400"></span>
               <span
                 class="absolute -left-5 top-0.5 w-4 h-4 rounded-full bg-brand-green text-white flex items-center justify-center text-[9px] shadow-xs">
                 <span class="material-symbols-outlined text-[10px]">check</span>
@@ -18710,9 +18968,10 @@
 
             <!-- Stage 3: In Transit -->
             <div class="relative flex items-start justify-between">
+              <span class="absolute -left-[13px] top-4.5 -bottom-4 border-l-2 border-dotted border-[#D1C7B7] dark:border-white/20"></span>
               <span
-                class="absolute -left-5 top-0.5 w-4 h-4 rounded-full bg-purple-600 text-white flex items-center justify-center text-[9px] shadow-[0_0_8px_rgba(124,58,237,0.5)] ring-2 ring-purple-500/30">
-                <span class="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>
+                class="absolute -left-5 top-0.5 w-4 h-4 rounded-full bg-purple-600 text-white flex items-center justify-center text-[9px] shadow-[0_0_12px_rgba(147,51,234,0.85)] ring-2 ring-purple-500/50">
+                <span class="material-symbols-outlined text-[10px]">local_shipping</span>
               </span>
               <div>
                 <span class="font-black text-purple-600 dark:text-purple-400 block text-xs">In Transit to
@@ -18725,6 +18984,7 @@
 
             <!-- Stage 4: Arrived at Local Facility -->
             <div class="relative flex items-start justify-between opacity-40">
+              <span class="absolute -left-[13px] top-4.5 -bottom-4 border-l-2 border-dotted border-[#D1C7B7] dark:border-white/20"></span>
               <span
                 class="absolute -left-5 top-0.5 w-4 h-4 rounded-full bg-neutral-200 dark:bg-white/10 text-neutral-500 flex items-center justify-center text-[9px]">
                 <span class="material-symbols-outlined text-[10px]">domain</span>
@@ -18740,6 +19000,7 @@
 
             <!-- Stage 5: Out for Delivery -->
             <div class="relative flex items-start justify-between opacity-40">
+              <span class="absolute -left-[13px] top-4.5 -bottom-4 border-l-2 border-dotted border-[#D1C7B7] dark:border-white/20"></span>
               <span
                 class="absolute -left-5 top-0.5 w-4 h-4 rounded-full bg-neutral-200 dark:bg-white/10 text-neutral-500 flex items-center justify-center text-[9px]">
                 <span class="material-symbols-outlined text-[10px]">two_wheeler</span>
@@ -18752,7 +19013,7 @@
               <span class="text-[10px] text-neutral-400 font-mono">Pending</span>
             </div>
 
-            <!-- Stage 6: Delivered to Buyer -->
+            <!-- Stage 6: Delivered to Buyer (Last stage - No extra line) -->
             <div class="relative flex items-start justify-between opacity-40">
               <span
                 class="absolute -left-5 top-0.5 w-4 h-4 rounded-full bg-neutral-200 dark:bg-white/10 text-neutral-500 flex items-center justify-center text-[9px]">
@@ -18768,9 +19029,8 @@
           </div>
         </div>
 
-        <!-- 2. Proof of Shipping (4 TILES WITH REAL PHOTOS + REMAINING COUNT +1) -->
-        <div
-          class="bg-white dark:bg-[#121824] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3.5 shadow-2xs space-y-2.5">
+        <!-- 2. Proof of Shipping (Frameless / Unboxed with clean divider) -->
+        <div class="space-y-2.5 pt-3 border-t border-[#EBE3D5]/80 dark:border-white/10">
           <div class="flex items-center justify-between">
             <h5
               class="text-[10.5px] font-bold text-neutral-400 dark:text-neutral-400 uppercase tracking-wider font-heading">
@@ -18781,7 +19041,7 @@
             </button>
           </div>
 
-          <!-- Small Tiles: 4 larger real picture tiles + bold +1 spaced evenly across the card -->
+          <!-- Small Tiles: 4 real picture tiles + +1 bubble -->
           <div class="flex items-start justify-between gap-1.5 sm:gap-2 py-1">
             <!-- Tile 1: Package Photo -->
             <div
@@ -18838,7 +19098,7 @@
                 Seal</span>
             </div>
 
-            <!-- Remaining Count (+1 green circular bubble moved down) -->
+            <!-- Remaining Count (+1 green circular bubble) -->
             <div class="flex flex-col items-end justify-start flex-shrink-0 min-w-[42px] sm:min-w-[48px] select-none">
               <div class="w-full aspect-square flex items-center justify-end">
                 <div
@@ -19546,9 +19806,10 @@
 
   <div id="appeal-bottom-sheet-modal"
     class="fixed inset-0 z-[99999] flex items-end justify-center pointer-events-none transition-all duration-300 hidden">
-    <!-- Backdrop Overlay -->
+    <!-- Backdrop Overlay with Screen Blurring -->
     <div id="appeal-modal-backdrop" onclick="handleAppealBackdropClick()"
-      class="fixed inset-0 bg-black/60 backdrop-blur-xs opacity-0 transition-opacity duration-300"></div>
+      class="fixed inset-0 bg-black/60 backdrop-blur-md opacity-0 transition-opacity duration-300"
+      style="backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);"></div>
 
     <!-- Bottom Sheet Card (Slide-Up from Bottom with smooth slow 500ms transition) -->
     <div id="appeal-modal-card"
@@ -20264,6 +20525,7 @@
         timelineContainer.innerHTML = `
             <!-- Stage 1: Picked Up (Done) -->
             <div class="relative flex items-start justify-between">
+              <span class="absolute -left-[13px] top-4.5 -bottom-4 border-l-2 border-dotted border-brand-green dark:border-emerald-400"></span>
               <span class="absolute -left-5 top-0.5 w-4 h-4 rounded-full bg-brand-green text-white flex items-center justify-center text-[9px] shadow-xs">
                 <span class="material-symbols-outlined text-[10px]">check</span>
               </span>
@@ -20276,6 +20538,7 @@
 
             <!-- Stage 2: Sorted at Origin Hub (Done) -->
             <div class="relative flex items-start justify-between">
+              <span class="absolute -left-[13px] top-4.5 -bottom-4 border-l-2 border-dotted border-brand-green dark:border-emerald-400"></span>
               <span class="absolute -left-5 top-0.5 w-4 h-4 rounded-full bg-brand-green text-white flex items-center justify-center text-[9px] shadow-xs">
                 <span class="material-symbols-outlined text-[10px]">check</span>
               </span>
@@ -20288,6 +20551,7 @@
 
             <!-- Stage 3: In Transit to Destination (Done) -->
             <div class="relative flex items-start justify-between">
+              <span class="absolute -left-[13px] top-4.5 -bottom-4 border-l-2 border-dotted border-brand-green dark:border-emerald-400"></span>
               <span class="absolute -left-5 top-0.5 w-4 h-4 rounded-full bg-brand-green text-white flex items-center justify-center text-[9px] shadow-xs">
                 <span class="material-symbols-outlined text-[10px]">check</span>
               </span>
@@ -20300,6 +20564,7 @@
 
             <!-- Stage 4: Out for Delivery (Done) -->
             <div class="relative flex items-start justify-between">
+              <span class="absolute -left-[13px] top-4.5 -bottom-4 border-l-2 border-dotted border-brand-green dark:border-emerald-400"></span>
               <span class="absolute -left-5 top-0.5 w-4 h-4 rounded-full bg-brand-green text-white flex items-center justify-center text-[9px] shadow-xs">
                 <span class="material-symbols-outlined text-[10px]">check</span>
               </span>
@@ -20310,10 +20575,10 @@
               <span class="text-[10px] text-neutral-400 dark:text-neutral-500 font-mono">Today 11:45 AM</span>
             </div>
 
-            <!-- Stage 5: Package Delivered & Handed Over (Active / Completed in Green) -->
+            <!-- Stage 5: Package Delivered & Handed Over (Active / Completed in Green - Last Stage) -->
             <div class="relative flex items-start justify-between">
               <span class="absolute -left-5 top-0.5 w-4 h-4 rounded-full bg-brand-green text-white flex items-center justify-center text-[9px] shadow-[0_0_8px_rgba(46,160,67,0.5)] ring-2 ring-brand-green/30">
-                <span class="material-symbols-outlined text-[10px]">done_all</span>
+                <span class="material-symbols-outlined text-[10px]">check</span>
               </span>
               <div>
                 <span class="font-black text-brand-green dark:text-emerald-400 block text-xs">Package Delivered</span>
@@ -20326,6 +20591,7 @@
         timelineContainer.innerHTML = `
             <!-- Stage 1: Picked Up -->
             <div class="relative flex items-start justify-between">
+              <span class="absolute -left-[13px] top-4.5 -bottom-4 border-l-2 border-dotted border-brand-green dark:border-emerald-400"></span>
               <span class="absolute -left-5 top-0.5 w-4 h-4 rounded-full bg-brand-green text-white flex items-center justify-center text-[9px] shadow-xs">
                 <span class="material-symbols-outlined text-[10px]">check</span>
               </span>
@@ -20338,6 +20604,7 @@
 
             <!-- Stage 2: Sorted at Origin Hub -->
             <div class="relative flex items-start justify-between">
+              <span class="absolute -left-[13px] top-4.5 -bottom-4 border-l-2 border-dotted border-brand-green dark:border-emerald-400"></span>
               <span class="absolute -left-5 top-0.5 w-4 h-4 rounded-full bg-brand-green text-white flex items-center justify-center text-[9px] shadow-xs">
                 <span class="material-symbols-outlined text-[10px]">check</span>
               </span>
@@ -20350,8 +20617,9 @@
 
             <!-- Stage 3: In Transit -->
             <div class="relative flex items-start justify-between">
-              <span class="absolute -left-5 top-0.5 w-4 h-4 rounded-full bg-purple-600 text-white flex items-center justify-center text-[9px] shadow-[0_0_8px_rgba(124,58,237,0.5)] ring-2 ring-purple-500/30">
-                <span class="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>
+              <span class="absolute -left-[13px] top-4.5 -bottom-4 border-l-2 border-dotted border-[#D1C7B7] dark:border-white/20"></span>
+              <span class="absolute -left-5 top-0.5 w-4 h-4 rounded-full bg-purple-600 text-white flex items-center justify-center text-[9px] shadow-[0_0_12px_rgba(147,51,234,0.85)] ring-2 ring-purple-500/50">
+                <span class="material-symbols-outlined text-[10px]">local_shipping</span>
               </span>
               <div>
                 <span class="font-black text-purple-600 dark:text-purple-400 block text-xs">In Transit to Destination</span>
@@ -20362,6 +20630,7 @@
 
             <!-- Stage 4: Arrived at Local Facility -->
             <div class="relative flex items-start justify-between opacity-40">
+              <span class="absolute -left-[13px] top-4.5 -bottom-4 border-l-2 border-dotted border-[#D1C7B7] dark:border-white/20"></span>
               <span class="absolute -left-5 top-0.5 w-4 h-4 rounded-full bg-neutral-200 dark:bg-white/10 text-neutral-500 flex items-center justify-center text-[9px]">
                 <span class="material-symbols-outlined text-[10px]">domain</span>
               </span>
@@ -20372,7 +20641,7 @@
               <span class="text-[10px] text-neutral-400 font-mono">Pending</span>
             </div>
 
-            <!-- Stage 5: Out for Delivery -->
+            <!-- Stage 5: Out for Delivery (Last Stage in In-Transit view - No extra line) -->
             <div class="relative flex items-start justify-between opacity-40">
               <span class="absolute -left-5 top-0.5 w-4 h-4 rounded-full bg-neutral-200 dark:bg-white/10 text-neutral-500 flex items-center justify-center text-[9px]">
                 <span class="material-symbols-outlined text-[10px]">two_wheeler</span>
