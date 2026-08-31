@@ -1476,8 +1476,6 @@
       #d-pr-detail .dark\:bg-\[\#181A20\]:not(.pr-order-header-card):not(.promo-code-pill),
       .pr-sub-screen .bg-white:not(.pr-order-header-card):not(.promo-code-pill),
       .pr-sub-screen .dark\:bg-\[\#181A20\]:not(.pr-order-header-card):not(.promo-code-pill),
-      #m-pr-list-container .pr-room-card,
-      #d-pr-list-container .pr-room-card,
       #awaiting-order-details-modal #order-details-sheet-card,
       #order-details-modal #order-details-modal-content,
       #awaiting-order-details-modal .bg-white,
@@ -1524,12 +1522,84 @@
         border-radius: 0px !important;
       }
 
-      .pr-room-card {
+      /* PAYMENT ROOM CARDS: MATCH PROFILE COLOR & PREVIOUS RADIUS (SHADOWLESS & NO FOCUS HIGHLIGHT) */
+      .pr-room-card,
+      #m-pr-list-container .pr-room-card,
+      #d-pr-list-container .pr-room-card {
         width: 100% !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: stretch !important;
+        border-radius: 1rem !important;
+        background-color: #FAF7F2 !important;
+        border: 1px solid #EBE3D5 !important;
+        box-shadow: none !important;
+        outline: none !important;
+        -webkit-tap-highlight-color: transparent !important;
+        -webkit-touch-callout: none !important;
+        user-select: none !important;
+        transition: all 0.2s ease !important;
       }
+
+      .pr-room-card:hover,
+      #m-pr-list-container .pr-room-card:hover,
+      #d-pr-list-container .pr-room-card:hover {
+        background-color: #F5EFE6 !important;
+        border-color: #DFD5C4 !important;
+        box-shadow: none !important;
+        outline: none !important;
+      }
+
+      .pr-room-card:focus,
+      .pr-room-card:focus-visible,
+      .pr-room-card:active,
+      #m-pr-list-container .pr-room-card:focus,
+      #m-pr-list-container .pr-room-card:focus-visible,
+      #m-pr-list-container .pr-room-card:active,
+      #d-pr-list-container .pr-room-card:focus,
+      #d-pr-list-container .pr-room-card:focus-visible,
+      #d-pr-list-container .pr-room-card:active {
+        outline: none !important;
+        box-shadow: none !important;
+        border: 1px solid #EBE3D5 !important;
+        -webkit-focus-ring-color: transparent !important;
+      }
+
+      html.dark .pr-room-card,
+      html.dark #m-pr-list-container .pr-room-card,
+      html.dark #d-pr-list-container .pr-room-card {
+        border-radius: 1rem !important;
+        background-color: #181A20 !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: none !important;
+        outline: none !important;
+        -webkit-tap-highlight-color: transparent !important;
+      }
+
+      html.dark .pr-room-card:hover,
+      html.dark #m-pr-list-container .pr-room-card:hover,
+      html.dark #d-pr-list-container .pr-room-card:hover {
+        background-color: #20242D !important;
+        border-color: rgba(255, 255, 255, 0.15) !important;
+        box-shadow: none !important;
+        outline: none !important;
+      }
+
+      html.dark .pr-room-card:focus,
+      html.dark .pr-room-card:focus-visible,
+      html.dark .pr-room-card:active,
+      html.dark #m-pr-list-container .pr-room-card:focus,
+      html.dark #m-pr-list-container .pr-room-card:focus-visible,
+      html.dark #m-pr-list-container .pr-room-card:active,
+      html.dark #d-pr-list-container .pr-room-card:focus,
+      html.dark #d-pr-list-container .pr-room-card:focus-visible,
+      html.dark #d-pr-list-container .pr-room-card:active {
+        outline: none !important;
+        box-shadow: none !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        -webkit-focus-ring-color: transparent !important;
+      }
+
       .pr-room-card > div {
         width: 100% !important;
       }
@@ -1560,8 +1630,6 @@
       html.dark #d-pr-detail .dark\:bg-\[\#181A20\]:not(.promo-code-pill):not(.pr-order-header-card),
       html.dark .pr-sub-screen .bg-white:not(.promo-code-pill):not(.pr-order-header-card),
       html.dark .pr-sub-screen .dark\:bg-\[\#181A20\]:not(.promo-code-pill):not(.pr-order-header-card),
-      html.dark #m-pr-list-container .pr-room-card,
-      html.dark #d-pr-list-container .pr-room-card,
       html.dark #awaiting-order-details-modal #order-details-sheet-card,
       html.dark #order-details-modal #order-details-modal-content,
       html.dark #awaiting-order-details-modal .bg-white,
@@ -2261,7 +2329,7 @@
               </button>
 
               <!-- Send / Withdraw (PayKudi Outbox Icon) -->
-              <button type="button" onclick="switchView('withdrawals')"
+              <button type="button" onclick="openWithdrawModal()"
                 class="action-round-btn w-12 h-12 sm:w-13 sm:h-13 rounded-full bg-[#18231C] hover:bg-black dark:bg-white/10 dark:hover:bg-white/20 text-white flex items-center justify-center shadow-xs active:scale-95 transition-all cursor-pointer flex-shrink-0"
                 title="Withdraw Funds">
                 <span class="material-symbols-outlined text-[20px] sm:text-[21px]">outbox</span>
@@ -2766,8 +2834,8 @@
           <h2 class="text-xl font-bold text-brand-dark font-heading">Withdrawals</h2>
           <p class="text-xs text-gray-500 max-w-xs mt-1">Request instant bank payouts or manage auto-withdraw settings.
           </p>
-          <button onclick="openActionModal('Withdraw Money')"
-            class="mt-4 bg-brand-green text-white px-5 py-2 rounded-xl text-xs font-bold font-heading">Initiate
+          <button onclick="openWithdrawModal()"
+            class="mt-4 bg-brand-green hover:bg-emerald-700 active:scale-95 text-white px-5 py-2.5 rounded-xl text-xs font-bold font-heading shadow-md transition-all cursor-pointer">Initiate
             Withdrawal</button>
         </div>
       </div>
@@ -6179,10 +6247,10 @@
                 <span class="font-bold text-xs sm:text-sm">Add money</span>
               </button>
               <div class="flex gap-1.5 shrink-0">
-                <button type="button" onclick="openActionModal('Withdraw Money')"
+                <button type="button" onclick="openWithdrawModal()"
                   class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#1A1C1A] dark:bg-white/15 text-white flex items-center justify-center hover:bg-black dark:hover:bg-white/20 transition-all cursor-pointer active:scale-95 shadow-sm"
                   title="Withdraw Money">
-                  <span class="material-symbols-outlined text-[18px]">upgrade</span>
+                  <span class="material-symbols-outlined text-[18px]">outbox</span>
                 </button>
                 <button type="button" onclick="openActionModal('Request Payment')"
                   class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#1A1C1A] dark:bg-white/15 text-white flex items-center justify-center hover:bg-black dark:hover:bg-white/20 transition-all cursor-pointer active:scale-95 shadow-sm"
@@ -6623,8 +6691,8 @@
           <h1 class="fluid-title-lg font-extrabold text-brand-dark font-heading">Withdrawals</h1>
           <p class="text-sm text-gray-500 max-w-sm mx-auto">Withdrawal history and automated disbursement management.
           </p>
-          <button onclick="openActionModal('Withdraw Money')"
-            class="bg-brand-green text-white px-6 py-2.5 rounded-2xl text-xs font-bold font-heading">Initiate
+          <button onclick="openWithdrawModal()"
+            class="bg-brand-green hover:bg-emerald-700 active:scale-95 text-white px-6 py-2.5 rounded-2xl text-xs font-bold font-heading shadow-md transition-all cursor-pointer">Initiate
             Withdrawal</button>
         </div>
       </div>
@@ -11102,20 +11170,7 @@
     };
 
     function showPayKudiToast(message) {
-      let toast = document.getElementById("pk-global-toast");
-      if (!toast) {
-        toast = document.createElement("div");
-        toast.id = "pk-global-toast";
-        toast.className = "fixed top-6 left-1/2 -translate-x-1/2 z-[1000000] bg-neutral-900/95 dark:bg-white/95 text-white dark:text-neutral-900 px-4 py-2.5 rounded-full shadow-2xl text-xs font-bold font-heading flex items-center gap-2 transition-all duration-300 transform -translate-y-4 opacity-0 pointer-events-none";
-        document.body.appendChild(toast);
-      }
-      toast.innerHTML = `<span class="material-symbols-outlined text-[16px] text-emerald-400 dark:text-emerald-600">check_circle</span><span>${message}</span>`;
-      toast.classList.remove("-translate-y-4", "opacity-0", "pointer-events-none");
-      toast.classList.add("translate-y-0", "opacity-100");
-      setTimeout(() => {
-        toast.classList.add("-translate-y-4", "opacity-0", "pointer-events-none");
-        toast.classList.remove("translate-y-0", "opacity-100");
-      }, 2400);
+      showToast(message);
     }
 
     function getReceiptIconConfig(type) {
@@ -11276,6 +11331,13 @@
     // --- KUDA-STYLE BOTTOM SHEET MODAL GENERATOR ---
     function openActionModal(title, event) {
       if (event) event.stopPropagation();
+
+      // Intercept Withdrawal actions and route to dedicated bottom-up withdrawal sheet
+      if (title === 'Withdraw Money' || title === 'Withdraw Funds' || title === 'Initiate Withdrawal' || title === 'Withdraw' || title === 'Withdrawal') {
+        openWithdrawModal();
+        return;
+      }
+
       pushAppModalState('action-modal');
       const modal = document.getElementById("action-modal");
       const modalContent = document.getElementById("modal-content");
@@ -12488,7 +12550,7 @@
 
           var roleColor = isBuying ? 'text-brand-green dark:text-emerald-400' : 'text-red-600 dark:text-red-400';
 
-          return '<button type="button" onclick="openPRDetail(\'' + deal.id + '\')" class="pr-room-card w-full text-left p-3.5 sm:p-4 bg-white dark:bg-[#181A20] border border-gray-200/80 dark:border-white/10 rounded-2xl shadow-2xs hover:shadow-xs transition-all cursor-pointer flex flex-col gap-2 group focus:outline-none">' +
+          return '<button type="button" onclick="openPRDetail(\'' + deal.id + '\')" class="pr-room-card w-full text-left p-4 sm:p-5 transition-all cursor-pointer flex flex-col gap-2 group focus:outline-none focus:ring-0 active:outline-none select-none">' +
             '<!-- Top Row: Buying / Selling Label (Sentence case, Green/Red) -->' +
             '<div class="w-full flex items-center justify-between gap-2">' +
             '<span class="pr-room-role text-xs font-bold font-heading ' + roleColor + '">' + roleText + '</span>' +
@@ -13944,6 +14006,287 @@
       setTimeout(function () {
         confirmDelivery();
       }, 350);
+    }
+
+    /* ================================================================= */
+    /* BOTTOM-UP WITHDRAWAL MODAL CONTROLLER                             */
+    /* ================================================================= */
+    var isWithdrawModalAnimating = false;
+    var userAvailableBalanceNumeric = 1700000;
+    var currentWithdrawEnteredAmount = 0;
+    var WITHDRAW_PAYOUT_FEE = 50;
+    var MAX_PAYOUT_AMOUNT = 500000;
+
+    function updateWithdrawReceiveAmountDisplay(grossAmt) {
+      var net = Math.max(0, grossAmt - WITHDRAW_PAYOUT_FEE);
+      var el = document.getElementById('withdraw-net-receive-text');
+      if (el) {
+        el.textContent = (grossAmt > 0)
+          ? ('₦' + net.toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 }))
+          : '₦0.00';
+      }
+    }
+
+    function openWithdrawModal() {
+      var modal = document.getElementById('withdraw-modal');
+      var backdrop = document.getElementById('withdraw-modal-backdrop');
+      var card = document.getElementById('withdraw-modal-card');
+
+      // Reset to Step 1 Form
+      showWithdrawStep('form');
+
+      // Reset input
+      var input = document.getElementById('withdraw-amount-input');
+      if (input) input.value = '';
+      currentWithdrawEnteredAmount = 0;
+      updateWithdrawReceiveAmountDisplay(0);
+
+      // Reset checkbox & button
+      var chk = document.getElementById('withdraw-confirm-checkbox');
+      if (chk) chk.checked = false;
+      toggleWithdrawFinalBtn();
+
+      // Update available balance labels
+      var balMaxTxt = document.getElementById('withdraw-max-balance-text');
+      if (balMaxTxt) balMaxTxt.textContent = '₦' + userAvailableBalanceNumeric.toLocaleString('en-NG', { minimumFractionDigits: 2 });
+
+      // Update primary payout account preview from active state if available
+      try {
+        var primaryAccName = 'Access Bank Plc';
+        var primaryAccNum = '0123456789';
+        var primaryHolder = 'Marcus Vance';
+
+        // Check if secondary is active
+        var badge2 = document.getElementById('payout-badge-2');
+        if (badge2 && !badge2.classList.contains('hidden')) {
+          primaryAccName = 'Guaranty Trust Bank';
+          primaryAccNum = '0234567890';
+        }
+
+        var bankEl = document.getElementById('withdraw-dest-bank');
+        var numEl = document.getElementById('withdraw-dest-num');
+        var holderEl = document.getElementById('withdraw-dest-holder');
+        if (bankEl) bankEl.textContent = primaryAccName;
+        if (numEl) numEl.textContent = primaryAccNum;
+        if (holderEl) holderEl.textContent = primaryHolder;
+
+        var confirmBankLabel = document.getElementById('withdraw-confirm-bank-label');
+        if (confirmBankLabel) confirmBankLabel.textContent = primaryAccName + ' (' + primaryAccNum + ')';
+      } catch (e) { }
+
+      pushAppModalState('withdraw-modal');
+
+      if (!modal) return;
+      modal.classList.remove('hidden');
+      modal.classList.remove('pointer-events-none');
+      isWithdrawModalAnimating = true;
+
+      setTimeout(function () {
+        if (backdrop) {
+          backdrop.classList.remove('opacity-0');
+          backdrop.classList.add('opacity-100');
+        }
+        if (card) {
+          card.classList.remove('translate-y-full');
+          card.classList.add('translate-y-0');
+        }
+      }, 40);
+
+      setTimeout(function () {
+        isWithdrawModalAnimating = false;
+      }, 600);
+    }
+
+    function handleWithdrawModalBackdropClick() {
+      if (isWithdrawModalAnimating) return;
+      closeWithdrawModal();
+    }
+
+    function closeWithdrawModal() {
+      var modal = document.getElementById('withdraw-modal');
+      var backdrop = document.getElementById('withdraw-modal-backdrop');
+      var card = document.getElementById('withdraw-modal-card');
+
+      isWithdrawModalAnimating = false;
+
+      if (backdrop) {
+        backdrop.classList.remove('opacity-100');
+        backdrop.classList.add('opacity-0');
+      }
+      if (card) {
+        card.classList.remove('translate-y-0');
+        card.classList.add('translate-y-full');
+      }
+      setTimeout(function () {
+        if (modal) {
+          modal.classList.add('hidden');
+          modal.classList.add('pointer-events-none');
+        }
+      }, 500);
+    }
+
+    function showWithdrawStep(step) {
+      var stepForm = document.getElementById('withdraw-step-form');
+      var stepConfirm = document.getElementById('withdraw-step-confirm');
+      var stepSuccess = document.getElementById('withdraw-step-success');
+      var backBtn = document.getElementById('withdraw-back-to-form-btn');
+      var titleEl = document.getElementById('withdraw-modal-title');
+
+      if (stepForm) stepForm.classList.add('hidden');
+      if (stepConfirm) stepConfirm.classList.add('hidden');
+      if (stepSuccess) stepSuccess.classList.add('hidden');
+      if (backBtn) backBtn.classList.add('hidden');
+
+      if (step === 'form') {
+        if (stepForm) stepForm.classList.remove('hidden');
+        if (titleEl) titleEl.textContent = 'Withdraw Funds';
+      } else if (step === 'confirm') {
+        if (stepConfirm) stepConfirm.classList.remove('hidden');
+        if (backBtn) backBtn.classList.remove('hidden');
+        if (titleEl) titleEl.textContent = 'Confirm Withdrawal';
+      } else if (step === 'success') {
+        if (stepSuccess) stepSuccess.classList.remove('hidden');
+        if (titleEl) titleEl.textContent = 'Status';
+      }
+    }
+
+    function handleWithdrawAmountInput(input) {
+      if (!input) return;
+      var raw = input.value.replace(/[^0-9.]/g, '');
+      var parts = raw.split('.');
+      if (parts.length > 2) raw = parts[0] + '.' + parts.slice(1).join('');
+      var num = parseFloat(raw) || 0;
+
+      // Strictly restrict user from typing/entering an amount greater than ₦500,000
+      if (num > MAX_PAYOUT_AMOUNT) {
+        num = MAX_PAYOUT_AMOUNT;
+        input.value = MAX_PAYOUT_AMOUNT.toLocaleString('en-NG');
+        if (typeof showToast === 'function') {
+          showToast('Maximum payout limit is ₦500,000.00', 'warning');
+        }
+      }
+
+      currentWithdrawEnteredAmount = num;
+      updateWithdrawReceiveAmountDisplay(num);
+    }
+
+    function selectMaxWithdrawalAmount() {
+      var input = document.getElementById('withdraw-amount-input');
+      if (input) {
+        var maxAllowed = Math.min(userAvailableBalanceNumeric, MAX_PAYOUT_AMOUNT);
+        input.value = maxAllowed.toLocaleString('en-NG');
+        currentWithdrawEnteredAmount = maxAllowed;
+        updateWithdrawReceiveAmountDisplay(maxAllowed);
+      }
+    }
+
+    function submitWithdrawForm() {
+      var input = document.getElementById('withdraw-amount-input');
+      var valStr = input ? input.value.replace(/,/g, '').trim() : '';
+      var amt = parseFloat(valStr) || currentWithdrawEnteredAmount;
+
+      if (!amt || amt <= 0) {
+        if (typeof showToast === 'function') {
+          showToast('Please enter a valid amount to withdraw.', 'warning');
+        }
+        if (input) input.focus();
+        return;
+      }
+
+      if (amt <= WITHDRAW_PAYOUT_FEE) {
+        if (typeof showToast === 'function') {
+          showToast('Amount must be greater than the ₦50.00 payout fee.', 'warning');
+        }
+        if (input) input.focus();
+        return;
+      }
+
+      if (amt > MAX_PAYOUT_AMOUNT) {
+        if (typeof showToast === 'function') {
+          showToast('Maximum payout limit is ₦500,000.00 per transaction.', 'warning');
+        }
+        if (input) input.focus();
+        return;
+      }
+
+      if (amt > userAvailableBalanceNumeric) {
+        if (typeof showToast === 'function') {
+          showToast('Amount exceeds your available balance of ₦' + userAvailableBalanceNumeric.toLocaleString('en-NG'), 'error');
+        }
+        return;
+      }
+
+      currentWithdrawEnteredAmount = amt;
+      var netAmt = amt - WITHDRAW_PAYOUT_FEE;
+      var grossFormatted = '₦' + amt.toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      var netFormatted = '₦' + netAmt.toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+      var confirmAmtTxt = document.getElementById('withdraw-confirm-amount-text');
+      var summaryAmt = document.getElementById('withdraw-summary-amount');
+      var summaryTotal = document.getElementById('withdraw-summary-total');
+
+      if (confirmAmtTxt) confirmAmtTxt.textContent = netFormatted;
+      if (summaryAmt) summaryAmt.textContent = grossFormatted;
+      if (summaryTotal) summaryTotal.textContent = netFormatted;
+
+      var chk = document.getElementById('withdraw-confirm-checkbox');
+      if (chk) chk.checked = false;
+      toggleWithdrawFinalBtn();
+
+      showWithdrawStep('confirm');
+    }
+
+    function toggleWithdrawFinalBtn() {
+      var chk = document.getElementById('withdraw-confirm-checkbox');
+      var btn = document.getElementById('withdraw-final-proceed-btn');
+      if (!btn) return;
+
+      if (chk && chk.checked) {
+        btn.removeAttribute('disabled');
+        btn.classList.remove('opacity-50', 'cursor-not-allowed');
+        btn.classList.add('cursor-pointer');
+      } else {
+        btn.setAttribute('disabled', 'disabled');
+        btn.classList.add('opacity-50', 'cursor-not-allowed');
+        btn.classList.remove('cursor-pointer');
+      }
+    }
+
+    function executeFinalWithdrawal() {
+      var chk = document.getElementById('withdraw-confirm-checkbox');
+      if (!chk || !chk.checked) return;
+
+      var amt = currentWithdrawEnteredAmount;
+      var netAmt = Math.max(0, amt - WITHDRAW_PAYOUT_FEE);
+      var grossFormatted = '₦' + amt.toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      var netFormatted = '₦' + netAmt.toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+      // Deduct full gross amount from balance
+      userAvailableBalanceNumeric = Math.max(0, userAvailableBalanceNumeric - amt);
+      var newBalFormatted = '₦' + userAvailableBalanceNumeric.toLocaleString('en-NG', { minimumFractionDigits: 2 });
+
+      // Update UI balance elements
+      var desktopBal = document.getElementById('d-stat-balance');
+      if (desktopBal) desktopBal.textContent = newBalFormatted;
+
+      var bankName = (document.getElementById('withdraw-dest-bank') || {}).textContent || 'Access Bank';
+      var bankNum = (document.getElementById('withdraw-dest-num') || {}).textContent || '0123456789';
+
+      var successMsg = document.getElementById('withdraw-success-msg');
+      if (successMsg) {
+        successMsg.innerHTML = 'Your net payout of <strong class="text-brand-green dark:text-emerald-400">' + netFormatted + '</strong> (after ₦50 payout fee) has been queued to ' + bankName + ' (' + bankNum + ').';
+      }
+
+      var randomRef = 'WTX-' + Math.floor(100000 + Math.random() * 900000);
+      var refEl = document.getElementById('withdraw-success-ref');
+      if (refEl) refEl.textContent = randomRef;
+
+      // Switch to success view inside same modal
+      showWithdrawStep('success');
+
+      if (typeof showToast === 'function') {
+        showToast('Withdrawal of ' + netFormatted + ' initiated successfully!', 'check_circle');
+      }
     }
 
     function handleAppealDescInput(textarea, prefix) {
@@ -15579,29 +15922,21 @@
 
     // Toast Notification & Promo Modals
     let toastTimeout = null;
-    function showToast(message, iconClass = 'check_circle') {
+    function showToast(message) {
       const toast = document.getElementById('paykudi-toast');
       const toastText = document.getElementById('paykudi-toast-text');
-      const toastIcon = document.getElementById('paykudi-toast-icon');
       if (!toast) return;
 
       if (toastText) toastText.textContent = message;
-      if (toastIcon) {
-        if (typeof iconClass === 'string' && iconClass.startsWith('fa-')) {
-          toastIcon.innerHTML = '<i class="fa-solid ' + iconClass + '"></i>';
-        } else {
-          toastIcon.innerHTML = '<span class="material-symbols-outlined text-[16px] leading-none select-none">' + (iconClass || 'check_circle') + '</span>';
-        }
-      }
 
-      toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
-      toast.classList.add('opacity-100', 'translate-y-0');
+      toast.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-6', 'scale-95');
+      toast.classList.add('opacity-100', 'translate-y-0', 'scale-100');
 
       if (toastTimeout) clearTimeout(toastTimeout);
       toastTimeout = setTimeout(() => {
-        toast.classList.remove('opacity-100', 'translate-y-0');
-        toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
-      }, 3000);
+        toast.classList.remove('opacity-100', 'translate-y-0', 'scale-100');
+        toast.classList.add('opacity-0', 'pointer-events-none', '-translate-y-6', 'scale-95');
+      }, 2600);
     }
 
     function copyPromoCode(code) {
@@ -15747,14 +16082,10 @@
     }
   </script>
 
-  <!-- PayKudi Toast Notification Component -->
+  <!-- PayKudi Ultra-Clean Top Toast Notification Component (No Icon, Floating Top Pill) -->
   <div id="paykudi-toast"
-    class="fixed bottom-20 md:bottom-6 left-1/2 -translate-x-1/2 z-[999999] px-4 py-3 bg-brand-dark/95 text-white dark:bg-white/95 dark:text-brand-dark rounded-2xl shadow-2xl flex items-center gap-2.5 text-xs font-bold transition-all duration-300 opacity-0 pointer-events-none translate-y-4 backdrop-blur-md border border-white/10 dark:border-black/10">
-    <span id="paykudi-toast-icon"
-      class="w-6 h-6 rounded-full bg-brand-green text-white flex items-center justify-center text-xs flex-shrink-0">
-      <i class="fa-solid fa-check"></i>
-    </span>
-    <span id="paykudi-toast-text" class="font-heading">Promo code copied to clipboard!</span>
+    class="fixed top-6 left-1/2 -translate-x-1/2 z-[9999999] px-5 py-2.5 bg-[#12141A]/95 text-white dark:bg-[#1E222D]/95 dark:text-white rounded-full shadow-[0_12px_36px_rgba(0,0,0,0.4)] dark:shadow-[0_12px_36px_rgba(0,0,0,0.7)] flex items-center justify-center text-xs font-bold font-heading transition-all duration-300 transform -translate-y-6 scale-95 opacity-0 pointer-events-none backdrop-blur-xl border border-white/15 dark:border-white/20 max-w-[90vw] text-center">
+    <span id="paykudi-toast-text" class="truncate font-heading tracking-tight text-white">Notification message</span>
   </div>
 
   <!-- INTERACTIVE P2P CHAT ROOM DRAWER (PAYKUDI STYLE) -->
@@ -17334,8 +17665,8 @@
 
         <!-- 1. Warning Notice (Frameless text with vertically centered icon) -->
         <div id="confirm-delivery-warning-banner"
-          class="flex items-center gap-3">
-          <span class="material-symbols-outlined text-[24px] text-amber-600 dark:text-amber-400 flex-shrink-0" id="confirm-delivery-warning-icon">warning</span>
+          class="flex items-start gap-2.5">
+          <span class="material-symbols-outlined text-[17px] text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" id="confirm-delivery-warning-icon">warning</span>
           <div class="flex-1 min-w-0 space-y-1">
             <h4 class="font-extrabold text-xs font-heading text-brand-dark dark:text-white" id="confirm-delivery-warning-heading">Irreversible Action</h4>
             <p class="text-xs leading-relaxed text-neutral-600 dark:text-neutral-300" id="confirm-delivery-warning-text">
@@ -17345,8 +17676,8 @@
         </div>
 
         <!-- 2. Guidance Note (Frameless text with vertically centered icon) -->
-        <div class="flex items-center gap-3 pt-1">
-          <span class="material-symbols-outlined text-brand-blue dark:text-blue-400 text-[24px] flex-shrink-0">info</span>
+        <div class="flex items-start gap-2.5 pt-1">
+          <span class="material-symbols-outlined text-brand-blue dark:text-blue-400 text-[17px] flex-shrink-0 mt-0.5">info</span>
           <div class="flex-1 min-w-0 space-y-1">
             <h4 class="font-extrabold text-xs font-heading text-brand-dark dark:text-white">Please inspect and test your item</h4>
             <p class="text-xs leading-relaxed text-neutral-500 dark:text-neutral-400">
@@ -17376,6 +17707,216 @@
           <button type="button" onclick="closeConfirmDeliveryModal()"
             class="w-full py-2.5 px-4 rounded-xl bg-transparent hover:bg-neutral-200/50 dark:hover:bg-white/5 text-neutral-600 dark:text-neutral-400 font-bold text-xs transition-all flex items-center justify-center cursor-pointer">
             <span>Cancel</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- BOTTOM-UP WITHDRAWAL MODAL (#withdraw-modal)                      -->
+  <!-- ================================================================= -->
+  <div id="withdraw-modal"
+    class="fixed inset-0 z-[99999] flex items-end justify-center pointer-events-none transition-all duration-300 hidden">
+    <!-- Backdrop Overlay with Screen Blurring -->
+    <div id="withdraw-modal-backdrop" onclick="handleWithdrawModalBackdropClick()"
+      class="fixed inset-0 bg-black/60 backdrop-blur-md opacity-0 transition-opacity duration-300"
+      style="backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);"></div>
+
+    <!-- Bottom Sheet Card (Slide-Up from Bottom matching Confirm Delivery modal) -->
+    <div id="withdraw-modal-card"
+      class="relative w-full max-w-md bg-[#FAF7F2] dark:bg-[#181A20] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-500 ease-out z-10 max-h-[90vh] flex flex-col pointer-events-auto">
+
+      <!-- Top Grab Bar / Handle -->
+      <div class="pt-3 pb-1 cursor-pointer flex justify-center flex-shrink-0" onclick="closeWithdrawModal()">
+        <div class="w-12 h-1.5 bg-neutral-300 dark:bg-white/20 rounded-full"></div>
+      </div>
+
+      <!-- Sheet Header (Title + Back & Close Buttons) -->
+      <div
+        class="px-5 py-2.5 flex items-center justify-between border-b border-[#EBE3D5]/80 dark:border-white/10 flex-shrink-0">
+        <div class="flex items-center gap-2">
+          <!-- Back button (only shown on Step 2) -->
+          <button type="button" id="withdraw-back-to-form-btn" onclick="showWithdrawStep('form')"
+            class="hidden w-7 h-7 rounded-full bg-neutral-200/60 dark:bg-white/10 text-neutral-700 dark:text-neutral-200 flex items-center justify-center hover:bg-neutral-200 dark:hover:bg-white/20 transition-all cursor-pointer mr-0.5"
+            title="Back to Edit">
+            <span class="material-symbols-outlined text-[17px]">arrow_back</span>
+          </button>
+          <h3 id="withdraw-modal-title" class="text-base font-black text-brand-dark dark:text-white font-heading">Withdraw Funds</h3>
+        </div>
+        <button type="button" onclick="closeWithdrawModal()"
+          class="w-8 h-8 rounded-full bg-neutral-200/60 dark:bg-white/10 text-neutral-600 dark:text-neutral-300 flex items-center justify-center hover:bg-neutral-200 dark:hover:bg-white/20 transition-all cursor-pointer flex-shrink-0"
+          title="Close">
+          <span class="material-symbols-outlined text-[18px]">close</span>
+        </button>
+      </div>
+
+      <!-- Scrollable Body Content (Fixed/adaptive container height so modal size stays stable across steps) -->
+      <div class="p-5 space-y-4 overflow-y-auto custom-scroll flex-1 text-xs">
+
+        <!-- ================= STEP 1: WITHDRAWAL FORM ================= -->
+        <div id="withdraw-step-form" class="space-y-4">
+          
+          <!-- 1. Amount Input Field with "ALL" Text Button Inside -->
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between">
+              <label class="text-[11px] font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider font-heading">Amount to Withdraw</label>
+              <span class="text-[11px] font-medium text-neutral-400">Available: <strong class="text-brand-dark dark:text-white font-bold" id="withdraw-max-balance-text">₦1,700,000.00</strong></span>
+            </div>
+
+            <!-- Input Box with Currency Prefix & "ALL" Text Button Inside (Body colored) -->
+            <div class="relative flex items-center bg-[#FAF7F2] dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/15 rounded-2xl px-3.5 py-2.5 shadow-2xs focus-within:border-brand-green focus-within:ring-2 focus-within:ring-brand-green/20 transition-all">
+              <span class="text-base font-extrabold text-brand-dark dark:text-white font-mono mr-2">₦</span>
+              <input type="text" id="withdraw-amount-input" inputmode="decimal" placeholder="0.00"
+                oninput="handleWithdrawAmountInput(this)"
+                class="w-full bg-transparent border-0 p-0 text-base sm:text-lg font-black text-brand-dark dark:text-white font-mono placeholder-neutral-300 dark:placeholder-neutral-600 focus:outline-none focus:ring-0" />
+              
+              <!-- Small "ALL" Text Button Inside the Field (No pill) -->
+              <button type="button" onclick="selectMaxWithdrawalAmount()"
+                class="ml-2 py-1 px-1 text-brand-green dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 font-extrabold text-xs tracking-tight font-heading transition-all cursor-pointer flex-shrink-0 active:scale-95"
+                title="Select all available funds">
+                ALL
+              </button>
+            </div>
+          </div>
+
+          <!-- 2. Destination Payout Account Card (Body colored, No primary badge) -->
+          <div class="space-y-1.5 pt-1">
+            <div class="flex items-center justify-between">
+              <label class="text-[11px] font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider font-heading">Payout Account</label>
+              <button type="button" onclick="openActionModal('Payout Accounts')" class="text-[11px] font-bold text-brand-blue dark:text-blue-400 hover:underline cursor-pointer">Change</button>
+            </div>
+
+            <!-- Payout Account Tile -->
+            <div class="p-3 bg-[#FAF7F2] dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl flex items-center justify-between gap-3 shadow-2xs">
+              <div class="flex items-center gap-3 min-w-0 flex-1">
+                <div class="w-10 h-10 rounded-xl bg-[#0A4328]/10 text-brand-green dark:text-emerald-400 flex items-center justify-center flex-shrink-0">
+                  <span class="material-symbols-outlined text-[20px]">account_balance</span>
+                </div>
+                <div class="min-w-0 flex-1">
+                  <div class="flex items-center gap-1.5">
+                    <p id="withdraw-dest-bank" class="text-xs font-black text-brand-dark dark:text-white font-heading truncate">Access Bank Plc</p>
+                  </div>
+                  <p id="withdraw-dest-num" class="text-xs font-mono font-bold text-neutral-500 dark:text-neutral-300 mt-0.5">0123456789</p>
+                  <p id="withdraw-dest-holder" class="text-[10px] text-neutral-400 font-medium">Marcus Vance</p>
+                </div>
+              </div>
+              <span class="material-symbols-outlined text-brand-green text-[20px] flex-shrink-0">check_circle</span>
+            </div>
+          </div>
+
+          <!-- 3. Unboxed Payout Fee & Amount to Receive Details -->
+          <div class="space-y-2 pt-0.5 text-xs">
+            <div class="flex justify-between items-center text-neutral-500 dark:text-neutral-400">
+              <span class="font-medium">Payout Fee:</span>
+              <span class="font-bold text-neutral-700 dark:text-neutral-300 font-mono">₦50.00</span>
+            </div>
+            <div class="flex justify-between items-center text-neutral-500 dark:text-neutral-400">
+              <span class="font-medium text-brand-dark dark:text-white">Amount to Receive:</span>
+              <span class="font-black text-brand-green dark:text-emerald-400 font-mono text-sm" id="withdraw-net-receive-text">₦0.00</span>
+            </div>
+          </div>
+
+          <!-- 4. Withdraw Submit Button -->
+          <div class="pt-1">
+            <button type="button" id="withdraw-proceed-to-confirm-btn" onclick="submitWithdrawForm()"
+              class="w-full py-3.5 px-4 rounded-xl bg-brand-green hover:bg-emerald-700 active:scale-95 text-white font-extrabold text-sm font-heading shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer">
+              <span class="material-symbols-outlined text-[18px]">outbox</span>
+              <span>Proceed to Withdrawal</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ================= STEP 2: CONFIRM WITHDRAWAL (SIMILAR TO CONFIRM DELIVERY) ================= -->
+        <div id="withdraw-step-confirm" class="hidden space-y-4">
+          <!-- 1. Warning Notice (Frameless text with small 17px icon matching Confirm Delivery) -->
+          <div class="flex items-start gap-2.5">
+            <span class="material-symbols-outlined text-[17px] text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5">warning</span>
+            <div class="flex-1 min-w-0 space-y-1">
+              <h4 class="font-extrabold text-xs font-heading text-brand-dark dark:text-white">Irreversible Payout</h4>
+              <p class="text-xs leading-relaxed text-neutral-600 dark:text-neutral-300">
+                Withdrawing funds will immediately disburse <strong class="text-brand-green dark:text-emerald-400" id="withdraw-confirm-amount-text">₦0.00</strong> to your linked bank account. Once processed, bank disbursements cannot be reversed.
+              </p>
+            </div>
+          </div>
+
+          <!-- 2. Guidance Note (Frameless text with small 17px icon matching Confirm Delivery) -->
+          <div class="flex items-start gap-2.5 pt-1">
+            <span class="material-symbols-outlined text-brand-blue dark:text-blue-400 text-[17px] flex-shrink-0 mt-0.5">info</span>
+            <div class="flex-1 min-w-0 space-y-1">
+              <h4 class="font-extrabold text-xs font-heading text-brand-dark dark:text-white">Verify destination account</h4>
+              <p class="text-xs leading-relaxed text-neutral-500 dark:text-neutral-400">
+                Please double check that <strong id="withdraw-confirm-bank-label" class="text-brand-dark dark:text-white">Access Bank (0123456789)</strong> belongs to you before proceeding.
+              </p>
+            </div>
+          </div>
+
+          <!-- 3. Unboxed Summary Breakdown -->
+          <div class="space-y-2 pt-1 text-xs border-y border-[#EBE3D5] dark:border-white/10 py-2.5">
+            <div class="flex justify-between items-center text-neutral-500 dark:text-neutral-400">
+              <span>Withdrawal Amount:</span>
+              <span class="font-black text-brand-dark dark:text-white font-mono text-sm" id="withdraw-summary-amount">₦0.00</span>
+            </div>
+            <div class="flex justify-between items-center text-neutral-500 dark:text-neutral-400">
+              <span>Payout Fee:</span>
+              <span class="font-bold text-neutral-700 dark:text-neutral-300 font-mono">₦50.00</span>
+            </div>
+            <div class="flex justify-between items-center text-neutral-500 dark:text-neutral-400 border-t border-[#EBE3D5]/60 dark:border-white/5 pt-2">
+              <span class="font-bold text-brand-dark dark:text-white">Amount to Receive:</span>
+              <span class="font-black text-brand-green dark:text-emerald-400 font-mono text-sm" id="withdraw-summary-total">₦0.00</span>
+            </div>
+          </div>
+
+          <!-- 4. Mandatory Checkbox (Clean unboxed label with vertically centered checkbox) -->
+          <div class="pt-1">
+            <label class="flex items-center gap-3 cursor-pointer select-none group">
+              <input type="checkbox" id="withdraw-confirm-checkbox" onchange="toggleWithdrawFinalBtn()"
+                class="w-4 h-4 rounded text-brand-green focus:ring-brand-green/30 border-gray-300 dark:border-white/20 accent-brand-green cursor-pointer flex-shrink-0" />
+              <span class="font-bold text-xs text-brand-dark dark:text-white leading-snug group-hover:text-brand-green transition-colors">
+                I confirm this withdrawal to my designated bank account.
+              </span>
+            </label>
+          </div>
+
+          <!-- 5. Action Buttons -->
+          <div class="pt-1 flex flex-col gap-2">
+            <button type="button" id="withdraw-final-proceed-btn" onclick="executeFinalWithdrawal()" disabled
+              class="w-full py-3.5 px-4 rounded-xl bg-brand-green hover:bg-emerald-700 active:scale-95 text-white font-extrabold text-sm font-heading shadow-md transition-all flex items-center justify-center gap-2 opacity-50 cursor-not-allowed">
+              <span class="material-symbols-outlined text-[18px]">verified</span>
+              <span>Confirm &amp; Withdraw Funds</span>
+            </button>
+            <button type="button" onclick="showWithdrawStep('form')"
+              class="w-full py-2.5 text-center text-xs font-bold text-neutral-500 dark:text-neutral-400 hover:text-brand-dark dark:hover:text-white transition-colors cursor-pointer">
+              Edit Amount / Back
+            </button>
+          </div>
+        </div>
+
+        <!-- ================= STEP 3: SUCCESS STATE ================= -->
+        <div id="withdraw-step-success" class="hidden text-center py-6 space-y-4">
+          <div class="w-16 h-16 rounded-full bg-emerald-500/15 text-brand-green dark:text-emerald-400 flex items-center justify-center mx-auto shadow-sm">
+            <span class="material-symbols-outlined text-[36px]">check_circle</span>
+          </div>
+          <div>
+            <h3 class="text-lg font-black text-brand-dark dark:text-white font-heading">Withdrawal Initiated!</h3>
+            <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-1 max-w-xs mx-auto" id="withdraw-success-msg">
+              Your payout of ₦... is on its way to Access Bank (0123456789).
+            </p>
+          </div>
+          <div class="p-3 bg-[#FAF7F2] dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl max-w-xs mx-auto text-xs space-y-1.5">
+            <div class="flex justify-between text-neutral-400 text-[11px]">
+              <span>Reference:</span>
+              <span class="font-mono font-bold text-brand-dark dark:text-white" id="withdraw-success-ref">WTX-882910</span>
+            </div>
+            <div class="flex justify-between text-neutral-400 text-[11px]">
+              <span>Status:</span>
+              <span class="font-bold text-brand-green dark:text-emerald-400">Processing (Instant)</span>
+            </div>
+          </div>
+          <button type="button" onclick="closeWithdrawModal()"
+            class="w-full py-3.5 px-4 rounded-xl bg-brand-dark dark:bg-white text-white dark:text-brand-dark font-extrabold text-sm font-heading shadow-md cursor-pointer transition-all active:scale-95">
+            Done
           </button>
         </div>
 
@@ -18410,15 +18951,7 @@
     }
   </script>
 
-  <!-- PayKudi Toast Notification Component -->
-  <div id="paykudi-toast"
-    class="fixed bottom-20 md:bottom-6 left-1/2 -translate-x-1/2 z-[999999] px-4 py-3 bg-brand-dark/95 text-white dark:bg-white/95 dark:text-brand-dark rounded-2xl shadow-2xl flex items-center gap-2.5 text-xs font-bold transition-all duration-300 opacity-0 pointer-events-none translate-y-4 backdrop-blur-md border border-white/10 dark:border-black/10">
-    <span id="paykudi-toast-icon"
-      class="w-6 h-6 rounded-full bg-brand-green text-white flex items-center justify-center text-xs flex-shrink-0">
-      <i class="fa-solid fa-check"></i>
-    </span>
-    <span id="paykudi-toast-text" class="font-heading">Promo code copied to clipboard!</span>
-  </div>
+
 
   <!-- INTERACTIVE P2P CHAT ROOM DRAWER (PAYKUDI STYLE) -->
   <div id="pr-chat-drawer"
