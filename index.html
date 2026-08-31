@@ -361,7 +361,8 @@
     .payment-room-brand img {
       display: block;
       width: auto;
-      height: 40px;
+      height: 22px;
+      max-height: 22px;
       max-width: none;
       flex: 0 0 auto;
       object-fit: contain;
@@ -369,7 +370,8 @@
 
     @media (min-width: 640px) {
       .payment-room-brand img {
-        height: 46px;
+        height: 22px;
+        max-height: 22px;
       }
     }
 
@@ -843,7 +845,8 @@
       <div class="flex items-center shrink-0 min-w-0">
         <a href="#heroSection" onclick="slideFooterBackToMain()" class="payment-room-brand group"
           aria-label="PayKudi home" style="text-decoration:none;">
-          <img src="paykudi-logo.png" alt="payKudi Logo" />
+          <img src="paykudi-logo.png" alt="payKudi Logo" style="height: 22px; max-height: 22px; width: auto;"
+            class="h-[22px] max-h-[22px] w-auto object-contain" />
         </a>
       </div>
 
@@ -909,7 +912,8 @@
       <div class="flex items-center justify-between min-h-[44px] pb-4 mb-6">
         <a href="#heroSection" onclick="closeMobileMenu(); slideFooterBackToMain();" class="payment-room-brand shrink-0"
           aria-label="PayKudi home" style="text-decoration:none;">
-          <img src="paykudi-logo.png" alt="payKudi Logo" />
+          <img src="paykudi-logo.png" alt="payKudi Logo" style="height: 22px; max-height: 22px; width: auto;"
+            class="h-[22px] max-h-[22px] w-auto object-contain" />
         </a>
 
         <!-- Animated Spinning 'X' Close Button inside Drawer Header -->
@@ -962,7 +966,7 @@
     </div>
 
     <div class="pt-4 flex items-center gap-1.5 text-[11px] font-medium text-gray-500">
-      <img src="paykudi-logo.png" alt="Paykudi Logo" class="h-6 w-auto object-contain" />
+      <img src="paykudi-logo.png" alt="Paykudi Logo" style="height: 15px; max-height: 15px; width: auto;" class="h-[15px] max-h-[15px] w-auto object-contain" />
       <span>•</span>
       <span>Take control of your payments</span>
     </div>
@@ -1667,7 +1671,7 @@
             class="pt-4 border-t border-white/10 mt-4 flex flex-wrap items-center justify-center gap-2 text-xs text-gray-400 font-medium text-center">
             <span>&copy; <span id="year"></span></span>
             <div class="inline-flex items-center gap-1">
-              <img src="paykudi-logo.png" alt="Paykudi Logo" class="h-6 w-auto object-contain brightness-0 invert opacity-90" />
+              <img src="logodarkmode.png" alt="PayKudi Logo" style="height: 15px; max-height: 15px; width: auto;" class="h-[15px] max-h-[15px] w-auto object-contain inline-block align-middle" />
             </div>
             <span>•</span>
             <span>Powered by <strong class="text-white">Start<span class="text-[#0E5296]">up.</span></strong></span>
@@ -2674,12 +2678,19 @@
       const communityTop = getSectionDocTop(communitySec);
       const footerTop = footerSec ? getSectionDocTop(footerSec) : Infinity;
 
+      // Check if Contact Us panel is currently active/visible in the DOM
+      const contactPanel = document.getElementById('footerContactPanel');
+      const isContactOpen = _isContactOpen || (contactPanel && !contactPanel.classList.contains('hidden'));
+
+      // Determine if user is currently near/in the footer section
+      const isInFooter = footerSec && (scrollPos >= footerTop - 150);
+
       let activeSection = 'hero';
 
-      if (_isContactOpen) {
+      if (isInFooter && isContactOpen) {
         activeSection = 'contact';
-      } else if (footerSec && scrollPos >= footerTop - 100) {
-        activeSection = 'none'; // in footer, contact not open → nothing highlighted
+      } else if (isInFooter) {
+        activeSection = 'none'; // in footer, but main footer is visible → nothing highlighted
       } else if (communitySec && scrollPos >= communityTop - 100) {
         activeSection = 'community';
       } else if (aboutSec && scrollPos >= aboutTop - 100) {
