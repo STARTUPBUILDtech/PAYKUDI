@@ -305,13 +305,13 @@
     .floating-input {
       width: 100%;
       height: 52px;
-      padding: 20px 16px 6px 16px;
-      font-size: 11.5px;
+      padding: 20px 14px 6px 14px;
+      font-size: 10px;
       font-weight: 500;
       line-height: 1.35;
       border-radius: 1rem !important;
       -webkit-border-radius: 1rem !important;
-      background-color: #FFFFFF;
+      background-color: #FAF7F2 !important;
       border: 1px solid #EBE3D5 !important;
       color: #102B1B;
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -322,7 +322,7 @@
     }
 
     html.dark .floating-input {
-      background-color: #121824 !important;
+      background-color: #181A20 !important;
       border-color: rgba(255, 255, 255, 0.1) !important;
       color: #F8FAFC !important;
     }
@@ -335,7 +335,7 @@
     .floating-label {
       position: absolute;
       top: 50%;
-      left: 16px;
+      left: 14px;
       right: auto;
       transform: translateY(-50%);
       font-size: 11.5px;
@@ -354,10 +354,10 @@
     .floating-input:focus~.floating-label,
     .floating-input:not(:placeholder-shown)~.floating-label {
       top: 6px;
-      left: 16px;
+      left: 14px;
       right: auto;
       transform: translateY(0);
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 700;
       color: #2EA043 !important;
     }
@@ -367,29 +367,48 @@
       color: #34D399 !important;
     }
 
-    /* Floating Label Textarea */
+    /* Floating Label Textarea: Exactly 5 lines of text, then scroll */
     .floating-textarea {
       width: 100%;
-      height: 96px;
-      padding: 22px 16px 20px 16px;
-      font-size: 11.5px;
+      height: 116px !important;
+      min-height: 116px !important;
+      max-height: 116px !important;
+      padding: 24px 14px 22px 14px !important;
+      font-size: 10px;
       font-weight: 500;
       line-height: 1.4;
       border-radius: 1rem !important;
       -webkit-border-radius: 1rem !important;
-      background-color: #FFFFFF;
+      background-color: #FAF7F2 !important;
       border: 1px solid #EBE3D5 !important;
       color: #102B1B;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
       outline: none;
       box-sizing: border-box;
       resize: none;
+      overflow-y: auto !important;
+      scrollbar-width: thin;
       -webkit-appearance: none;
       appearance: none;
     }
 
+    #more-proof-desc-input,
+    #counter-proof-desc-input,
+    #modal-appeal-desc-input {
+      font-size: 10px !important;
+      line-height: 1.4 !important;
+      height: 116px !important;
+      min-height: 116px !important;
+      max-height: 116px !important;
+      padding-top: 24px !important;
+      padding-bottom: 22px !important;
+      padding-left: 14px !important;
+      padding-right: 14px !important;
+      overflow-y: auto !important;
+    }
+
     html.dark .floating-textarea {
-      background-color: #121824 !important;
+      background-color: #181A20 !important;
       border-color: rgba(255, 255, 255, 0.1) !important;
       color: #F8FAFC !important;
     }
@@ -400,24 +419,55 @@
     }
 
     .floating-textarea~.floating-label {
-      top: 18px;
+      top: 14px;
       transform: translateY(0);
+      background-color: transparent;
+      z-index: 5;
     }
 
     .floating-textarea:focus~.floating-label,
     .floating-textarea:not(:placeholder-shown)~.floating-label {
       top: 6px;
-      left: 16px;
+      left: 12px;
       right: auto;
       transform: translateY(0);
-      font-size: 9px;
+      font-size: 9.5px;
       font-weight: 700;
+      line-height: 1;
       color: #2EA043 !important;
+      background-color: #FAF7F2 !important;
+      padding: 1px 4px;
+      border-radius: 4px;
+      z-index: 10;
     }
 
     html.dark .floating-textarea:focus~.floating-label,
     html.dark .floating-textarea:not(:placeholder-shown)~.floating-label {
       color: #34D399 !important;
+      background-color: #181A20 !important;
+    }
+
+    /* Floating Textarea Counter Badges: Solid background so scrolling text never clashes with numbers */
+    #more-proof-desc-counter,
+    #counter-proof-desc-counter,
+    #modal-appeal-desc-counter {
+      position: absolute;
+      bottom: 6px !important;
+      right: 10px !important;
+      background-color: #FAF7F2 !important;
+      padding: 1px 5px !important;
+      border-radius: 6px !important;
+      font-size: 9px !important;
+      font-weight: 600 !important;
+      z-index: 10 !important;
+      pointer-events: none !important;
+    }
+
+    html.dark #more-proof-desc-counter,
+    html.dark #counter-proof-desc-counter,
+    html.dark #modal-appeal-desc-counter {
+      background-color: #181A20 !important;
+      color: #94A3B8 !important;
     }
 
     /* Default Dark Mode (Neutral Slate/Obsidian Theme) */
@@ -17220,7 +17270,7 @@
             <div class="flex items-center gap-3 min-h-[92px] pt-0.5 pb-1">
               <!-- Pinned / Static Single Upload Box with + Icon -->
               <div onclick="triggerShippingUpload()"
-                class="w-20 h-20 rounded-2xl border border-[#EBE3D5] dark:border-white/10 hover:border-brand-green dark:hover:border-emerald-500 bg-white dark:bg-[#121824] hover:bg-brand-green/5 flex flex-col items-center justify-center flex-shrink-0 cursor-pointer transition-all group shadow-xs active:scale-95 z-10">
+                class="w-20 h-20 rounded-2xl border border-[#EBE3D5] dark:border-white/10 hover:border-brand-green dark:hover:border-emerald-500 bg-[#FAF7F2] dark:bg-[#181A20] hover:bg-brand-green/5 flex flex-col items-center justify-center flex-shrink-0 cursor-pointer transition-all group shadow-xs active:scale-95 z-10">
                 <div
                   class="w-7 h-7 rounded-full bg-brand-green/10 dark:bg-brand-green/20 text-brand-green dark:text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform mb-1">
                   <span class="material-symbols-outlined text-[20px] font-bold">add</span>
@@ -17302,7 +17352,7 @@
           <span class="text-[10.5px] font-bold text-neutral-400 uppercase tracking-wider font-heading block">Buyer's
             Claim</span>
           <div
-            class="bg-white dark:bg-[#121824] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3 shadow-2xs space-y-2">
+            class="bg-[#FAF7F2] dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3 shadow-2xs space-y-2">
             <!-- Header Row: Buyer Name + Role Pill + Timestamp -->
             <div class="flex items-center justify-between border-b border-[#EBE3D5]/80 dark:border-white/10 pb-1.5">
               <span class="disp-deal-buyer text-xs font-bold text-brand-dark dark:text-white font-heading">Tunde
@@ -17333,7 +17383,7 @@
             Response</span>
           <div class="floating-input-group relative">
             <textarea id="counter-proof-desc-input" oninput="handleCounterProofDescInput(this)" maxlength="500"
-              placeholder=" " class="floating-textarea rounded-2xl min-h-[95px]"></textarea>
+              placeholder=" " class="floating-textarea rounded-2xl"></textarea>
             <label for="counter-proof-desc-input" class="floating-label">Explain your side of what happened</label>
             <span class="absolute bottom-2.5 right-3.5 text-[9.5px] text-neutral-400 font-mono pointer-events-none"
               id="counter-proof-desc-counter">0/500</span>
@@ -17352,7 +17402,7 @@
           <div class="flex items-center gap-2.5 pt-1 relative min-h-[72px]">
             <!-- Add File Box -->
             <div
-              class="w-16 h-16 rounded-xl border border-dashed border-[#EBE3D5] dark:border-white/20 hover:border-red-500 flex flex-col items-center justify-center text-gray-400 hover:text-brand-dark dark:hover:text-white transition-all cursor-pointer bg-white dark:bg-[#121824] active:scale-95 shadow-2xs relative flex-shrink-0 z-10"
+              class="w-16 h-16 rounded-xl border border-dashed border-[#EBE3D5] dark:border-white/20 hover:border-red-500 flex flex-col items-center justify-center text-gray-400 hover:text-brand-dark dark:hover:text-white transition-all cursor-pointer bg-[#FAF7F2] dark:bg-[#181A20] active:scale-95 shadow-2xs relative flex-shrink-0 z-10"
               onclick="triggerCounterProofUpload()" title="Add counter evidence photo or video">
               <span class="material-symbols-outlined text-[20px] text-red-600 dark:text-red-400">add</span>
               <span class="text-[9px] font-bold mt-0.5 font-heading">Add File</span>
@@ -17424,7 +17474,7 @@
             Details</span>
           <div class="floating-input-group relative">
             <textarea id="more-proof-desc-input" oninput="handleMoreProofDescInput(this)" maxlength="500"
-              placeholder=" " class="floating-textarea rounded-2xl min-h-[95px]"></textarea>
+              placeholder=" " class="floating-textarea rounded-2xl"></textarea>
             <label for="more-proof-desc-input" class="floating-label">Add more context or evidence details</label>
             <span class="absolute bottom-2.5 right-3.5 text-[9.5px] text-neutral-400 font-mono pointer-events-none"
               id="more-proof-desc-counter">0/500</span>
@@ -17443,7 +17493,7 @@
           <div class="flex items-center gap-2.5 pt-1 relative min-h-[72px]">
             <!-- Add File Box -->
             <div
-              class="w-16 h-16 rounded-xl border border-dashed border-[#EBE3D5] dark:border-white/20 hover:border-red-500 flex flex-col items-center justify-center text-gray-400 hover:text-brand-dark dark:hover:text-white transition-all cursor-pointer bg-white dark:bg-[#121824] active:scale-95 shadow-2xs relative flex-shrink-0 z-10"
+              class="w-16 h-16 rounded-xl border border-dashed border-[#EBE3D5] dark:border-white/20 hover:border-red-500 flex flex-col items-center justify-center text-gray-400 hover:text-brand-dark dark:hover:text-white transition-all cursor-pointer bg-[#FAF7F2] dark:bg-[#181A20] active:scale-95 shadow-2xs relative flex-shrink-0 z-10"
               onclick="triggerMoreProofUpload()" title="Add supporting evidence photo or video">
               <span class="material-symbols-outlined text-[20px] text-red-600 dark:text-red-400">add</span>
               <span class="text-[9px] font-bold mt-0.5 font-heading">Add File</span>
@@ -17575,7 +17625,7 @@
           <div class="flex items-center gap-2.5 pt-1 relative min-h-[72px]">
             <!-- Static + Add File Box (No scroll, flex-shrink-0) -->
             <div
-              class="w-16 h-16 rounded-xl border border-dashed border-[#EBE3D5] dark:border-white/20 hover:border-brand-green flex flex-col items-center justify-center text-gray-400 hover:text-brand-dark dark:hover:text-white transition-all cursor-pointer bg-white dark:bg-[#121824] active:scale-95 shadow-2xs relative flex-shrink-0 z-10"
+              class="w-16 h-16 rounded-xl border border-dashed border-[#EBE3D5] dark:border-white/20 hover:border-brand-green flex flex-col items-center justify-center text-gray-400 hover:text-brand-dark dark:hover:text-white transition-all cursor-pointer bg-[#FAF7F2] dark:bg-[#181A20] active:scale-95 shadow-2xs relative flex-shrink-0 z-10"
               onclick="triggerAppealUpload('modal-')" title="Add evidence photo or video">
               <span class="material-symbols-outlined text-[20px] text-[#0E5296] dark:text-blue-400">add</span>
               <span class="text-[9px] font-bold mt-0.5 font-heading">Add File</span>
@@ -20085,7 +20135,7 @@
             <div class="flex items-center gap-3 min-h-[92px] pt-0.5 pb-1">
               <!-- Pinned / Static Single Upload Box with + Icon -->
               <div onclick="triggerShippingUpload()"
-                class="w-20 h-20 rounded-2xl border border-[#EBE3D5] dark:border-white/10 hover:border-brand-green dark:hover:border-emerald-500 bg-white dark:bg-[#121824] hover:bg-brand-green/5 flex flex-col items-center justify-center flex-shrink-0 cursor-pointer transition-all group shadow-xs active:scale-95 z-10">
+                class="w-20 h-20 rounded-2xl border border-[#EBE3D5] dark:border-white/10 hover:border-brand-green dark:hover:border-emerald-500 bg-[#FAF7F2] dark:bg-[#181A20] hover:bg-brand-green/5 flex flex-col items-center justify-center flex-shrink-0 cursor-pointer transition-all group shadow-xs active:scale-95 z-10">
                 <div
                   class="w-7 h-7 rounded-full bg-brand-green/10 dark:bg-brand-green/20 text-brand-green dark:text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform mb-1">
                   <span class="material-symbols-outlined text-[20px] font-bold">add</span>
@@ -20167,7 +20217,7 @@
           <span class="text-[10.5px] font-bold text-neutral-400 uppercase tracking-wider font-heading block">Buyer's
             Claim</span>
           <div
-            class="bg-white dark:bg-[#121824] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3 shadow-2xs space-y-2">
+            class="bg-[#FAF7F2] dark:bg-[#181A20] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3 shadow-2xs space-y-2">
             <!-- Header Row: Buyer Name + Role Pill + Timestamp -->
             <div class="flex items-center justify-between border-b border-[#EBE3D5]/80 dark:border-white/10 pb-1.5">
               <span class="disp-deal-buyer text-xs font-bold text-brand-dark dark:text-white font-heading">Tunde
@@ -20198,7 +20248,7 @@
             Response</span>
           <div class="floating-input-group relative">
             <textarea id="counter-proof-desc-input" oninput="handleCounterProofDescInput(this)" maxlength="500"
-              placeholder=" " class="floating-textarea rounded-2xl min-h-[95px]"></textarea>
+              placeholder=" " class="floating-textarea rounded-2xl"></textarea>
             <label for="counter-proof-desc-input" class="floating-label">Explain your side of what happened</label>
             <span class="absolute bottom-2.5 right-3.5 text-[9.5px] text-neutral-400 font-mono pointer-events-none"
               id="counter-proof-desc-counter">0/500</span>
@@ -20217,7 +20267,7 @@
           <div class="flex items-center gap-2.5 pt-1 relative min-h-[72px]">
             <!-- Add File Box -->
             <div
-              class="w-16 h-16 rounded-xl border border-dashed border-[#EBE3D5] dark:border-white/20 hover:border-red-500 flex flex-col items-center justify-center text-gray-400 hover:text-brand-dark dark:hover:text-white transition-all cursor-pointer bg-white dark:bg-[#121824] active:scale-95 shadow-2xs relative flex-shrink-0 z-10"
+              class="w-16 h-16 rounded-xl border border-dashed border-[#EBE3D5] dark:border-white/20 hover:border-red-500 flex flex-col items-center justify-center text-gray-400 hover:text-brand-dark dark:hover:text-white transition-all cursor-pointer bg-[#FAF7F2] dark:bg-[#181A20] active:scale-95 shadow-2xs relative flex-shrink-0 z-10"
               onclick="triggerCounterProofUpload()" title="Add counter evidence photo or video">
               <span class="material-symbols-outlined text-[20px] text-red-600 dark:text-red-400">add</span>
               <span class="text-[9px] font-bold mt-0.5 font-heading">Add File</span>
@@ -20289,7 +20339,7 @@
             Details</span>
           <div class="floating-input-group relative">
             <textarea id="more-proof-desc-input" oninput="handleMoreProofDescInput(this)" maxlength="500"
-              placeholder=" " class="floating-textarea rounded-2xl min-h-[95px]"></textarea>
+              placeholder=" " class="floating-textarea rounded-2xl"></textarea>
             <label for="more-proof-desc-input" class="floating-label">Add more context or evidence details</label>
             <span class="absolute bottom-2.5 right-3.5 text-[9.5px] text-neutral-400 font-mono pointer-events-none"
               id="more-proof-desc-counter">0/500</span>
@@ -20308,7 +20358,7 @@
           <div class="flex items-center gap-2.5 pt-1 relative min-h-[72px]">
             <!-- Add File Box -->
             <div
-              class="w-16 h-16 rounded-xl border border-dashed border-[#EBE3D5] dark:border-white/20 hover:border-red-500 flex flex-col items-center justify-center text-gray-400 hover:text-brand-dark dark:hover:text-white transition-all cursor-pointer bg-white dark:bg-[#121824] active:scale-95 shadow-2xs relative flex-shrink-0 z-10"
+              class="w-16 h-16 rounded-xl border border-dashed border-[#EBE3D5] dark:border-white/20 hover:border-red-500 flex flex-col items-center justify-center text-gray-400 hover:text-brand-dark dark:hover:text-white transition-all cursor-pointer bg-[#FAF7F2] dark:bg-[#181A20] active:scale-95 shadow-2xs relative flex-shrink-0 z-10"
               onclick="triggerMoreProofUpload()" title="Add supporting evidence photo or video">
               <span class="material-symbols-outlined text-[20px] text-red-600 dark:text-red-400">add</span>
               <span class="text-[9px] font-bold mt-0.5 font-heading">Add File</span>
@@ -20440,7 +20490,7 @@
           <div class="flex items-center gap-2.5 pt-1 relative min-h-[72px]">
             <!-- Static + Add File Box (No scroll, flex-shrink-0) -->
             <div
-              class="w-16 h-16 rounded-xl border border-dashed border-[#EBE3D5] dark:border-white/20 hover:border-brand-green flex flex-col items-center justify-center text-gray-400 hover:text-brand-dark dark:hover:text-white transition-all cursor-pointer bg-white dark:bg-[#121824] active:scale-95 shadow-2xs relative flex-shrink-0 z-10"
+              class="w-16 h-16 rounded-xl border border-dashed border-[#EBE3D5] dark:border-white/20 hover:border-brand-green flex flex-col items-center justify-center text-gray-400 hover:text-brand-dark dark:hover:text-white transition-all cursor-pointer bg-[#FAF7F2] dark:bg-[#181A20] active:scale-95 shadow-2xs relative flex-shrink-0 z-10"
               onclick="triggerAppealUpload('modal-')" title="Add evidence photo or video">
               <span class="material-symbols-outlined text-[20px] text-[#0E5296] dark:text-blue-400">add</span>
               <span class="text-[9px] font-bold mt-0.5 font-heading">Add File</span>
@@ -21580,7 +21630,7 @@
 
       uploadedShippingFiles.forEach(function (file, idx) {
         var card = document.createElement('div');
-        card.className = 'relative w-20 h-20 rounded-2xl border border-[#EBE3D5] dark:border-white/10 bg-white dark:bg-[#121824] flex flex-col items-center justify-center flex-shrink-0 overflow-hidden shadow-xs group p-1.5';
+        card.className = 'relative w-20 h-20 rounded-2xl border border-[#EBE3D5] dark:border-white/10 bg-[#FAF7F2] dark:bg-[#181A20] flex flex-col items-center justify-center flex-shrink-0 overflow-hidden shadow-xs group p-1.5';
 
         var isImage = file.type.startsWith('image/');
         var isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
