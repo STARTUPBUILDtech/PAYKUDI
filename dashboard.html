@@ -997,6 +997,16 @@
       border-top: 1.5px dashed rgba(255, 255, 255, 0.1);
     }
 
+    /* Prevent any horizontal overflow on payment receipt modal */
+    #payment-receipt-modal,
+    #receipt-modal-card,
+    #receipt-modal-card > div,
+    #receipt-modal-card .overflow-y-auto,
+    [data-purpose="receipt-card"] {
+      overflow-x: hidden !important;
+      max-width: 100% !important;
+    }
+
     /* Modal & Bottom Sheet Backdrops: Premium Screen Blurring (Desktop & Mobile) */
     [id*="backdrop"],
     [id*="modal-backdrop"],
@@ -16872,7 +16882,7 @@
       </button>
 
       <!-- Scrollable Main Content -->
-      <div class="overflow-y-auto custom-scroll flex-1 pr-0.5 pt-1">
+      <div class="overflow-y-auto overflow-x-hidden custom-scroll flex-1 pr-0.5 pt-1">
         <!-- BEGIN: SuccessHeader -->
         <header class="flex flex-col items-center mb-3 text-center" data-purpose="success-header">
           <div id="receipt-modal-icon-wrap" class="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mb-2.5 text-white shadow-sm">
@@ -19759,7 +19769,7 @@
       </button>
 
       <!-- Scrollable Main Content -->
-      <div class="overflow-y-auto custom-scroll flex-1 pr-0.5 pt-1">
+      <div class="overflow-y-auto overflow-x-hidden custom-scroll flex-1 pr-0.5 pt-1">
         <!-- BEGIN: SuccessHeader -->
         <header class="flex flex-col items-center mb-3 text-center" data-purpose="success-header">
           <div id="receipt-modal-icon-wrap" class="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mb-2.5 text-white shadow-sm">
