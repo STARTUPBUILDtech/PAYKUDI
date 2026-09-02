@@ -1885,12 +1885,19 @@
 
       /* Modal Backgrounds matching Body Color (#F4EFE6 Light, #000000 Dark) */
       #action-modal #modal-content,
-      #withdraw-modal #withdraw-modal-card {
+      #withdraw-modal #withdraw-modal-card,
+      #shipping-status-modal #shipping-status-sheet-card,
+      #shipping-details-modal #shipping-modal-card {
         background-color: #F4EFE6 !important;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: 85vh !important;
       }
 
       html.dark #action-modal #modal-content,
-      html.dark #withdraw-modal #withdraw-modal-card {
+      html.dark #withdraw-modal #withdraw-modal-card,
+      html.dark #shipping-status-modal #shipping-status-sheet-card,
+      html.dark #shipping-details-modal #shipping-modal-card {
         background-color: #000000 !important;
         border-color: #000000 !important;
       }
@@ -17564,9 +17571,9 @@
       class="fixed inset-0 bg-black/60 backdrop-blur-md opacity-0 transition-opacity duration-300"
       style="backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);"></div>
 
-    <!-- Bottom Sheet Card (Fixed Consistent Size across all sub-views) -->
+    <!-- Bottom Sheet Card (Auto-Fit Content Height with No Excess Bottom Space) -->
     <div id="shipping-status-sheet-card"
-      class="relative w-full max-w-md bg-[#F4EFE6] dark:bg-[#141414] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-500 ease-out z-10 h-[82vh] max-h-[620px] min-h-[480px] flex flex-col pointer-events-auto">
+      class="relative w-full max-w-md bg-[#F4EFE6] dark:bg-[#000000] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-black shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-500 ease-out z-10 max-h-[85vh] h-auto flex flex-col pointer-events-auto pb-4">
 
       <!-- Top Grab Bar / Handle -->
       <div class="pt-3 pb-1 cursor-pointer flex justify-center flex-shrink-0"
@@ -20451,9 +20458,9 @@
       class="fixed inset-0 bg-black/60 backdrop-blur-md opacity-0 transition-opacity duration-300"
       style="backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);"></div>
 
-    <!-- Bottom Sheet Card (Fixed Consistent Size across all sub-views) -->
+    <!-- Bottom Sheet Card (Auto-Fit Content Height with No Excess Bottom Space) -->
     <div id="shipping-status-sheet-card"
-      class="relative w-full max-w-md bg-[#F4EFE6] dark:bg-[#141414] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-500 ease-out z-10 h-[82vh] max-h-[620px] min-h-[480px] flex flex-col pointer-events-auto">
+      class="relative w-full max-w-md bg-[#F4EFE6] dark:bg-[#000000] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-black shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-500 ease-out z-10 max-h-[85vh] h-auto flex flex-col pointer-events-auto pb-4">
 
       <!-- Top Grab Bar / Handle -->
       <div class="pt-3 pb-1 cursor-pointer flex justify-center flex-shrink-0"
