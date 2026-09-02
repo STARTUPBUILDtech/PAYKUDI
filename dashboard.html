@@ -1886,7 +1886,6 @@
       /* Modal Backgrounds matching Body Color (#F4EFE6 Light, #000000 Dark) */
       #action-modal #modal-content,
       #withdraw-modal #withdraw-modal-card,
-      #shipping-status-modal #shipping-status-sheet-card,
       #shipping-details-modal #shipping-modal-card {
         background-color: #F4EFE6 !important;
         height: auto !important;
@@ -1894,9 +1893,19 @@
         max-height: 85vh !important;
       }
 
+      /* Consistent matching size for Shipping Status, Proof Gallery, & Image Detail Modal */
+      #shipping-status-modal #shipping-status-sheet-card,
+      #awaiting-order-details-modal #order-details-sheet-card {
+        background-color: #F4EFE6 !important;
+        height: 520px !important;
+        max-height: 85vh !important;
+        min-height: 460px !important;
+      }
+
       html.dark #action-modal #modal-content,
       html.dark #withdraw-modal #withdraw-modal-card,
       html.dark #shipping-status-modal #shipping-status-sheet-card,
+      html.dark #awaiting-order-details-modal #order-details-sheet-card,
       html.dark #shipping-details-modal #shipping-modal-card {
         background-color: #000000 !important;
         border-color: #000000 !important;
@@ -17594,9 +17603,9 @@
         <!-- Header State 2: Gallery View Header (Back icon + Proof of Shipping) -->
         <div id="ss-header-gallery" class="hidden flex items-center gap-2.5 min-w-0">
           <button type="button" onclick="showShippingStatusMainView()"
-            class="w-8 h-8 rounded-full flex items-center justify-center text-brand-dark dark:text-white hover:text-brand-green hover:bg-black/5 dark:hover:bg-white/10 transition-all cursor-pointer flex-shrink-0 -ml-1"
-            title="Back">
-            <span class="material-symbols-outlined text-[20px]">chevron_left</span>
+            class="-ml-1 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#F4EFE6] dark:bg-[#141414] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
+            title="Back to Status">
+            <span class="material-symbols-outlined text-[20px] sm:text-[22px] leading-none select-none">chevron_left</span>
           </button>
           <h3 class="text-sm font-black text-brand-dark dark:text-white font-heading truncate">Proof of Shipping</h3>
         </div>
@@ -17604,9 +17613,9 @@
         <!-- Header State 3: Full Media Preview Header (Back arrow icon + Photo name) -->
         <div id="ss-header-media" class="hidden flex items-center gap-2.5 min-w-0">
           <button type="button" id="ss-media-back-btn" onclick="backFromShippingProofDetail()"
-            class="w-8 h-8 rounded-full flex items-center justify-center text-brand-dark dark:text-white hover:text-brand-green hover:bg-black/5 dark:hover:bg-white/10 transition-all cursor-pointer flex-shrink-0 -ml-1"
+            class="-ml-1 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#F4EFE6] dark:bg-[#141414] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
             title="Back">
-            <span class="material-symbols-outlined text-[20px]">chevron_left</span>
+            <span class="material-symbols-outlined text-[20px] sm:text-[22px] leading-none select-none">chevron_left</span>
           </button>
           <h3 id="ss-media-header-title"
             class="text-sm font-black text-brand-dark dark:text-white font-heading truncate">Package Box</h3>
@@ -20481,9 +20490,9 @@
         <!-- Header State 2: Gallery View Header (Back icon + Proof of Shipping) -->
         <div id="ss-header-gallery" class="hidden flex items-center gap-2.5 min-w-0">
           <button type="button" onclick="showShippingStatusMainView()"
-            class="w-8 h-8 rounded-full flex items-center justify-center text-brand-dark dark:text-white hover:text-brand-green hover:bg-black/5 dark:hover:bg-white/10 transition-all cursor-pointer flex-shrink-0 -ml-1"
-            title="Back">
-            <span class="material-symbols-outlined text-[20px]">chevron_left</span>
+            class="-ml-1 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#F4EFE6] dark:bg-[#141414] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
+            title="Back to Status">
+            <span class="material-symbols-outlined text-[20px] sm:text-[22px] leading-none select-none">chevron_left</span>
           </button>
           <h3 class="text-sm font-black text-brand-dark dark:text-white font-heading truncate">Proof of Shipping</h3>
         </div>
@@ -20491,9 +20500,9 @@
         <!-- Header State 3: Full Media Preview Header (Back arrow icon + Photo name) -->
         <div id="ss-header-media" class="hidden flex items-center gap-2.5 min-w-0">
           <button type="button" id="ss-media-back-btn" onclick="backFromShippingProofDetail()"
-            class="w-8 h-8 rounded-full flex items-center justify-center text-brand-dark dark:text-white hover:text-brand-green hover:bg-black/5 dark:hover:bg-white/10 transition-all cursor-pointer flex-shrink-0 -ml-1"
+            class="-ml-1 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#F4EFE6] dark:bg-[#141414] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
             title="Back">
-            <span class="material-symbols-outlined text-[20px]">chevron_left</span>
+            <span class="material-symbols-outlined text-[20px] sm:text-[22px] leading-none select-none">chevron_left</span>
           </button>
           <h3 id="ss-media-header-title"
             class="text-sm font-black text-brand-dark dark:text-white font-heading truncate">Package Box</h3>
