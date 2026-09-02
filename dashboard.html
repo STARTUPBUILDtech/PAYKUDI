@@ -851,7 +851,7 @@
       width: 44px;
       height: 44px;
       padding: 0;
-      border-radius: 9999px;
+      border-radius: 10px !important;
       border: none !important;
       outline: none !important;
       background: transparent;
@@ -896,10 +896,11 @@
       transition: opacity 0.18s ease, max-width 0.25s cubic-bezier(0.4,0,0.2,1), margin-left 0.25s ease;
     }
 
-    /* Active State: solid blue pill */
+    /* Active State: solid blue box with subtle corner radius */
     .nav-bottom-link.active {
       width: auto;
       padding: 0 18px 0 14px;
+      border-radius: 10px !important;
       background: #0E5296 !important;
       color: #ffffff !important;
     }
@@ -1141,14 +1142,26 @@
     [id*="backdrop"],
     [id*="modal-backdrop"],
     .modal-backdrop-blur,
-    #activity-receipt-modal,
     #order-details-modal,
     #action-modal,
-    #payment-receipt-modal,
     #shipping-media-lightbox-modal,
     #lightbox {
       backdrop-filter: blur(12px) !important;
       -webkit-backdrop-filter: blur(12px) !important;
+    }
+
+    #payment-receipt-modal,
+    #activity-receipt-modal {
+      background-color: rgba(0, 0, 0, 0.06) !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+    }
+
+    html.dark #payment-receipt-modal,
+    html.dark #activity-receipt-modal {
+      background-color: rgba(0, 0, 0, 0.25) !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
     }
 
     @media (min-width: 768px) {
@@ -1868,6 +1881,249 @@
                     inset -1px -1px 1px rgba(0, 0, 0, 0.45) !important;
       }
 
+      /* Status-Themed Order Header Cards (Matching each deal stage color) */
+      
+      /* 1. Dispute Ongoing (Red Theme) */
+      .dispute-ongoing-header-card,
+      #pr-sub-dispute .pr-order-header-card,
+      #pr-sub-progress .pr-order-header-card,
+      #d-pr-sub-dispute .pr-order-header-card,
+      #d-pr-sub-progress .pr-order-header-card {
+        background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%) !important;
+        border: 1.5px solid rgba(254, 202, 202, 0.35) !important;
+        border-radius: 20px !important;
+        box-shadow: 0 10px 24px -4px rgba(220, 38, 38, 0.35),
+                    inset 1.5px 1.5px 1px rgba(255, 255, 255, 0.25),
+                    inset -1.5px -1.5px 1px rgba(0, 0, 0, 0.2) !important;
+        color: #FFFFFF !important;
+        transition: all 0.25s ease !important;
+      }
+      html.dark .dispute-ongoing-header-card,
+      html.dark #pr-sub-dispute .pr-order-header-card,
+      html.dark #pr-sub-progress .pr-order-header-card,
+      html.dark #d-pr-sub-dispute .pr-order-header-card,
+      html.dark #d-pr-sub-progress .pr-order-header-card {
+        background: linear-gradient(135deg, #991B1B 0%, #7F1D1D 100%) !important;
+        border: 1.5px solid rgba(239, 68, 68, 0.35) !important;
+        box-shadow: 0 10px 24px -4px rgba(185, 28, 28, 0.4),
+                    inset 1px 1px 1px rgba(255, 255, 255, 0.15),
+                    inset -1px -1px 1px rgba(0, 0, 0, 0.4) !important;
+      }
+
+      /* 2. Awaiting Payment (Amber/Gold Theme) */
+      .awaiting-header-card,
+      #pr-sub-awaiting .pr-order-header-card,
+      #d-pr-sub-awaiting .pr-order-header-card {
+        background: linear-gradient(135deg, #D97706 0%, #B45309 100%) !important;
+        border: 1.5px solid rgba(253, 230, 138, 0.4) !important;
+        border-radius: 20px !important;
+        box-shadow: 0 10px 24px -4px rgba(217, 119, 6, 0.35),
+                    inset 1.5px 1.5px 1px rgba(255, 255, 255, 0.25),
+                    inset -1.5px -1.5px 1px rgba(0, 0, 0, 0.15) !important;
+        color: #FFFFFF !important;
+        transition: all 0.25s ease !important;
+      }
+      html.dark .awaiting-header-card,
+      html.dark #pr-sub-awaiting .pr-order-header-card,
+      html.dark #d-pr-sub-awaiting .pr-order-header-card {
+        background: linear-gradient(135deg, #92400E 0%, #78350F 100%) !important;
+        border: 1.5px solid rgba(245, 158, 11, 0.4) !important;
+        box-shadow: 0 10px 24px -4px rgba(180, 83, 9, 0.4),
+                    inset 1px 1px 1px rgba(255, 255, 255, 0.15),
+                    inset -1px -1px 1px rgba(0, 0, 0, 0.4) !important;
+      }
+
+      /* 3. Payment Received / In Escrow (Royal Blue Theme) */
+      .received-header-card,
+      #pr-sub-received .pr-order-header-card,
+      #d-pr-sub-received .pr-order-header-card {
+        background: linear-gradient(135deg, #1D4ED8 0%, #0E5296 100%) !important;
+        border: 1.5px solid rgba(191, 219, 254, 0.4) !important;
+        border-radius: 20px !important;
+        box-shadow: 0 10px 24px -4px rgba(29, 78, 216, 0.35),
+                    inset 1.5px 1.5px 1px rgba(255, 255, 255, 0.25),
+                    inset -1.5px -1.5px 1px rgba(0, 0, 0, 0.2) !important;
+        color: #FFFFFF !important;
+        transition: all 0.25s ease !important;
+      }
+      html.dark .received-header-card,
+      html.dark #pr-sub-received .pr-order-header-card,
+      html.dark #d-pr-sub-received .pr-order-header-card {
+        background: linear-gradient(135deg, #1E40AF 0%, #172554 100%) !important;
+        border: 1.5px solid rgba(59, 130, 246, 0.4) !important;
+        box-shadow: 0 10px 24px -4px rgba(29, 78, 216, 0.4),
+                    inset 1px 1px 1px rgba(255, 255, 255, 0.15),
+                    inset -1px -1px 1px rgba(0, 0, 0, 0.4) !important;
+      }
+
+      /* 4. In Transit / Out for Delivery (Vibrant Purple Theme) */
+      .transit-header-card,
+      #pr-sub-transit .pr-order-header-card,
+      #d-pr-sub-transit .pr-order-header-card {
+        background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%) !important;
+        border: 1.5px solid rgba(233, 213, 255, 0.4) !important;
+        border-radius: 20px !important;
+        box-shadow: 0 10px 24px -4px rgba(124, 58, 237, 0.35),
+                    inset 1.5px 1.5px 1px rgba(255, 255, 255, 0.25),
+                    inset -1.5px -1.5px 1px rgba(0, 0, 0, 0.2) !important;
+        color: #FFFFFF !important;
+        transition: all 0.25s ease !important;
+      }
+      html.dark .transit-header-card,
+      html.dark #pr-sub-transit .pr-order-header-card,
+      html.dark #d-pr-sub-transit .pr-order-header-card {
+        background: linear-gradient(135deg, #6D28D9 0%, #4C1D95 100%) !important;
+        border: 1.5px solid rgba(167, 139, 250, 0.4) !important;
+        box-shadow: 0 10px 24px -4px rgba(109, 40, 217, 0.4),
+                    inset 1px 1px 1px rgba(255, 255, 255, 0.15),
+                    inset -1px -1px 1px rgba(0, 0, 0, 0.4) !important;
+      }
+
+      /* 5. Verification / Delivered (Deep Teal Theme) */
+      .verify-header-card,
+      #pr-sub-verify .pr-order-header-card,
+      #d-pr-sub-verify .pr-order-header-card {
+        background: linear-gradient(135deg, #0D9488 0%, #0F766E 100%) !important;
+        border: 1.5px solid rgba(204, 251, 241, 0.4) !important;
+        border-radius: 20px !important;
+        box-shadow: 0 10px 24px -4px rgba(13, 148, 136, 0.35),
+                    inset 1.5px 1.5px 1px rgba(255, 255, 255, 0.25),
+                    inset -1.5px -1.5px 1px rgba(0, 0, 0, 0.2) !important;
+        color: #FFFFFF !important;
+        transition: all 0.25s ease !important;
+      }
+      html.dark .verify-header-card,
+      html.dark #pr-sub-verify .pr-order-header-card,
+      html.dark #d-pr-sub-verify .pr-order-header-card {
+        background: linear-gradient(135deg, #0F766E 0%, #115E59 100%) !important;
+        border: 1.5px solid rgba(20, 184, 166, 0.4) !important;
+        box-shadow: 0 10px 24px -4px rgba(15, 118, 110, 0.4),
+                    inset 1px 1px 1px rgba(255, 255, 255, 0.15),
+                    inset -1px -1px 1px rgba(0, 0, 0, 0.4) !important;
+      }
+
+      /* 6. Completed Deal (Forest Emerald Green Theme) */
+      .completed-header-card,
+      #pr-sub-completed .pr-order-header-card,
+      #d-pr-sub-completed .pr-order-header-card {
+        background: linear-gradient(135deg, #059669 0%, #044E29 100%) !important;
+        border: 1.5px solid rgba(167, 243, 208, 0.4) !important;
+        border-radius: 20px !important;
+        box-shadow: 0 10px 24px -4px rgba(5, 150, 105, 0.35),
+                    inset 1.5px 1.5px 1px rgba(255, 255, 255, 0.25),
+                    inset -1.5px -1.5px 1px rgba(0, 0, 0, 0.2) !important;
+        color: #FFFFFF !important;
+        transition: all 0.25s ease !important;
+      }
+      html.dark .completed-header-card,
+      html.dark #pr-sub-completed .pr-order-header-card,
+      html.dark #d-pr-sub-completed .pr-order-header-card {
+        background: linear-gradient(135deg, #065F46 0%, #022C17 100%) !important;
+        border: 1.5px solid rgba(16, 185, 129, 0.4) !important;
+        box-shadow: 0 10px 24px -4px rgba(6, 95, 70, 0.4),
+                    inset 1px 1px 1px rgba(255, 255, 255, 0.15),
+                    inset -1px -1px 1px rgba(0, 0, 0, 0.4) !important;
+      }
+
+      /* High contrast white styling for all text inside themed order header cards */
+      .pr-order-header-card,
+      .dispute-ongoing-header-card,
+      .awaiting-header-card,
+      .received-header-card,
+      .transit-header-card,
+      .verify-header-card,
+      .completed-header-card {
+        color: #FFFFFF !important;
+      }
+
+      .pr-order-header-card [class*="text-neutral-400"],
+      .pr-order-header-card [class*="text-gray-400"],
+      .pr-order-header-card .font-heading.uppercase {
+        color: rgba(255, 255, 255, 0.85) !important;
+      }
+
+      .pr-order-header-card .disp-deal-price {
+        color: #FFFFFF !important;
+      }
+
+      .pr-order-header-card [class*="border-t"] {
+        border-top-color: rgba(255, 255, 255, 0.22) !important;
+      }
+
+      .pr-order-header-card .awaiting-countdown-badge {
+        color: #FFFFFF !important;
+        background-color: rgba(255, 255, 255, 0.2) !important;
+        padding: 2px 8px !important;
+        border-radius: 9999px !important;
+        backdrop-filter: blur(4px) !important;
+      }
+
+      .pr-order-header-card button[onclick*="openPaymentReceiptModal"] {
+        color: #FFFFFF !important;
+        background-color: rgba(255, 255, 255, 0.2) !important;
+        border-radius: 12px !important;
+        padding: 4px 10px !important;
+        backdrop-filter: blur(4px) !important;
+      }
+
+      .pr-order-header-card button[onclick*="openPaymentReceiptModal"]:hover {
+        background-color: rgba(255, 255, 255, 0.3) !important;
+      }
+
+      /* Stepper Circles, Numbers, and Labels High-Contrast Rendering */
+      .pr-order-header-card [class*="opacity-40"],
+      .pr-order-header-card [class*="opacity-60"] {
+        opacity: 0.92 !important;
+      }
+
+      /* Inactive / upcoming circle badges (e.g. 2, 3, 4, 5) */
+      .pr-order-header-card .rounded-full.bg-neutral-200,
+      .pr-order-header-card .rounded-full.bg-neutral-300,
+      .pr-order-header-card [class*="dark:bg-white/10"],
+      .pr-order-header-card [class*="bg-white/10"],
+      .pr-order-header-card [class*="bg-white/20"] {
+        background-color: rgba(255, 255, 255, 0.28) !important;
+        border: 1.5px solid rgba(255, 255, 255, 0.5) !important;
+        color: #FFFFFF !important;
+        font-weight: 800 !important;
+        font-size: 11px !important;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) !important;
+      }
+
+      /* Active circle badge (solid bright white with dark bold numeral on all stages) */
+      .pr-order-header-card .animate-subtle-glow + span,
+      .pr-order-header-card .relative.z-10.w-6.h-6.rounded-full.bg-brand-blue,
+      .pr-order-header-card .relative.z-10.w-6.h-6.rounded-full.bg-amber-500,
+      .pr-order-header-card .relative.z-10.w-6.h-6.rounded-full.bg-purple-600,
+      .pr-order-header-card .relative.z-10.w-6.h-6.rounded-full.bg-emerald-800,
+      .pr-order-header-card .relative.z-10.w-6.h-6.rounded-full.bg-emerald-700,
+      .pr-order-header-card .relative.z-10.w-6.h-6.rounded-full.bg-emerald-600,
+      .pr-order-header-card .relative.z-10.w-6.h-6.rounded-full.bg-white {
+        background-color: #FFFFFF !important;
+        color: #111827 !important;
+        font-weight: 900 !important;
+        font-size: 11px !important;
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.7) !important;
+      }
+
+      /* All step text labels below circles */
+      .pr-order-header-card span[class*="text-amber-"],
+      .pr-order-header-card span[class*="text-blue-"],
+      .pr-order-header-card span[class*="text-purple-"],
+      .pr-order-header-card span[class*="text-emerald-"],
+      .pr-order-header-card span[class*="text-teal-"],
+      .pr-order-header-card span[class*="text-neutral-500"],
+      .pr-order-header-card span[class*="text-neutral-400"],
+      .pr-order-header-card span[class*="text-gray-500"] {
+        color: #FFFFFF !important;
+        font-weight: 700 !important;
+      }
+
+      /* Small connector dots between circles */
+      .pr-order-header-card .w-1.h-1.rounded-full {
+        background-color: rgba(255, 255, 255, 0.55) !important;
+      }
+
       html.dark #m-pr-detail .bg-[#F4EFE6]:not(.promo-code-pill):not(.pr-order-header-card),
       html.dark #m-pr-detail .dark\:bg-\[\#141414\]:not(.promo-code-pill):not(.pr-order-header-card),
       html.dark #d-pr-detail .bg-[#F4EFE6]:not(.promo-code-pill):not(.pr-order-header-card),
@@ -2545,8 +2801,8 @@
         
         <!-- PINNED TOP: Deep Forest Green Hero & Floating Action Bar (Fixed / Unscrollable) -->
         <div class="flex-none relative z-20">
-          <!-- Deep Forest Green Unified Hero & Header Card -->
-          <div class="relative w-full bg-gradient-to-b from-[#0A4328] via-[#073620] to-[#042415] text-white pt-0 pb-12 px-4 rounded-b-[36px] sm:rounded-b-[40px] shadow-[0_16px_32px_-8px_rgba(4,36,21,0.4)] overflow-hidden flex-none border-0">
+          <!-- Deep Forest Green Unified Hero & Header Card (Swipe to change balance) -->
+          <div id="mobile-hero-card" class="relative w-full bg-gradient-to-b from-[#0A4328] via-[#073620] to-[#042415] text-white pt-0 pb-12 px-4 rounded-b-[36px] sm:rounded-b-[40px] shadow-[0_16px_32px_-8px_rgba(4,36,21,0.4)] overflow-hidden flex-none border-0 select-none cursor-grab active:cursor-grabbing" style="touch-action: pan-y;">
             <!-- Top Row: Logo on Left, Switch Role & Theme Toggle on Right -->
             <div class="relative z-10 -mx-4 px-3.5 py-2 flex items-center justify-between mb-3">
               <!-- White PayKudi Logo -->
@@ -2573,7 +2829,7 @@
 
             <!-- Available Balance & Eye Toggle -->
             <div class="relative z-10 flex items-center justify-center gap-1.5 mt-2 text-white/75 text-xs font-medium">
-              <span id="m-slide-tag" class="font-heading tracking-wide">Available balance</span>
+              <span id="m-slide-tag" class="font-heading tracking-wide transition-opacity duration-200">Your PayKudi Balance</span>
               <button type="button" onclick="toggleBalanceVisibility()"
                 class="text-white/70 hover:text-white transition-colors p-0.5 flex items-center cursor-pointer"
                 title="Toggle visibility">
@@ -2582,19 +2838,19 @@
             </div>
 
             <!-- Hero Balance -->
-            <div class="relative z-10 text-center my-1.5">
+            <div class="relative z-10 text-center my-1.5 overflow-hidden">
               <h2 id="mobile-balance-text"
-                class="text-4xl sm:text-[44px] font-black tracking-tight font-heading text-white transition-all duration-300 drop-shadow-md leading-tight">
+                class="text-4xl sm:text-[44px] font-black tracking-tight font-heading text-white transition-all duration-300 drop-shadow-md leading-tight inline-block">
                 ₦2,500,000
               </h2>
             </div>
 
             <!-- Slide Indicator Dots -->
             <div class="relative z-10 flex justify-center items-center gap-2 mt-2">
-              <button type="button" onclick="setBalanceSlide(0)" id="m-dot-0"
+              <button type="button" onclick="setBalanceSlide(0, -1)" id="m-dot-0"
                 class="w-2.5 h-2.5 rounded-full bg-[#F4EFE6] scale-110 shadow-sm transition-all duration-300 cursor-pointer"
                 title="Available Balance"></button>
-              <button type="button" onclick="setBalanceSlide(1)" id="m-dot-1"
+              <button type="button" onclick="setBalanceSlide(1, 1)" id="m-dot-1"
                 class="w-2.5 h-2.5 rounded-full bg-white/30 hover:bg-white/60 transition-all duration-300 cursor-pointer"
                 title="Protected Balance"></button>
               <button type="button" onclick="showSlideInfo()"
@@ -4741,16 +4997,16 @@
                         class="text-[9px] font-bold text-purple-600 dark:text-purple-400 font-heading leading-tight">In
                         Transit</span>
                     </div>
-                    <!-- Step 4: Delivered (Active & Subtle Fade Glow in Dark Green) -->
+                    <!-- Step 4: Delivered (Active & Subtle Fade Glow in Crisp White) -->
                     <div class="relative z-10 flex flex-col items-center gap-1">
                       <div class="relative w-6 h-6 flex items-center justify-center">
                         <span
-                          class="absolute inset-0 rounded-full bg-emerald-800/40 dark:bg-emerald-700/40 animate-subtle-glow pointer-events-none"></span>
+                          class="absolute inset-0 rounded-full bg-white/40 animate-subtle-glow pointer-events-none"></span>
                         <span
-                          class="relative z-10 w-6 h-6 rounded-full bg-emerald-800 dark:bg-emerald-700 text-white flex items-center justify-center text-[10px] font-bold shadow-[0_0_8px_rgba(6,95,70,0.45)] ring-1 ring-emerald-800/30">4</span>
+                          class="relative z-10 w-6 h-6 rounded-full bg-white text-gray-900 flex items-center justify-center text-[10px] font-black shadow-md">4</span>
                       </div>
                       <span
-                        class="text-[9px] font-bold text-emerald-800 dark:text-emerald-300 font-heading leading-tight">Delivered</span>
+                        class="text-[9px] font-bold text-white font-heading leading-tight">Delivered</span>
                     </div>
                     <!-- Step 5: Completed (Pending) -->
                     <div class="relative z-10 flex flex-col items-center gap-1 opacity-40">
@@ -5351,21 +5607,21 @@
 
             <!-- Main Content Container -->
             <div class="space-y-4 px-3.5 sm:px-4">
-              <!-- 2. TOP CARD: Order Amount & 3-Step Dispute Stepper Card -->
+              <!-- 2. TOP CARD: Order Amount & 3-Step Dispute Stepper Card (Themed in Dispute Red) -->
               <div
-                class="pr-order-header-card p-3.5 sm:p-4">
+                class="dispute-ongoing-header-card p-3.5 sm:p-4 text-white">
                 <div class="flex items-center justify-between">
                   <div>
                     <span
-                      class="text-[10px] font-bold text-neutral-400 dark:text-neutral-400 uppercase tracking-wider font-heading block">ORDER
+                      class="text-[10px] font-bold text-white/80 uppercase tracking-wider font-heading block">ORDER
                       AMOUNT</span>
                     <span
-                      class="disp-deal-price text-2xl font-black text-brand-dark dark:text-white font-heading block mt-0.5 tracking-tight">₦50,000</span>
+                      class="disp-deal-price text-2xl font-black text-white font-heading block mt-0.5 tracking-tight">₦50,000</span>
                   </div>
                   <button type="button" onclick="openPaymentReceiptModal()"
-                    class="flex items-center gap-1.5 text-brand-green dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 font-bold text-xs font-heading cursor-pointer transition-all active:scale-95 select-none p-1"
+                    class="flex items-center gap-1.5 text-white bg-white/20 hover:bg-white/30 rounded-xl px-3 py-1.5 font-bold text-xs font-heading cursor-pointer transition-all active:scale-95 select-none shadow-xs"
                     title="View Official Receipt">
-                    <svg class="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 24 24">
+                    <svg class="w-3.5 h-3.5 fill-current flex-shrink-0" viewBox="0 0 24 24">
                       <path
                         d="M4 2a2 2 0 0 0-2 2v17.5a.5.5 0 0 0 .78.41L6 20.15l3.22 1.76a.5.5 0 0 0 .56 0L13 20.15l3.22 1.76a.5.5 0 0 0 .56 0L20 20.15l3.22 1.76a.5.5 0 0 0 .78-.41V4a2 2 0 0 0-2-2H4zm3 5h10a1 1 0 0 1 0 2H7a1 1 0 1 1 0-2zm0 4h10a1 1 0 0 1 0 2H7a1 1 0 0 1 0-2zm0 4h6a1 1 0 0 1 0 2H7a1 1 0 0 1 0-2z" />
                     </svg>
@@ -5374,57 +5630,57 @@
                 </div>
 
                 <!-- Horizontal Separator & 3 Dispute Stepper States -->
-                <div class="border-t border-[#EBE3D5]/80 dark:border-white/10 pt-2.5 mt-2.5">
+                <div class="border-t border-white/20 pt-2.5 mt-2.5">
                   <span
-                    class="text-[10px] font-bold text-neutral-400 dark:text-neutral-400 uppercase tracking-wider font-heading block mb-2">DISPUTE
+                    class="text-[10px] font-bold text-white/80 uppercase tracking-wider font-heading block mb-2">DISPUTE
                     STATUS</span>
                   <div class="relative grid grid-cols-3 gap-1 text-center">
                     <!-- Connector 1 (Dispute Raised to CS Stepped In) -->
                     <div
                       class="absolute top-3 left-[16.66%] w-[33.33%] -translate-y-1/2 flex items-center justify-evenly px-3 pointer-events-none z-0">
-                      <span class="w-1 h-1 rounded-full bg-[#f59e0b]"></span>
-                      <span class="w-1 h-1 rounded-full bg-[#8278b0]"></span>
-                      <span class="w-1 h-1 rounded-full bg-[#0e5296]"></span>
+                      <span class="w-1 h-1 rounded-full bg-white/70"></span>
+                      <span class="w-1 h-1 rounded-full bg-white/70"></span>
+                      <span class="w-1 h-1 rounded-full bg-white/70"></span>
                     </div>
 
                     <!-- Connector 2 (CS Stepped In to Dispute Closed) -->
                     <div
                       class="absolute top-3 left-[50%] w-[33.33%] -translate-y-1/2 flex items-center justify-evenly px-3 pointer-events-none z-0">
-                      <span class="w-1 h-1 rounded-full bg-neutral-300 dark:bg-white/20"></span>
-                      <span class="w-1 h-1 rounded-full bg-neutral-300 dark:bg-white/20"></span>
-                      <span class="w-1 h-1 rounded-full bg-neutral-300 dark:bg-white/20"></span>
+                      <span class="w-1 h-1 rounded-full bg-white/30"></span>
+                      <span class="w-1 h-1 rounded-full bg-white/30"></span>
+                      <span class="w-1 h-1 rounded-full bg-white/30"></span>
                     </div>
 
-                    <!-- Step 1: Dispute Raised (Completed - Amber with check) -->
+                    <!-- Step 1: Dispute Raised (Completed - Amber / Light with check) -->
                     <div class="relative z-10 flex flex-col items-center gap-1">
                       <span
-                        class="w-6 h-6 rounded-full bg-amber-500 text-white flex items-center justify-center text-[10px] font-bold shadow-2xs">
-                        <span class="material-symbols-outlined text-[13px]">check</span>
+                        class="w-6 h-6 rounded-full bg-amber-400 text-amber-950 flex items-center justify-center text-[10px] font-black shadow-xs">
+                        <span class="material-symbols-outlined text-[13px] font-black">check</span>
                       </span>
                       <span
-                        class="text-[9px] font-bold text-amber-600 dark:text-amber-400 font-heading leading-tight">Dispute
+                        class="text-[9px] font-bold text-white font-heading leading-tight">Dispute
                         Raised</span>
                     </div>
 
-                    <!-- Step 2: CS Stepped In (Active - Brand Blue with subtle glow) -->
+                    <!-- Step 2: CS Stepped In (Active - White circle with Red text & subtle glow) -->
                     <div class="relative z-10 flex flex-col items-center gap-1">
                       <div class="relative w-6 h-6 flex items-center justify-center">
                         <span
-                          class="absolute inset-0 rounded-full bg-brand-blue/50 animate-subtle-glow pointer-events-none"></span>
+                          class="absolute inset-0 rounded-full bg-white/40 animate-subtle-glow pointer-events-none"></span>
                         <span
-                          class="relative z-10 w-6 h-6 rounded-full bg-brand-blue text-white flex items-center justify-center text-[10px] font-black shadow-[0_0_8px_rgba(14,82,150,0.45)] ring-1 ring-brand-blue/30">2</span>
+                          class="relative z-10 w-6 h-6 rounded-full bg-white text-red-600 flex items-center justify-center text-[10px] font-black shadow-md">2</span>
                       </div>
                       <span
-                        class="text-[9px] font-bold text-brand-blue dark:text-blue-400 font-heading leading-tight">CS
+                        class="text-[9px] font-black text-white font-heading leading-tight">CS
                         Stepped In</span>
                     </div>
 
-                    <!-- Step 3: Dispute Closed (Upcoming - Grey at 40% opacity) -->
-                    <div class="relative z-10 flex flex-col items-center gap-1 opacity-40">
+                    <!-- Step 3: Dispute Closed (Upcoming - Semi-transparent white) -->
+                    <div class="relative z-10 flex flex-col items-center gap-1 opacity-60">
                       <span
-                        class="w-6 h-6 rounded-full bg-neutral-200 dark:bg-white/10 text-neutral-500 dark:text-neutral-400 flex items-center justify-center text-[10px] font-medium">3</span>
+                        class="w-6 h-6 rounded-full bg-white/20 text-white flex items-center justify-center text-[10px] font-semibold">3</span>
                       <span
-                        class="text-[9px] font-medium text-neutral-500 dark:text-neutral-400 font-heading leading-tight">Dispute
+                        class="text-[9px] font-medium text-white/80 font-heading leading-tight">Dispute
                         Closed</span>
                     </div>
                   </div>
@@ -6505,19 +6761,21 @@
       <!-- DESKTOP VIEW 1: HOME -->
       <div id="d-view-home" class="view-panel flex-1 overflow-y-auto w-full space-y-0 pb-12 custom-scroll">
         <!-- Full-Bleed Hero / Balance Section (Matching Mobile Rich Emerald Gradient & Aesthetic) -->
-        <div class="w-full bg-gradient-to-b from-[#0A4328] via-[#073620] to-[#042415] pt-8 pb-14 md:pt-10 md:pb-16 px-6 relative text-white shadow-[0_16px_32px_-8px_rgba(4,36,21,0.4)] rounded-none rounded-b-[36px] sm:rounded-b-[40px] overflow-hidden">
+        <div id="desktop-hero-card" class="w-full bg-gradient-to-b from-[#0A4328] via-[#073620] to-[#042415] pt-8 pb-14 md:pt-10 md:pb-16 px-6 relative text-white shadow-[0_16px_32px_-8px_rgba(4,36,21,0.4)] rounded-none rounded-b-[36px] sm:rounded-b-[40px] overflow-hidden select-none cursor-grab active:cursor-grabbing" style="touch-action: pan-y;">
           <div class="max-w-4xl mx-auto flex flex-col items-center text-center relative z-10">
             <div class="flex items-center gap-1.5 text-white/75 mb-1.5 font-heading text-xs sm:text-sm font-medium">
-              <span class="tracking-wide" id="d-slide-tag">Your PayKudi Balance</span>
+              <span class="tracking-wide transition-opacity duration-200" id="d-slide-tag">Your PayKudi Balance</span>
               <button type="button" onclick="toggleBalanceVisibility()" class="cursor-pointer text-white/70 hover:text-white transition-colors p-0.5 flex items-center" title="Toggle visibility">
                 <span class="material-symbols-outlined text-base sm:text-[18px]" id="desktop-eye-icon">visibility</span>
               </button>
             </div>
-            <h2 class="text-4xl sm:text-5xl md:text-[52px] font-black tracking-tight mb-2 font-heading text-white transition-all duration-300 drop-shadow-md leading-tight" id="desktop-balance-text">₦2,500,000</h2>
+            <div class="overflow-hidden">
+              <h2 class="text-4xl sm:text-5xl md:text-[52px] font-black tracking-tight mb-2 font-heading text-white transition-all duration-300 drop-shadow-md leading-tight inline-block" id="desktop-balance-text">₦2,500,000</h2>
+            </div>
             <!-- Pagination dots for cards -->
             <div class="flex gap-2 items-center justify-center mt-1">
-              <button type="button" onclick="setBalanceSlide(0)" id="d-dot-0" class="w-2.5 h-2.5 rounded-full bg-[#F4EFE6] scale-110 shadow-sm transition-all duration-300 cursor-pointer" title="Available Balance"></button>
-              <button type="button" onclick="setBalanceSlide(1)" id="d-dot-1" class="w-2.5 h-2.5 rounded-full bg-white/30 hover:bg-white/60 transition-all duration-300 cursor-pointer" title="Protected Balance"></button>
+              <button type="button" onclick="setBalanceSlide(0, -1)" id="d-dot-0" class="w-2.5 h-2.5 rounded-full bg-[#F4EFE6] scale-110 shadow-sm transition-all duration-300 cursor-pointer" title="Available Balance"></button>
+              <button type="button" onclick="setBalanceSlide(1, 1)" id="d-dot-1" class="w-2.5 h-2.5 rounded-full bg-white/30 hover:bg-white/60 transition-all duration-300 cursor-pointer" title="Protected Balance"></button>
               <button type="button" onclick="showSlideInfo()" class="cursor-pointer text-white/50 hover:text-white transition-colors ml-0.5 flex items-center" title="Balance Info">
                 <span class="material-symbols-outlined text-[14px]">info</span>
               </button>
@@ -8928,16 +9186,16 @@
                           class="text-[9px] font-bold text-purple-600 dark:text-purple-400 font-heading leading-tight">In
                           Transit</span>
                       </div>
-                      <!-- Step 4: Delivered (Active & Subtle Fade Glow in Dark Green) -->
+                      <!-- Step 4: Delivered (Active & Subtle Fade Glow in Crisp White) -->
                       <div class="relative z-10 flex flex-col items-center gap-1">
                         <div class="relative w-6 h-6 flex items-center justify-center">
                           <span
-                            class="absolute inset-0 rounded-full bg-emerald-800/40 dark:bg-emerald-700/40 animate-subtle-glow pointer-events-none"></span>
+                            class="absolute inset-0 rounded-full bg-white/40 animate-subtle-glow pointer-events-none"></span>
                           <span
-                            class="relative z-10 w-6 h-6 rounded-full bg-emerald-800 dark:bg-emerald-700 text-white flex items-center justify-center text-[10px] font-bold shadow-[0_0_8px_rgba(6,95,70,0.45)] ring-1 ring-emerald-800/30">4</span>
+                            class="relative z-10 w-6 h-6 rounded-full bg-white text-gray-900 flex items-center justify-center text-[10px] font-black shadow-md">4</span>
                         </div>
                         <span
-                          class="text-[9px] font-bold text-emerald-800 dark:text-emerald-300 font-heading leading-tight">Delivered</span>
+                          class="text-[9px] font-bold text-white font-heading leading-tight">Delivered</span>
                       </div>
                       <!-- Step 5: Completed (Pending) -->
                       <div class="relative z-10 flex flex-col items-center gap-1 opacity-40">
@@ -9494,21 +9752,21 @@
 
               <!-- Main Content Container -->
               <div class="space-y-4 px-0">
-                <!-- 2. TOP CARD: Order Amount & 3-Step Dispute Stepper Card -->
+                <!-- 2. TOP CARD: Order Amount & 3-Step Dispute Stepper Card (Themed in Dispute Red) -->
                 <div
-                  class="pr-order-header-card p-3.5 sm:p-4">
+                  class="dispute-ongoing-header-card p-3.5 sm:p-4 text-white">
                   <div class="flex items-center justify-between">
                     <div>
                       <span
-                        class="text-[10px] font-bold text-neutral-400 dark:text-neutral-400 uppercase tracking-wider font-heading block">ORDER
+                        class="text-[10px] font-bold text-white/80 uppercase tracking-wider font-heading block">ORDER
                         AMOUNT</span>
                       <span
-                        class="disp-deal-price text-2xl font-black text-brand-dark dark:text-white font-heading block mt-0.5 tracking-tight">₦50,000</span>
+                        class="disp-deal-price text-2xl font-black text-white font-heading block mt-0.5 tracking-tight">₦50,000</span>
                     </div>
                     <button type="button" onclick="openPaymentReceiptModal()"
-                      class="flex items-center gap-1.5 text-brand-green dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 font-bold text-xs font-heading cursor-pointer transition-all active:scale-95 select-none p-1"
+                      class="flex items-center gap-1.5 text-white bg-white/20 hover:bg-white/30 rounded-xl px-3 py-1.5 font-bold text-xs font-heading cursor-pointer transition-all active:scale-95 select-none shadow-xs"
                       title="View Official Receipt">
-                      <svg class="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 24 24">
+                      <svg class="w-3.5 h-3.5 fill-current flex-shrink-0" viewBox="0 0 24 24">
                         <path
                           d="M4 2a2 2 0 0 0-2 2v17.5a.5.5 0 0 0 .78.41L6 20.15l3.22 1.76a.5.5 0 0 0 .56 0L13 20.15l3.22 1.76a.5.5 0 0 0 .56 0L20 20.15l3.22 1.76a.5.5 0 0 0 .78-.41V4a2 2 0 0 0-2-2H4zm3 5h10a1 1 0 0 1 0 2H7a1 1 0 1 1 0-2zm0 4h10a1 1 0 0 1 0 2H7a1 1 0 0 1 0-2zm0 4h6a1 1 0 0 1 0 2H7a1 1 0 0 1 0-2z" />
                       </svg>
@@ -9517,57 +9775,57 @@
                   </div>
 
                   <!-- Horizontal Separator & 3 Dispute Stepper States -->
-                  <div class="border-t border-[#EBE3D5]/80 dark:border-white/10 pt-2.5 mt-2.5">
+                  <div class="border-t border-white/20 pt-2.5 mt-2.5">
                     <span
-                      class="text-[10px] font-bold text-neutral-400 dark:text-neutral-400 uppercase tracking-wider font-heading block mb-2">DISPUTE
+                      class="text-[10px] font-bold text-white/80 uppercase tracking-wider font-heading block mb-2">DISPUTE
                       STATUS</span>
                     <div class="relative grid grid-cols-3 gap-1 text-center">
                       <!-- Connector 1 (Dispute Raised to CS Stepped In) -->
                       <div
                         class="absolute top-3 left-[16.66%] w-[33.33%] -translate-y-1/2 flex items-center justify-evenly px-3 pointer-events-none z-0">
-                        <span class="w-1 h-1 rounded-full bg-[#f59e0b]"></span>
-                        <span class="w-1 h-1 rounded-full bg-[#8278b0]"></span>
-                        <span class="w-1 h-1 rounded-full bg-[#0e5296]"></span>
+                        <span class="w-1 h-1 rounded-full bg-white/70"></span>
+                        <span class="w-1 h-1 rounded-full bg-white/70"></span>
+                        <span class="w-1 h-1 rounded-full bg-white/70"></span>
                       </div>
 
                       <!-- Connector 2 (CS Stepped In to Dispute Closed) -->
                       <div
                         class="absolute top-3 left-[50%] w-[33.33%] -translate-y-1/2 flex items-center justify-evenly px-3 pointer-events-none z-0">
-                        <span class="w-1 h-1 rounded-full bg-neutral-300 dark:bg-white/20"></span>
-                        <span class="w-1 h-1 rounded-full bg-neutral-300 dark:bg-white/20"></span>
-                        <span class="w-1 h-1 rounded-full bg-neutral-300 dark:bg-white/20"></span>
+                        <span class="w-1 h-1 rounded-full bg-white/30"></span>
+                        <span class="w-1 h-1 rounded-full bg-white/30"></span>
+                        <span class="w-1 h-1 rounded-full bg-white/30"></span>
                       </div>
 
-                      <!-- Step 1: Dispute Raised (Completed - Amber with check) -->
+                      <!-- Step 1: Dispute Raised (Completed - Amber / Light with check) -->
                       <div class="relative z-10 flex flex-col items-center gap-1">
                         <span
-                          class="w-6 h-6 rounded-full bg-amber-500 text-white flex items-center justify-center text-[10px] font-bold shadow-2xs">
-                          <span class="material-symbols-outlined text-[13px]">check</span>
+                          class="w-6 h-6 rounded-full bg-amber-400 text-amber-950 flex items-center justify-center text-[10px] font-black shadow-xs">
+                          <span class="material-symbols-outlined text-[13px] font-black">check</span>
                         </span>
                         <span
-                          class="text-[9px] font-bold text-amber-600 dark:text-amber-400 font-heading leading-tight">Dispute
+                          class="text-[9px] font-bold text-white font-heading leading-tight">Dispute
                           Raised</span>
                       </div>
 
-                      <!-- Step 2: CS Stepped In (Active - Brand Blue with subtle glow) -->
+                      <!-- Step 2: CS Stepped In (Active - White circle with Red text & subtle glow) -->
                       <div class="relative z-10 flex flex-col items-center gap-1">
                         <div class="relative w-6 h-6 flex items-center justify-center">
                           <span
-                            class="absolute inset-0 rounded-full bg-brand-blue/50 animate-subtle-glow pointer-events-none"></span>
+                            class="absolute inset-0 rounded-full bg-white/40 animate-subtle-glow pointer-events-none"></span>
                           <span
-                            class="relative z-10 w-6 h-6 rounded-full bg-brand-blue text-white flex items-center justify-center text-[10px] font-black shadow-[0_0_8px_rgba(14,82,150,0.45)] ring-1 ring-brand-blue/30">2</span>
+                            class="relative z-10 w-6 h-6 rounded-full bg-white text-red-600 flex items-center justify-center text-[10px] font-black shadow-md">2</span>
                         </div>
                         <span
-                          class="text-[9px] font-bold text-brand-blue dark:text-blue-400 font-heading leading-tight">CS
+                          class="text-[9px] font-black text-white font-heading leading-tight">CS
                           Stepped In</span>
                       </div>
 
-                      <!-- Step 3: Dispute Closed (Upcoming - Grey at 40% opacity) -->
-                      <div class="relative z-10 flex flex-col items-center gap-1 opacity-40">
+                      <!-- Step 3: Dispute Closed (Upcoming - Semi-transparent white) -->
+                      <div class="relative z-10 flex flex-col items-center gap-1 opacity-60">
                         <span
-                          class="w-6 h-6 rounded-full bg-neutral-200 dark:bg-white/10 text-neutral-500 dark:text-neutral-400 flex items-center justify-center text-[10px] font-medium">3</span>
+                          class="w-6 h-6 rounded-full bg-white/20 text-white flex items-center justify-center text-[10px] font-semibold">3</span>
                         <span
-                          class="text-[9px] font-medium text-neutral-500 dark:text-neutral-400 font-heading leading-tight">Dispute
+                          class="text-[9px] font-medium text-white/80 font-heading leading-tight">Dispute
                           Closed</span>
                       </div>
                     </div>
@@ -10446,7 +10704,7 @@
 
   <!-- Activity Receipt Bottom Sheet Modal (Prompts Smoothly from Bottom to Top) -->
   <div id="activity-receipt-modal"
-    class="fixed inset-0 bg-black/60 backdrop-blur-md z-[999999] flex items-end sm:items-center justify-center hidden opacity-0 transition-opacity duration-300"
+    class="fixed inset-0 bg-black/10 dark:bg-black/25 backdrop-blur-md z-[999999] flex items-end sm:items-center justify-center hidden opacity-0 transition-opacity duration-300"
     onclick="if(event.target===this) closeActivityReceipt();">
     <div
       class="bg-[#F4EFE6] dark:bg-[#121218] rounded-t-[32px] sm:rounded-3xl p-5 sm:p-6 max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl space-y-4 transform translate-y-full sm:translate-y-6 opacity-0 transition-all duration-500 ease-out border border-[#EBE3D5] dark:border-white/10 relative custom-scroll"
@@ -11123,7 +11381,11 @@
     const hiddenBalance = "₦••••••••";
     let activeSlideIndex = 0;
 
-    function setBalanceSlide(index) {
+    function setBalanceSlide(index, direction = 0) {
+      if (index < 0) index = slidesData.length - 1;
+      if (index >= slidesData.length) index = 0;
+
+      const prevIndex = activeSlideIndex;
       activeSlideIndex = index;
       const current = slidesData[activeSlideIndex];
 
@@ -11141,26 +11403,123 @@
 
       const displayAmt = isBalanceVisible ? current.amount : hiddenBalance;
 
+      // Determine slide direction for animation if not explicitly provided
+      if (direction === 0 && prevIndex !== activeSlideIndex) {
+        direction = activeSlideIndex > prevIndex ? 1 : -1;
+      }
+
+      const outX = direction > 0 ? "-24px" : (direction < 0 ? "24px" : "0px");
+      const inX = direction > 0 ? "24px" : (direction < 0 ? "-24px" : "0px");
+
       [mBal, dBal].forEach(el => {
         if (el) {
-          el.style.opacity = "0.2";
-          el.style.transform = "translateY(3px)";
+          el.style.transition = "transform 0.16s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.16s ease";
+          el.style.opacity = "0";
+          el.style.transform = `translateX(${outX})`;
           setTimeout(() => {
             el.innerText = displayAmt;
-            el.style.opacity = "1";
-            el.style.transform = "translateY(0)";
-          }, 150);
+            el.style.transition = "none";
+            el.style.transform = `translateX(${inX})`;
+            requestAnimationFrame(() => {
+              el.style.transition = "transform 0.22s cubic-bezier(0, 0, 0.2, 1), opacity 0.22s ease";
+              el.style.opacity = "1";
+              el.style.transform = "translateX(0px)";
+            });
+          }, 160);
         }
       });
 
-      if (mTag) mTag.innerText = current.tag;
-      if (dTag) dTag.innerText = current.tag;
+      [mTag, dTag].forEach(el => {
+        if (el) {
+          el.style.transition = "opacity 0.16s ease";
+          el.style.opacity = "0";
+          setTimeout(() => {
+            el.innerText = current.tag;
+            el.style.opacity = "1";
+          }, 160);
+        }
+      });
 
-      // Update Pagination Dots (2 Round Dots, Active Dot Filled)
-      if (mDot0) mDot0.className = activeSlideIndex === 0 ? "w-2.5 h-2.5 rounded-full bg-[#F4EFE6] scale-110 shadow-sm transition-all duration-300" : "w-2.5 h-2.5 rounded-full bg-white/30 hover:bg-white/60 transition-all duration-300";
-      if (mDot1) mDot1.className = activeSlideIndex === 1 ? "w-2.5 h-2.5 rounded-full bg-[#F4EFE6] scale-110 shadow-sm transition-all duration-300" : "w-2.5 h-2.5 rounded-full bg-white/30 hover:bg-white/60 transition-all duration-300";
-      if (dDot0) dDot0.className = activeSlideIndex === 0 ? "w-2.5 h-2.5 rounded-full bg-[#F4EFE6] scale-110 shadow-sm transition-all duration-300" : "w-2.5 h-2.5 rounded-full bg-white/30 hover:bg-white/60 transition-all duration-300";
-      if (dDot1) dDot1.className = activeSlideIndex === 1 ? "w-2.5 h-2.5 rounded-full bg-[#F4EFE6] scale-110 shadow-sm transition-all duration-300" : "w-2.5 h-2.5 rounded-full bg-white/30 hover:bg-white/60 transition-all duration-300";
+      // Update Pagination Dots (Active Dot Filled & Scaled)
+      if (mDot0) mDot0.className = activeSlideIndex === 0 ? "w-2.5 h-2.5 rounded-full bg-[#F4EFE6] scale-110 shadow-sm transition-all duration-300 cursor-pointer" : "w-2.5 h-2.5 rounded-full bg-white/30 hover:bg-white/60 transition-all duration-300 cursor-pointer";
+      if (mDot1) mDot1.className = activeSlideIndex === 1 ? "w-2.5 h-2.5 rounded-full bg-[#F4EFE6] scale-110 shadow-sm transition-all duration-300 cursor-pointer" : "w-2.5 h-2.5 rounded-full bg-white/30 hover:bg-white/60 transition-all duration-300 cursor-pointer";
+      if (dDot0) dDot0.className = activeSlideIndex === 0 ? "w-2.5 h-2.5 rounded-full bg-[#F4EFE6] scale-110 shadow-sm transition-all duration-300 cursor-pointer" : "w-2.5 h-2.5 rounded-full bg-white/30 hover:bg-white/60 transition-all duration-300 cursor-pointer";
+      if (dDot1) dDot1.className = activeSlideIndex === 1 ? "w-2.5 h-2.5 rounded-full bg-[#F4EFE6] scale-110 shadow-sm transition-all duration-300 cursor-pointer" : "w-2.5 h-2.5 rounded-full bg-white/30 hover:bg-white/60 transition-all duration-300 cursor-pointer";
+    }
+
+    function initBalanceSwipeGestures() {
+      const targets = [
+        document.getElementById("mobile-hero-card"),
+        document.getElementById("desktop-hero-card")
+      ].filter(Boolean);
+
+      targets.forEach(el => {
+        let startX = 0;
+        let startY = 0;
+        let isDragging = false;
+        let diffX = 0;
+        let isHorizontalSwipe = false;
+
+        // Touch gestures (Mobile)
+        el.addEventListener("touchstart", (e) => {
+          if (e.target.closest("button") || e.target.closest("a") || e.target.closest("input")) return;
+          startX = e.touches[0].clientX;
+          startY = e.touches[0].clientY;
+          isDragging = true;
+          diffX = 0;
+          isHorizontalSwipe = false;
+        }, { passive: true });
+
+        el.addEventListener("touchmove", (e) => {
+          if (!isDragging) return;
+          const currentX = e.touches[0].clientX;
+          const currentY = e.touches[0].clientY;
+          diffX = currentX - startX;
+          const diffY = currentY - startY;
+
+          if (!isHorizontalSwipe && Math.abs(diffX) > 10 && Math.abs(diffX) > Math.abs(diffY)) {
+            isHorizontalSwipe = true;
+          }
+        }, { passive: true });
+
+        el.addEventListener("touchend", () => {
+          if (!isDragging) return;
+          isDragging = false;
+          if (diffX < -30) {
+            // Swiped Left -> Next Slide
+            setBalanceSlide((activeSlideIndex + 1) % slidesData.length, 1);
+          } else if (diffX > 30) {
+            // Swiped Right -> Previous Slide
+            setBalanceSlide((activeSlideIndex - 1 + slidesData.length) % slidesData.length, -1);
+          }
+          diffX = 0;
+        });
+
+        // Mouse drag gestures (Desktop)
+        el.addEventListener("mousedown", (e) => {
+          if (e.target.closest("button") || e.target.closest("a") || e.target.closest("input")) return;
+          startX = e.clientX;
+          startY = e.clientY;
+          isDragging = true;
+          diffX = 0;
+        });
+
+        window.addEventListener("mousemove", (e) => {
+          if (!isDragging) return;
+          diffX = e.clientX - startX;
+        });
+
+        window.addEventListener("mouseup", () => {
+          if (!isDragging) return;
+          isDragging = false;
+          if (diffX < -35) {
+            setBalanceSlide((activeSlideIndex + 1) % slidesData.length, 1);
+          } else if (diffX > 35) {
+            setBalanceSlide((activeSlideIndex - 1 + slidesData.length) % slidesData.length, -1);
+          }
+          diffX = 0;
+        });
+      });
     }
 
     function toggleBalanceVisibility() {
@@ -11183,8 +11542,15 @@
 
     // Auto switch slides every 30 seconds
     setInterval(() => {
-      setBalanceSlide((activeSlideIndex + 1) % slidesData.length);
+      setBalanceSlide((activeSlideIndex + 1) % slidesData.length, 1);
     }, 30000);
+
+    // Initialize swipe gestures immediately
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initBalanceSwipeGestures);
+    } else {
+      initBalanceSwipeGestures();
+    }
 
     // Auto Withdraw Toggle Logic
     function toggleAutoWithdraw(checkbox) {
@@ -19793,7 +20159,7 @@
   <!-- PAYMENT RECEIPT BOTTOM SHEET / MODAL (MATCHING USER TEMPLATE)      -->
   <!-- ================================================================= -->
   <div id="payment-receipt-modal"
-    class="fixed inset-0 z-[999999] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-sm pointer-events-none invisible opacity-0 transition-all duration-300">
+    class="fixed inset-0 z-[999999] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/10 dark:bg-black/25 backdrop-blur-md pointer-events-none invisible opacity-0 transition-all duration-300">
     <!-- Clickable Backdrop -->
     <div id="receipt-backdrop" onclick="closePaymentReceiptModal()"
       class="absolute inset-0 bg-transparent"></div>
