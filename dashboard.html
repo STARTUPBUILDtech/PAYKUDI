@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html class="light" lang="en">
 
 <head>
@@ -507,15 +507,15 @@
 
     html.light .glass-card,
     html.light .card {
-      background: rgba(255, 255, 255, 0.45) !important;
-      backdrop-filter: blur(16px) !important;
-      -webkit-backdrop-filter: blur(16px) !important;
+      background: #F4EFE6 !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
       border-color: rgba(235, 227, 213, 0.8) !important;
     }
 
     html.light header:not(.dashboard-header) {
-      background-color: rgba(250, 247, 242, 0.75) !important;
-      backdrop-filter: blur(16px) !important;
+      background-color: #F4EFE6 !important;
+      backdrop-filter: none !important;
       border-color: #EBE3D5 !important;
     }
 
@@ -688,8 +688,8 @@
       color: #94A3B8 !important;
     }
 
-    html.dark .bg-gray-50,
-    html.dark .bg-gray-50\/80 {
+    html.dark .bg-[#EDE8DF],
+    html.dark .bg-[#EDE8DF]\/80 {
       background-color: rgba(255, 255, 255, 0.04) !important;
       backdrop-filter: blur(12px) !important;
     }
@@ -700,7 +700,7 @@
       color: #F1F5F9 !important;
     }
 
-    html.dark .hover\:bg-gray-50:hover,
+    html.dark .hover\:bg-[#EDE8DF]:hover,
     html.dark .hover\:bg-gray-100:hover {
       background-color: rgba(255, 255, 255, 0.08) !important;
     }
@@ -2515,7 +2515,7 @@
 
       <!-- Mobile Sticky Glass Header (For Sub-Views: Activity, Payment Room, Profile, Help) -->
       <header id="mobile-top-header"
-        class="flex-none bg-[#F4EFE6]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md z-[100000] relative px-3.5 py-2 flex justify-between items-center border-b border-gray-200/80 dark:border-white/10 shadow-xs hidden">
+        class="flex-none bg-[#F4EFE6] dark:bg-[#0B0F17] z-[100000] relative px-3.5 py-2 flex justify-between items-center border-b border-gray-200/80 dark:border-white/10 shadow-xs hidden">
         <button onclick="switchView('home')" class="flex items-center cursor-pointer">
           <img src="paykudi-logo.png" alt="PayKudi" style="height: 22px; max-height: 22px; width: auto;"
             class="h-[22px] max-h-[22px] w-auto object-contain dark:hidden" />
@@ -2917,7 +2917,7 @@
                     </div>
                     <button type="button" onclick="toggleCustomFilterOption('mobile', 'buying', event)"
                       id="m-opt-buying"
-                      class="m-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-gray-50 transition-all cursor-pointer">
+                      class="m-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-[#EDE8DF] transition-all cursor-pointer">
                       <span class="flex items-center gap-2">
                         <span
                           class="w-4 h-4 rounded-md border border-gray-300 flex items-center justify-center text-white text-[10px] transition-colors"
@@ -2929,7 +2929,7 @@
                     </button>
                     <button type="button" onclick="toggleCustomFilterOption('mobile', 'selling', event)"
                       id="m-opt-selling"
-                      class="m-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-gray-50 transition-all cursor-pointer">
+                      class="m-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-[#EDE8DF] transition-all cursor-pointer">
                       <span class="flex items-center gap-2">
                         <span
                           class="w-4 h-4 rounded-md border border-gray-300 flex items-center justify-center text-white text-[10px] transition-colors"
@@ -2941,7 +2941,7 @@
                     </button>
                     <button type="button" onclick="toggleCustomFilterOption('mobile', 'withdrawn', event)"
                       id="m-opt-withdrawn"
-                      class="m-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-gray-50 transition-all cursor-pointer">
+                      class="m-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-[#EDE8DF] transition-all cursor-pointer">
                       <span class="flex items-center gap-2">
                         <span
                           class="w-4 h-4 rounded-md border border-gray-300 flex items-center justify-center text-white text-[10px] transition-colors"
@@ -2958,7 +2958,7 @@
                         class="text-[9.5px] font-bold text-gray-400 uppercase tracking-wider font-heading block mb-1">Filter
                         by Date</label>
                       <div
-                        class="flex items-center bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-xl px-2.5 py-1.5 focus-within:ring-1 focus-within:ring-brand-blue focus-within:border-brand-blue transition-all">
+                        class="flex items-center bg-[#EDE8DF] hover:bg-gray-100 border border-gray-200 rounded-xl px-2.5 py-1.5 focus-within:ring-1 focus-within:ring-brand-blue focus-within:border-brand-blue transition-all">
                         <span
                           class="material-symbols-outlined text-[14px] text-gray-400 mr-2 pointer-events-none flex-shrink-0">calendar_month</span>
                         <div class="flex items-center text-[11px] font-medium text-brand-dark">
@@ -3130,7 +3130,7 @@
         <!-- MOBILE LANDING LIST -->
         <div id="m-pr-landing" class="max-w-3xl mx-auto w-full space-y-2.5">
           <!-- Top Grouping Tabs & Integrated Search/Filter (Pinned Fixed Sticky Header with Solid Background) -->
-          <div class="sticky top-0 z-30 bg-[#F4EFE6]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md -mx-3.5 sm:-mx-4 px-3.5 sm:px-4 pt-3 pb-2.5 flex items-center justify-between gap-2">
+          <div class="sticky top-0 z-30 bg-[#F4EFE6] dark:bg-[#0B0F17] -mx-3.5 sm:-mx-4 px-3.5 sm:px-4 pt-3 pb-2.5 flex items-center justify-between gap-2">
             <div class="flex items-center gap-1.5 flex-shrink-0">
               <button id="m-tab-ongoing" onclick="switchPRTab('ongoing')"
                 class="pr-tab-btn h-[34px] px-2.5 sm:px-3.5 rounded-xl font-heading text-xs font-bold transition-all bg-brand-blue text-white shadow-sm flex items-center gap-1.5 cursor-pointer">
@@ -3176,7 +3176,7 @@
                     </div>
                     <button type="button" onclick="togglePRCustomFilterOption('mobile', 'Buying', event)"
                       id="m-pr-opt-buying"
-                      class="m-pr-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-gray-50 transition-all cursor-pointer">
+                      class="m-pr-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-[#EDE8DF] transition-all cursor-pointer">
                       <span class="flex items-center gap-2">
                         <span
                           class="w-4 h-4 rounded-md border border-gray-300 flex items-center justify-center text-white text-[10px] transition-colors"
@@ -3188,7 +3188,7 @@
                     </button>
                     <button type="button" onclick="togglePRCustomFilterOption('mobile', 'Selling', event)"
                       id="m-pr-opt-selling"
-                      class="m-pr-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-gray-50 transition-all cursor-pointer">
+                      class="m-pr-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-[#EDE8DF] transition-all cursor-pointer">
                       <span class="flex items-center gap-2">
                         <span
                           class="w-4 h-4 rounded-md border border-gray-300 flex items-center justify-center text-white text-[10px] transition-colors"
@@ -3205,7 +3205,7 @@
                         class="text-[9.5px] font-bold text-gray-400 uppercase tracking-wider font-heading block mb-1">Filter
                         by Date</label>
                       <div
-                        class="flex items-center bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-xl px-2.5 py-1.5 focus-within:ring-1 focus-within:ring-brand-blue focus-within:border-brand-blue transition-all">
+                        class="flex items-center bg-[#EDE8DF] hover:bg-gray-100 border border-gray-200 rounded-xl px-2.5 py-1.5 focus-within:ring-1 focus-within:ring-brand-blue focus-within:border-brand-blue transition-all">
                         <span
                           class="material-symbols-outlined text-[14px] text-gray-400 mr-2 pointer-events-none flex-shrink-0">calendar_month</span>
                         <div class="flex items-center text-[11px] font-medium text-brand-dark">
@@ -3245,10 +3245,10 @@
           <div id="pr-sub-awaiting" class="pr-sub-screen w-full max-w-[420px] mx-auto hidden pb-4">
             <!-- Header: Clean transparent back button + Title + Help + Chat -->
             <div
-              class="sticky top-0 z-30 bg-[#F4EFE6]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-2.5 sm:px-3.5 py-3 flex items-center justify-between mb-3.5 gap-2.5">
+              class="sticky top-0 z-30 bg-[#F4EFE6] dark:bg-[#0B0F17] px-2.5 sm:px-3.5 py-3 flex items-center justify-between mb-3.5 gap-2.5">
               <div class="flex items-center gap-2.5 min-w-0 flex-1">
                 <button type="button" onclick="closePRDetail()"
-                  class="-ml-1 w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                  class="-ml-1 w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                   title="Back to list">
                   <span class="material-symbols-outlined text-[22px] leading-none select-none">arrow_back</span>
                 </button>
@@ -3258,7 +3258,7 @@
               <!-- Right Header Actions: Help Button + Chat Button -->
               <div class="flex items-center gap-2 flex-shrink-0">
                 <button type="button" onclick="openOrderHelpModal()"
-                  class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                  class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                   title="Help & Support">
                   <span
                     class="material-symbols-outlined text-[20px] leading-none select-none text-neutral-600 dark:text-neutral-300">help_outline</span>
@@ -3696,10 +3696,10 @@
           <div id="pr-sub-received" class="pr-sub-screen w-full max-w-[420px] mx-auto hidden pb-4">
             <!-- Header: Clean transparent back button + Title + Help + Chat -->
             <div
-              class="sticky top-0 z-30 bg-[#F4EFE6]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-2.5 sm:px-3.5 py-3 flex items-center justify-between mb-3.5 gap-2.5">
+              class="sticky top-0 z-30 bg-[#F4EFE6] dark:bg-[#0B0F17] px-2.5 sm:px-3.5 py-3 flex items-center justify-between mb-3.5 gap-2.5">
               <div class="flex items-center gap-2.5 min-w-0 flex-1">
                 <button type="button" onclick="closePRDetail()"
-                  class="-ml-1 w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                  class="-ml-1 w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                   title="Back to list">
                   <span class="material-symbols-outlined text-[22px] leading-none select-none">arrow_back</span>
                 </button>
@@ -3710,7 +3710,7 @@
               <!-- Right Header Actions: Help Button + Chat Button -->
               <div class="flex items-center gap-2 flex-shrink-0">
                 <button type="button" onclick="openOrderHelpModal()"
-                  class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                  class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                   title="Help & Support">
                   <span
                     class="material-symbols-outlined text-[20px] leading-none select-none text-neutral-600 dark:text-neutral-300">help_outline</span>
@@ -4168,10 +4168,10 @@
           <div id="pr-sub-transit" class="pr-sub-screen w-full max-w-[420px] mx-auto hidden pb-4">
             <!-- Header: Clean transparent back button + Title + Help + Chat -->
             <div
-              class="sticky top-0 z-30 bg-[#F4EFE6]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-2.5 sm:px-3.5 py-3 flex items-center justify-between mb-3.5 gap-2.5">
+              class="sticky top-0 z-30 bg-[#F4EFE6] dark:bg-[#0B0F17] px-2.5 sm:px-3.5 py-3 flex items-center justify-between mb-3.5 gap-2.5">
               <div class="flex items-center gap-2.5 min-w-0 flex-1">
                 <button type="button" onclick="closePRDetail()"
-                  class="-ml-1 w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                  class="-ml-1 w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                   title="Back to list">
                   <span class="material-symbols-outlined text-[22px] leading-none select-none">arrow_back</span>
                 </button>
@@ -4182,7 +4182,7 @@
               <!-- Right Header Actions: Help Button + Chat Button -->
               <div class="flex items-center gap-2 flex-shrink-0">
                 <button type="button" onclick="openOrderHelpModal()"
-                  class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                  class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                   title="Help & Support">
                   <span
                     class="material-symbols-outlined text-[20px] leading-none select-none text-neutral-600 dark:text-neutral-300">help_outline</span>
@@ -4629,10 +4629,10 @@
           <div id="pr-sub-verify" class="pr-sub-screen w-full max-w-[420px] mx-auto hidden pb-4">
             <!-- Header: Clean transparent back button + Title + Help + Chat -->
             <div
-              class="sticky top-0 z-30 bg-[#F4EFE6]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-2.5 sm:px-3.5 py-3 flex items-center justify-between mb-3.5 gap-2.5">
+              class="sticky top-0 z-30 bg-[#F4EFE6] dark:bg-[#0B0F17] px-2.5 sm:px-3.5 py-3 flex items-center justify-between mb-3.5 gap-2.5">
               <div class="flex items-center gap-2.5 min-w-0 flex-1">
                 <button type="button" onclick="closePRDetail()"
-                  class="-ml-1 w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                  class="-ml-1 w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                   title="Back to list">
                   <span class="material-symbols-outlined text-[22px] leading-none select-none">arrow_back</span>
                 </button>
@@ -4643,7 +4643,7 @@
               <!-- Right Header Actions: Help Button + Chat Button -->
               <div class="flex items-center gap-2 flex-shrink-0">
                 <button type="button" onclick="openOrderHelpModal()"
-                  class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                  class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                   title="Help & Support">
                   <span
                     class="material-symbols-outlined text-[20px] leading-none select-none text-neutral-600 dark:text-neutral-300">help_outline</span>
@@ -5134,7 +5134,7 @@
           <!-- SUB-ROOM 2: HELP & FAQS -->
           <div id="pr-sub-help" class="pr-sub-screen space-y-4 w-full max-w-2xl mx-auto hidden">
             <div
-              class="sticky top-0 z-30 bg-[#F4EFE6]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md -mx-4 px-4 py-3 flex items-center justify-between border-b border-gray-200/60 dark:border-white/10">
+              class="sticky top-0 z-30 bg-[#F4EFE6] dark:bg-[#0B0F17] -mx-4 px-4 py-3 flex items-center justify-between border-b border-gray-200/60 dark:border-white/10">
               <div class="flex items-center gap-3">
                 <button type="button" onclick="backFromPRSubScreen('')"
                   class="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 active:scale-95 text-brand-dark dark:text-gray-200 flex items-center justify-center transition-all cursor-pointer shadow-xs"
@@ -5207,7 +5207,7 @@
           <!-- SUB-ROOM 3: APPEAL / FILE DISPUTE -->
           <div id="pr-sub-appeal" class="pr-sub-screen space-y-4 w-full max-w-2xl mx-auto hidden">
             <div
-              class="sticky top-0 z-30 bg-[#F4EFE6]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md -mx-4 px-4 py-3 flex items-center justify-between border-b border-gray-200/60 dark:border-white/10">
+              class="sticky top-0 z-30 bg-[#F4EFE6] dark:bg-[#0B0F17] -mx-4 px-4 py-3 flex items-center justify-between border-b border-gray-200/60 dark:border-white/10">
               <div class="flex items-center gap-3">
                 <button type="button" onclick="switchPRSubScreen('help', '')"
                   class="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 active:scale-95 text-brand-dark dark:text-gray-200 flex items-center justify-center transition-all cursor-pointer shadow-xs"
@@ -5317,10 +5317,10 @@
           <div id="pr-sub-progress" class="pr-sub-screen w-full max-w-[420px] mx-auto hidden pb-4">
             <!-- 1. Header: Clean transparent back button + Title + Help + Chat -->
             <div
-              class="sticky top-0 z-30 bg-[#F4EFE6]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-2.5 sm:px-3.5 py-3 flex items-center justify-between mb-3.5 gap-2.5">
+              class="sticky top-0 z-30 bg-[#F4EFE6] dark:bg-[#0B0F17] px-2.5 sm:px-3.5 py-3 flex items-center justify-between mb-3.5 gap-2.5">
               <div class="flex items-center gap-2.5 min-w-0 flex-1">
                 <button type="button" onclick="closePRDetail()"
-                  class="-ml-1 w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                  class="-ml-1 w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                   title="Back to list">
                   <span class="material-symbols-outlined text-[22px] leading-none select-none">arrow_back</span>
                 </button>
@@ -5331,7 +5331,7 @@
               <!-- Right Header Actions: Help Button + Chat Button -->
               <div class="flex items-center gap-2 flex-shrink-0">
                 <button type="button" onclick="openOrderHelpModal()"
-                  class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                  class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                   title="Help & Support">
                   <span
                     class="material-symbols-outlined text-[20px] leading-none select-none text-neutral-600 dark:text-neutral-300">help_outline</span>
@@ -5564,10 +5564,10 @@
           <div id="pr-sub-completed" class="pr-sub-screen w-full max-w-[420px] mx-auto hidden pb-4">
             <!-- Header: Clean transparent back button + Title + "Switch role" text + Help + Chat -->
             <div
-              class="sticky top-0 z-30 bg-[#F4EFE6]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-2.5 sm:px-3.5 py-3 flex items-center justify-between mb-3.5 gap-2.5">
+              class="sticky top-0 z-30 bg-[#F4EFE6] dark:bg-[#0B0F17] px-2.5 sm:px-3.5 py-3 flex items-center justify-between mb-3.5 gap-2.5">
               <div class="flex items-center gap-2.5 min-w-0 flex-1">
                 <button type="button" onclick="closePRDetail()"
-                  class="-ml-1 w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                  class="-ml-1 w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                   title="Back to list">
                   <span class="material-symbols-outlined text-[22px] leading-none select-none">arrow_back</span>
                 </button>
@@ -5578,7 +5578,7 @@
               <!-- Right Header Actions: Help Button + Chat Button -->
               <div class="flex items-center gap-2 flex-shrink-0">
                 <button type="button" onclick="openOrderHelpModal()"
-                  class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                  class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                   title="Help & Support">
                   <span
                     class="material-symbols-outlined text-[20px] leading-none select-none text-neutral-600 dark:text-neutral-300">help_outline</span>
@@ -6048,9 +6048,9 @@
 
         <!-- Header: Profile (Centered Title, Flush with Top Header) -->
         <div
-          class="-mt-1 sticky top-0 z-30 bg-[#F4EFE6]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md -mx-4 px-4 pt-1 pb-2 flex items-center justify-between border-b border-transparent">
+          class="-mt-1 sticky top-0 z-30 bg-[#F4EFE6] dark:bg-[#0B0F17] -mx-4 px-4 pt-1 pb-2 flex items-center justify-between border-b border-transparent">
           <button type="button" onclick="switchView('home')"
-            class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+            class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
             title="Back to Dashboard">
             <span class="material-symbols-outlined text-[22px] leading-none select-none">arrow_back</span>
           </button>
@@ -6103,7 +6103,7 @@
 
           <!-- Row 2: Address -->
           <div onclick="openActionModal('Address')"
-            class="p-3 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-white/5 rounded-2xl transition-all cursor-pointer">
+            class="p-3 flex items-center justify-between hover:bg-[#EDE8DF] dark:hover:bg-white/5 rounded-2xl transition-all cursor-pointer">
             <div class="min-w-0 flex-1 pr-2">
               <p class="text-xs font-bold text-brand-dark font-heading truncate" id="m-profile-address-txt">14 Adeola
                 Odeku St, Victoria Island, Lagos</p>
@@ -6122,7 +6122,7 @@
 
           <!-- Row 4: Email Address -->
           <div onclick="openActionModal('Email Address')"
-            class="p-3 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-white/5 rounded-2xl transition-all cursor-pointer">
+            class="p-3 flex items-center justify-between hover:bg-[#EDE8DF] dark:hover:bg-white/5 rounded-2xl transition-all cursor-pointer">
             <div class="min-w-0 flex-1 pr-2">
               <p class="text-xs font-bold text-brand-dark font-heading" id="m-profile-email-txt">marcusvance@gmail.com
               </p>
@@ -6185,7 +6185,7 @@
               <div class="space-y-2 text-xs">
                 <!-- BVN Verification Row -->
                 <div
-                  class="bg-gray-50/80 dark:bg-white/5 border border-gray-200/80 dark:border-white/10 rounded-xl p-2.5 flex items-center justify-between">
+                  class="bg-[#EDE8DF] dark:bg-white/5 border border-gray-200/80 dark:border-white/10 rounded-xl p-2.5 flex items-center justify-between">
                   <div class="flex items-center gap-2.5">
                     <span
                       class="w-7 h-7 rounded-lg bg-blue-500/10 text-brand-blue flex items-center justify-center text-xs font-bold">
@@ -6204,7 +6204,7 @@
 
                 <!-- NIN Verification Row -->
                 <div
-                  class="bg-gray-50/80 dark:bg-white/5 border border-gray-200/80 dark:border-white/10 rounded-xl p-2.5 flex items-center justify-between">
+                  class="bg-[#EDE8DF] dark:bg-white/5 border border-gray-200/80 dark:border-white/10 rounded-xl p-2.5 flex items-center justify-between">
                   <div class="flex items-center gap-2.5">
                     <span
                       class="w-7 h-7 rounded-lg bg-brand-blue/10 text-brand-blue flex items-center justify-center text-xs font-bold">
@@ -6223,7 +6223,7 @@
 
                 <!-- Business Info Verification Row -->
                 <div
-                  class="bg-gray-50/80 dark:bg-white/5 border border-gray-200/80 dark:border-white/10 rounded-xl p-2.5 flex items-center justify-between">
+                  class="bg-[#EDE8DF] dark:bg-white/5 border border-gray-200/80 dark:border-white/10 rounded-xl p-2.5 flex items-center justify-between">
                   <div class="flex items-center gap-2.5">
                     <span
                       class="w-7 h-7 rounded-lg bg-emerald-500/10 text-brand-green flex items-center justify-center text-xs font-bold">
@@ -6253,7 +6253,7 @@
             class="card bg-[#F4EFE6] dark:bg-white/5 border border-gray-200/90 dark:border-white/10 rounded-3xl p-2 shadow-xs divide-y divide-gray-100 dark:divide-white/5">
             <!-- Statements & Reports -->
             <div onclick="openActionModal('Statements & Reports')"
-              class="p-3 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-white/5 rounded-2xl transition-all cursor-pointer">
+              class="p-3 flex items-center justify-between hover:bg-[#EDE8DF] dark:hover:bg-white/5 rounded-2xl transition-all cursor-pointer">
               <div class="flex items-center gap-3 min-w-0 flex-1">
                 <div
                   class="w-8 h-8 rounded-lg bg-teal-500/10 text-teal-600 flex items-center justify-center flex-shrink-0">
@@ -6269,7 +6269,7 @@
 
             <!-- Payout Bank Accounts -->
             <div onclick="openActionModal('Payout Accounts')"
-              class="seller-only p-3 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-white/5 rounded-2xl transition-all cursor-pointer">
+              class="seller-only p-3 flex items-center justify-between hover:bg-[#EDE8DF] dark:hover:bg-white/5 rounded-2xl transition-all cursor-pointer">
               <div class="flex items-center gap-3 min-w-0 flex-1">
                 <div
                   class="w-8 h-8 rounded-lg bg-emerald-500/10 text-brand-green flex items-center justify-center flex-shrink-0">
@@ -6285,7 +6285,7 @@
 
             <!-- Cashback & Rewards -->
             <div onclick="openPromoModal('referral')"
-              class="p-3 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-white/5 rounded-2xl transition-all cursor-pointer">
+              class="p-3 flex items-center justify-between hover:bg-[#EDE8DF] dark:hover:bg-white/5 rounded-2xl transition-all cursor-pointer">
               <div class="flex items-center gap-3 min-w-0 flex-1">
                 <div
                   class="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-600 flex items-center justify-center flex-shrink-0">
@@ -6307,7 +6307,7 @@
         <!-- Header with Back Button and Title -->
         <div class="flex items-center gap-3 pt-1 pb-1">
           <button type="button" onclick="switchView('profile')"
-            class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+            class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
             title="Back">
             <span class="material-symbols-outlined text-[22px] leading-none select-none">arrow_back</span>
           </button>
@@ -6480,7 +6480,7 @@
 
         <!-- Theme Changer Toggle -->
         <button onclick="toggleTheme()" id="d-theme-toggle-btn"
-          class="w-full flex items-center justify-between bg-gray-50 hover:bg-gray-100 dark:bg-white/5 dark:hover:bg-white/10 border border-gray-200/80 dark:border-white/10 px-3 py-2 rounded-2xl transition-all font-heading text-xs cursor-pointer whitespace-nowrap min-w-0">
+          class="w-full flex items-center justify-between bg-[#EDE8DF] hover:bg-gray-100 dark:bg-white/5 dark:hover:bg-white/10 border border-gray-200/80 dark:border-white/10 px-3 py-2 rounded-2xl transition-all font-heading text-xs cursor-pointer whitespace-nowrap min-w-0">
           <div class="flex items-center gap-2 text-brand-dark dark:text-gray-200 font-semibold min-w-0 truncate">
             <span
               class="material-symbols-outlined text-[18px] text-amber-500 dark:hidden flex-shrink-0">light_mode</span>
@@ -6775,7 +6775,7 @@
                       </div>
                       <button type="button" onclick="toggleCustomFilterOption('desktop', 'buying', event)"
                         id="d-opt-buying"
-                        class="d-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-gray-50 transition-all cursor-pointer">
+                        class="d-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-[#EDE8DF] transition-all cursor-pointer">
                         <span class="flex items-center gap-2">
                           <span
                             class="w-4 h-4 rounded-md border border-gray-300 flex items-center justify-center text-white text-[10px] transition-colors"
@@ -6787,7 +6787,7 @@
                       </button>
                       <button type="button" onclick="toggleCustomFilterOption('desktop', 'selling', event)"
                         id="d-opt-selling"
-                        class="d-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-gray-50 transition-all cursor-pointer">
+                        class="d-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-[#EDE8DF] transition-all cursor-pointer">
                         <span class="flex items-center gap-2">
                           <span
                             class="w-4 h-4 rounded-md border border-gray-300 flex items-center justify-center text-white text-[10px] transition-colors"
@@ -6799,7 +6799,7 @@
                       </button>
                       <button type="button" onclick="toggleCustomFilterOption('desktop', 'withdrawn', event)"
                         id="d-opt-withdrawn"
-                        class="d-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-gray-50 transition-all cursor-pointer">
+                        class="d-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-[#EDE8DF] transition-all cursor-pointer">
                         <span class="flex items-center gap-2">
                           <span
                             class="w-4 h-4 rounded-md border border-gray-300 flex items-center justify-center text-white text-[10px] transition-colors"
@@ -6816,7 +6816,7 @@
                           class="text-[9.5px] font-bold text-gray-400 uppercase tracking-wider font-heading block mb-1">Filter
                           by Date</label>
                         <div
-                          class="flex items-center bg-gray-50 hover:bg-gray-100 dark:bg-white/5 dark:hover:bg-white/10 border border-gray-200 dark:border-white/10 rounded-xl px-2.5 py-2 focus-within:ring-1 focus-within:ring-brand-blue focus-within:border-brand-blue transition-all h-9">
+                          class="flex items-center bg-[#EDE8DF] hover:bg-gray-100 dark:bg-white/5 dark:hover:bg-white/10 border border-gray-200 dark:border-white/10 rounded-xl px-2.5 py-2 focus-within:ring-1 focus-within:ring-brand-blue focus-within:border-brand-blue transition-all h-9">
                           <span
                             class="material-symbols-outlined text-[15px] text-gray-400 mr-1.5 pointer-events-none flex-shrink-0">calendar_month</span>
                           <div class="flex items-center text-xs font-semibold text-brand-dark dark:text-white">
@@ -6990,7 +6990,7 @@
 
         <!-- Sticky Header: Profile -->
         <div
-          class="-mt-3 sticky top-0 z-30 bg-[#F4EFE6]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md -mx-4 px-4 pt-3 pb-2 flex items-center justify-between">
+          class="-mt-3 sticky top-0 z-30 bg-[#F4EFE6] dark:bg-[#0B0F17] -mx-4 px-4 pt-3 pb-2 flex items-center justify-between">
           <h1 class="fluid-title-lg font-extrabold text-brand-dark dark:text-white font-heading">
             <span>Profile</span>
           </h1>
@@ -7033,7 +7033,7 @@
             class="card bg-[#F4EFE6] dark:bg-white/5 border border-gray-200/90 dark:border-white/10 rounded-3xl p-3 shadow-xs divide-y divide-gray-100 dark:divide-white/5">
             <!-- Statements & Reports -->
             <div onclick="openActionModal('Statements & Reports')"
-              class="p-3 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-white/5 rounded-2xl transition-all cursor-pointer">
+              class="p-3 flex items-center justify-between hover:bg-[#EDE8DF] dark:hover:bg-white/5 rounded-2xl transition-all cursor-pointer">
               <div class="flex items-center gap-3 min-w-0 flex-1">
                 <div
                   class="w-9 h-9 rounded-lg bg-teal-500/10 text-teal-600 flex items-center justify-center flex-shrink-0">
@@ -7049,7 +7049,7 @@
 
             <!-- Payout Bank Accounts -->
             <div onclick="openActionModal('Payout Accounts')"
-              class="seller-only p-3 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-white/5 rounded-2xl transition-all cursor-pointer">
+              class="seller-only p-3 flex items-center justify-between hover:bg-[#EDE8DF] dark:hover:bg-white/5 rounded-2xl transition-all cursor-pointer">
               <div class="flex items-center gap-3 min-w-0 flex-1">
                 <div
                   class="w-9 h-9 rounded-lg bg-emerald-500/10 text-brand-green flex items-center justify-center flex-shrink-0">
@@ -7065,7 +7065,7 @@
 
             <!-- Cashback & Rewards -->
             <div onclick="openPromoModal('referral')"
-              class="p-3 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-white/5 rounded-2xl transition-all cursor-pointer">
+              class="p-3 flex items-center justify-between hover:bg-[#EDE8DF] dark:hover:bg-white/5 rounded-2xl transition-all cursor-pointer">
               <div class="flex items-center gap-3 min-w-0 flex-1">
                 <div
                   class="w-9 h-9 rounded-lg bg-amber-500/10 text-amber-600 flex items-center justify-center flex-shrink-0">
@@ -7090,7 +7090,7 @@
               </div>
             </div>
             <div onclick="openActionModal('Address')"
-              class="p-3 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-white/5 rounded-2xl transition-all cursor-pointer">
+              class="p-3 flex items-center justify-between hover:bg-[#EDE8DF] dark:hover:bg-white/5 rounded-2xl transition-all cursor-pointer">
               <div class="min-w-0 flex-1 pr-2">
                 <p class="text-xs font-bold text-brand-dark font-heading truncate" id="d-profile-address-txt">14
                   Adeola Odeku St, Victoria Island, Lagos</p>
@@ -7106,7 +7106,7 @@
               </div>
             </div>
             <div onclick="openActionModal('Email Address')"
-              class="p-3 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-white/5 rounded-2xl transition-all cursor-pointer">
+              class="p-3 flex items-center justify-between hover:bg-[#EDE8DF] dark:hover:bg-white/5 rounded-2xl transition-all cursor-pointer">
               <div class="min-w-0 flex-1 pr-2">
                 <p class="text-xs font-bold text-brand-dark font-heading" id="d-profile-email-txt">
                   marcusvance@gmail.com</p>
@@ -7120,7 +7120,7 @@
           <div class="flex flex-col gap-4">
             <!-- Get Help Card -->
             <div onclick="switchView('help')"
-              class="card bg-[#F4EFE6] dark:bg-white/5 border border-gray-200/90 dark:border-white/10 rounded-3xl p-3 sm:p-3.5 shadow-xs hover:bg-gray-50 dark:hover:bg-white/5 transition-all cursor-pointer flex items-center justify-between">
+              class="card bg-[#F4EFE6] dark:bg-white/5 border border-gray-200/90 dark:border-white/10 rounded-3xl p-3 sm:p-3.5 shadow-xs hover:bg-[#EDE8DF] dark:hover:bg-white/5 transition-all cursor-pointer flex items-center justify-between">
               <div class="flex items-center gap-3.5 min-w-0 flex-1">
                 <div
                   class="w-10 h-10 rounded-xl bg-red-500/10 text-red-500 flex items-center justify-center flex-shrink-0">
@@ -7166,7 +7166,7 @@
                 <div class="space-y-2.5 text-xs">
                   <!-- BVN Verification Row -->
                   <div
-                    class="bg-gray-50/80 dark:bg-white/5 border border-gray-200/80 dark:border-white/10 rounded-xl p-3 flex items-center justify-between">
+                    class="bg-[#EDE8DF] dark:bg-white/5 border border-gray-200/80 dark:border-white/10 rounded-xl p-3 flex items-center justify-between">
                     <div class="flex items-center gap-3">
                       <span
                         class="w-8 h-8 rounded-lg bg-blue-500/10 text-brand-blue flex items-center justify-center text-xs font-bold">
@@ -7184,7 +7184,7 @@
 
                   <!-- NIN Verification Row -->
                   <div
-                    class="bg-gray-50/80 dark:bg-white/5 border border-gray-200/80 dark:border-white/10 rounded-xl p-3 flex items-center justify-between">
+                    class="bg-[#EDE8DF] dark:bg-white/5 border border-gray-200/80 dark:border-white/10 rounded-xl p-3 flex items-center justify-between">
                     <div class="flex items-center gap-3">
                       <span
                         class="w-8 h-8 rounded-lg bg-brand-blue/10 text-brand-blue flex items-center justify-center text-xs font-bold">
@@ -7202,7 +7202,7 @@
 
                   <!-- Business Info Verification Row -->
                   <div
-                    class="bg-gray-50/80 dark:bg-white/5 border border-gray-200/80 dark:border-white/10 rounded-xl p-3 flex items-center justify-between">
+                    class="bg-[#EDE8DF] dark:bg-white/5 border border-gray-200/80 dark:border-white/10 rounded-xl p-3 flex items-center justify-between">
                     <div class="flex items-center gap-3">
                       <span
                         class="w-8 h-8 rounded-lg bg-emerald-500/10 text-brand-green flex items-center justify-center text-xs font-bold">
@@ -7312,7 +7312,7 @@
           class="max-w-6xl mx-auto w-full space-y-4 flex-1 h-full overflow-y-auto custom-scroll pb-6">
           <!-- Top Grouping Tabs & Search/Filter (Unscrollable Seamless Header) -->
           <div
-            class="-mt-4 sticky top-0 z-30 bg-[#F4EFE6]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md -mx-4 px-4 pt-4 pb-3 flex items-center justify-between gap-3 mb-2 flex-wrap">
+            class="-mt-4 sticky top-0 z-30 bg-[#F4EFE6] dark:bg-[#0B0F17] -mx-4 px-4 pt-4 pb-3 flex items-center justify-between gap-3 mb-2 flex-wrap">
             <div class="flex items-center gap-3 flex-shrink-0">
               <button id="d-tab-ongoing" onclick="switchPRTab('ongoing')"
                 class="pr-tab-btn h-[38px] px-5 rounded-xl font-heading text-xs font-bold transition-all bg-brand-blue text-white shadow-sm flex items-center gap-2.5 cursor-pointer">
@@ -7360,7 +7360,7 @@
                     </div>
                     <button type="button" onclick="togglePRCustomFilterOption('desktop', 'Buying', event)"
                       id="d-pr-opt-buying"
-                      class="d-pr-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-gray-50 transition-all cursor-pointer">
+                      class="d-pr-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-[#EDE8DF] transition-all cursor-pointer">
                       <span class="flex items-center gap-2">
                         <span
                           class="w-4 h-4 rounded-md border border-gray-300 flex items-center justify-center text-white text-[10px] transition-colors"
@@ -7372,7 +7372,7 @@
                     </button>
                     <button type="button" onclick="togglePRCustomFilterOption('desktop', 'Selling', event)"
                       id="d-pr-opt-selling"
-                      class="d-pr-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-gray-50 transition-all cursor-pointer">
+                      class="d-pr-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-[#EDE8DF] transition-all cursor-pointer">
                       <span class="flex items-center gap-2">
                         <span
                           class="w-4 h-4 rounded-md border border-gray-300 flex items-center justify-center text-white text-[10px] transition-colors"
@@ -7389,7 +7389,7 @@
                         class="text-[9.5px] font-bold text-gray-400 uppercase tracking-wider font-heading block mb-1">Filter
                         by Date</label>
                       <div
-                        class="flex items-center bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-xl px-2.5 py-1.5 focus-within:ring-1 focus-within:ring-brand-blue focus-within:border-brand-blue transition-all">
+                        class="flex items-center bg-[#EDE8DF] hover:bg-gray-100 border border-gray-200 rounded-xl px-2.5 py-1.5 focus-within:ring-1 focus-within:ring-brand-blue focus-within:border-brand-blue transition-all">
                         <span
                           class="material-symbols-outlined text-[14px] text-gray-400 mr-2 pointer-events-none flex-shrink-0">calendar_month</span>
                         <div class="flex items-center text-[11px] font-medium text-brand-dark">
@@ -7430,10 +7430,10 @@
                 <div id="d-pr-sub-awaiting" class="pr-sub-screen w-full hidden pb-4">
               <!-- Header: Clean transparent back button + Title + "Switch role" text + Help + Chat -->
               <div
-                class="sticky top-0 z-30 bg-[#F4EFE6]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-1 py-2.5 flex items-center justify-between mb-3.5 gap-2.5">
+                class="sticky top-0 z-30 bg-[#F4EFE6] dark:bg-[#0B0F17] px-1 py-2.5 flex items-center justify-between mb-3.5 gap-2.5">
                 <div class="flex items-center gap-2.5 min-w-0 flex-1">
                   <button type="button" onclick="closePRDetail()"
-                    class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Back to list">
                     <span class="material-symbols-outlined text-[20px] leading-none select-none">arrow_back</span>
                   </button>
@@ -7449,7 +7449,7 @@
                 <!-- Right Header Actions: Help Button -->
                 <div class="flex items-center gap-2 flex-shrink-0">
                   <button type="button" onclick="openOrderHelpModal()"
-                    class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Help & Support">
                     <span
                       class="material-symbols-outlined text-[20px] leading-none select-none text-neutral-600 dark:text-neutral-300">help_outline</span>
@@ -7880,10 +7880,10 @@
             <div id="d-pr-sub-received" class="pr-sub-screen w-full hidden pb-4">
               <!-- Header: Clean transparent back button + Title + "Switch role" text + Help + Chat -->
               <div
-                class="sticky top-0 z-30 bg-[#F4EFE6]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-1 py-2.5 flex items-center justify-between mb-3.5 gap-2.5">
+                class="sticky top-0 z-30 bg-[#F4EFE6] dark:bg-[#0B0F17] px-1 py-2.5 flex items-center justify-between mb-3.5 gap-2.5">
                 <div class="flex items-center gap-2.5 min-w-0 flex-1">
                   <button type="button" onclick="closePRDetail()"
-                    class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Back to list">
                     <span class="material-symbols-outlined text-[20px] leading-none select-none">arrow_back</span>
                   </button>
@@ -7899,7 +7899,7 @@
                 <!-- Right Header Actions: Help Button -->
                 <div class="flex items-center gap-2 flex-shrink-0">
                   <button type="button" onclick="openOrderHelpModal()"
-                    class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Help & Support">
                     <span
                       class="material-symbols-outlined text-[20px] leading-none select-none text-neutral-600 dark:text-neutral-300">help_outline</span>
@@ -8355,10 +8355,10 @@
             <div id="d-pr-sub-transit" class="pr-sub-screen w-full hidden pb-4">
               <!-- Header: Clean transparent back button + Title + "Switch role" text + Help + Chat -->
               <div
-                class="sticky top-0 z-30 bg-[#F4EFE6]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-1 py-2.5 flex items-center justify-between mb-3.5 gap-2.5">
+                class="sticky top-0 z-30 bg-[#F4EFE6] dark:bg-[#0B0F17] px-1 py-2.5 flex items-center justify-between mb-3.5 gap-2.5">
                 <div class="flex items-center gap-2.5 min-w-0 flex-1">
                   <button type="button" onclick="closePRDetail()"
-                    class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Back to list">
                     <span class="material-symbols-outlined text-[20px] leading-none select-none">arrow_back</span>
                   </button>
@@ -8374,7 +8374,7 @@
                 <!-- Right Header Actions: Help Button -->
                 <div class="flex items-center gap-2 flex-shrink-0">
                   <button type="button" onclick="openOrderHelpModal()"
-                    class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Help & Support">
                     <span
                       class="material-symbols-outlined text-[20px] leading-none select-none text-neutral-600 dark:text-neutral-300">help_outline</span>
@@ -8815,10 +8815,10 @@
             <div id="d-pr-sub-verify" class="pr-sub-screen w-full hidden pb-4">
               <!-- Header: Clean transparent back button + Title + "Switch role" text + Help -->
               <div
-                class="sticky top-0 z-30 bg-[#F4EFE6]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-1 py-2.5 flex items-center justify-between mb-3.5 gap-2.5">
+                class="sticky top-0 z-30 bg-[#F4EFE6] dark:bg-[#0B0F17] px-1 py-2.5 flex items-center justify-between mb-3.5 gap-2.5">
                 <div class="flex items-center gap-2.5 min-w-0 flex-1">
                   <button type="button" onclick="closePRDetail()"
-                    class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Back to list">
                     <span class="material-symbols-outlined text-[20px] leading-none select-none">arrow_back</span>
                   </button>
@@ -8834,7 +8834,7 @@
                 <!-- Right Header Actions: Help Button -->
                 <div class="flex items-center gap-2 flex-shrink-0">
                   <button type="button" onclick="openOrderHelpModal()"
-                    class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Help & Support">
                     <span
                       class="material-symbols-outlined text-[20px] leading-none select-none text-neutral-600 dark:text-neutral-300">help_outline</span>
@@ -9302,7 +9302,7 @@
 
             <div id="d-pr-sub-help" class="pr-sub-screen space-y-4 w-full max-w-2xl mx-auto hidden">
               <div
-                class="sticky top-0 z-30 bg-[#F4EFE6]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md -mx-4 px-4 py-3 flex items-center justify-between border-b border-gray-200/60 dark:border-white/10">
+                class="sticky top-0 z-30 bg-[#F4EFE6] dark:bg-[#0B0F17] -mx-4 px-4 py-3 flex items-center justify-between border-b border-gray-200/60 dark:border-white/10">
                 <div class="flex items-center gap-3">
                   <button type="button" onclick="backFromPRSubScreen('d-')"
                     class="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 active:scale-95 text-brand-dark dark:text-gray-200 flex items-center justify-center transition-all cursor-pointer"
@@ -9362,7 +9362,7 @@
             <!-- SUB-ROOM 3: APPEAL / FILE DISPUTE -->
             <div id="d-pr-sub-appeal" class="pr-sub-screen space-y-4 w-full max-w-2xl mx-auto hidden">
               <div
-                class="sticky top-0 z-30 bg-[#F4EFE6]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md -mx-4 px-4 py-3 flex items-center justify-between border-b border-gray-200/60 dark:border-white/10">
+                class="sticky top-0 z-30 bg-[#F4EFE6] dark:bg-[#0B0F17] -mx-4 px-4 py-3 flex items-center justify-between border-b border-gray-200/60 dark:border-white/10">
                 <div class="flex items-center gap-3">
                   <button type="button" onclick="switchPRSubScreen('help', 'd-')"
                     class="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 active:scale-95 text-brand-dark dark:text-gray-200 flex items-center justify-center transition-all cursor-pointer"
@@ -9465,10 +9465,10 @@
             <div id="d-pr-sub-progress" class="pr-sub-screen w-full hidden pb-4">
               <!-- 1. Header: Clean transparent back button + Title + "Switch role" text + Help + Chat -->
               <div
-                class="sticky top-0 z-30 bg-[#F4EFE6]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-1 py-2.5 flex items-center justify-between mb-3.5 gap-2.5">
+                class="sticky top-0 z-30 bg-[#F4EFE6] dark:bg-[#0B0F17] px-1 py-2.5 flex items-center justify-between mb-3.5 gap-2.5">
                 <div class="flex items-center gap-2.5 min-w-0 flex-1">
                   <button type="button" onclick="closePRDetail()"
-                    class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Back to list">
                     <span class="material-symbols-outlined text-[20px] leading-none select-none">arrow_back</span>
                   </button>
@@ -9483,7 +9483,7 @@
                 <!-- Right Header Actions: Help Button -->
                 <div class="flex items-center gap-2 flex-shrink-0">
                   <button type="button" onclick="openOrderHelpModal()"
-                    class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Help & Support">
                     <span
                       class="material-symbols-outlined text-[20px] leading-none select-none text-neutral-600 dark:text-neutral-300">help_outline</span>
@@ -9708,10 +9708,10 @@
             <div id="d-pr-sub-completed" class="pr-sub-screen w-full hidden pb-4">
               <!-- Header: Clean transparent back button + Title + "Switch role" text + Help + Chat -->
               <div
-                class="sticky top-0 z-30 bg-[#F4EFE6]/95 dark:bg-[#0B0F17]/95 backdrop-blur-md px-1 py-2.5 flex items-center justify-between mb-3.5 gap-2.5">
+                class="sticky top-0 z-30 bg-[#F4EFE6] dark:bg-[#0B0F17] px-1 py-2.5 flex items-center justify-between mb-3.5 gap-2.5">
                 <div class="flex items-center gap-2.5 min-w-0 flex-1">
                   <button type="button" onclick="closePRDetail()"
-                    class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Back to list">
                     <span class="material-symbols-outlined text-[20px] leading-none select-none">arrow_back</span>
                   </button>
@@ -9727,7 +9727,7 @@
                 <!-- Right Header Actions: Help Button -->
                 <div class="flex items-center gap-2 flex-shrink-0">
                   <button type="button" onclick="openOrderHelpModal()"
-                    class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-neutral-50 dark:hover:bg-white/15 active:scale-95 transition-all"
+                    class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#181A20] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Help & Support">
                     <span
                       class="material-symbols-outlined text-[20px] leading-none select-none text-neutral-600 dark:text-neutral-300">help_outline</span>
@@ -10202,7 +10202,7 @@
                 </div>
 
                 <!-- Chat Messages Stream -->
-                <div id="d-pr-chat-messages" class="flex-1 min-h-[340px] overflow-y-auto p-4 space-y-3 custom-scroll bg-[#F4EFE6]/30 dark:bg-white/5">
+                <div id="d-pr-chat-messages" class="flex-1 min-h-[340px] overflow-y-auto p-4 space-y-3 custom-scroll bg-[#F4EFE6] dark:bg-white/5">
                   <!-- Standalone Protection Notice -->
                   <div class="flex items-center justify-center gap-1 my-2 text-[11px] text-neutral-400 dark:text-neutral-500 font-medium select-none text-center">
                     <span class="material-symbols-outlined text-[14px] text-brand-green dark:text-emerald-400 flex-shrink-0">verified_user</span>
@@ -10286,7 +10286,7 @@
             </div>
           </div>
           <div onclick="openActionModal('Address')"
-            class="p-3.5 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-white/5 rounded-2xl cursor-pointer">
+            class="p-3.5 flex items-center justify-between hover:bg-[#EDE8DF] dark:hover:bg-white/5 rounded-2xl cursor-pointer">
             <div>
               <p class="text-xs font-bold text-brand-dark dark:text-white font-heading" id="d-profile-address-txt">14
                 Adeola Odeku St, Victoria Island, Lagos</p>
@@ -10302,7 +10302,7 @@
             </div>
           </div>
           <div onclick="openActionModal('Email Address')"
-            class="p-3.5 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-white/5 rounded-2xl cursor-pointer">
+            class="p-3.5 flex items-center justify-between hover:bg-[#EDE8DF] dark:hover:bg-white/5 rounded-2xl cursor-pointer">
             <div>
               <p class="text-xs font-bold text-brand-dark dark:text-white font-heading" id="d-profile-email-txt">
                 marcusvance@gmail.com</p>
@@ -10576,7 +10576,7 @@
       <div class="space-y-3">
         <!-- 1. Transaction Amount Card -->
         <div
-          class="bg-gray-50/80 dark:bg-white/5 border border-gray-200/80 dark:border-white/10 rounded-2xl p-3.5 space-y-2">
+          class="bg-[#EDE8DF] dark:bg-white/5 border border-gray-200/80 dark:border-white/10 rounded-2xl p-3.5 space-y-2">
           <div class="flex items-center justify-between border-b border-gray-200/60 dark:border-white/10 pb-2.5">
             <div>
               <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider font-heading block">Transaction
@@ -14069,7 +14069,7 @@
         return `
           <div class="help-faq-card bg-[#F4EFE6] dark:bg-[#181A20] border border-gray-200/80 dark:border-white/10 rounded-2xl overflow-hidden transition-all shadow-xs">
             <button type="button" onclick="toggleHelpFaqAccordion(this)"
-              class="w-full p-3.5 flex items-center justify-between text-left gap-3 hover:bg-gray-50/80 dark:hover:bg-white/5 transition-colors cursor-pointer select-none">
+              class="w-full p-3.5 flex items-center justify-between text-left gap-3 hover:bg-[#EDE8DF] dark:hover:bg-white/5 transition-colors cursor-pointer select-none">
               <span class="text-xs font-bold text-brand-dark dark:text-white font-heading flex items-start gap-2">
                 <span class="text-[#0E5296] dark:text-blue-400 font-black">Q:</span>
                 <span>${item.q}</span>
@@ -15116,7 +15116,7 @@
           var isSelected = (item.key === hiddenInput.value);
           var highlightCls = isSelected
             ? 'font-bold bg-brand-green/10 text-brand-green dark:bg-brand-green/20 dark:text-emerald-400'
-            : 'font-medium hover:bg-neutral-50 dark:hover:bg-white/5 text-brand-dark dark:text-white';
+            : 'font-medium hover:bg-[#EDE8DF] dark:hover:bg-white/5 text-brand-dark dark:text-white';
           return '<div class="custom-option text-xs py-2.5 px-3.5 cursor-pointer transition-colors ' + highlightCls + '" ' +
             'onclick="selectAppealReasonOption(\'' + item.key + '\', \'' + item.label.replace(/'/g, "\\'") + '\', this, event)">' +
             '<span>' + item.label + '</span>' +
@@ -16540,7 +16540,7 @@
             ? '<span class="px-2 py-0.5 rounded-full text-[9.5px] font-extrabold bg-brand-green text-white font-heading">ACTIVE</span>'
             : '<button onclick="selectProfilePayoutAccount(' + idx + ')" class="px-2.5 py-1 rounded-xl bg-brand-blue/10 hover:bg-brand-blue/20 text-brand-blue text-[10.5px] font-bold font-heading transition-all cursor-pointer">Set Active</button>';
 
-          var bgClass = isActive ? 'bg-emerald-50/80 dark:bg-emerald-950/40 border-emerald-300/80 dark:border-emerald-500/40' : 'bg-gray-50/80 dark:bg-white/5 border-gray-200/80 dark:border-white/10';
+          var bgClass = isActive ? 'bg-emerald-50/80 dark:bg-emerald-950/40 border-emerald-300/80 dark:border-emerald-500/40' : 'bg-[#EDE8DF] dark:bg-white/5 border-gray-200/80 dark:border-white/10';
 
           return '<div class="p-3.5 ' + bgClass + ' border rounded-2xl flex items-center justify-between transition-all">' +
             '<div class="flex items-center gap-3 min-w-0 flex-1 pr-2">' +
@@ -16711,7 +16711,7 @@
                 </div>
               </div>
 
-              <div class="bg-gray-50 dark:bg-white/5 border border-gray-200/90 dark:border-white/10 rounded-2xl p-3.5 space-y-2">
+              <div class="bg-[#EDE8DF] dark:bg-white/5 border border-gray-200/90 dark:border-white/10 rounded-2xl p-3.5 space-y-2">
                 <p class="text-[10px] font-semibold text-gray-500 uppercase tracking-wider font-heading">Your Exclusive Referral Link</p>
                 <div class="flex items-center gap-2">
                   <input type="text" readonly value="https://paykudi.com/join?ref=PK-MARCUS" class="flex-1 bg-[#F4EFE6] dark:bg-black/40 border border-gray-200 dark:border-white/15 rounded-xl px-3 py-2 text-xs font-mono font-bold text-brand-dark dark:text-white" />
@@ -16780,7 +16780,7 @@
                 </div>
               </div>
 
-              <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 rounded-2xl p-3 space-y-1.5">
+              <div class="bg-[#EDE8DF] dark:bg-white/5 border border-gray-200 rounded-2xl p-3 space-y-1.5">
                 <div class="flex justify-between items-center text-[11px] font-bold">
                   <span>Your Current Progress</span>
                   <span class="text-brand-green font-heading">3 / 5 Deals Completed</span>
@@ -17538,7 +17538,7 @@
           <p class="text-[10px] text-neutral-500 dark:text-neutral-400 mt-0.5">Official dispatch receipt verified by
             courier</p>
           <div
-            class="mt-3 p-2.5 w-full rounded-xl bg-neutral-50 dark:bg-white/5 border border-[#EBE3D5] dark:border-white/10 text-left font-mono text-[10px] text-neutral-600 dark:text-neutral-300 space-y-1">
+            class="mt-3 p-2.5 w-full rounded-xl bg-[#EDE8DF] dark:bg-white/5 border border-[#EBE3D5] dark:border-white/10 text-left font-mono text-[10px] text-neutral-600 dark:text-neutral-300 space-y-1">
             <div class="flex justify-between"><span class="text-neutral-400 dark:text-neutral-500">Waybill ID:</span>
               <span class="text-brand-green dark:text-emerald-400 font-bold">WB-8839210-DHL</span>
             </div>
@@ -17564,7 +17564,7 @@
           <p class="text-[10px] text-neutral-500 dark:text-neutral-400 mt-0.5">Tamper-evident verification tape applied
             to box opening</p>
           <div
-            class="mt-3 p-2.5 w-full rounded-xl bg-neutral-50 dark:bg-white/5 border border-[#EBE3D5] dark:border-white/10 text-left font-mono text-[10px] text-neutral-600 dark:text-neutral-300 space-y-1">
+            class="mt-3 p-2.5 w-full rounded-xl bg-[#EDE8DF] dark:bg-white/5 border border-[#EBE3D5] dark:border-white/10 text-left font-mono text-[10px] text-neutral-600 dark:text-neutral-300 space-y-1">
             <div class="flex justify-between"><span class="text-neutral-400 dark:text-neutral-500">Seal Code:</span>
               <span class="text-purple-600 dark:text-purple-400 font-bold">SEAL-PK99201</span>
             </div>
@@ -17770,48 +17770,48 @@
                     <span class="material-symbols-outlined absolute left-2.5 text-[15px] text-gray-400">search</span>
                     <input type="text" id="courier-search-input" oninput="filterCourierOptions(this.value)"
                       placeholder="Search couriers..."
-                      class="w-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl pl-8 pr-3 py-1.5 text-xs text-brand-dark dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-green/40" />
+                      class="w-full bg-[#EDE8DF] dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl pl-8 pr-3 py-1.5 text-xs text-brand-dark dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-green/40" />
                   </div>
                 </div>
 
                 <div class="divide-y divide-gray-100 dark:divide-white/5" id="courier-options-list">
                   <div
-                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-neutral-50 dark:hover:bg-white/5 cursor-pointer transition-colors"
+                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-[#EDE8DF] dark:hover:bg-white/5 cursor-pointer transition-colors"
                     onclick="selectCourierOption('GIG Logistics', this, event)">
                     <span>GIG Logistics</span>
                   </div>
                   <div
-                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-neutral-50 dark:hover:bg-white/5 cursor-pointer transition-colors"
+                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-[#EDE8DF] dark:hover:bg-white/5 cursor-pointer transition-colors"
                     onclick="selectCourierOption('DHL Express', this, event)">
                     <span>DHL Express</span>
                   </div>
                   <div
-                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-neutral-50 dark:hover:bg-white/5 cursor-pointer transition-colors"
+                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-[#EDE8DF] dark:hover:bg-white/5 cursor-pointer transition-colors"
                     onclick="selectCourierOption('FedEx Nigeria', this, event)">
                     <span>FedEx Nigeria</span>
                   </div>
                   <div
-                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-neutral-50 dark:hover:bg-white/5 cursor-pointer transition-colors"
+                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-[#EDE8DF] dark:hover:bg-white/5 cursor-pointer transition-colors"
                     onclick="selectCourierOption('Chowdeck Rider / Flash Courier', this, event)">
                     <span>Chowdeck Rider / Flash Courier</span>
                   </div>
                   <div
-                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-neutral-50 dark:hover:bg-white/5 cursor-pointer transition-colors"
+                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-[#EDE8DF] dark:hover:bg-white/5 cursor-pointer transition-colors"
                     onclick="selectCourierOption('In-House Dispatch Rider', this, event)">
                     <span>In-House Dispatch Rider</span>
                   </div>
                   <div
-                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-neutral-50 dark:hover:bg-white/5 cursor-pointer transition-colors"
+                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-[#EDE8DF] dark:hover:bg-white/5 cursor-pointer transition-colors"
                     onclick="selectCourierOption('Kwese Courier', this, event)">
                     <span>Kwese Courier</span>
                   </div>
                   <div
-                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-neutral-50 dark:hover:bg-white/5 cursor-pointer transition-colors"
+                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-[#EDE8DF] dark:hover:bg-white/5 cursor-pointer transition-colors"
                     onclick="selectCourierOption('Interstate Bus / Park Waybill', this, event)">
                     <span>Interstate Bus / Park Waybill</span>
                   </div>
                   <div
-                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-neutral-50 dark:hover:bg-white/5 cursor-pointer transition-colors"
+                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-[#EDE8DF] dark:hover:bg-white/5 cursor-pointer transition-colors"
                     onclick="selectCourierOption('Other Courier Service', this, event)">
                     <span>Other Courier Service</span>
                   </div>
@@ -19412,7 +19412,7 @@
               </div>
 
               <!-- Interactive Feedback Card -->
-              <div class="p-2.5 rounded-xl bg-neutral-50 dark:bg-white/5 border border-[#EBE3D5] dark:border-white/10 space-y-2 pt-2">
+              <div class="p-2.5 rounded-xl bg-[#EDE8DF] dark:bg-white/5 border border-[#EBE3D5] dark:border-white/10 space-y-2 pt-2">
                 <span class="text-[11px] font-bold text-neutral-500 dark:text-neutral-400 block font-heading text-center">
                   Did this solve your problem?
                 </span>
@@ -19571,7 +19571,7 @@
         return `
           <div class="help-faq-card border border-[#EBE3D5] dark:border-white/10 bg-[#F4EFE6] dark:bg-[#181A20] rounded-2xl overflow-hidden transition-all shadow-2xs">
             <button type="button" onclick="toggleHelpFaqAccordion(this)"
-              class="w-full p-3.5 flex items-start justify-between text-left gap-2.5 hover:bg-neutral-50 dark:hover:bg-white/5 transition-colors cursor-pointer select-none">
+              class="w-full p-3.5 flex items-start justify-between text-left gap-2.5 hover:bg-[#EDE8DF] dark:hover:bg-white/5 transition-colors cursor-pointer select-none">
               <div class="flex items-start gap-2 min-w-0 flex-1">
                 <span class="text-amber-600 dark:text-amber-400 font-extrabold text-[11px] font-heading mt-0.5 flex-shrink-0">Q:</span>
                 <span class="text-[11.5px] sm:text-xs font-bold text-brand-dark dark:text-white font-heading leading-snug break-words flex-1 min-w-0 pr-1">${item.q}</span>
@@ -19868,7 +19868,7 @@
             <span id="receipt-modal-btn-text">Download Receipt</span>
           </button>
           <button type="button" onclick="sharePaymentRoomReceipt()"
-            class="w-full py-3.5 px-4 bg-[#F4EFE6] dark:bg-white/10 hover:bg-gray-50 dark:hover:bg-white/15 text-brand-dark dark:text-white text-sm font-bold font-heading rounded-xl flex justify-center items-center gap-2 border border-gray-200 dark:border-white/10 transition-all duration-200 cursor-pointer active:scale-[0.99]">
+            class="w-full py-3.5 px-4 bg-[#F4EFE6] dark:bg-white/10 hover:bg-[#EDE8DF] dark:hover:bg-white/15 text-brand-dark dark:text-white text-sm font-bold font-heading rounded-xl flex justify-center items-center gap-2 border border-gray-200 dark:border-white/10 transition-all duration-200 cursor-pointer active:scale-[0.99]">
             <i class="fa-solid fa-share-nodes text-xs"></i>
             <span>Share</span>
           </button>
@@ -20425,7 +20425,7 @@
           <p class="text-[10px] text-neutral-500 dark:text-neutral-400 mt-0.5">Official dispatch receipt verified by
             courier</p>
           <div
-            class="mt-3 p-2.5 w-full rounded-xl bg-neutral-50 dark:bg-white/5 border border-[#EBE3D5] dark:border-white/10 text-left font-mono text-[10px] text-neutral-600 dark:text-neutral-300 space-y-1">
+            class="mt-3 p-2.5 w-full rounded-xl bg-[#EDE8DF] dark:bg-white/5 border border-[#EBE3D5] dark:border-white/10 text-left font-mono text-[10px] text-neutral-600 dark:text-neutral-300 space-y-1">
             <div class="flex justify-between"><span class="text-neutral-400 dark:text-neutral-500">Waybill ID:</span>
               <span class="text-brand-green dark:text-emerald-400 font-bold">WB-8839210-DHL</span>
             </div>
@@ -20451,7 +20451,7 @@
           <p class="text-[10px] text-neutral-500 dark:text-neutral-400 mt-0.5">Tamper-evident verification tape applied
             to box opening</p>
           <div
-            class="mt-3 p-2.5 w-full rounded-xl bg-neutral-50 dark:bg-white/5 border border-[#EBE3D5] dark:border-white/10 text-left font-mono text-[10px] text-neutral-600 dark:text-neutral-300 space-y-1">
+            class="mt-3 p-2.5 w-full rounded-xl bg-[#EDE8DF] dark:bg-white/5 border border-[#EBE3D5] dark:border-white/10 text-left font-mono text-[10px] text-neutral-600 dark:text-neutral-300 space-y-1">
             <div class="flex justify-between"><span class="text-neutral-400 dark:text-neutral-500">Seal Code:</span>
               <span class="text-purple-600 dark:text-purple-400 font-bold">SEAL-PK99201</span>
             </div>
@@ -20657,48 +20657,48 @@
                     <span class="material-symbols-outlined absolute left-2.5 text-[15px] text-gray-400">search</span>
                     <input type="text" id="courier-search-input" oninput="filterCourierOptions(this.value)"
                       placeholder="Search couriers..."
-                      class="w-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl pl-8 pr-3 py-1.5 text-xs text-brand-dark dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-green/40" />
+                      class="w-full bg-[#EDE8DF] dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl pl-8 pr-3 py-1.5 text-xs text-brand-dark dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-green/40" />
                   </div>
                 </div>
 
                 <div class="divide-y divide-gray-100 dark:divide-white/5" id="courier-options-list">
                   <div
-                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-neutral-50 dark:hover:bg-white/5 cursor-pointer transition-colors"
+                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-[#EDE8DF] dark:hover:bg-white/5 cursor-pointer transition-colors"
                     onclick="selectCourierOption('GIG Logistics', this, event)">
                     <span>GIG Logistics</span>
                   </div>
                   <div
-                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-neutral-50 dark:hover:bg-white/5 cursor-pointer transition-colors"
+                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-[#EDE8DF] dark:hover:bg-white/5 cursor-pointer transition-colors"
                     onclick="selectCourierOption('DHL Express', this, event)">
                     <span>DHL Express</span>
                   </div>
                   <div
-                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-neutral-50 dark:hover:bg-white/5 cursor-pointer transition-colors"
+                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-[#EDE8DF] dark:hover:bg-white/5 cursor-pointer transition-colors"
                     onclick="selectCourierOption('FedEx Nigeria', this, event)">
                     <span>FedEx Nigeria</span>
                   </div>
                   <div
-                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-neutral-50 dark:hover:bg-white/5 cursor-pointer transition-colors"
+                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-[#EDE8DF] dark:hover:bg-white/5 cursor-pointer transition-colors"
                     onclick="selectCourierOption('Chowdeck Rider / Flash Courier', this, event)">
                     <span>Chowdeck Rider / Flash Courier</span>
                   </div>
                   <div
-                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-neutral-50 dark:hover:bg-white/5 cursor-pointer transition-colors"
+                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-[#EDE8DF] dark:hover:bg-white/5 cursor-pointer transition-colors"
                     onclick="selectCourierOption('In-House Dispatch Rider', this, event)">
                     <span>In-House Dispatch Rider</span>
                   </div>
                   <div
-                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-neutral-50 dark:hover:bg-white/5 cursor-pointer transition-colors"
+                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-[#EDE8DF] dark:hover:bg-white/5 cursor-pointer transition-colors"
                     onclick="selectCourierOption('Kwese Courier', this, event)">
                     <span>Kwese Courier</span>
                   </div>
                   <div
-                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-neutral-50 dark:hover:bg-white/5 cursor-pointer transition-colors"
+                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-[#EDE8DF] dark:hover:bg-white/5 cursor-pointer transition-colors"
                     onclick="selectCourierOption('Interstate Bus / Park Waybill', this, event)">
                     <span>Interstate Bus / Park Waybill</span>
                   </div>
                   <div
-                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-neutral-50 dark:hover:bg-white/5 cursor-pointer transition-colors"
+                    class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-[#EDE8DF] dark:hover:bg-white/5 cursor-pointer transition-colors"
                     onclick="selectCourierOption('Other Courier Service', this, event)">
                     <span>Other Courier Service</span>
                   </div>
@@ -21177,7 +21177,7 @@
       </div>
 
       <!-- Sticky Action Bar: Report Issue (Full Red) & Chat with Paykudi -->
-      <div class="p-3 sm:px-5 bg-[#F4EFE6]/95 dark:bg-[#181A20]/95 backdrop-blur-md border-t border-[#EBE3D5]/80 dark:border-white/10 flex items-center gap-2.5 flex-shrink-0">
+      <div class="p-3 sm:px-5 bg-[#F4EFE6] dark:bg-[#181A20]/95 border-t border-[#EBE3D5]/80 dark:border-white/10 flex items-center gap-2.5 flex-shrink-0">
         <button type="button" onclick="transitionOrderHelpToAppeal()"
           class="flex-1 py-3 px-3 rounded-xl bg-red-600 hover:bg-red-700 active:scale-98 text-white font-bold text-xs font-heading shadow-md shadow-red-600/20 flex items-center justify-center gap-1.5 transition-all cursor-pointer">
           <span class="material-symbols-outlined text-[16px]">gavel</span>
@@ -21375,7 +21375,7 @@
         <div id="support-view-message" class="support-sub-view flex flex-col h-full hidden overflow-hidden">
 
           <!-- Chat Stream Messages Container -->
-          <div id="support-agent-chat-messages" class="flex-1 overflow-y-auto p-4 space-y-3 custom-scroll bg-[#F4EFE6]/40 dark:bg-white/5 min-h-[300px]">
+          <div id="support-agent-chat-messages" class="flex-1 overflow-y-auto p-4 space-y-3 custom-scroll bg-[#F4EFE6] dark:bg-white/5 min-h-[300px]">
             <!-- Dynamic Messages will be rendered by renderSupportAgentChat() -->
           </div>
 
