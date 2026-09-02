@@ -2638,16 +2638,22 @@
         font-size: 18px !important;
       }
 
+      .pr-protection-note,
       #m-pr-detail .pr-protection-note,
       #d-pr-detail .pr-protection-note,
       #m-pr-detail .seller-protection-note,
       #d-pr-detail .seller-protection-note {
-        margin-top: auto !important;
-        margin-bottom: clamp(0.15rem, 0.5cqh, 0.35rem) !important;
-        padding-top: clamp(0.35rem, 0.8cqh, 0.55rem) !important;
-        padding-bottom: clamp(0.15rem, 0.4cqh, 0.25rem) !important;
+        margin-top: 4px !important;
+        margin-bottom: 2px !important;
+        padding-top: 2px !important;
+        padding-bottom: 2px !important;
         flex-shrink: 0 !important;
         width: 100% !important;
+      }
+
+      #m-pr-detail .pr-sub-screen,
+      #d-pr-detail .pr-sub-screen {
+        padding-bottom: 4px !important;
       }
 
       #m-pr-detail .pr-sub-screen :is(button, a, span, p, div),
@@ -3507,7 +3513,7 @@
                 <button type="button" onclick="closePRDetail()"
                   class="-ml-1 w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#141414] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                   title="Back to list">
-                  <span class="material-symbols-outlined text-[22px] leading-none select-none">arrow_back</span>
+                  <span class="material-symbols-outlined text-[22px] leading-none select-none">chevron_left</span>
                 </button>
                 <h2 class="text-base sm:text-lg font-black text-brand-dark dark:text-white font-heading truncate leading-tight">Awaiting Payment</h2>
               </div>
@@ -3958,7 +3964,7 @@
                 <button type="button" onclick="closePRDetail()"
                   class="-ml-1 w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#141414] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                   title="Back to list">
-                  <span class="material-symbols-outlined text-[22px] leading-none select-none">arrow_back</span>
+                  <span class="material-symbols-outlined text-[22px] leading-none select-none">chevron_left</span>
                 </button>
                 <h2 class="text-base sm:text-lg font-black text-brand-dark dark:text-white font-heading truncate leading-tight">Payment
                   Received</h2>
@@ -4430,7 +4436,7 @@
                 <button type="button" onclick="closePRDetail()"
                   class="-ml-1 w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#141414] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                   title="Back to list">
-                  <span class="material-symbols-outlined text-[22px] leading-none select-none">arrow_back</span>
+                  <span class="material-symbols-outlined text-[22px] leading-none select-none">chevron_left</span>
                 </button>
                 <h2 class="text-base sm:text-lg font-black text-brand-dark dark:text-white font-heading truncate leading-tight">In
                   Transit</h2>
@@ -4891,7 +4897,7 @@
                 <button type="button" onclick="closePRDetail()"
                   class="-ml-1 w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#141414] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                   title="Back to list">
-                  <span class="material-symbols-outlined text-[22px] leading-none select-none">arrow_back</span>
+                  <span class="material-symbols-outlined text-[22px] leading-none select-none">chevron_left</span>
                 </button>
                 <h2 class="text-base sm:text-lg font-black text-brand-dark dark:text-white font-heading truncate leading-tight">Confirm
                   Delivery</h2>
@@ -5396,7 +5402,7 @@
                 <button type="button" onclick="backFromPRSubScreen('')"
                   class="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 active:scale-95 text-brand-dark dark:text-gray-200 flex items-center justify-center transition-all cursor-pointer shadow-xs"
                   title="Back">
-                  <span class="material-symbols-outlined text-[22px]">arrow_back</span>
+                  <span class="material-symbols-outlined text-[22px]">chevron_left</span>
                 </button>
                 <h2 class="text-base sm:text-lg font-black text-brand-dark dark:text-white font-heading">Help</h2>
               </div>
@@ -5469,7 +5475,7 @@
                 <button type="button" onclick="switchPRSubScreen('help', '')"
                   class="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 active:scale-95 text-brand-dark dark:text-gray-200 flex items-center justify-center transition-all cursor-pointer shadow-xs"
                   title="Back to help">
-                  <span class="material-symbols-outlined text-[22px]">arrow_back</span>
+                  <span class="material-symbols-outlined text-[22px]">chevron_left</span>
                 </button>
                 <h2 class="text-base sm:text-lg font-black text-brand-dark dark:text-white font-heading">Appeal</h2>
               </div>
@@ -5579,7 +5585,7 @@
                 <button type="button" onclick="closePRDetail()"
                   class="-ml-1 w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#141414] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                   title="Back to list">
-                  <span class="material-symbols-outlined text-[22px] leading-none select-none">arrow_back</span>
+                  <span class="material-symbols-outlined text-[22px] leading-none select-none">chevron_left</span>
                 </button>
                 <h2 class="text-base sm:text-lg font-black text-brand-dark dark:text-white font-heading truncate leading-tight">Dispute
                   Ongoing</h2>
@@ -5826,7 +5832,7 @@
                 <button type="button" onclick="closePRDetail()"
                   class="-ml-1 w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#141414] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                   title="Back to list">
-                  <span class="material-symbols-outlined text-[22px] leading-none select-none">arrow_back</span>
+                  <span class="material-symbols-outlined text-[22px] leading-none select-none">chevron_left</span>
                 </button>
                 <h2 class="text-base sm:text-lg font-black text-brand-dark dark:text-white font-heading truncate leading-tight">
                   Completed</h2>
@@ -6309,7 +6315,7 @@
           <button type="button" onclick="switchView('home')"
             class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#141414] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
             title="Back to Dashboard">
-            <span class="material-symbols-outlined text-[22px] leading-none select-none">arrow_back</span>
+            <span class="material-symbols-outlined text-[22px] leading-none select-none">chevron_left</span>
           </button>
           <h2 class="text-base sm:text-lg font-black text-brand-dark dark:text-white font-heading text-center flex-1">
             Profile
@@ -6566,7 +6572,7 @@
           <button type="button" onclick="switchView('profile')"
             class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#141414] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
             title="Back">
-            <span class="material-symbols-outlined text-[22px] leading-none select-none">arrow_back</span>
+            <span class="material-symbols-outlined text-[22px] leading-none select-none">chevron_left</span>
           </button>
           <h2 class="text-base sm:text-lg font-black text-brand-dark dark:text-white font-heading">24/7 PayKudi Support</h2>
         </div>
@@ -7694,7 +7700,7 @@
                   <button type="button" onclick="closePRDetail()"
                     class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#141414] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Back to list">
-                    <span class="material-symbols-outlined text-[20px] leading-none select-none">arrow_back</span>
+                    <span class="material-symbols-outlined text-[20px] leading-none select-none">chevron_left</span>
                   </button>
                   <h2 class="text-base sm:text-lg lg:text-xl font-black text-brand-dark dark:text-white font-heading truncate">
                     Awaiting Payment</h2>
@@ -8144,7 +8150,7 @@
                   <button type="button" onclick="closePRDetail()"
                     class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#141414] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Back to list">
-                    <span class="material-symbols-outlined text-[20px] leading-none select-none">arrow_back</span>
+                    <span class="material-symbols-outlined text-[20px] leading-none select-none">chevron_left</span>
                   </button>
                   <h2 class="text-base sm:text-lg lg:text-xl font-black text-brand-dark dark:text-white font-heading truncate">
                     Payment Received</h2>
@@ -8619,7 +8625,7 @@
                   <button type="button" onclick="closePRDetail()"
                     class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#141414] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Back to list">
-                    <span class="material-symbols-outlined text-[20px] leading-none select-none">arrow_back</span>
+                    <span class="material-symbols-outlined text-[20px] leading-none select-none">chevron_left</span>
                   </button>
                   <h2 class="text-base sm:text-lg lg:text-xl font-black text-brand-dark dark:text-white font-heading truncate">In
                     Transit</h2>
@@ -9079,7 +9085,7 @@
                   <button type="button" onclick="closePRDetail()"
                     class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#141414] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Back to list">
-                    <span class="material-symbols-outlined text-[20px] leading-none select-none">arrow_back</span>
+                    <span class="material-symbols-outlined text-[20px] leading-none select-none">chevron_left</span>
                   </button>
                   <h2 class="text-base sm:text-lg lg:text-xl font-black text-brand-dark dark:text-white font-heading truncate">
                     Confirm Delivery</h2>
@@ -9566,7 +9572,7 @@
                   <button type="button" onclick="backFromPRSubScreen('d-')"
                     class="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 active:scale-95 text-brand-dark dark:text-gray-200 flex items-center justify-center transition-all cursor-pointer"
                     title="Back">
-                    <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+                    <span class="material-symbols-outlined text-[20px]">chevron_left</span>
                   </button>
                   <h2 class="text-lg sm:text-xl font-black text-brand-dark dark:text-white font-heading">Help</h2>
                 </div>
@@ -9626,7 +9632,7 @@
                   <button type="button" onclick="switchPRSubScreen('help', 'd-')"
                     class="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 active:scale-95 text-brand-dark dark:text-gray-200 flex items-center justify-center transition-all cursor-pointer"
                     title="Back to help">
-                    <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+                    <span class="material-symbols-outlined text-[20px]">chevron_left</span>
                   </button>
                   <h2 class="text-lg sm:text-xl font-black text-brand-dark dark:text-white font-heading">Appeal</h2>
                 </div>
@@ -9729,7 +9735,7 @@
                   <button type="button" onclick="closePRDetail()"
                     class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#141414] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Back to list">
-                    <span class="material-symbols-outlined text-[20px] leading-none select-none">arrow_back</span>
+                    <span class="material-symbols-outlined text-[20px] leading-none select-none">chevron_left</span>
                   </button>
                   <h2 class="text-base sm:text-lg lg:text-xl font-black text-brand-dark dark:text-white font-heading truncate">
                     Dispute Ongoing</h2>
@@ -9972,7 +9978,7 @@
                   <button type="button" onclick="closePRDetail()"
                     class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#141414] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-2xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
                     title="Back to list">
-                    <span class="material-symbols-outlined text-[20px] leading-none select-none">arrow_back</span>
+                    <span class="material-symbols-outlined text-[20px] leading-none select-none">chevron_left</span>
                   </button>
                   <h2 class="text-base sm:text-lg lg:text-xl font-black text-brand-dark dark:text-white font-heading truncate">
                     Completed</h2>
@@ -17571,7 +17577,7 @@
           <button type="button" onclick="showShippingStatusMainView()"
             class="w-8 h-8 rounded-full flex items-center justify-center text-brand-dark dark:text-white hover:text-brand-green hover:bg-black/5 dark:hover:bg-white/10 transition-all cursor-pointer flex-shrink-0 -ml-1"
             title="Back">
-            <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+            <span class="material-symbols-outlined text-[20px]">chevron_left</span>
           </button>
           <h3 class="text-sm font-black text-brand-dark dark:text-white font-heading truncate">Proof of Shipping</h3>
         </div>
@@ -17581,7 +17587,7 @@
           <button type="button" id="ss-media-back-btn" onclick="backFromShippingProofDetail()"
             class="w-8 h-8 rounded-full flex items-center justify-center text-brand-dark dark:text-white hover:text-brand-green hover:bg-black/5 dark:hover:bg-white/10 transition-all cursor-pointer flex-shrink-0 -ml-1"
             title="Back">
-            <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+            <span class="material-symbols-outlined text-[20px]">chevron_left</span>
           </button>
           <h3 id="ss-media-header-title"
             class="text-sm font-black text-brand-dark dark:text-white font-heading truncate">Package Box</h3>
@@ -18743,7 +18749,7 @@
           <button type="button" id="withdraw-back-to-form-btn" onclick="showWithdrawStep('form')"
             class="hidden w-7 h-7 rounded-full bg-neutral-200/60 dark:bg-white/10 text-neutral-700 dark:text-neutral-200 flex items-center justify-center hover:bg-neutral-200 dark:hover:bg-white/20 transition-all cursor-pointer mr-0.5"
             title="Back to Edit">
-            <span class="material-symbols-outlined text-[17px]">arrow_back</span>
+            <span class="material-symbols-outlined text-[17px]">chevron_left</span>
           </button>
           <h3 id="withdraw-modal-title" class="text-base font-black text-brand-dark dark:text-white font-heading">Payout</h3>
         </div>
@@ -20458,7 +20464,7 @@
           <button type="button" onclick="showShippingStatusMainView()"
             class="w-8 h-8 rounded-full flex items-center justify-center text-brand-dark dark:text-white hover:text-brand-green hover:bg-black/5 dark:hover:bg-white/10 transition-all cursor-pointer flex-shrink-0 -ml-1"
             title="Back">
-            <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+            <span class="material-symbols-outlined text-[20px]">chevron_left</span>
           </button>
           <h3 class="text-sm font-black text-brand-dark dark:text-white font-heading truncate">Proof of Shipping</h3>
         </div>
@@ -20468,7 +20474,7 @@
           <button type="button" id="ss-media-back-btn" onclick="backFromShippingProofDetail()"
             class="w-8 h-8 rounded-full flex items-center justify-center text-brand-dark dark:text-white hover:text-brand-green hover:bg-black/5 dark:hover:bg-white/10 transition-all cursor-pointer flex-shrink-0 -ml-1"
             title="Back">
-            <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+            <span class="material-symbols-outlined text-[20px]">chevron_left</span>
           </button>
           <h3 id="ss-media-header-title"
             class="text-sm font-black text-brand-dark dark:text-white font-heading truncate">Package Box</h3>
@@ -21579,7 +21585,7 @@
           <button type="button" id="support-header-back-btn" onclick="switchSupportView('hub')"
             class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center transition-all cursor-pointer flex-shrink-0 active:scale-95 hidden"
             title="Back">
-            <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+            <span class="material-symbols-outlined text-[18px]">chevron_left</span>
           </button>
           <span id="support-header-icon" class="material-symbols-outlined text-[20px] hidden">smart_toy</span>
           <h3 id="support-header-title" class="text-sm sm:text-base font-extrabold text-white font-heading truncate">
