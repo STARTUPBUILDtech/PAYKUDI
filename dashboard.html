@@ -1703,7 +1703,7 @@
       #m-pr-list-container .pr-room-card {
         padding: clamp(0.75rem, 2.2cqw, 1.15rem) !important;
         gap: clamp(0.35rem, 1cqw, 0.6rem) !important;
-        border-radius: clamp(0.9rem, 1.6cqw, 1.15rem) !important;
+        border-radius: 0px !important;
       }
 
       /* Desktop Payment Room: Compact Rectangular Boxed Cards System */
@@ -1719,7 +1719,7 @@
         height: auto !important;
         padding: 0.85rem 1.15rem !important;
         gap: 0.45rem !important;
-        border-radius: 1rem !important;
+        border-radius: 0px !important;
         display: flex !important;
         flex-direction: column !important;
         justify-content: flex-start !important;
@@ -1779,7 +1779,7 @@
         border-radius: 0px !important;
       }
 
-      /* PAYMENT ROOM CARDS: MATCH PROFILE COLOR & PREVIOUS RADIUS (SHADOWLESS & NO FOCUS HIGHLIGHT) */
+      /* PAYMENT ROOM CARDS: DEFINED VISIBLE BORDER IN LIGHT MODE (#D5CBB8), BLACK IN DARK MODE (#000000) */
       .pr-room-card,
       #m-pr-list-container .pr-room-card,
       #d-pr-list-container .pr-room-card {
@@ -1787,7 +1787,7 @@
         display: flex !important;
         flex-direction: column !important;
         align-items: stretch !important;
-        border-radius: 1rem !important;
+        border-radius: 0px !important;
         background-color: #F4EFE6 !important;
         border: 1.5px solid #D5CBB8 !important;
         box-shadow: none !important;
@@ -1801,8 +1801,8 @@
       .pr-room-card:hover,
       #m-pr-list-container .pr-room-card:hover,
       #d-pr-list-container .pr-room-card:hover {
-        background-color: #F5EFE6 !important;
-        border-color: #DFD5C4 !important;
+        background-color: #EDE7DC !important;
+        border-color: #C8BCAB !important;
         box-shadow: none !important;
         outline: none !important;
       }
@@ -1818,16 +1818,16 @@
       #d-pr-list-container .pr-room-card:active {
         outline: none !important;
         box-shadow: none !important;
-        border: 1px solid #EBE3D5 !important;
+        border: 1.5px solid #D5CBB8 !important;
         -webkit-focus-ring-color: transparent !important;
       }
 
       html.dark .pr-room-card,
       html.dark #m-pr-list-container .pr-room-card,
       html.dark #d-pr-list-container .pr-room-card {
-        border-radius: 1rem !important;
+        border-radius: 0px !important;
         background-color: #141414 !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border: 1.5px solid #000000 !important;
         box-shadow: none !important;
         outline: none !important;
         -webkit-tap-highlight-color: transparent !important;
@@ -1837,7 +1837,7 @@
       html.dark #m-pr-list-container .pr-room-card:hover,
       html.dark #d-pr-list-container .pr-room-card:hover {
         background-color: #222222 !important;
-        border-color: rgba(255, 255, 255, 0.15) !important;
+        border-color: #000000 !important;
         box-shadow: none !important;
         outline: none !important;
       }
@@ -1853,8 +1853,46 @@
       html.dark #d-pr-list-container .pr-room-card:active {
         outline: none !important;
         box-shadow: none !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border: 1.5px solid #000000 !important;
         -webkit-focus-ring-color: transparent !important;
+      }
+
+      /* Payment Room Content Panels and Sub-Screen Card Borders */
+      #m-pr-detail .border,
+      #d-pr-detail .border,
+      .pr-sub-screen .border,
+      #m-pr-detail [class*="border-[#EBE3D5]"]:not(.pr-order-header-card),
+      #d-pr-detail [class*="border-[#EBE3D5]"]:not(.pr-order-header-card),
+      .pr-sub-screen [class*="border-[#EBE3D5]"]:not(.pr-order-header-card),
+      #m-pr-detail [class*="border-gray-200"]:not(.pr-order-header-card),
+      #d-pr-detail [class*="border-gray-200"]:not(.pr-order-header-card),
+      .pr-sub-screen [class*="border-gray-200"]:not(.pr-order-header-card) {
+        border-color: #D5CBB8 !important;
+      }
+
+      html.dark #m-pr-detail .border:not(.pr-order-header-card *),
+      html.dark #d-pr-detail .border:not(.pr-order-header-card *),
+      html.dark .pr-sub-screen .border:not(.pr-order-header-card *),
+      html.dark #m-pr-container .border,
+      html.dark #d-pr-container .border,
+      html.dark #m-pr-custom-dropdown-menu,
+      html.dark #d-pr-custom-dropdown-menu,
+      html.dark #m-pr-detail [class*="border-"]:not(.pr-order-header-card):not(.pr-order-header-card *):not(.dispute-ongoing-header-card):not(.dispute-ongoing-header-card *):not(.pr-report-btn):not(.pr-proof-btn):not(.paykudi-btn-primary):not(.awaiting-countdown-badge),
+      html.dark #d-pr-detail [class*="border-"]:not(.pr-order-header-card):not(.pr-order-header-card *):not(.dispute-ongoing-header-card):not(.dispute-ongoing-header-card *):not(.pr-report-btn):not(.pr-proof-btn):not(.paykudi-btn-primary):not(.awaiting-countdown-badge),
+      html.dark .pr-sub-screen [class*="border-"]:not(.pr-order-header-card):not(.pr-order-header-card *):not(.dispute-ongoing-header-card):not(.dispute-ongoing-header-card *):not(.pr-report-btn):not(.pr-proof-btn):not(.paykudi-btn-primary):not(.awaiting-countdown-badge) {
+        border-color: #000000 !important;
+      }
+
+      /* Modal Backgrounds matching Body Color (#F4EFE6 Light, #000000 Dark) */
+      #action-modal #modal-content,
+      #withdraw-modal #withdraw-modal-card {
+        background-color: #F4EFE6 !important;
+      }
+
+      html.dark #action-modal #modal-content,
+      html.dark #withdraw-modal #withdraw-modal-card {
+        background-color: #000000 !important;
+        border-color: #000000 !important;
       }
 
       .pr-room-card > div {
@@ -2046,8 +2084,12 @@
         color: #FFFFFF !important;
       }
 
-      .pr-order-header-card [class*="border-t"] {
-        border-top-color: rgba(255, 255, 255, 0.22) !important;
+      .pr-order-header-card [class*="border-t"],
+      html.dark .pr-order-header-card [class*="border-t"],
+      html.dark #m-pr-detail .pr-order-header-card [class*="border-t"],
+      html.dark #d-pr-detail .pr-order-header-card [class*="border-t"],
+      html.dark .pr-sub-screen .pr-order-header-card [class*="border-t"] {
+        border-top-color: rgba(255, 255, 255, 0.25) !important;
       }
 
       .pr-order-header-card .awaiting-countdown-badge {
@@ -10923,7 +10965,7 @@
     class="fixed inset-0 bg-black/60 backdrop-blur-md z-[999999] flex items-end justify-center hidden opacity-0 transition-opacity duration-300"
     onclick="if(event.target===this) closeActionModal();">
     <div
-      class="bg-[#F4EFE6] dark:bg-[#141414] rounded-t-[32px] sm:rounded-t-[36px] rounded-b-none p-6 pb-8 max-w-lg w-full shadow-2xl space-y-2 transform translate-y-full transition-transform duration-500 ease-out border-t border-x border-[#EBE3D5] dark:border-white/10 relative"
+      class="bg-[#F4EFE6] dark:bg-[#000000] rounded-t-[32px] sm:rounded-t-[36px] rounded-b-none p-6 pb-8 max-w-lg w-full shadow-2xl space-y-2 transform translate-y-full transition-transform duration-500 ease-out border-t border-x border-[#EBE3D5] dark:border-black relative"
       id="modal-content">
       <!-- Drag / Pull Indicator Pill -->
       <div class="w-12 h-1.5 bg-neutral-300 dark:bg-white/20 rounded-full mx-auto -mt-2 mb-2 cursor-pointer"
@@ -12127,8 +12169,8 @@
       } else if (title === 'Payout Account' || title === 'Payout Accounts') {
         modalBody.innerHTML = `
           <div class="space-y-3.5 pt-1">
-            <!-- Header with Title & Top-Right "+ Add Account" Button -->
-            <div class="flex items-center justify-between pb-1 border-b border-[#EBE3D5]/50 dark:border-white/5">
+            <!-- Header with Title & Top-Right "+ Add Account" Button (No dividing line) -->
+            <div class="flex items-center justify-between pb-1">
               <h3 class="text-base font-extrabold text-brand-dark dark:text-white font-heading" id="payout-modal-title">Payout Accounts</h3>
               <button type="button" id="payout-add-btn" onclick="togglePayoutView('add')" class="text-xs font-bold text-brand-blue dark:text-blue-400 bg-brand-blue/10 hover:bg-brand-blue/20 dark:bg-white/10 px-3.5 py-1.5 rounded-xl transition-all font-heading flex items-center gap-1 cursor-pointer">
                 <span class="material-symbols-outlined text-[15px]">add</span>
@@ -18734,7 +18776,7 @@
 
     <!-- Bottom Sheet Card (Slide-Up from Bottom) -->
     <div id="withdraw-modal-card"
-      class="relative w-full max-w-md bg-[#F4EFE6] dark:bg-[#141414] font-sans rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-500 ease-out z-10 max-h-[90vh] flex flex-col pointer-events-auto">
+      class="relative w-full max-w-md bg-[#F4EFE6] dark:bg-[#000000] font-sans rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-black shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-500 ease-out z-10 max-h-[90vh] flex flex-col pointer-events-auto">
 
       <!-- Top Grab Bar / Handle -->
       <div class="pt-3 pb-1 cursor-pointer flex justify-center flex-shrink-0" onclick="closeWithdrawModal()">
