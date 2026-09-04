@@ -17039,8 +17039,7 @@
       }
     } catch (e) {}
 
-    const powerOnIconSvg = '<svg viewBox="0 0 24 24"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>';
-    const powerOffIconSvg = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="5.5" y1="5.5" x2="18.5" y2="18.5"/></svg>';
+    const powerIconSvg = '<svg viewBox="0 0 24 24"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>';
 
     function updateAutoPayoutUI(animateToast = false) {
       const btns = [document.getElementById('m-auto-payout-btn'), document.getElementById('d-auto-payout-btn')];
@@ -17054,7 +17053,7 @@
         btn.setAttribute('title', isAutoPayoutEnabled ? 'Auto Payout: ON (click to turn OFF)' : 'Auto Payout: OFF (click to turn ON)');
         
         if (iconWraps[idx]) {
-          iconWraps[idx].innerHTML = isAutoPayoutEnabled ? powerOnIconSvg : powerOffIconSvg;
+          iconWraps[idx].innerHTML = powerIconSvg;
         }
       });
 
