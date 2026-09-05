@@ -1303,6 +1303,34 @@
       font-family: 'Hanken Grotesk', sans-serif;
     }
 
+    /* New Payment button: never wrap text regardless of screen size */
+    .add-money-btn {
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+
+    /* Upload section headings: ensure text stays strictly in one single line on all phone sizes */
+    .upload-section-heading {
+      display: flex !important;
+      align-items: center !important;
+      flex-wrap: nowrap !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      width: 100% !important;
+    }
+    .upload-section-heading .heading-title {
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+    }
+    .upload-section-heading .heading-subtitle {
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      min-width: 0 !important;
+      flex-shrink: 1 !important;
+    }
+
     /* Balanced Desktop Sizing with clamp() Fluid Scaling */
     @media (min-width: 768px) {
       .fluid-sidebar {
@@ -3117,7 +3145,7 @@
               class="mobile-action-bar bg-[#F4EFE6] dark:bg-[#141414] border border-[#EBE3D5] dark:border-white/10 rounded-full p-2.5 sm:p-3 shadow-xl shadow-black/8 dark:shadow-black/40 flex items-center justify-between gap-2 sm:gap-2.5">
               <!-- + New Payment (Main Pill Button) -->
               <button type="button" onclick="openActionModal('New Payment')"
-                class="add-money-btn flex-1 bg-[#0A4328] hover:bg-[#073620] dark:bg-[#0A4328] dark:hover:bg-[#073620] text-white font-extrabold text-xs sm:text-[13.5px] font-heading h-12 sm:h-13 px-4 sm:px-5 rounded-full flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all cursor-pointer select-none">
+                class="add-money-btn flex-1 min-w-0 bg-[#0A4328] hover:bg-[#073620] dark:bg-[#0A4328] dark:hover:bg-[#073620] text-white font-extrabold text-xs sm:text-[13.5px] font-heading h-12 sm:h-13 px-4 sm:px-5 rounded-full flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all cursor-pointer select-none whitespace-nowrap overflow-hidden">
                 <span class="material-symbols-outlined text-[19px] sm:text-[20px]">add_circle</span>
                 <span>New Payment</span>
               </button>
@@ -7000,7 +7028,7 @@
           <div class="-mt-8 relative z-20 max-w-xl sm:max-w-2xl mx-auto w-full px-2">
             <div class="action-bar-container bg-[#F4EFE6] dark:bg-[#141414] rounded-full p-2.5 sm:p-3 flex justify-between items-center gap-2 border border-[#EBE3D5] dark:border-white/10 shadow-xl shadow-black/10 dark:shadow-black/40">
               <button type="button" onclick="openActionModal('New Payment')"
-                class="add-money-btn flex-1 bg-[#0A4328] hover:bg-[#073620] dark:bg-[#0A4328] dark:hover:bg-[#073620] text-white rounded-full py-2.5 sm:py-3 px-5 flex items-center justify-center gap-2 transition-all shadow-sm cursor-pointer active:scale-95 font-heading font-extrabold text-xs sm:text-sm select-none">
+                class="add-money-btn flex-1 min-w-0 bg-[#0A4328] hover:bg-[#073620] dark:bg-[#0A4328] dark:hover:bg-[#073620] text-white rounded-full py-2.5 sm:py-3 px-5 flex items-center justify-center gap-2 transition-all shadow-sm cursor-pointer active:scale-95 font-heading font-extrabold text-xs sm:text-sm select-none whitespace-nowrap overflow-hidden">
                 <span class="material-symbols-outlined font-bold text-[18px]">add_circle</span>
                 <span>New Payment</span>
               </button>
@@ -11888,9 +11916,9 @@
 
             <!-- Upload Item / Reference Images (Matching Ready to Ship styling) -->
             <div class="pt-1">
-              <div class="flex items-center gap-1.5 mb-2.5">
-                <span class="text-[11px] tracking-[0.6px] font-extrabold text-brand-dark dark:text-white uppercase font-heading">ITEM / REFERENCE IMAGES</span>
-                <span class="text-[10.5px] text-neutral-400 dark:text-neutral-500 font-medium">• Photos of what you are selling or buying</span>
+              <div class="upload-section-heading flex items-center gap-1.5 mb-2.5 whitespace-nowrap overflow-hidden flex-nowrap">
+                <span class="heading-title text-[10px] min-[360px]:text-[10.5px] sm:text-[11px] tracking-[0.3px] sm:tracking-[0.6px] font-extrabold text-brand-dark dark:text-white uppercase font-heading whitespace-nowrap flex-shrink-0">ITEM / REFERENCE IMAGES</span>
+                <span class="heading-subtitle text-[9px] min-[360px]:text-[9.5px] sm:text-[10.5px] text-neutral-400 dark:text-neutral-500 font-medium whitespace-nowrap truncate min-w-0">• Photos of what you are selling or buying</span>
               </div>
               <input type="file" id="payment-room-upload-file"
                 accept="image/jpeg,image/png,image/webp,image/*,application/pdf,.pdf" multiple
@@ -13793,7 +13821,7 @@
         }
       });
 
-      // Seller Payout Breakdown: * Payout fee of 50 naira
+      // Seller Payout Breakdown: Payout fee of 50 naira
       var sellerPayoutFee = 50;
       var sellerNetPayout = Math.max(0, rawPriceNum - sellerPayoutFee);
       var sellerPayoutFeeFormatted = '₦' + sellerPayoutFee.toLocaleString();
@@ -17657,12 +17685,12 @@
             <span class="disp-deal-item-amount font-bold text-brand-dark dark:text-white">₦50,000</span>
           </div>
           <div class="flex items-center justify-between">
-            <span class="text-neutral-500 dark:text-neutral-400">* Transaction fee (1.5%)</span>
-            <span class="disp-deal-tx-fee font-bold text-brand-dark dark:text-white">₦750</span>
+            <span class="text-red-500 dark:text-red-400 font-medium">Transaction fee (1.5%)</span>
+            <span class="disp-deal-tx-fee font-bold text-red-500 dark:text-red-400">₦750</span>
           </div>
           <div class="flex items-center justify-between">
-            <span class="text-neutral-500 dark:text-neutral-400">* Convenience fee</span>
-            <span class="disp-deal-conv-fee font-bold text-brand-dark dark:text-white">₦300</span>
+            <span class="text-red-500 dark:text-red-400 font-medium">Convenience fee</span>
+            <span class="disp-deal-conv-fee font-bold text-red-500 dark:text-red-400">₦300</span>
           </div>
           <div class="border-t border-[#EBE3D5]/50 dark:border-white/5 pt-2 flex items-center justify-between">
             <span
@@ -17683,8 +17711,8 @@
             <span class="disp-deal-item-amount font-bold text-brand-dark dark:text-white">₦50,000</span>
           </div>
           <div class="flex items-center justify-between">
-            <span class="text-neutral-500 dark:text-neutral-400">* Payout fee</span>
-            <span class="disp-seller-payout-fee font-bold text-brand-dark dark:text-white">₦50</span>
+            <span class="text-red-500 dark:text-red-400 font-medium">Payout fee</span>
+            <span class="disp-seller-payout-fee font-bold text-red-500 dark:text-red-400">₦50</span>
           </div>
           <div class="border-t border-[#EBE3D5]/50 dark:border-white/5 pt-2 flex items-center justify-between">
             <span class="font-extrabold text-brand-dark dark:text-white text-xs sm:text-[13px] font-heading">Total
@@ -18435,9 +18463,9 @@
 
           <!-- Proof of Shipping (Circular Upload Button + Scrollable Gallery) -->
           <div class="pt-1">
-            <div class="flex items-center gap-1.5 mb-2.5">
-              <span class="text-[11px] tracking-[0.6px] font-extrabold text-brand-dark dark:text-white uppercase font-heading">PROOF OF SHIPPING</span>
-              <span class="text-[10.5px] text-neutral-400 dark:text-neutral-500 font-medium">• JPG, PDF, PNG, MP3 (10MB Max)</span>
+            <div class="upload-section-heading flex items-center gap-1.5 mb-2.5 whitespace-nowrap overflow-hidden flex-nowrap">
+              <span class="heading-title text-[10px] min-[360px]:text-[10.5px] sm:text-[11px] tracking-[0.3px] sm:tracking-[0.6px] font-extrabold text-brand-dark dark:text-white uppercase font-heading whitespace-nowrap flex-shrink-0">PROOF OF SHIPPING</span>
+              <span class="heading-subtitle text-[9px] min-[360px]:text-[9.5px] sm:text-[10.5px] text-neutral-400 dark:text-neutral-500 font-medium whitespace-nowrap truncate min-w-0">• JPG, PDF, PNG, MP3 (10MB Max)</span>
             </div>
             <input type="file" id="shipping-proof-file"
               accept="image/jpeg,image/png,image/webp,application/pdf,audio/mpeg,audio/mp3,audio/*,.pdf,.mp3" multiple
@@ -18559,9 +18587,9 @@
 
         <!-- 3. Counter Evidence Upload -->
         <div class="pt-1">
-          <div class="flex items-center gap-1.5 mb-2.5">
-            <span class="text-[11px] tracking-[0.6px] font-extrabold text-brand-dark dark:text-white uppercase font-heading">COUNTER EVIDENCE</span>
-            <span class="text-[10.5px] text-neutral-400 dark:text-neutral-500 font-medium">• JPG, PNG, MP4 (max 2MB each)</span>
+          <div class="upload-section-heading flex items-center gap-1.5 mb-2.5 whitespace-nowrap overflow-hidden flex-nowrap">
+            <span class="heading-title text-[10px] min-[360px]:text-[10.5px] sm:text-[11px] tracking-[0.3px] sm:tracking-[0.6px] font-extrabold text-brand-dark dark:text-white uppercase font-heading whitespace-nowrap flex-shrink-0">COUNTER EVIDENCE</span>
+            <span class="heading-subtitle text-[9px] min-[360px]:text-[9.5px] sm:text-[10.5px] text-neutral-400 dark:text-neutral-500 font-medium whitespace-nowrap truncate min-w-0">• JPG, PNG, MP4 (max 2MB each)</span>
           </div>
 
           <div class="flex items-center gap-3 min-h-[84px] pb-1 relative">
@@ -18644,9 +18672,9 @@
 
         <!-- 2. Upload Supporting Evidence -->
         <div class="pt-1">
-          <div class="flex items-center gap-1.5 mb-2.5">
-            <span class="text-[11px] tracking-[0.6px] font-extrabold text-brand-dark dark:text-white uppercase font-heading">SUPPORTING EVIDENCE</span>
-            <span class="text-[10.5px] text-neutral-400 dark:text-neutral-500 font-medium">• JPG, PNG, MP4 (max 2MB each)</span>
+          <div class="upload-section-heading flex items-center gap-1.5 mb-2.5 whitespace-nowrap overflow-hidden flex-nowrap">
+            <span class="heading-title text-[10px] min-[360px]:text-[10.5px] sm:text-[11px] tracking-[0.3px] sm:tracking-[0.6px] font-extrabold text-brand-dark dark:text-white uppercase font-heading whitespace-nowrap flex-shrink-0">SUPPORTING EVIDENCE</span>
+            <span class="heading-subtitle text-[9px] min-[360px]:text-[9.5px] sm:text-[10.5px] text-neutral-400 dark:text-neutral-500 font-medium whitespace-nowrap truncate min-w-0">• JPG, PNG, MP4 (max 2MB each)</span>
           </div>
 
           <div class="flex items-center gap-3 min-h-[84px] pb-1 relative">
@@ -18772,9 +18800,9 @@
 
         <!-- Form: Upload Supporting Evidence (Matching New Payment & Ready to Ship styling) -->
         <div class="pt-1">
-          <div class="flex items-center gap-1.5 mb-2.5">
-            <span class="text-[11px] tracking-[0.6px] font-extrabold text-brand-dark dark:text-white uppercase font-heading">SUPPORTING EVIDENCE</span>
-            <span class="text-[10.5px] text-neutral-400 dark:text-neutral-500 font-medium">• JPG, PNG, MP4 (max 2MB each)</span>
+          <div class="upload-section-heading flex items-center gap-1.5 mb-2.5 whitespace-nowrap overflow-hidden flex-nowrap">
+            <span class="heading-title text-[10px] min-[360px]:text-[10.5px] sm:text-[11px] tracking-[0.3px] sm:tracking-[0.6px] font-extrabold text-brand-dark dark:text-white uppercase font-heading whitespace-nowrap flex-shrink-0">SUPPORTING EVIDENCE</span>
+            <span class="heading-subtitle text-[9px] min-[360px]:text-[9.5px] sm:text-[10.5px] text-neutral-400 dark:text-neutral-500 font-medium whitespace-nowrap truncate min-w-0">• JPG, PNG, MP4 (max 2MB each)</span>
           </div>
 
           <div class="flex items-center gap-3 min-h-[84px] pb-1 relative">
@@ -19027,8 +19055,8 @@
               <span class="font-bold text-brand-dark dark:text-white font-mono" id="withdraw-gross-breakdown-display">₦0</span>
             </div>
             <div class="flex items-center justify-between">
-              <span class="text-neutral-500 dark:text-neutral-400">* Payout fee</span>
-              <span class="font-bold text-brand-dark dark:text-white font-mono">₦50</span>
+              <span class="text-red-500 dark:text-red-400 font-medium">Payout fee</span>
+              <span class="font-bold text-red-500 dark:text-red-400 font-mono">₦50</span>
             </div>
             <div class="border-t border-[#EBE3D5]/50 dark:border-white/5 pt-2 flex items-center justify-between">
               <span class="font-extrabold text-brand-dark dark:text-white text-xs sm:text-[13px] font-heading">Total Payout</span>
@@ -19088,8 +19116,8 @@
             <h5 class="text-[10.5px] font-bold text-neutral-400 dark:text-neutral-400 uppercase tracking-wider font-heading">Payout Breakdown</h5>
 
             <div class="flex items-center justify-between">
-              <span class="text-neutral-500 dark:text-neutral-400">Payout Fee</span>
-              <span class="font-bold text-brand-dark dark:text-white font-mono">₦50</span>
+              <span class="text-red-500 dark:text-red-400 font-medium">Payout Fee</span>
+              <span class="font-bold text-red-500 dark:text-red-400 font-mono">₦50</span>
             </div>
             <div class="border-t border-[#EBE3D5]/50 dark:border-white/5 pt-2 flex items-center justify-between">
               <span class="font-extrabold text-brand-dark dark:text-white text-xs sm:text-[13px] font-heading">Net Payout</span>
