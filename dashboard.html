@@ -349,6 +349,26 @@
       color: #34D399 !important;
     }
 
+    .bank-autocomplete-ghost {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+      padding: 8px 0 !important;
+      font-size: 14px !important;
+      font-weight: 600 !important;
+      font-family: inherit;
+      pointer-events: none;
+      overflow: hidden;
+      white-space: pre;
+      display: flex;
+      align-items: center;
+      line-height: normal;
+      box-sizing: border-box;
+      z-index: 0;
+    }
+
     .boxless-select-trigger {
       width: 100%;
       border: none !important;
@@ -1409,6 +1429,63 @@
     #lightbox {
       backdrop-filter: blur(12px) !important;
       -webkit-backdrop-filter: blur(12px) !important;
+    }
+
+    /* Modal Font: Match app body font (Inter) for all modal card text */
+    /* Exclude Material icon classes so copy/icon buttons always render correctly */
+    #modal-content :not(.material-symbols-outlined):not(.material-symbols-rounded):not(.material-icons),
+    #modal-body :not(.material-symbols-outlined):not(.material-symbols-rounded):not(.material-icons),
+    #withdraw-modal-card :not(.material-symbols-outlined):not(.material-symbols-rounded):not(.material-icons) {
+      font-family: 'Inter', sans-serif;
+    }
+    .material-symbols-outlined,
+    .material-symbols-rounded,
+    .material-icons {
+      font-family: 'Material Symbols Outlined', 'Material Symbols Rounded', 'Material Icons' !important;
+    }
+
+    /* Force withdraw amount input to exactly match the naira sign size & alignment */
+    #withdraw-amount-input {
+      font-size: 2.25rem !important;   /* text-4xl = 36px */
+      line-height: 1 !important;
+      font-weight: 900 !important;
+      vertical-align: middle !important;
+      height: auto !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      display: inline-block !important;
+    }
+    @media (min-width: 640px) {
+      #withdraw-amount-input {
+        font-size: 3rem !important;    /* sm:text-5xl = 48px */
+      }
+    }
+    /* Naira sign span — same size, same line-height, aligned with input */
+    #withdraw-step-form .withdraw-naira-sign {
+      font-size: 2.25rem !important;
+      line-height: 1 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+    }
+    @media (min-width: 640px) {
+      #withdraw-step-form .withdraw-naira-sign {
+        font-size: 3rem !important;
+      }
+    }
+    #modal-content .font-heading,
+    #modal-body .font-heading,
+    #withdraw-modal-card .font-heading,
+    #modal-content h1,
+    #modal-content h2,
+    #modal-content h3,
+    #modal-content h4,
+    #modal-content h5,
+    #withdraw-modal-card h1,
+    #withdraw-modal-card h2,
+    #withdraw-modal-card h3,
+    #withdraw-modal-card h4,
+    #withdraw-modal-card h5 {
+      font-family: 'Hanken Grotesk', sans-serif;
     }
 
     #payment-receipt-modal {
@@ -6694,13 +6771,8 @@
 
       <!-- VIEW 6: HELP MOBILE -->
       <div id="m-view-help" class="view-panel flex-1 overflow-y-auto px-4 pt-4 pb-24 hidden space-y-4">
-        <!-- Header with Back Button and Title -->
-        <div class="flex items-center gap-3 pt-1 pb-1">
-          <button type="button" onclick="switchView('home')"
-            class="w-10 h-10 rounded-full bg-[#F4EFE6] dark:bg-[#141414] text-brand-dark dark:text-white border border-[#EBE3D5] dark:border-white/10 shadow-xs flex items-center justify-center cursor-pointer flex-shrink-0 hover:bg-[#EDE8DF] dark:hover:bg-white/15 active:scale-95 transition-all"
-            title="Back to Dashboard">
-            <span class="material-symbols-outlined text-[22px] leading-none select-none">chevron_left</span>
-          </button>
+        <!-- Header with Title -->
+        <div class="pt-1 pb-1">
           <h2 class="text-base sm:text-lg font-black text-brand-dark dark:text-white font-heading">24/7 PayKudi Support</h2>
         </div>
 
@@ -10774,7 +10846,7 @@
       </div>
 
       <!-- Sheet Header -->
-      <div class="px-5 py-3 flex items-center justify-between flex-shrink-0 border-b border-[#EBE3D5]/50 dark:border-white/5" id="action-modal-header-wrap">
+      <div class="px-5 pt-3 pb-0 flex items-center justify-between flex-shrink-0" id="action-modal-header-wrap">
         <div>
           <h3 class="text-base font-black text-brand-dark dark:text-white font-heading" id="action-modal-header-title">Create Payment Room</h3>
         </div>
@@ -10786,7 +10858,7 @@
       </div>
 
       <!-- Scrollable Body Content -->
-      <div id="modal-body" class="p-5 space-y-4 overflow-y-auto custom-scroll flex-1">
+      <div id="modal-body" class="px-5 pt-1 pb-5 space-y-3.5 overflow-y-auto custom-scroll flex-1">
         <!-- Dynamically Populated by JS -->
       </div>
     </div>
@@ -11854,296 +11926,309 @@
       } else if (title === 'Email Address' || title === 'Add Email Address' || title === 'Edit Profile') {
         const currentEmail = document.getElementById('m-profile-email-txt') ? document.getElementById('m-profile-email-txt').textContent : 'marcusvance@gmail.com';
         modalBody.innerHTML = `
-          <div class="space-y-3.5 pt-1">
-            <div class="flex items-center justify-between pb-1 border-b border-[#EBE3D5]/50 dark:border-white/5">
-              <h3 class="text-base font-extrabold text-brand-dark dark:text-white font-heading">Email Address</h3>
-              <button type="button" id="modal-edit-btn-email" onclick="enableModalEdit('email')" class="text-xs font-bold text-brand-blue dark:text-blue-400 bg-brand-blue/10 hover:bg-brand-blue/20 dark:bg-white/10 px-3.5 py-1.5 rounded-xl transition-all font-heading flex items-center gap-1 cursor-pointer">
-                <span class="material-symbols-outlined text-[15px]">edit</span>
-                <span>Edit</span>
+          <form onsubmit="event.preventDefault(); saveUserEmail();" class="space-y-3.5 pt-0">
+            <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed -mt-1">
+              Add or update your email address to receive official transaction receipts and security alerts.
+            </p>
+            
+            <div class="boxless-field relative">
+              <input type="email" id="user-email-input" value="${currentEmail}" placeholder=" " required />
+              <label for="user-email-input">Email Address</label>
+            </div>
+
+            <div class="flex items-center gap-3 pt-1">
+              <button type="button" onclick="closeActionModal()"
+                class="flex-1 py-3 rounded-full bg-[#EDE8DF] dark:bg-white/10 hover:bg-[#E5DFD4] dark:hover:bg-white/15 text-brand-dark dark:text-white font-bold text-xs font-heading transition-all cursor-pointer">
+                Cancel
+              </button>
+              <button type="submit"
+                class="flex-1 py-3 rounded-full bg-brand-green hover:bg-emerald-700 text-white font-bold text-xs font-heading shadow-md shadow-emerald-900/20 active:scale-[0.98] transition-all cursor-pointer">
+                Save Email
               </button>
             </div>
-
-            <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">Add your email to receive official transaction alerts and enable email sign-in alongside WhatsApp.</p>
-
-            <div>
-              <input type="email" id="user-email-input" value="${currentEmail}" readonly class="w-full bg-[#F4EFE6] dark:bg-[#141414] border border-[#EBE3D5] dark:border-white/10 rounded-2xl px-4 py-3 text-sm font-semibold text-brand-dark dark:text-white cursor-default transition-all" />
-            </div>
-
-            <div id="modal-action-buttons-email" class="hidden flex items-center gap-3 pt-1">
-              <button type="button" onclick="cancelModalEdit('email')" class="flex-1 bg-[#F3EDE2] dark:bg-white/10 hover:bg-[#EBE3D5] dark:hover:bg-white/15 text-brand-dark dark:text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all cursor-pointer">Cancel</button>
-              <button type="button" onclick="saveUserEmail()" class="flex-1 bg-brand-blue hover:bg-blue-900 text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all shadow-md cursor-pointer">Save Email</button>
-            </div>
-          </div>
+          </form>
         `;
       } else if (title === 'Address' || title === 'Edit Address') {
         const currentAddress = document.getElementById('m-profile-address-txt') ? document.getElementById('m-profile-address-txt').textContent : '14 Adeola Odeku St, Victoria Island, Lagos';
         modalBody.innerHTML = `
-          <div class="space-y-3.5 pt-1">
-            <div class="flex items-center justify-between pb-1 border-b border-[#EBE3D5]/50 dark:border-white/5">
-              <h3 class="text-base font-extrabold text-brand-dark dark:text-white font-heading">Address</h3>
-              <button type="button" id="modal-edit-btn-address" onclick="enableModalEdit('address')" class="text-xs font-bold text-brand-blue dark:text-blue-400 bg-brand-blue/10 hover:bg-brand-blue/20 dark:bg-white/10 px-3.5 py-1.5 rounded-xl transition-all font-heading flex items-center gap-1 cursor-pointer">
-                <span class="material-symbols-outlined text-[15px]">edit</span>
-                <span>Edit</span>
+          <form onsubmit="event.preventDefault(); saveUserAddress();" class="space-y-3.5 pt-0">
+            <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed -mt-1">
+              Enter your verified physical address for dispute verification and logistics coordination.
+            </p>
+
+            <div class="boxless-field relative">
+              <input type="text" id="user-address-input" value="${currentAddress}" placeholder=" " required />
+              <label for="user-address-input">Street Address, City &amp; State</label>
+            </div>
+
+            <div class="flex items-center gap-3 pt-1">
+              <button type="button" onclick="closeActionModal()"
+                class="flex-1 py-3 rounded-full bg-[#EDE8DF] dark:bg-white/10 hover:bg-[#E5DFD4] dark:hover:bg-white/15 text-brand-dark dark:text-white font-bold text-xs font-heading transition-all cursor-pointer">
+                Cancel
+              </button>
+              <button type="submit"
+                class="flex-1 py-3 rounded-full bg-brand-green hover:bg-emerald-700 text-white font-bold text-xs font-heading shadow-md shadow-emerald-900/20 active:scale-[0.98] transition-all cursor-pointer">
+                Update Address
               </button>
             </div>
-
-            <div>
-              <input type="text" id="user-address-input" value="${currentAddress}" readonly class="w-full bg-[#F4EFE6] dark:bg-[#141414] border border-[#EBE3D5] dark:border-white/10 rounded-2xl px-4 py-3 text-sm font-semibold text-brand-dark dark:text-white cursor-default transition-all" />
-            </div>
-
-            <div id="modal-action-buttons-address" class="hidden flex items-center gap-3 pt-1">
-              <button type="button" onclick="cancelModalEdit('address')" class="flex-1 bg-[#F3EDE2] dark:bg-white/10 hover:bg-[#EBE3D5] dark:hover:bg-white/15 text-brand-dark dark:text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all cursor-pointer">Cancel</button>
-              <button type="button" onclick="saveUserAddress()" class="flex-1 bg-brand-blue hover:bg-blue-900 text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all shadow-md cursor-pointer">Update Address</button>
-            </div>
-          </div>
+          </form>
         `;
       } else if (title === 'BVN Verification' || title === 'BVN & NIN Verification') {
         modalBody.innerHTML = `
-          <div class="space-y-3.5 pt-1">
-            <h3 class="text-base font-extrabold text-brand-dark dark:text-white font-heading border-b border-[#EBE3D5]/50 dark:border-white/5 pb-2">BVN Verification</h3>
-            <div class="space-y-1.5">
-              <label class="block text-[11px] font-bold text-neutral-600 dark:text-neutral-300 font-heading">Bank Verification Number (11 Digits)</label>
-              <input type="text" maxlength="11" id="user-bvn-input" placeholder="22100000000" class="w-full bg-[#F4EFE6] dark:bg-[#141414] border border-[#EBE3D5] dark:border-white/10 rounded-2xl px-4 py-3 text-base font-bold text-center tracking-widest text-brand-dark dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-blue/30" />
+          <form onsubmit="event.preventDefault(); closeActionModal(); showToast('BVN verified successfully!', 'verified');" class="space-y-3.5 pt-0">
+            <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed -mt-1">
+              Your 11-digit BVN is securely verified with NIBSS to protect your payments and verify identity.
+            </p>
+
+            <div class="boxless-field relative">
+              <input type="text" maxlength="11" id="user-bvn-input" placeholder=" " required
+                oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+              <label for="user-bvn-input">Bank Verification Number (11 Digits)</label>
             </div>
-            <div class="flex items-center gap-3 pt-2">
-              <button type="button" onclick="closeActionModal()" class="flex-1 bg-[#F3EDE2] dark:bg-white/10 hover:bg-[#EBE3D5] dark:hover:bg-white/15 text-brand-dark dark:text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all cursor-pointer">Cancel</button>
-              <button type="button" onclick="closeActionModal(); showToast('BVN verified successfully!', 'verified');" class="flex-1 bg-brand-blue hover:bg-blue-900 text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all shadow-md cursor-pointer">Verify BVN</button>
+
+            <div class="flex items-center gap-3 pt-1">
+              <button type="button" onclick="closeActionModal()"
+                class="flex-1 py-3 rounded-full bg-[#EDE8DF] dark:bg-white/10 hover:bg-[#E5DFD4] dark:hover:bg-white/15 text-brand-dark dark:text-white font-bold text-xs font-heading transition-all cursor-pointer">
+                Cancel
+              </button>
+              <button type="submit"
+                class="flex-1 py-3 rounded-full bg-brand-green hover:bg-emerald-700 text-white font-bold text-xs font-heading shadow-md shadow-emerald-900/20 active:scale-[0.98] transition-all cursor-pointer">
+                Verify BVN
+              </button>
             </div>
-          </div>
+          </form>
         `;
       } else if (title === 'NIN Verification') {
         modalBody.innerHTML = `
-          <div class="space-y-3.5 pt-1">
-            <h3 class="text-base font-extrabold text-brand-dark dark:text-white font-heading border-b border-[#EBE3D5]/50 dark:border-white/5 pb-2">NIN Verification</h3>
-            <div class="space-y-1.5">
-              <label class="block text-[11px] font-bold text-neutral-600 dark:text-neutral-300 font-heading">National Identity Number (11 Digits)</label>
-              <input type="text" maxlength="11" id="user-nin-input" placeholder="44800000000" class="w-full bg-[#F4EFE6] dark:bg-[#141414] border border-[#EBE3D5] dark:border-white/10 rounded-2xl px-4 py-3 text-base font-bold text-center tracking-widest text-brand-dark dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-blue/30" />
+          <form onsubmit="event.preventDefault(); closeActionModal(); showToast('NIN verified successfully!', 'verified');" class="space-y-3.5 pt-0">
+            <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed -mt-1">
+              Your National Identification Number is verified against NIMC records for compliance and high trust.
+            </p>
+
+            <div class="boxless-field relative">
+              <input type="text" maxlength="11" id="user-nin-input" placeholder=" " required
+                oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+              <label for="user-nin-input">National Identity Number (11 Digits)</label>
             </div>
-            <div class="flex items-center gap-3 pt-2">
-              <button type="button" onclick="closeActionModal()" class="flex-1 bg-[#F3EDE2] dark:bg-white/10 hover:bg-[#EBE3D5] dark:hover:bg-white/15 text-brand-dark dark:text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all cursor-pointer">Cancel</button>
-              <button type="button" onclick="closeActionModal(); showToast('NIN verified successfully!', 'verified');" class="flex-1 bg-brand-blue hover:bg-blue-900 text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all shadow-md cursor-pointer">Verify NIN</button>
+
+            <div class="flex items-center gap-3 pt-1">
+              <button type="button" onclick="closeActionModal()"
+                class="flex-1 py-3 rounded-full bg-[#EDE8DF] dark:bg-white/10 hover:bg-[#E5DFD4] dark:hover:bg-white/15 text-brand-dark dark:text-white font-bold text-xs font-heading transition-all cursor-pointer">
+                Cancel
+              </button>
+              <button type="submit"
+                class="flex-1 py-3 rounded-full bg-brand-green hover:bg-emerald-700 text-white font-bold text-xs font-heading shadow-md shadow-emerald-900/20 active:scale-[0.98] transition-all cursor-pointer">
+                Verify NIN
+              </button>
             </div>
-          </div>
+          </form>
         `;
-      } else if (title === 'Business Verification') {
+      } else if (title === 'Business Verification' || title === 'Become a Verified Seller') {
         modalBody.innerHTML = `
-          <div class="space-y-3.5 pt-1">
-            <h3 class="text-base font-extrabold text-brand-dark dark:text-white font-heading border-b border-[#EBE3D5]/50 dark:border-white/5 pb-2">Business Info</h3>
-            <div class="space-y-2.5">
-              <div>
-                <label class="block text-[11px] font-bold text-neutral-600 dark:text-neutral-300 mb-1 font-heading">Store / Merchant Name</label>
-                <input type="text" value="PAYKUDI STORE" class="w-full bg-[#F4EFE6] dark:bg-[#141414] border border-[#EBE3D5] dark:border-white/10 rounded-2xl px-4 py-2.5 text-xs font-semibold text-brand-dark dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-blue/30" />
-              </div>
-              <div>
-                <label class="block text-[11px] font-bold text-neutral-600 dark:text-neutral-300 mb-1 font-heading">Business Category</label>
-                <select class="w-full bg-[#F4EFE6] dark:bg-[#141414] border border-[#EBE3D5] dark:border-white/10 rounded-2xl px-4 py-2.5 text-xs font-semibold text-brand-dark dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-blue/30">
-                  <option selected>Consumer Electronics &amp; Gadgets</option>
-                  <option>Fashion &amp; Apparel</option>
-                  <option>Home &amp; Living</option>
-                  <option>Digital Services</option>
-                </select>
+          <form onsubmit="event.preventDefault(); closeActionModal(); showToast('Business info saved successfully!', 'check_circle');" class="space-y-3.5 pt-0">
+            <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed -mt-1">
+              Provide your store or business information to unlock the Verified Seller badge and instant automated payouts.
+            </p>
+
+            <div class="boxless-field relative">
+              <input type="text" id="business-name-input" value="PAYKUDI STORE" placeholder=" " required />
+              <label for="business-name-input">Store / Merchant Name</label>
+            </div>
+
+            <div>
+              <div class="custom-select-wrapper w-full relative" id="biz-category-select-wrapper">
+                <div class="boxless-select-trigger w-full flex items-center justify-between cursor-pointer" onclick="toggleBizCategoryDropdown(event)">
+                  <span class="custom-select-val font-semibold text-[14px] text-brand-dark dark:text-white truncate" id="biz-category-val">Consumer Electronics &amp; Gadgets</span>
+                  <span class="material-symbols-outlined custom-select-arrow text-neutral-400 text-[18px] transition-transform duration-200" id="biz-category-arrow">expand_more</span>
+                </div>
+
+                <div class="custom-select-options w-full" id="biz-category-options" onclick="event.stopPropagation()" style="max-height: 180px; overflow-y: auto;">
+                  <div class="divide-y divide-[#EBE3D5]/50 dark:divide-white/5">
+                    <div class="custom-option font-medium text-xs py-2.5 px-3 selected" onclick="selectBizCategoryOption('Consumer Electronics & Gadgets', this, event)">
+                      <span>Consumer Electronics &amp; Gadgets</span>
+                    </div>
+                    <div class="custom-option font-medium text-xs py-2.5 px-3" onclick="selectBizCategoryOption('Fashion & Apparel', this, event)">
+                      <span>Fashion &amp; Apparel</span>
+                    </div>
+                    <div class="custom-option font-medium text-xs py-2.5 px-3" onclick="selectBizCategoryOption('Home & Living', this, event)">
+                      <span>Home &amp; Living</span>
+                    </div>
+                    <div class="custom-option font-medium text-xs py-2.5 px-3" onclick="selectBizCategoryOption('Digital Services & Subscriptions', this, event)">
+                      <span>Digital Services & Subscriptions</span>
+                    </div>
+                    <div class="custom-option font-medium text-xs py-2.5 px-3" onclick="selectBizCategoryOption('Automotive & Spare Parts', this, event)">
+                      <span>Automotive & Spare Parts</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="flex items-center gap-3 pt-2">
-              <button type="button" onclick="closeActionModal()" class="flex-1 bg-[#F3EDE2] dark:bg-white/10 hover:bg-[#EBE3D5] dark:hover:bg-white/15 text-brand-dark dark:text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all cursor-pointer">Cancel</button>
-              <button type="button" onclick="closeActionModal(); showToast('Business info saved!', 'check_circle');" class="flex-1 bg-brand-blue hover:bg-blue-900 text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all shadow-md cursor-pointer">Save Business</button>
+
+            <div class="flex items-center gap-3 pt-1">
+              <button type="button" onclick="closeActionModal()"
+                class="flex-1 py-3 rounded-full bg-[#EDE8DF] dark:bg-white/10 hover:bg-[#E5DFD4] dark:hover:bg-white/15 text-brand-dark dark:text-white font-bold text-xs font-heading transition-all cursor-pointer">
+                Cancel
+              </button>
+              <button type="submit"
+                class="flex-1 py-3 rounded-full bg-brand-green hover:bg-emerald-700 text-white font-bold text-xs font-heading shadow-md shadow-emerald-900/20 active:scale-[0.98] transition-all cursor-pointer">
+                Save Business
+              </button>
             </div>
-          </div>
+          </form>
         `;
       } else if (title === 'Change Transaction PIN') {
         modalBody.innerHTML = `
-          <div class="space-y-3.5 pt-1">
-            <h3 class="text-base font-extrabold text-brand-dark dark:text-white font-heading border-b border-[#EBE3D5]/50 dark:border-white/5 pb-2">Change Transaction PIN</h3>
-            <div class="space-y-2.5">
-              <div>
-                <label class="block text-[11px] font-bold text-neutral-600 dark:text-neutral-300 mb-1 font-heading">Current PIN</label>
-                <input type="password" maxlength="4" placeholder="••••" class="w-full bg-[#F4EFE6] dark:bg-[#141414] border border-[#EBE3D5] dark:border-white/10 rounded-2xl px-4 py-2.5 text-base font-bold text-center tracking-widest text-brand-dark dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-blue/30" />
-              </div>
-              <div>
-                <label class="block text-[11px] font-bold text-neutral-600 dark:text-neutral-300 mb-1 font-heading">New 4-Digit PIN</label>
-                <input type="password" maxlength="4" placeholder="••••" class="w-full bg-[#F4EFE6] dark:bg-[#141414] border border-[#EBE3D5] dark:border-white/10 rounded-2xl px-4 py-2.5 text-base font-bold text-center tracking-widest text-brand-dark dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-blue/30" />
-              </div>
+          <form onsubmit="event.preventDefault(); closeActionModal(); showToast('Transaction PIN updated successfully!', 'lock_reset');" class="space-y-3.5 pt-0">
+            <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed -mt-1">
+              Create a secure 4-digit PIN for authorizing payments, releases, and withdrawals.
+            </p>
+
+            <div class="boxless-field relative">
+              <input type="password" maxlength="4" id="current-pin-input" placeholder=" " required
+                oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+              <label for="current-pin-input">Current 4-Digit PIN</label>
             </div>
-            <div class="flex items-center gap-3 pt-2">
-              <button type="button" onclick="closeActionModal()" class="flex-1 bg-[#F3EDE2] dark:bg-white/10 hover:bg-[#EBE3D5] dark:hover:bg-white/15 text-brand-dark dark:text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all cursor-pointer">Cancel</button>
-              <button type="button" onclick="closeActionModal(); showToast('Transaction PIN updated successfully!', 'lock_reset');" class="flex-1 bg-brand-blue hover:bg-blue-900 text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all shadow-md cursor-pointer">Update PIN</button>
+
+            <div class="boxless-field relative">
+              <input type="password" maxlength="4" id="new-pin-input" placeholder=" " required
+                oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+              <label for="new-pin-input">New 4-Digit PIN</label>
             </div>
-          </div>
-        `;
-      } else if (title === 'Payout Account' || title === 'Payout Accounts') {
-        modalBody.innerHTML = `
-          <div class="space-y-3.5 pt-1">
-            <!-- Header with Title & Top-Right "+ Add Account" Button (No dividing line) -->
-            <div class="flex items-center justify-between pb-1">
-              <h3 class="text-base font-extrabold text-brand-dark dark:text-white font-heading" id="payout-modal-title">Payout Accounts</h3>
-              <button type="button" id="payout-add-btn" onclick="togglePayoutView('add')" class="text-xs font-bold text-brand-blue dark:text-blue-400 bg-brand-blue/10 hover:bg-brand-blue/20 dark:bg-white/10 px-3.5 py-1.5 rounded-xl transition-all font-heading flex items-center gap-1 cursor-pointer">
-                <span class="material-symbols-outlined text-[15px]">add</span>
-                <span>Add</span>
+
+            <div class="flex items-center gap-3 pt-1">
+              <button type="button" onclick="closeActionModal()"
+                class="flex-1 py-3 rounded-full bg-[#EDE8DF] dark:bg-white/10 hover:bg-[#E5DFD4] dark:hover:bg-white/15 text-brand-dark dark:text-white font-bold text-xs font-heading transition-all cursor-pointer">
+                Cancel
+              </button>
+              <button type="submit"
+                class="flex-1 py-3 rounded-full bg-brand-green hover:bg-emerald-700 text-white font-bold text-xs font-heading shadow-md shadow-emerald-900/20 active:scale-[0.98] transition-all cursor-pointer">
+                Update PIN
               </button>
             </div>
-
+          </form>
+        `;
+      } else if (title === 'Payout Account' || title === 'Payout Accounts' || title === 'Add Payout Account' || title === 'Add Bank Account') {
+        const isDirectAdd = (title === 'Add Payout Account' || title === 'Add Bank Account');
+        modalBody.innerHTML = `
+          <div class="space-y-4">
             <!-- VIEW 1: Accounts List View -->
-            <div id="payout-list-view" class="space-y-2.5">
-              <!-- Account 1: Access Bank (Primary) -->
-              <div class="p-3.5 bg-[#F4EFE6] dark:bg-[#141414] border border-[#EBE3D5] dark:border-white/10 rounded-2xl flex items-center justify-between gap-3 transition-all hover:border-brand-blue/30" id="payout-card-1">
-                <div class="flex items-center gap-3 min-w-0 flex-1 cursor-pointer" onclick="setPrimaryPayoutAccount(1)">
-                  <div class="w-10 h-10 rounded-xl bg-emerald-500/15 text-brand-green flex items-center justify-center flex-shrink-0" id="payout-icon-1">
-                    <span class="material-symbols-outlined text-[20px]">account_balance</span>
-                  </div>
-                  <div class="min-w-0 flex-1">
-                    <p class="text-xs font-extrabold text-brand-dark dark:text-white font-heading">Access Bank Plc</p>
-                    <p class="text-xs font-mono font-bold text-neutral-600 dark:text-neutral-300 mt-0.5">0123456789</p>
-                    <p class="text-[10px] text-neutral-400 font-medium">Marcus Vance</p>
-                  </div>
-                </div>
-                <div class="flex items-center gap-1.5 flex-shrink-0">
-                  <span id="payout-badge-1" class="px-2.5 py-1 rounded-xl text-[10px] font-extrabold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-heading">Primary</span>
-                  <button id="payout-btn-1" onclick="setPrimaryPayoutAccount(1)" class="hidden text-[10.5px] font-bold text-brand-blue dark:text-blue-400 hover:bg-brand-blue/10 px-2.5 py-1 rounded-xl transition-all font-heading cursor-pointer">
-                    Set Primary
-                  </button>
-                  <button onclick="navigator.clipboard.writeText('0123456789'); showToast('Access Bank account number copied!', 'content_copy');" class="p-2 rounded-xl text-neutral-400 hover:text-brand-blue hover:bg-brand-blue/10 transition-colors cursor-pointer" title="Copy Account Number">
-                    <span class="material-symbols-outlined text-[18px]">content_copy</span>
-                  </button>
-                </div>
+            <div id="payout-list-view" class="${isDirectAdd ? 'hidden ' : ''}space-y-3">
+              <!-- Top Row with Add Account button (No repeated modal title) -->
+              <div class="flex items-center justify-between pb-1">
+                <span class="text-[11px] font-bold text-neutral-400 uppercase tracking-wider font-heading">LINKED BANK ACCOUNTS</span>
+                <button type="button" id="payout-add-btn" onclick="togglePayoutView('add')"
+                  class="text-xs font-bold text-brand-green dark:text-emerald-400 bg-brand-green/10 dark:bg-emerald-500/15 hover:bg-brand-green/20 px-3 py-1 rounded-full transition-all font-heading flex items-center gap-1 cursor-pointer">
+                  <span class="material-symbols-outlined text-[15px]">add</span>
+                  <span>Add Payout Account</span>
+                </button>
               </div>
 
-              <!-- Account 2: GTBank -->
-              <div class="p-3.5 bg-[#F4EFE6] dark:bg-[#141414] border border-[#EBE3D5] dark:border-white/10 rounded-2xl flex items-center justify-between gap-3 transition-all hover:border-brand-blue/30" id="payout-card-2">
-                <div class="flex items-center gap-3 min-w-0 flex-1 cursor-pointer" onclick="setPrimaryPayoutAccount(2)">
-                  <div class="w-10 h-10 rounded-xl bg-blue-500/15 text-brand-blue flex items-center justify-center flex-shrink-0" id="payout-icon-2">
+              <!-- Unboxed Bank Account Items (Activity-style underline rows) -->
+              <div class="space-y-0 divide-y-0">
+                <!-- Account 1 -->
+                <div class="flex items-center gap-3.5 py-3 border-b border-[#EBE3D5] dark:border-white/10 transition-all">
+                  <div id="payout-icon-1" class="w-10 h-10 rounded-full bg-emerald-500/15 text-brand-green dark:text-emerald-400 flex items-center justify-center flex-shrink-0">
                     <span class="material-symbols-outlined text-[20px]">account_balance</span>
                   </div>
-                  <div class="min-w-0 flex-1">
-                    <p class="text-xs font-extrabold text-brand-dark dark:text-white font-heading">Guaranty Trust Bank</p>
-                    <p class="text-xs font-mono font-bold text-neutral-600 dark:text-neutral-300 mt-0.5">0234567890</p>
+                  <div class="flex-1 min-w-0 cursor-pointer" onclick="setPrimaryPayoutAccount(1)">
+                    <p class="text-[13.5px] font-extrabold text-brand-dark dark:text-white font-heading leading-tight truncate">Access Bank Plc</p>
+                    <p class="text-[11.5px] font-mono font-bold text-neutral-600 dark:text-neutral-300 mt-0.5">0123456789</p>
                     <p class="text-[10px] text-neutral-400 font-medium">Marcus Vance</p>
                   </div>
+                  <div class="flex items-center gap-2 flex-shrink-0">
+                    <span id="payout-badge-1" class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 font-heading">Primary</span>
+                    <button id="payout-btn-1" onclick="setPrimaryPayoutAccount(1)" class="hidden text-[11px] font-bold text-brand-blue dark:text-blue-400 hover:underline transition-all font-heading cursor-pointer">
+                      Set Primary
+                    </button>
+                    <button type="button" onclick="navigator.clipboard.writeText('0123456789'); showToast('Access Bank account number copied!', 'content_copy');" class="p-1 text-neutral-400 hover:text-brand-dark dark:hover:text-white transition-colors cursor-pointer" title="Copy Account Number">
+                      <span class="material-symbols-outlined text-[18px]">content_copy</span>
+                    </button>
+                  </div>
                 </div>
-                <div class="flex items-center gap-1.5 flex-shrink-0">
-                  <span id="payout-badge-2" class="hidden px-2.5 py-1 rounded-xl text-[10px] font-extrabold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-heading">Primary</span>
-                  <button id="payout-btn-2" onclick="setPrimaryPayoutAccount(2)" class="text-[10.5px] font-bold text-brand-blue dark:text-blue-400 hover:bg-brand-blue/10 px-2.5 py-1 rounded-xl transition-all font-heading cursor-pointer">
-                    Set Primary
-                  </button>
-                  <button onclick="navigator.clipboard.writeText('0234567890'); showToast('GTBank account number copied!', 'content_copy');" class="p-2 rounded-xl text-neutral-400 hover:text-brand-blue hover:bg-brand-blue/10 transition-colors cursor-pointer" title="Copy Account Number">
-                    <span class="material-symbols-outlined text-[18px]">content_copy</span>
-                  </button>
+
+                <!-- Account 2 -->
+                <div class="flex items-center gap-3.5 py-3 border-b border-[#EBE3D5] dark:border-white/10 transition-all">
+                  <div id="payout-icon-2" class="w-10 h-10 rounded-full bg-blue-500/10 dark:bg-blue-500/20 text-brand-blue dark:text-blue-400 flex items-center justify-center flex-shrink-0">
+                    <span class="material-symbols-outlined text-[20px]">account_balance</span>
+                  </div>
+                  <div class="flex-1 min-w-0 cursor-pointer" onclick="setPrimaryPayoutAccount(2)">
+                    <p class="text-[13.5px] font-extrabold text-brand-dark dark:text-white font-heading leading-tight truncate">Guaranty Trust Bank</p>
+                    <p class="text-[11.5px] font-mono font-bold text-neutral-600 dark:text-neutral-300 mt-0.5">0234567890</p>
+                    <p class="text-[10px] text-neutral-400 font-medium">Marcus Vance</p>
+                  </div>
+                  <div class="flex items-center gap-2 flex-shrink-0">
+                    <span id="payout-badge-2" class="hidden px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 font-heading">Primary</span>
+                    <button id="payout-btn-2" onclick="setPrimaryPayoutAccount(2)" class="text-[11px] font-bold text-brand-blue dark:text-blue-400 hover:underline transition-all font-heading cursor-pointer">
+                      Set Primary
+                    </button>
+                    <button type="button" onclick="navigator.clipboard.writeText('0234567890'); showToast('GTBank account number copied!', 'content_copy');" class="p-1 text-neutral-400 hover:text-brand-dark dark:hover:text-white transition-colors cursor-pointer" title="Copy Account Number">
+                      <span class="material-symbols-outlined text-[18px]">content_copy</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- VIEW 2: Add New Account View (Hidden by default) -->
-            <div id="payout-add-view" class="hidden space-y-3">
-              <div class="space-y-2.5">
-                <div class="relative">
-                  <label class="block text-[11px] font-bold text-neutral-600 dark:text-neutral-300 mb-1.5 font-heading">Select Bank</label>
-                  
-                  <div class="custom-select-wrapper w-full" id="bank-select-wrapper">
-                    <div class="custom-select-trigger w-full flex items-center justify-between" onclick="toggleBankDropdown(event)">
-                      <div class="flex items-center gap-2 min-w-0">
-                        <span class="material-symbols-outlined text-[18px] text-brand-blue dark:text-blue-400">account_balance</span>
-                        <span class="custom-select-val font-semibold text-xs text-brand-dark dark:text-white truncate" id="new-payout-bank-val">Guaranty Trust Bank (GTB)</span>
-                      </div>
-                      <span class="material-symbols-outlined custom-select-arrow text-neutral-400" id="bank-select-arrow">expand_more</span>
-                    </div>
-
-                    <!-- Dropdown Options Menu with Live Search Input -->
-                    <div class="custom-select-options w-full" id="bank-select-options" onclick="event.stopPropagation()" style="max-height: 220px; overflow-y: auto;">
-                      <!-- Search Bar -->
-                      <div class="p-2 border-b border-[#EBE3D5] dark:border-white/10 sticky top-0 bg-[#F4EFE6] dark:bg-[#141414] z-10" onclick="event.stopPropagation()">
-                        <div class="relative flex items-center">
-                          <span class="material-symbols-outlined absolute left-2.5 text-[15px] text-neutral-400">search</span>
-                          <input type="text" id="bank-search-input" oninput="filterBankOptions(this.value)" placeholder="Search Nigerian banks..." class="w-full bg-[#F4EFE6] dark:bg-white/5 border border-[#EBE3D5] dark:border-white/10 rounded-xl pl-8 pr-3 py-1.5 text-xs text-brand-dark dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-blue/30" />
-                        </div>
-                      </div>
-
-                      <!-- Bank List Items -->
-                      <div class="divide-y divide-[#EBE3D5]/50 dark:divide-white/5" id="bank-options-list">
-                        <div class="custom-option font-medium text-xs py-2.5 px-3" onclick="selectBankOption('Access Bank Nigeria', this, event)">
-                          <span>Access Bank Nigeria</span>
-                        </div>
-                        <div class="custom-option font-medium text-xs py-2.5 px-3 selected" onclick="selectBankOption('Guaranty Trust Bank (GTB)', this, event)">
-                          <span>Guaranty Trust Bank (GTB)</span>
-                        </div>
-                        <div class="custom-option font-medium text-xs py-2.5 px-3" onclick="selectBankOption('Zenith Bank', this, event)">
-                          <span>Zenith Bank</span>
-                        </div>
-                        <div class="custom-option font-medium text-xs py-2.5 px-3" onclick="selectBankOption('United Bank for Africa (UBA)', this, event)">
-                          <span>United Bank for Africa (UBA)</span>
-                        </div>
-                        <div class="custom-option font-medium text-xs py-2.5 px-3" onclick="selectBankOption('Kuda Microfinance Bank', this, event)">
-                          <span>Kuda Microfinance Bank</span>
-                        </div>
-                        <div class="custom-option font-medium text-xs py-2.5 px-3" onclick="selectBankOption('OPay / PalmPay', this, event)">
-                          <span>OPay / PalmPay</span>
-                        </div>
-                        <div class="custom-option font-medium text-xs py-2.5 px-3" onclick="selectBankOption('First Bank of Nigeria', this, event)">
-                          <span>First Bank of Nigeria</span>
-                        </div>
-                        <div class="custom-option font-medium text-xs py-2.5 px-3" onclick="selectBankOption('Stanbic IBTC Bank', this, event)">
-                          <span>Stanbic IBTC Bank</span>
-                        </div>
-                        <div class="custom-option font-medium text-xs py-2.5 px-3" onclick="selectBankOption('Sterling Bank', this, event)">
-                          <span>Sterling Bank</span>
-                        </div>
-                        <div class="custom-option font-medium text-xs py-2.5 px-3" onclick="selectBankOption('Fidelity Bank', this, event)">
-                          <span>Fidelity Bank</span>
-                        </div>
-                        <div class="custom-option font-medium text-xs py-2.5 px-3" onclick="selectBankOption('Wema Bank / ALAT', this, event)">
-                          <span>Wema Bank / ALAT</span>
-                        </div>
-                        <div class="custom-option font-medium text-xs py-2.5 px-3" onclick="selectBankOption('Moniepoint Microfinance Bank', this, event)">
-                          <span>Moniepoint Microfinance Bank</span>
-                        </div>
-                        <div class="custom-option font-medium text-xs py-2.5 px-3" onclick="selectBankOption('Providus Bank', this, event)">
-                          <span>Providus Bank</span>
-                        </div>
-                        <div class="custom-option font-medium text-xs py-2.5 px-3" onclick="selectBankOption('Union Bank of Nigeria', this, event)">
-                          <span>Union Bank of Nigeria</span>
-                        </div>
-                        <div class="custom-option font-medium text-xs py-2.5 px-3" onclick="selectBankOption('First City Monument Bank (FCMB)', this, event)">
-                          <span>First City Monument Bank (FCMB)</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <label class="block text-[11px] font-bold text-neutral-600 dark:text-neutral-300 mb-1 font-heading">Account Number (10 Digits)</label>
-                  <input type="text" maxlength="10" id="new-payout-account-num" placeholder="0123456789" class="w-full bg-[#F4EFE6] dark:bg-[#141414] border border-[#EBE3D5] dark:border-white/10 rounded-2xl px-4 py-2.5 text-sm font-semibold text-brand-dark dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-blue/30" />
-                </div>
+            <!-- VIEW 2: Add New Payout Account View (Boxless Auto-Suggest Style) -->
+            <div id="payout-add-view" class="${isDirectAdd ? '' : 'hidden '}space-y-4 pt-0">
+              <!-- Bank Name with Auto-Suggest Ghost (Boxless Underline Input) -->
+              <div class="boxless-field relative">
+                <div id="bank-name-ghost" class="bank-autocomplete-ghost" aria-hidden="true"></div>
+                <input type="text" id="new-payout-bank-name" placeholder=" " required autocomplete="off" spellcheck="false"
+                  class="relative z-10 bg-transparent w-full"
+                  oninput="handleBankNameInput(event)"
+                  onkeydown="handleBankNameKeydown(event)"
+                  onblur="handleBankNameBlur()" />
+                <label for="new-payout-bank-name">Bank Name</label>
               </div>
+
+              <!-- Account Number (Boxless Underline Input with Floating Label) -->
+              <div class="boxless-field relative">
+                <input type="text" maxlength="10" id="new-payout-account-num" placeholder=" "
+                  oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+                <label for="new-payout-account-num">Account Number (10 Digits)</label>
+              </div>
+
+              <!-- Action Buttons (Pill CTA Buttons) -->
               <div class="flex items-center gap-3 pt-1">
-                <button type="button" onclick="togglePayoutView('list')" class="flex-1 bg-[#F3EDE2] dark:bg-white/10 hover:bg-[#EBE3D5] dark:hover:bg-white/15 text-brand-dark dark:text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all cursor-pointer">Cancel</button>
-                <button type="button" onclick="saveNewPayoutAccount()" class="flex-1 bg-brand-blue hover:bg-blue-900 text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all shadow-md cursor-pointer">Save Account</button>
+                <button type="button" onclick="togglePayoutView('list')"
+                  class="flex-1 py-3 rounded-full bg-[#EDE8DF] dark:bg-white/10 hover:bg-[#E5DFD4] dark:hover:bg-white/15 text-brand-dark dark:text-white font-bold text-xs font-heading transition-all cursor-pointer">
+                  Cancel
+                </button>
+                <button type="button" onclick="saveNewPayoutAccount()"
+                  class="flex-1 py-3 rounded-full bg-brand-green hover:bg-emerald-700 text-white font-bold text-xs font-heading shadow-md shadow-emerald-900/20 active:scale-[0.98] transition-all cursor-pointer">
+                  Save Account
+                </button>
               </div>
             </div>
           </div>
         `;
       } else if (title === 'Statements & Reports') {
         modalBody.innerHTML = `
-          <div class="space-y-4 pt-1">
-            <h3 class="text-base font-extrabold text-brand-dark dark:text-white font-heading border-b border-[#EBE3D5]/50 dark:border-white/5 pb-2">Statements &amp; Reports</h3>
-            <div class="space-y-3">
-              <div>
-                <label class="block text-[11px] font-bold text-neutral-600 dark:text-neutral-300 mb-1.5 font-heading">Date Range</label>
-                
-                <!-- Custom Select Dropdown matching trigger width (Drop-Up: opens upwards) -->
-                <div class="custom-select-wrapper dropup w-full" id="stmt-range-wrapper">
-                  <div class="custom-select-trigger w-full flex items-center justify-between" onclick="toggleStmtDropdown(event)">
-                    <span class="custom-select-val font-semibold text-xs text-brand-dark dark:text-white" id="stmt-range-val">Last 30 Days (Current Month)</span>
-                    <span class="material-symbols-outlined custom-select-arrow text-neutral-400">expand_more</span>
-                  </div>
-                  <div class="custom-select-options dropup w-full" id="stmt-options-list" onclick="event.stopPropagation()">
-                    <div class="custom-option font-medium text-xs selected" onclick="selectStmtRange('Last 30 Days (Current Month)', this, event)">
+          <div class="space-y-3.5 pt-0">
+            <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed -mt-1">
+              Export verified financial statements and audit reports for accounting and tax purposes.
+            </p>
+
+            <div>
+              <!-- Custom Select Dropdown with Boxless Underline Trigger -->
+              <div class="custom-select-wrapper w-full relative" id="stmt-range-wrapper">
+                <div class="boxless-select-trigger w-full flex items-center justify-between cursor-pointer" onclick="toggleStmtDropdown(event)">
+                  <span class="custom-select-val font-semibold text-[14px] text-brand-dark dark:text-white truncate" id="stmt-range-val">Last 30 Days (Current Month)</span>
+                  <span class="material-symbols-outlined custom-select-arrow text-neutral-400 text-[18px] transition-transform duration-200">expand_more</span>
+                </div>
+                <div class="custom-select-options w-full" id="stmt-options-list" onclick="event.stopPropagation()" style="max-height: 200px; overflow-y: auto;">
+                  <div class="divide-y divide-[#EBE3D5]/50 dark:divide-white/5">
+                    <div class="custom-option font-medium text-xs py-2.5 px-3 selected" onclick="selectStmtRange('Last 30 Days (Current Month)', this, event)">
                       <span>Last 30 Days (Current Month)</span>
                     </div>
-                    <div class="custom-option font-medium text-xs" onclick="selectStmtRange('Last 3 Months (Quarter)', this, event)">
+                    <div class="custom-option font-medium text-xs py-2.5 px-3" onclick="selectStmtRange('Last 3 Months (Quarter)', this, event)">
                       <span>Last 3 Months (Quarter)</span>
                     </div>
-                    <div class="custom-option font-medium text-xs" onclick="selectStmtRange('Last 6 Months', this, event)">
+                    <div class="custom-option font-medium text-xs py-2.5 px-3" onclick="selectStmtRange('Last 6 Months', this, event)">
                       <span>Last 6 Months</span>
                     </div>
-                    <div class="custom-option font-medium text-xs" onclick="selectStmtRange('All Time (Since Account Creation)', this, event)">
+                    <div class="custom-option font-medium text-xs py-2.5 px-3" onclick="selectStmtRange('All Time (Since Account Creation)', this, event)">
                       <span>All Time (Since Account Creation)</span>
                     </div>
                     <div class="custom-option font-medium text-xs border-t border-[#EBE3D5]/50 dark:border-white/5" onclick="selectStmtRange('Specific Date Range (Custom)', this, event)">
@@ -12155,47 +12240,51 @@
                   </div>
                 </div>
               </div>
+            </div>
 
-              <!-- Specific Date Picker UI with Manual Live Segmented Input -->
-              <div id="stmt-custom-dates" class="hidden space-y-3 pt-2.5 border-t border-dashed border-[#EBE3D5] dark:border-white/10">
-                <p class="text-[11px] font-bold text-neutral-600 dark:text-neutral-300 font-heading">Specific Date Range</p>
-                <div class="grid grid-cols-2 gap-2">
-                  <!-- Start Date -->
-                  <div>
-                    <label class="block text-[10px] font-bold text-neutral-500 dark:text-neutral-400 mb-1.5 font-heading">Start Date</label>
-                    <div class="flex items-center h-10 bg-[#F4EFE6] dark:bg-[#141414] hover:bg-[#F3EDE2] dark:hover:bg-white/10 border border-[#EBE3D5] dark:border-white/10 rounded-xl px-2 py-1.5 focus-within:ring-2 focus-within:ring-brand-blue/30 focus-within:border-brand-blue transition-all">
-                      <span class="material-symbols-outlined text-[14px] text-neutral-400 mr-1 pointer-events-none flex-shrink-0">calendar_month</span>
-                      <div class="flex items-center justify-center flex-1 text-xs font-bold text-brand-dark dark:text-white">
-                        <input type="text" id="stmt-start-day" maxlength="2" placeholder="DD" value="01" oninput="handleDateSegmentInput('stmt-start', 'day', 'modal', 'stmt')" onkeydown="handleDateSegmentKeydown(event, 'stmt-start', 'day')" class="w-5 text-center bg-transparent border-0 p-0 text-xs font-bold text-brand-dark dark:text-white placeholder-neutral-400 focus:outline-none focus:ring-0 leading-normal" />
-                        <span class="text-neutral-400 font-bold select-none px-0.5">-</span>
-                        <input type="text" id="stmt-start-month" maxlength="2" placeholder="MM" value="08" oninput="handleDateSegmentInput('stmt-start', 'month', 'modal', 'stmt')" onkeydown="handleDateSegmentKeydown(event, 'stmt-start', 'month')" class="w-6 text-center bg-transparent border-0 p-0 text-xs font-bold text-brand-dark dark:text-white placeholder-neutral-400 focus:outline-none focus:ring-0 leading-normal" />
-                        <span class="text-neutral-400 font-bold select-none px-0.5">-</span>
-                        <input type="text" id="stmt-start-year" maxlength="4" placeholder="YYYY" value="2026" oninput="handleDateSegmentInput('stmt-start', 'year', 'modal', 'stmt')" onkeydown="handleDateSegmentKeydown(event, 'stmt-start', 'year')" class="w-11 min-w-[44px] text-center bg-transparent border-0 p-0 text-xs font-bold text-brand-dark dark:text-white placeholder-neutral-400 focus:outline-none focus:ring-0 leading-normal tracking-tight" />
-                      </div>
+            <!-- Specific Date Picker UI with Manual Live Segmented Input -->
+            <div id="stmt-custom-dates" class="hidden space-y-3 pt-2.5 border-t border-dashed border-[#EBE3D5] dark:border-white/10">
+              <p class="text-[11px] font-bold text-neutral-600 dark:text-neutral-300 font-heading">Specific Date Range</p>
+              <div class="grid grid-cols-2 gap-2">
+                <!-- Start Date -->
+                <div>
+                  <label class="block text-[10px] font-bold text-neutral-500 dark:text-neutral-400 mb-1.5 font-heading">Start Date</label>
+                  <div class="flex items-center h-10 bg-[#F4EFE6] dark:bg-[#141414] hover:bg-[#F3EDE2] dark:hover:bg-white/10 border-b-2 border-[#EBE3D5] dark:border-white/10 px-2 py-1.5 focus-within:border-brand-green transition-all">
+                    <span class="material-symbols-outlined text-[14px] text-neutral-400 mr-1 pointer-events-none flex-shrink-0">calendar_month</span>
+                    <div class="flex items-center justify-center flex-1 text-xs font-bold text-brand-dark dark:text-white">
+                      <input type="text" id="stmt-start-day" maxlength="2" placeholder="DD" value="01" oninput="handleDateSegmentInput('stmt-start', 'day', 'modal', 'stmt')" onkeydown="handleDateSegmentKeydown(event, 'stmt-start', 'day')" class="w-5 text-center bg-transparent border-0 p-0 text-xs font-bold text-brand-dark dark:text-white placeholder-neutral-400 focus:outline-none focus:ring-0 leading-normal" />
+                      <span class="text-neutral-400 font-bold select-none px-0.5">-</span>
+                      <input type="text" id="stmt-start-month" maxlength="2" placeholder="MM" value="08" oninput="handleDateSegmentInput('stmt-start', 'month', 'modal', 'stmt')" onkeydown="handleDateSegmentKeydown(event, 'stmt-start', 'month')" class="w-6 text-center bg-transparent border-0 p-0 text-xs font-bold text-brand-dark dark:text-white placeholder-neutral-400 focus:outline-none focus:ring-0 leading-normal" />
+                      <span class="text-neutral-400 font-bold select-none px-0.5">-</span>
+                      <input type="text" id="stmt-start-year" maxlength="4" placeholder="YYYY" value="2026" oninput="handleDateSegmentInput('stmt-start', 'year', 'modal', 'stmt')" onkeydown="handleDateSegmentKeydown(event, 'stmt-start', 'year')" class="w-11 min-w-[44px] text-center bg-transparent border-0 p-0 text-xs font-bold text-brand-dark dark:text-white placeholder-neutral-400 focus:outline-none focus:ring-0 leading-normal tracking-tight" />
                     </div>
                   </div>
+                </div>
 
-                  <!-- End Date -->
-                  <div>
-                    <label class="block text-[10px] font-bold text-neutral-500 dark:text-neutral-400 mb-1.5 font-heading">End Date</label>
-                    <div class="flex items-center h-10 bg-[#F4EFE6] dark:bg-[#141414] hover:bg-[#F3EDE2] dark:hover:bg-white/10 border border-[#EBE3D5] dark:border-white/10 rounded-xl px-2 py-1.5 focus-within:ring-2 focus-within:ring-brand-blue/30 focus-within:border-brand-blue transition-all">
-                      <span class="material-symbols-outlined text-[14px] text-neutral-400 mr-1 pointer-events-none flex-shrink-0">calendar_month</span>
-                      <div class="flex items-center justify-center flex-1 text-xs font-bold text-brand-dark dark:text-white">
-                        <input type="text" id="stmt-end-day" maxlength="2" placeholder="DD" value="19" oninput="handleDateSegmentInput('stmt-end', 'day', 'modal', 'stmt')" onkeydown="handleDateSegmentKeydown(event, 'stmt-end', 'day')" class="w-5 text-center bg-transparent border-0 p-0 text-xs font-bold text-brand-dark dark:text-white placeholder-neutral-400 focus:outline-none focus:ring-0 leading-normal" />
-                        <span class="text-neutral-400 font-bold select-none px-0.5">-</span>
-                        <input type="text" id="stmt-end-month" maxlength="2" placeholder="MM" value="08" oninput="handleDateSegmentInput('stmt-end', 'month', 'modal', 'stmt')" onkeydown="handleDateSegmentKeydown(event, 'stmt-end', 'month')" class="w-6 text-center bg-transparent border-0 p-0 text-xs font-bold text-brand-dark dark:text-white placeholder-neutral-400 focus:outline-none focus:ring-0 leading-normal" />
-                        <span class="text-neutral-400 font-bold select-none px-0.5">-</span>
-                        <input type="text" id="stmt-end-year" maxlength="4" placeholder="YYYY" value="2026" oninput="handleDateSegmentInput('stmt-end', 'year', 'modal', 'stmt')" onkeydown="handleDateSegmentKeydown(event, 'stmt-end', 'year')" class="w-11 min-w-[44px] text-center bg-transparent border-0 p-0 text-xs font-bold text-brand-dark dark:text-white placeholder-neutral-400 focus:outline-none focus:ring-0 leading-normal tracking-tight" />
-                      </div>
+                <!-- End Date -->
+                <div>
+                  <label class="block text-[10px] font-bold text-neutral-500 dark:text-neutral-400 mb-1.5 font-heading">End Date</label>
+                  <div class="flex items-center h-10 bg-[#F4EFE6] dark:bg-[#141414] hover:bg-[#F3EDE2] dark:hover:bg-white/10 border-b-2 border-[#EBE3D5] dark:border-white/10 px-2 py-1.5 focus-within:border-brand-green transition-all">
+                    <span class="material-symbols-outlined text-[14px] text-neutral-400 mr-1 pointer-events-none flex-shrink-0">calendar_month</span>
+                    <div class="flex items-center justify-center flex-1 text-xs font-bold text-brand-dark dark:text-white">
+                      <input type="text" id="stmt-end-day" maxlength="2" placeholder="DD" value="19" oninput="handleDateSegmentInput('stmt-end', 'day', 'modal', 'stmt')" onkeydown="handleDateSegmentKeydown(event, 'stmt-end', 'day')" class="w-5 text-center bg-transparent border-0 p-0 text-xs font-bold text-brand-dark dark:text-white placeholder-neutral-400 focus:outline-none focus:ring-0 leading-normal" />
+                      <span class="text-neutral-400 font-bold select-none px-0.5">-</span>
+                      <input type="text" id="stmt-end-month" maxlength="2" placeholder="MM" value="08" oninput="handleDateSegmentInput('stmt-end', 'month', 'modal', 'stmt')" onkeydown="handleDateSegmentKeydown(event, 'stmt-end', 'month')" class="w-6 text-center bg-transparent border-0 p-0 text-xs font-bold text-brand-dark dark:text-white placeholder-neutral-400 focus:outline-none focus:ring-0 leading-normal" />
+                      <span class="text-neutral-400 font-bold select-none px-0.5">-</span>
+                      <input type="text" id="stmt-end-year" maxlength="4" placeholder="YYYY" value="2026" oninput="handleDateSegmentInput('stmt-end', 'year', 'modal', 'stmt')" onkeydown="handleDateSegmentKeydown(event, 'stmt-end', 'year')" class="w-11 min-w-[44px] text-center bg-transparent border-0 p-0 text-xs font-bold text-brand-dark dark:text-white placeholder-neutral-400 focus:outline-none focus:ring-0 leading-normal tracking-tight" />
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="flex items-center gap-3 pt-2">
-              <button type="button" onclick="closeActionModal()" class="flex-1 bg-[#F3EDE2] dark:bg-white/10 hover:bg-[#EBE3D5] dark:hover:bg-white/15 text-brand-dark dark:text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all cursor-pointer">Cancel</button>
-              <button type="button" onclick="downloadStatementReport()" class="flex-1 bg-brand-blue hover:bg-blue-900 text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all shadow-md cursor-pointer flex items-center justify-center gap-1.5">
+            <div class="flex items-center gap-3 pt-1">
+              <button type="button" onclick="closeActionModal()"
+                class="flex-1 py-3 rounded-full bg-[#EDE8DF] dark:bg-white/10 hover:bg-[#E5DFD4] dark:hover:bg-white/15 text-brand-dark dark:text-white font-bold text-xs font-heading transition-all cursor-pointer">
+                Cancel
+              </button>
+              <button type="button" onclick="downloadStatementReport()"
+                class="flex-1 py-3 rounded-full bg-brand-green hover:bg-emerald-700 text-white font-bold text-xs font-heading shadow-md shadow-emerald-900/20 active:scale-[0.98] transition-all cursor-pointer flex items-center justify-center gap-1.5">
                 <span class="material-symbols-outlined text-[16px]">download</span>
                 <span>Download PDF</span>
               </button>
@@ -12204,54 +12293,61 @@
         `;
       } else if (title === 'Account Limits') {
         modalBody.innerHTML = `
-          <div class="text-center space-y-3.5 pt-1">
-            <div class="w-16 h-16 rounded-2xl bg-blue-500/15 text-brand-blue flex items-center justify-center mx-auto shadow-xs">
-              <span class="material-symbols-outlined text-[32px]">speed</span>
+          <div class="text-center space-y-3 pt-0">
+            <div class="w-14 h-14 rounded-full bg-blue-500/15 text-brand-blue flex items-center justify-center mx-auto shadow-xs">
+              <span class="material-symbols-outlined text-[28px]">speed</span>
             </div>
             <div>
-              <h3 class="text-lg font-extrabold text-brand-dark dark:text-white font-heading leading-snug">Account &amp; Transaction Limits</h3>
-              <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-1.5 max-w-xs mx-auto leading-relaxed">Your account has reached the highest verification level with maximum limits.</p>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 max-w-xs mx-auto leading-relaxed -mt-0.5">
+                Your account has reached the highest verification level (Tier 3) with maximum transaction capacity.
+              </p>
             </div>
-            <div class="space-y-2 text-left pt-1">
-              <div class="bg-[#F4EFE6] dark:bg-[#141414] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3 flex justify-between items-center">
+            <div class="space-y-0 text-left pt-1">
+              <div class="flex justify-between items-center py-3 border-b border-[#EBE3D5] dark:border-white/10">
                 <div>
-                  <p class="text-[11px] font-bold text-neutral-400">Balance Limit</p>
+                  <p class="text-[11px] font-bold text-neutral-400 font-heading">BALANCE LIMIT</p>
                   <p class="text-sm font-extrabold text-brand-dark dark:text-white font-heading">Unlimited</p>
                 </div>
-                <span class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">Active</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 font-heading">Active</span>
               </div>
-              <div class="bg-[#F4EFE6] dark:bg-[#141414] border border-[#EBE3D5] dark:border-white/10 rounded-2xl p-3 flex justify-between items-center">
+              <div class="flex justify-between items-center py-3 border-b border-[#EBE3D5] dark:border-white/10">
                 <div>
-                  <p class="text-[11px] font-bold text-neutral-400">Daily Transfer Limit</p>
+                  <p class="text-[11px] font-bold text-neutral-400 font-heading">DAILY TRANSFER LIMIT</p>
                   <p class="text-sm font-extrabold text-brand-dark dark:text-white font-heading">₦5,000,000</p>
                 </div>
-                <span class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">Tier 3</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 font-heading">Tier 3</span>
               </div>
             </div>
             <div class="pt-2">
-              <button type="button" onclick="closeActionModal()" class="w-full bg-[#0B2545] hover:bg-[#133E6D] text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all shadow-md cursor-pointer">Close</button>
+              <button type="button" onclick="closeActionModal()"
+                class="w-full py-3 rounded-full bg-[#0A4328] hover:bg-[#073620] text-white font-bold text-xs font-heading shadow-md transition-all cursor-pointer">
+                Close
+              </button>
             </div>
           </div>
         `;
       } else {
         modalBody.innerHTML = `
-          <div class="space-y-3.5 pt-1">
-            <h3 class="text-base font-extrabold text-brand-dark dark:text-white font-heading border-b border-[#EBE3D5]/50 dark:border-white/5 pb-2">${title || 'PayKudi Action'}</h3>
-            <div class="space-y-2.5 text-left">
-              <div>
-                <label class="block text-[11px] font-bold text-neutral-600 dark:text-neutral-300 mb-1 font-heading">Amount (₦)</label>
-                <input type="number" placeholder="0" class="w-full bg-[#F4EFE6] dark:bg-[#141414] border border-[#EBE3D5] dark:border-white/10 rounded-2xl px-4 py-2.5 text-sm font-semibold text-brand-dark dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-blue/30" />
-              </div>
-              <div>
-                <label class="block text-[11px] font-bold text-neutral-600 dark:text-neutral-300 mb-1 font-heading">Bank Account / Account Number</label>
-                <input type="text" placeholder="e.g. 0123456789 (Access Bank)" class="w-full bg-[#F4EFE6] dark:bg-[#141414] border border-[#EBE3D5] dark:border-white/10 rounded-2xl px-4 py-2.5 text-sm font-medium text-brand-dark dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-blue/30" />
-              </div>
+          <form onsubmit="event.preventDefault(); submitModalAction();" class="space-y-4 pt-1">
+            <div class="boxless-field relative">
+              <input type="number" id="fallback-amount-input" placeholder=" " required />
+              <label for="fallback-amount-input">Amount (₦)</label>
+            </div>
+            <div class="boxless-field relative">
+              <input type="text" id="fallback-desc-input" placeholder=" " />
+              <label for="fallback-desc-input">Note / Bank Account</label>
             </div>
             <div class="flex items-center gap-3 pt-2">
-              <button type="button" onclick="closeActionModal()" class="flex-1 bg-[#F3EDE2] dark:bg-white/10 hover:bg-[#EBE3D5] dark:hover:bg-white/15 text-brand-dark dark:text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all cursor-pointer">Cancel</button>
-              <button type="button" onclick="submitModalAction()" class="flex-1 bg-brand-blue hover:bg-blue-900 text-white py-3.5 rounded-2xl font-bold font-heading text-xs transition-all shadow-md cursor-pointer">Confirm</button>
+              <button type="button" onclick="closeActionModal()"
+                class="flex-1 py-3 rounded-full bg-[#EDE8DF] dark:bg-white/10 hover:bg-[#E5DFD4] dark:hover:bg-white/15 text-brand-dark dark:text-white font-bold text-xs font-heading transition-all cursor-pointer">
+                Cancel
+              </button>
+              <button type="submit"
+                class="flex-1 py-3 rounded-full bg-brand-green hover:bg-emerald-700 text-white font-bold text-xs font-heading shadow-md shadow-emerald-900/20 active:scale-[0.98] transition-all cursor-pointer">
+                Confirm
+              </button>
             </div>
-          </div>
+          </form>
         `;
       }
 
@@ -12527,18 +12623,19 @@
     function togglePayoutView(view) {
       const listView = document.getElementById('payout-list-view');
       const addView = document.getElementById('payout-add-view');
-      const addBtn = document.getElementById('payout-add-btn');
-      const title = document.getElementById('payout-modal-title');
+      const headerTitle = document.getElementById('action-modal-header-title') || document.getElementById('action-modal-title');
       if (view === 'add') {
         if (listView) listView.classList.add('hidden');
         if (addView) addView.classList.remove('hidden');
-        if (addBtn) addBtn.classList.add('hidden');
-        if (title) title.textContent = 'Add Payout Account';
+        if (headerTitle) headerTitle.textContent = 'Add Payout Account';
+        setTimeout(() => {
+          const bankInput = document.getElementById('new-payout-bank-name');
+          if (bankInput) bankInput.focus();
+        }, 50);
       } else {
         if (addView) addView.classList.add('hidden');
         if (listView) listView.classList.remove('hidden');
-        if (addBtn) addBtn.classList.remove('hidden');
-        if (title) title.textContent = 'Payout Accounts';
+        if (headerTitle) headerTitle.textContent = 'Payout Accounts';
       }
     }
 
@@ -12551,18 +12648,18 @@
           if (badge) badge.classList.remove('hidden');
           if (btn) btn.classList.add('hidden');
           if (icon) {
-            icon.className = 'w-10 h-10 rounded-xl bg-emerald-500/15 text-brand-green flex items-center justify-center flex-shrink-0';
+            icon.className = 'w-10 h-10 rounded-full bg-emerald-500/15 text-brand-green dark:text-emerald-400 flex items-center justify-center flex-shrink-0';
           }
         } else {
           if (badge) badge.classList.add('hidden');
           if (btn) btn.classList.remove('hidden');
           if (icon) {
-            icon.className = 'w-10 h-10 rounded-xl bg-blue-500/15 text-brand-blue flex items-center justify-center flex-shrink-0';
+            icon.className = 'w-10 h-10 rounded-full bg-blue-500/10 dark:bg-blue-500/20 text-brand-blue dark:text-blue-400 flex items-center justify-center flex-shrink-0';
           }
         }
       });
-      const bankName = id === 1 ? 'Access Bank' : 'Guaranty Trust Bank';
-      const accNum = id === 1 ? '0123456789' : '0234567891';
+      const bankName = id === 1 ? 'Access Bank Plc' : 'Guaranty Trust Bank';
+      const accNum = id === 1 ? '0123456789' : '0234567890';
       document.querySelectorAll('.disp-seller-bank-name, .disp-buyer-refund-bank-name').forEach(el => el.textContent = bankName);
       document.querySelectorAll('.disp-seller-acc-num, .disp-buyer-refund-acc-num').forEach(el => el.textContent = accNum);
       if (typeof currentPRDeal === 'object' && currentPRDeal) {
@@ -12574,77 +12671,140 @@
       }
     }
 
-    function toggleBankDropdown(event) {
-      if (Date.now() - lastOptionSelectedTime < 450) {
-        if (event) {
-          if (event.stopPropagation) event.stopPropagation();
-          if (event.preventDefault) event.preventDefault();
-        }
+    /* --- NIGERIAN BANKS AUTO-SUGGESTION SYSTEM --- */
+    var ALL_NIGERIAN_BANKS = [
+      "Access Bank",
+      "Access Bank (Diamond)",
+      "ALAT by Wema",
+      "Citibank Nigeria",
+      "Ecobank Nigeria",
+      "FairMoney Microfinance Bank",
+      "Fidelity Bank",
+      "First Bank of Nigeria",
+      "First City Monument Bank (FCMB)",
+      "Globus Bank",
+      "Guaranty Trust Bank (GTBank)",
+      "Heritage Bank",
+      "Jaiz Bank",
+      "Keystone Bank",
+      "Kuda Bank",
+      "Lotus Bank",
+      "Moniepoint Microfinance Bank",
+      "OPay",
+      "Optimus Bank",
+      "PalmPay",
+      "Parallex Bank",
+      "Polaris Bank",
+      "Premium Trust Bank",
+      "Providus Bank",
+      "Rubies Bank",
+      "Signature Bank",
+      "Stanbic IBTC Bank",
+      "Standard Chartered Bank",
+      "Sterling Bank",
+      "SunTrust Bank",
+      "TAJBank",
+      "Titan Trust Bank",
+      "Union Bank of Nigeria",
+      "United Bank for Africa (UBA)",
+      "Unity Bank",
+      "VFD Microfinance Bank",
+      "Wema Bank",
+      "Zenith Bank"
+    ];
+
+    var currentBankSuggestion = '';
+
+    function escapeHtmlBank(str) {
+      if (!str) return '';
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function findMatchingBank(query) {
+      if (!query || !query.trim()) return '';
+      var q = query.trim().toLowerCase();
+      
+      // 1. Direct prefix match (e.g. "ku" -> "Kuda Bank", "acc" -> "Access Bank")
+      var prefixMatch = ALL_NIGERIAN_BANKS.find(function(b) {
+        return b.toLowerCase().startsWith(q);
+      });
+      if (prefixMatch) return prefixMatch;
+
+      // 2. Acronym or word match (e.g. "gtb" -> "Guaranty Trust Bank (GTBank)", "fcmb" -> "First City Monument Bank (FCMB)")
+      var wordMatch = ALL_NIGERIAN_BANKS.find(function(b) {
+        var lower = b.toLowerCase();
+        if (lower.includes('(' + q) || lower.includes(q)) return true;
+        var words = lower.split(/[\s\-()]+/);
+        return words.some(function(w) { return w.startsWith(q); });
+      });
+      if (wordMatch) return wordMatch;
+
+      return '';
+    }
+
+    function handleBankNameInput(e) {
+      var input = (e && e.target) || document.getElementById('new-payout-bank-name');
+      if (!input) return;
+      var val = input.value;
+      var ghostEl = document.getElementById('bank-name-ghost');
+      
+      if (!val || !val.trim()) {
+        currentBankSuggestion = '';
+        if (ghostEl) ghostEl.innerHTML = '';
         return;
       }
-      if (event) event.stopPropagation();
-      const wrapper = document.getElementById('bank-select-wrapper');
-      if (!wrapper) return;
-      const isActive = wrapper.classList.contains('active');
-      document.querySelectorAll('.custom-select-wrapper').forEach(w => w.classList.remove('active'));
-      if (!isActive) {
-        wrapper.classList.add('active');
-        const searchInput = document.getElementById('bank-search-input');
-        if (searchInput) {
-          searchInput.value = '';
-          filterBankOptions('');
-          setTimeout(() => searchInput.focus(), 50);
+
+      var match = findMatchingBank(val);
+      if (match && match.toLowerCase().startsWith(val.toLowerCase())) {
+        currentBankSuggestion = match;
+        var typedLen = val.length;
+        var remaining = match.substring(typedLen);
+        if (ghostEl) {
+          ghostEl.innerHTML = '<span class="invisible select-none">' + escapeHtmlBank(val) + '</span><span class="text-neutral-400/80 dark:text-neutral-500 select-none">' + escapeHtmlBank(remaining) + '</span>';
+        }
+      } else if (match) {
+        currentBankSuggestion = match;
+        if (ghostEl) {
+          ghostEl.innerHTML = '<span class="invisible select-none">' + escapeHtmlBank(val) + '</span><span class="text-neutral-400/80 dark:text-neutral-500 select-none"> (' + escapeHtmlBank(match) + ')</span>';
+        }
+      } else {
+        currentBankSuggestion = '';
+        if (ghostEl) ghostEl.innerHTML = '';
+      }
+    }
+
+    function handleBankNameKeydown(e) {
+      var input = (e && e.target) || document.getElementById('new-payout-bank-name');
+      if (!input) return;
+      var ghostEl = document.getElementById('bank-name-ghost');
+
+      // Spacebar, Tab, or Enter approves the full suggested bank name
+      if ((e.key === ' ' || e.code === 'Space' || e.key === 'Tab' || e.key === 'Enter') && currentBankSuggestion) {
+        if (input.value.toLowerCase() !== currentBankSuggestion.toLowerCase()) {
+          e.preventDefault();
+          input.value = currentBankSuggestion;
+          currentBankSuggestion = '';
+          if (ghostEl) ghostEl.innerHTML = '';
+          input.dispatchEvent(new Event('input', { bubbles: true }));
         }
       }
     }
 
-    function selectBankOption(bankName, el, event) {
-      lastOptionSelectedTime = Date.now();
-
-      var ev = event || window.event;
-      if (ev) {
-        if (ev.stopPropagation) ev.stopPropagation();
-        if (ev.preventDefault) ev.preventDefault();
-        ev.cancelBubble = true;
-      }
-      var valEl = document.getElementById('new-payout-bank-val');
-      if (valEl) valEl.textContent = bankName;
-
-      // Auto-collapse dropdown immediately
-      var wrapper = (el && el.closest('.custom-select-wrapper')) || document.getElementById('bank-select-wrapper');
-      if (wrapper) {
-        wrapper.classList.remove('active');
-      }
-      document.querySelectorAll('.custom-select-wrapper').forEach(function (w) {
-        w.classList.remove('active');
-      });
-
-      // Update highlighted selection
-      var allOpts = document.querySelectorAll('#bank-options-list .custom-option');
-      allOpts.forEach(function (opt) {
-        opt.classList.remove('selected');
-      });
-      if (el) {
-        el.classList.add('selected');
-      }
-    }
-
-    function filterBankOptions(query) {
-      const q = (query || '').toLowerCase().trim();
-      const items = document.querySelectorAll('#bank-options-list .custom-option');
-      items.forEach(item => {
-        const text = item.textContent.toLowerCase();
-        if (!q || text.includes(q)) {
-          item.style.display = 'flex';
-        } else {
-          item.style.display = 'none';
-        }
-      });
+    function handleBankNameBlur() {
+      var ghostEl = document.getElementById('bank-name-ghost');
+      if (ghostEl) ghostEl.innerHTML = '';
     }
 
     function saveNewPayoutAccount() {
-      const bank = document.getElementById('new-payout-bank-val')?.textContent || 'Bank';
+      const bankInput = document.getElementById('new-payout-bank-name');
+      const bank = bankInput?.value?.trim() || 'Bank';
       const num = document.getElementById('new-payout-account-num')?.value || '';
+      if (!bankInput?.value?.trim()) {
+        if (typeof showToast === 'function') {
+          showToast('Please enter your bank name.', 'warning');
+        }
+        return;
+      }
       if (!num || num.length < 10) {
         if (typeof showToast === 'function') {
           showToast('Please enter a valid 10-digit account number.', 'warning');
@@ -14870,8 +15030,11 @@
     function updateWithdrawReceiveAmountDisplay(grossAmt) {
       var net = Math.max(0, grossAmt - WITHDRAW_PAYOUT_FEE);
       var netFormatted = '₦' + (net % 1 === 0 ? net.toLocaleString('en-NG', { maximumFractionDigits: 0 }) : net.toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+      var grossFormatted = '₦' + (grossAmt % 1 === 0 ? grossAmt.toLocaleString('en-NG', { maximumFractionDigits: 0 }) : grossAmt.toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
       var el = document.getElementById('withdraw-net-receive-text');
       if (el) el.textContent = (grossAmt > 0) ? netFormatted : '₦0';
+      var grossEl = document.getElementById('withdraw-gross-breakdown-display');
+      if (grossEl) grossEl.textContent = (grossAmt > 0) ? grossFormatted : '₦0';
     }
 
     function handleWithdrawAmountInput(input) {
@@ -18766,9 +18929,9 @@
       class="fixed inset-0 bg-black/60 backdrop-blur-md opacity-0 transition-opacity duration-300"
       style="backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);"></div>
 
-    <!-- Bottom Sheet Card (Slide-Up from Bottom) -->
+    <!-- Bottom Sheet Card (Slide-Up from Bottom - Same styling as Order Details) -->
     <div id="withdraw-modal-card"
-      class="relative w-full max-w-md bg-[#F4EFE6] dark:bg-[#000000] font-sans rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-black shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-500 ease-out z-10 max-h-[90vh] flex flex-col pointer-events-auto">
+      class="relative w-full max-w-md bg-[#F4EFE6] dark:bg-[#141414] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-500 ease-out z-10 max-h-[88vh] flex flex-col pointer-events-auto">
 
       <!-- Top Grab Bar / Handle -->
       <div class="pt-3 pb-1 cursor-pointer flex justify-center flex-shrink-0" onclick="closeWithdrawModal()">
@@ -18794,161 +18957,169 @@
         </button>
       </div>
 
-      <!-- Scrollable Body Content -->
-      <div class="p-5 pt-3.5 overflow-y-auto custom-scroll flex-1 text-xs flex flex-col">
+      <!-- Scrollable Body Content (Same padding & space-y as Order Details) -->
+      <div class="p-5 space-y-4 overflow-y-auto custom-scroll flex-1 text-xs">
 
         <!-- ================= STEP 1: WITHDRAWAL FORM ================= -->
         <div id="withdraw-step-form" class="space-y-4">
-          
-          <div class="space-y-3.5">
-            <!-- 1. Amount Row (Frameless matching Reference 2 with clean input) -->
-            <div class="space-y-1.5 pb-3.5 border-b border-neutral-200/80 dark:border-white/10">
-              <label class="text-[11px] font-medium text-neutral-400 dark:text-neutral-500 block">Amount</label>
-              <div class="relative flex items-center justify-between gap-2">
-                <div class="flex items-center flex-1 min-w-0">
-                  <span class="font-extrabold text-brand-dark dark:text-white mr-1.5 flex-shrink-0 select-none" style="font-size: 28px; line-height: 1.2; font-weight: 800;">₦</span>
-                  <input type="text" id="withdraw-amount-input" inputmode="decimal" placeholder=""
-                    oninput="handleWithdrawAmountInput(this)"
-                    style="font-size: 28px !important; line-height: 1.2 !important; font-weight: 400 !important; padding: 0 !important; height: auto !important;"
-                    class="w-full bg-transparent border-0 p-0 font-normal text-brand-dark dark:text-white focus:outline-none focus:ring-0 tracking-tight" />
-                </div>
-                <button type="button" onclick="selectMaxWithdrawalAmount()"
-                  class="text-rose-500 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 font-extrabold text-xs tracking-tight transition-all cursor-pointer active:scale-95 flex-shrink-0"
-                  title="Select all available funds">
-                  All
+          <!-- 1. Amount to Withdraw Section -->
+          <div class="pb-3.5 border-b border-[#EBE3D5]/50 dark:border-white/5 space-y-2">
+            <div class="flex items-center justify-between">
+              <h5 class="text-[10.5px] font-bold text-neutral-400 dark:text-neutral-400 uppercase tracking-wider font-heading">Amount to Withdraw</h5>
+              <button type="button" onclick="selectMaxWithdrawalAmount()"
+                class="text-xs font-bold text-brand-green dark:text-emerald-400 hover:underline transition-all cursor-pointer font-heading">
+                Withdraw All
+              </button>
+            </div>
+            <div class="relative flex items-center justify-between gap-2 pt-1">
+              <div class="flex items-center flex-1 min-w-0">
+                <span class="withdraw-naira-sign font-black text-brand-dark dark:text-white mr-2 flex-shrink-0 select-none text-4xl sm:text-5xl font-heading leading-none">₦</span>
+                <input type="text" id="withdraw-amount-input" inputmode="decimal" placeholder=""
+                  oninput="handleWithdrawAmountInput(this)"
+                  class="w-full bg-transparent border-0 p-0 font-black text-brand-dark dark:text-white focus:outline-none focus:ring-0 text-4xl sm:text-5xl font-heading leading-none" />
+              </div>
+            </div>
+            <div class="flex justify-between items-center text-[11px] text-neutral-500 dark:text-neutral-400 pt-0.5">
+              <span>Available Balance</span>
+              <span class="font-bold text-brand-dark dark:text-white font-mono" id="withdraw-max-balance-text">₦1,700,000</span>
+            </div>
+          </div>
+
+          <!-- 2. Payout Account Section -->
+          <div class="pb-3.5 border-b border-[#EBE3D5]/50 dark:border-white/5 space-y-2.5 text-xs">
+            <div class="flex items-center justify-between">
+              <h5 class="text-[10.5px] font-bold text-neutral-400 dark:text-neutral-400 uppercase tracking-wider font-heading">Payout Account</h5>
+              <button type="button" onclick="openActionModal('Payout Accounts')" class="text-xs font-bold text-brand-green dark:text-emerald-400 hover:underline cursor-pointer font-heading">Change</button>
+            </div>
+
+            <div class="flex items-center justify-between">
+              <span class="text-neutral-500 dark:text-neutral-400">Destination Bank</span>
+              <span id="withdraw-dest-bank" class="font-bold text-brand-dark dark:text-white font-heading">Access Bank</span>
+            </div>
+
+            <div class="flex items-center justify-between">
+              <span class="text-neutral-500 dark:text-neutral-400">Account Name</span>
+              <div class="flex items-center gap-1.5">
+                <span id="withdraw-dest-holder" class="font-bold text-brand-dark dark:text-white">Marcus Vance</span>
+                <button type="button" onclick="copyWithdrawAccountHolder()" class="p-0.5 text-neutral-400 hover:text-brand-dark dark:hover:text-white transition-colors cursor-pointer" title="Copy Account Name">
+                  <span class="material-symbols-outlined text-[15px]">content_copy</span>
                 </button>
               </div>
-              <div class="flex justify-end pt-1">
-                <span class="text-[10.5px] text-neutral-400">Available: <strong class="font-bold text-neutral-600 dark:text-neutral-300" id="withdraw-max-balance-text">₦1,700,000</strong></span>
-              </div>
             </div>
 
-            <!-- 2. Payout Bank Section (Frameless, exactly matching Reference 1) -->
-            <div class="space-y-3.5 pb-3 border-b border-[#EBE3D5]/50 dark:border-white/5">
-              <!-- Bank (Primary Payout) -->
-              <div class="space-y-0.5">
-                <span class="text-[11px] font-medium text-neutral-400 dark:text-neutral-500">Bank (Primary Payout)</span>
-                <div class="flex items-center justify-between">
-                  <p id="withdraw-dest-bank" class="text-sm font-black text-brand-dark dark:text-white">Access Bank</p>
-                  <button type="button" onclick="openActionModal('Payout Accounts')" class="text-xs font-bold text-brand-green dark:text-emerald-400 hover:underline cursor-pointer">Change</button>
-                </div>
-              </div>
-
-              <!-- Account Name -->
-              <div class="space-y-0.5">
-                <span class="text-[11px] font-medium text-neutral-400 dark:text-neutral-500">Account Name</span>
-                <div class="flex items-center justify-between">
-                  <p id="withdraw-dest-holder" class="text-sm font-black text-brand-dark dark:text-white">Emeka Tech Hub</p>
-                  <button type="button" onclick="copyWithdrawAccountHolder()" class="p-1 text-neutral-400 hover:text-brand-dark dark:hover:text-white transition-colors cursor-pointer" title="Copy Account Name">
-                    <span class="material-symbols-outlined text-[18px]">content_copy</span>
-                  </button>
-                </div>
-              </div>
-
-              <!-- Account Number -->
-              <div class="space-y-0.5">
-                <span class="text-[11px] font-medium text-neutral-400 dark:text-neutral-500">Account Number</span>
-                <div class="flex items-center justify-between">
-                  <p id="withdraw-dest-num" class="text-sm font-black text-brand-dark dark:text-white">0123456789</p>
-                  <button type="button" onclick="copyWithdrawAccountNum()" class="p-1 text-neutral-400 hover:text-brand-dark dark:hover:text-white transition-colors cursor-pointer" title="Copy Account Number">
-                    <span class="material-symbols-outlined text-[18px]">content_copy</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- 3. Unboxed Fee & Total Breakdown (Clean text matching Reference 2) -->
-            <div class="space-y-2 text-xs">
-              <div class="flex justify-between items-center text-neutral-500 dark:text-neutral-400">
-                <span class="font-medium">Payout Fee:</span>
-                <span class="font-bold text-neutral-700 dark:text-neutral-300">₦50</span>
-              </div>
-              <div class="flex justify-between items-center text-neutral-500 dark:text-neutral-400">
-                <span class="font-bold text-brand-dark dark:text-white">Payout Amount:</span>
-                <span class="font-black text-brand-dark dark:text-white text-sm" id="withdraw-net-receive-text">₦0</span>
+            <div class="flex items-center justify-between">
+              <span class="text-neutral-500 dark:text-neutral-400">Account Number</span>
+              <div class="flex items-center gap-1.5">
+                <span id="withdraw-dest-num" class="font-mono font-bold text-brand-dark dark:text-white">0123456789</span>
+                <button type="button" onclick="copyWithdrawAccountNum()" class="p-0.5 text-neutral-400 hover:text-brand-dark dark:hover:text-white transition-colors cursor-pointer" title="Copy Account Number">
+                  <span class="material-symbols-outlined text-[15px]">content_copy</span>
+                </button>
               </div>
             </div>
           </div>
 
-          <!-- 4. Payout Submit Button (Moved Upwards directly below form) -->
+          <!-- 3. Financial Breakdown Section -->
+          <div class="pb-3.5 border-b border-[#EBE3D5]/50 dark:border-white/5 space-y-2 text-xs">
+            <h5 class="text-[10.5px] font-bold text-neutral-400 dark:text-neutral-400 uppercase tracking-wider font-heading">Payout Breakdown</h5>
+
+            <div class="flex items-center justify-between">
+              <span class="text-neutral-500 dark:text-neutral-400">Requested Amount</span>
+              <span class="font-bold text-brand-dark dark:text-white font-mono" id="withdraw-gross-breakdown-display">₦0</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-neutral-500 dark:text-neutral-400">* Payout fee</span>
+              <span class="font-bold text-brand-dark dark:text-white font-mono">₦50</span>
+            </div>
+            <div class="border-t border-[#EBE3D5]/50 dark:border-white/5 pt-2 flex items-center justify-between">
+              <span class="font-extrabold text-brand-dark dark:text-white text-xs sm:text-[13px] font-heading">Total Payout</span>
+              <span class="font-black text-brand-green dark:text-emerald-400 text-sm font-heading" id="withdraw-net-receive-text">₦0</span>
+            </div>
+          </div>
+
+          <!-- 4. Payout Submit Button (Pill CTA) -->
           <div class="pt-2">
             <button type="button" id="withdraw-proceed-to-confirm-btn" onclick="submitWithdrawForm()"
-              class="w-full py-3.5 px-4 rounded-xl bg-[#0A4328] hover:bg-[#073620] active:scale-95 text-white font-extrabold text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer">
+              class="w-full py-3.5 rounded-full bg-brand-green hover:bg-emerald-700 text-white font-bold text-xs font-heading shadow-md shadow-emerald-900/20 active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer">
               <span>Continue to Payout</span>
             </button>
           </div>
         </div>
 
-        <!-- ================= STEP 2: CONFIRM WITHDRAWAL (UNBOXED MATCHING REFERENCE 1 & 2) ================= -->
+        <!-- ================= STEP 2: CONFIRM WITHDRAWAL ================= -->
         <div id="withdraw-step-confirm" class="hidden space-y-4 select-none">
-          
-          <div class="space-y-3.5">
-            <!-- Top Amount Row (Reference 2 style) -->
-            <div class="space-y-0.5 pb-3 border-b border-[#EBE3D5]/50 dark:border-white/5">
-              <span class="text-[11px] font-medium text-neutral-400 dark:text-neutral-500">Amount</span>
-              <p class="text-xl sm:text-2xl font-black text-brand-dark dark:text-white" id="withdraw-summary-amount">₦500,000</p>
+          <!-- 1. Amount Summary Section -->
+          <div class="pb-3.5 border-b border-[#EBE3D5]/50 dark:border-white/5 space-y-1">
+            <h5 class="text-[10.5px] font-bold text-neutral-400 dark:text-neutral-400 uppercase tracking-wider font-heading">Total Amount</h5>
+            <p class="text-2xl sm:text-3xl font-black text-brand-dark dark:text-white font-heading" id="withdraw-summary-amount">₦500,000</p>
+          </div>
+
+          <!-- 2. Payout Account Details -->
+          <div class="pb-3.5 border-b border-[#EBE3D5]/50 dark:border-white/5 space-y-2.5 text-xs">
+            <h5 class="text-[10.5px] font-bold text-neutral-400 dark:text-neutral-400 uppercase tracking-wider font-heading">Destination Account</h5>
+
+            <div class="flex items-center justify-between">
+              <span class="text-neutral-500 dark:text-neutral-400">Destination Bank</span>
+              <span id="withdraw-confirm-bank-val" class="font-bold text-brand-dark dark:text-white font-heading">Access Bank</span>
             </div>
 
-            <!-- Payout Bank Rows (Reference 1 style) -->
-            <div class="space-y-3.5 pb-3 border-b border-[#EBE3D5]/50 dark:border-white/5">
-              <div class="space-y-0.5">
-                <span class="text-[11px] font-medium text-neutral-400 dark:text-neutral-500">Bank (Primary Payout)</span>
-                <p class="text-sm font-black text-brand-dark dark:text-white" id="withdraw-confirm-bank-val">Access Bank</p>
-              </div>
-
-              <div class="space-y-0.5">
-                <span class="text-[11px] font-medium text-neutral-400 dark:text-neutral-500">Account Name</span>
-                <div class="flex items-center justify-between">
-                  <p class="text-sm font-black text-brand-dark dark:text-white" id="withdraw-confirm-name-val">Emeka Tech Hub</p>
-                  <button type="button" onclick="copyWithdrawAccountHolder()" class="p-1 text-neutral-400 hover:text-brand-dark dark:hover:text-white transition-colors cursor-pointer" title="Copy Account Name">
-                    <span class="material-symbols-outlined text-[18px]">content_copy</span>
-                  </button>
-                </div>
-              </div>
-
-              <div class="space-y-0.5">
-                <span class="text-[11px] font-medium text-neutral-400 dark:text-neutral-500">Account Number</span>
-                <div class="flex items-center justify-between">
-                  <p class="text-sm font-black text-brand-dark dark:text-white" id="withdraw-confirm-num-val">0123456789</p>
-                  <button type="button" onclick="copyWithdrawAccountNum()" class="p-1 text-neutral-400 hover:text-brand-dark dark:hover:text-white transition-colors cursor-pointer" title="Copy Account Number">
-                    <span class="material-symbols-outlined text-[18px]">content_copy</span>
-                  </button>
-                </div>
+            <div class="flex items-center justify-between">
+              <span class="text-neutral-500 dark:text-neutral-400">Account Name</span>
+              <div class="flex items-center gap-1.5">
+                <span id="withdraw-confirm-name-val" class="font-bold text-brand-dark dark:text-white">Marcus Vance</span>
+                <button type="button" onclick="copyWithdrawAccountHolder()" class="p-0.5 text-neutral-400 hover:text-brand-dark dark:hover:text-white transition-colors cursor-pointer" title="Copy Account Name">
+                  <span class="material-symbols-outlined text-[15px]">content_copy</span>
+                </button>
               </div>
             </div>
 
-            <!-- Fee & Total Breakdown -->
-            <div class="space-y-2 text-xs">
-              <div class="flex justify-between items-center text-neutral-500 dark:text-neutral-400">
-                <span class="font-medium">Payout Fee</span>
-                <span class="font-bold text-brand-dark dark:text-white text-xs">₦50</span>
-              </div>
-              <div class="flex justify-between items-center text-neutral-500 dark:text-neutral-400">
-                <span class="font-bold text-brand-dark dark:text-white">Payout Amount</span>
-                <span class="font-extrabold text-brand-dark dark:text-white text-xs" id="withdraw-summary-total">₦499,950</span>
-              </div>
-            </div>
-
-            <!-- Mandatory Approval Checkbox (State controlled custom checkbox) -->
-            <div class="pt-2">
-              <div id="withdraw-confirm-checkbox-container" onclick="toggleWithdrawCheckboxCustom()"
-                class="flex items-center gap-3 cursor-pointer select-none group py-1 -my-1">
-                <input type="hidden" id="withdraw-confirm-checkbox" value="0" />
-                <div id="withdraw-checkbox-custom-box"
-                  class="w-5 h-5 rounded-md border-2 border-neutral-300 dark:border-white/30 bg-[#F4EFE6] dark:bg-[#141414] flex items-center justify-center transition-all duration-200 group-hover:border-neutral-500 flex-shrink-0 shadow-2xs">
-                  <span id="withdraw-checkbox-check-icon" class="material-symbols-outlined text-[15px] font-black text-white dark:text-brand-dark hidden select-none">check</span>
-                </div>
-                <span class="text-xs font-medium text-neutral-600 dark:text-neutral-300 leading-snug group-hover:text-brand-dark dark:group-hover:text-white transition-colors">
-                  I have read, understood and approved.
-                </span>
+            <div class="flex items-center justify-between">
+              <span class="text-neutral-500 dark:text-neutral-400">Account Number</span>
+              <div class="flex items-center gap-1.5">
+                <span id="withdraw-confirm-num-val" class="font-mono font-bold text-brand-dark dark:text-white">0123456789</span>
+                <button type="button" onclick="copyWithdrawAccountNum()" class="p-0.5 text-neutral-400 hover:text-brand-dark dark:hover:text-white transition-colors cursor-pointer" title="Copy Account Number">
+                  <span class="material-symbols-outlined text-[15px]">content_copy</span>
+                </button>
               </div>
             </div>
           </div>
 
-          <!-- Action Buttons -->
-          <div class="pt-2 flex flex-col gap-2">
+          <!-- 3. Fee Breakdown -->
+          <div class="pb-3.5 border-b border-[#EBE3D5]/50 dark:border-white/5 space-y-2 text-xs">
+            <h5 class="text-[10.5px] font-bold text-neutral-400 dark:text-neutral-400 uppercase tracking-wider font-heading">Payout Breakdown</h5>
+
+            <div class="flex items-center justify-between">
+              <span class="text-neutral-500 dark:text-neutral-400">Payout Fee</span>
+              <span class="font-bold text-brand-dark dark:text-white font-mono">₦50</span>
+            </div>
+            <div class="border-t border-[#EBE3D5]/50 dark:border-white/5 pt-2 flex items-center justify-between">
+              <span class="font-extrabold text-brand-dark dark:text-white text-xs sm:text-[13px] font-heading">Net Payout</span>
+              <span class="font-black text-brand-green dark:text-emerald-400 text-sm font-heading" id="withdraw-summary-total">₦499,950</span>
+            </div>
+          </div>
+
+          <!-- 4. Mandatory Approval Checkbox -->
+          <div class="pt-0.5">
+            <div id="withdraw-confirm-checkbox-container" onclick="toggleWithdrawCheckboxCustom()"
+              class="flex items-center gap-3 cursor-pointer select-none group py-1 -my-1">
+              <input type="hidden" id="withdraw-confirm-checkbox" value="0" />
+              <div id="withdraw-checkbox-custom-box"
+                class="w-5 h-5 rounded-md border-2 border-neutral-300 dark:border-white/30 bg-[#F4EFE6] dark:bg-[#141414] flex items-center justify-center transition-all duration-200 group-hover:border-neutral-500 flex-shrink-0 shadow-2xs">
+                <span id="withdraw-checkbox-check-icon" class="material-symbols-outlined text-[15px] font-black text-white dark:text-brand-dark hidden select-none">check</span>
+              </div>
+              <span class="text-xs font-medium text-neutral-600 dark:text-neutral-300 leading-snug group-hover:text-brand-dark dark:group-hover:text-white transition-colors">
+                I have read, understood and approved this payout.
+              </span>
+            </div>
+          </div>
+
+          <!-- 5. Action Buttons (Pill CTA Buttons) -->
+          <div class="pt-2 flex items-center gap-3">
+            <button type="button" id="withdraw-confirm-back-btn" onclick="showWithdrawStep('form')"
+              class="flex-1 py-3 rounded-full bg-[#EDE8DF] dark:bg-white/10 hover:bg-[#E5DFD4] dark:hover:bg-white/15 text-brand-dark dark:text-white font-bold text-xs font-heading transition-all cursor-pointer">
+              Back to Edit
+            </button>
             <button type="button" id="withdraw-final-proceed-btn" onclick="executeFinalWithdrawal()" disabled
-              class="w-full py-3.5 px-4 rounded-xl bg-[#0A4328] hover:bg-[#073620] active:scale-95 text-white font-extrabold text-sm shadow-md transition-all flex items-center justify-center gap-2 opacity-50 cursor-not-allowed">
+              class="flex-1 py-3 rounded-full bg-brand-green hover:bg-emerald-700 text-white font-bold text-xs font-heading shadow-md shadow-emerald-900/20 active:scale-[0.98] transition-all flex items-center justify-center gap-2 opacity-50 cursor-not-allowed">
               <span id="withdraw-btn-spinner" class="hidden">
                 <svg class="animate-spin w-4 h-4 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -18956,54 +19127,50 @@
                 </svg>
               </span>
               <span id="withdraw-btn-text">Payout</span>
-              <span id="withdraw-btn-icon" class="material-symbols-outlined text-[19px]">outbox</span>
-            </button>
-            <button type="button" id="withdraw-confirm-back-btn" onclick="showWithdrawStep('form')"
-              class="w-full py-2 text-center text-xs font-semibold text-neutral-400 hover:text-brand-dark dark:hover:text-white transition-all cursor-pointer">
-              Back to Edit
+              <span id="withdraw-btn-icon" class="material-symbols-outlined text-[17px]">outbox</span>
             </button>
           </div>
         </div>
 
         <!-- ================= STEP 3: SUCCESS / IN PROGRESS STATE ================= -->
-        <div id="withdraw-step-success" class="hidden text-center py-2 space-y-3.5 select-none">
+        <div id="withdraw-step-success" class="hidden text-center py-2 space-y-4 select-none">
           <div class="space-y-3.5">
-            <!-- Text Naira Sign & Amount (Enlarged - Orange while Processing, Green when Successful) -->
+            <!-- Text Naira Sign & Amount -->
             <div class="flex items-center justify-center gap-2 pt-1 pb-1">
-              <span class="text-3xl sm:text-4xl font-black text-amber-500 dark:text-amber-400 tracking-tight" id="withdraw-success-amount-display">
+              <span class="text-3xl sm:text-4xl font-black text-amber-500 dark:text-amber-400 tracking-tight font-heading" id="withdraw-success-amount-display">
                 ₦499,950
               </span>
-              <span class="text-sm text-neutral-400 font-semibold" id="withdraw-success-gross-display">
+              <span class="text-sm text-neutral-400 font-semibold font-heading" id="withdraw-success-gross-display">
                 (₦500,000)
               </span>
             </div>
 
             <!-- Subtext Message -->
-            <div class="space-y-1 max-w-xs mx-auto pt-2 pb-1">
+            <div class="space-y-1 max-w-xs mx-auto pt-1 pb-1">
               <p class="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed" id="withdraw-success-msg">
                 Payout of <strong class="text-brand-dark dark:text-white font-bold">₦499,950</strong> is on its way to your bank account.
               </p>
             </div>
 
             <!-- Clean Unboxed Reference ID & Status -->
-            <div class="max-w-xs mx-auto text-xs space-y-1.5 pt-1.5">
+            <div class="max-w-xs mx-auto text-xs space-y-2 pt-1 border-t border-b border-[#EBE3D5]/50 dark:border-white/5 py-3">
               <div class="flex justify-between items-center text-neutral-500 dark:text-neutral-400 text-xs">
                 <span>Reference:</span>
-                <span class="font-bold text-brand-dark dark:text-white text-xs tracking-wide" id="withdraw-success-ref">WTX-140513</span>
+                <span class="font-bold text-brand-dark dark:text-white text-xs font-mono tracking-wide" id="withdraw-success-ref">WTX-140513</span>
               </div>
               <div class="flex justify-between items-center text-neutral-500 dark:text-neutral-400 text-xs">
                 <span>Status:</span>
-                <span class="font-bold text-amber-500 dark:text-amber-400 text-xs" id="withdraw-success-status">Processing</span>
+                <span class="font-bold text-amber-500 dark:text-amber-400 text-xs font-heading" id="withdraw-success-status">Processing</span>
               </div>
             </div>
           </div>
 
-          <!-- Live 2-Minute Cancel Button (Bottom Pinned - transforms to View Receipt on timeout) -->
-          <div class="pt-3 mt-auto">
+          <!-- Live 2-Minute Cancel Button (Pill Button) -->
+          <div class="pt-2">
             <button type="button" id="withdraw-cancel-timer-btn" onclick="handleWithdrawCancelClick()"
-              class="w-full py-3.5 px-4 rounded-xl bg-[#0A4328] hover:bg-[#073620] text-white font-extrabold text-sm shadow-md cursor-pointer transition-all active:scale-95 flex items-center justify-center gap-1.5">
+              class="w-full py-3.5 rounded-full bg-brand-green hover:bg-emerald-700 text-white font-bold text-xs font-heading shadow-md shadow-emerald-900/20 active:scale-[0.98] transition-all cursor-pointer flex items-center justify-center gap-1.5">
               <span>Cancel</span>
-              <span id="withdraw-timer-countdown" class="font-bold text-amber-400 dark:text-amber-400">(02:00)</span>
+              <span id="withdraw-timer-countdown" class="font-bold text-amber-300 dark:text-amber-300 font-mono">(02:00)</span>
             </button>
           </div>
         </div>
