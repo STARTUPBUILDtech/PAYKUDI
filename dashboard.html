@@ -238,6 +238,10 @@
       box-shadow: 0 0 0 3px rgba(46, 160, 67, 0.15);
     }
 
+    .custom-select-wrapper.active {
+      z-index: 50;
+    }
+
     .custom-select-wrapper.active .custom-select-arrow {
       transform: rotate(180deg);
     }
@@ -262,8 +266,7 @@
 
     /* Drop-up Mode (Opens upwards above trigger) */
     .custom-select-wrapper.dropup .custom-select-options,
-    .custom-select-options.dropup,
-    #stmt-options-list {
+    .custom-select-options.dropup {
       top: auto !important;
       bottom: calc(100% + 6px) !important;
       transform: translateY(8px);
@@ -278,8 +281,7 @@
     }
 
     html.dark .custom-select-wrapper.dropup .custom-select-options,
-    html.dark .custom-select-options.dropup,
-    html.dark #stmt-options-list {
+    html.dark .custom-select-options.dropup {
       box-shadow: 0 -16px 36px rgba(0, 0, 0, 0.7) !important;
     }
 
@@ -11448,9 +11450,8 @@
         <!-- Joined State: Dynamic Action Button (Proceed to make payment for Buyer / Enter Payment Room for Seller) -->
         <div id="cp-modal-joined-actions" class="hidden space-y-2">
           <button type="button" id="cp-modal-proceed-pay-btn" onclick="proceedToMakePayment()"
-            class="w-full py-3.5 px-4 rounded-full bg-[#0A4328] hover:bg-[#073620] text-white font-black text-sm font-heading shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98">
+            class="w-full py-3.5 px-4 rounded-full bg-[#0A4328] hover:bg-[#073620] text-white font-black text-sm font-heading shadow-lg hover:shadow-xl transition-all flex items-center justify-center cursor-pointer active:scale-98">
             <span id="cp-modal-proceed-btn-text">Proceed to make payment</span>
-            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
           </button>
         </div>
       </div>
@@ -12951,9 +12952,8 @@
               <div class="flex items-center justify-between pb-1">
                 <span class="text-[11px] font-bold text-neutral-400 uppercase tracking-wider font-heading">LINKED BANK ACCOUNTS</span>
                 <button type="button" id="payout-add-btn" onclick="togglePayoutView('add')"
-                  class="text-xs font-bold text-brand-green dark:text-emerald-400 bg-brand-green/10 dark:bg-emerald-500/15 hover:bg-brand-green/20 px-3 py-1 rounded-full transition-all font-heading flex items-center gap-1 cursor-pointer">
-                  <span class="material-symbols-outlined text-[15px]">add</span>
-                  <span>Add Payout Account</span>
+                  class="text-xs sm:text-[13px] font-bold text-brand-green dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors cursor-pointer select-none mr-10 sm:mr-11 px-1 py-0.5">
+                  Add
                 </button>
               </div>
 
@@ -13039,53 +13039,19 @@
         `;
       } else if (title === 'Statements & Reports') {
         modalBody.innerHTML = `
-          <div class="space-y-3.5 pt-0">
+          <div class="space-y-4 pt-0 pb-1">
             <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed -mt-1">
               Export verified financial statements and audit reports for accounting and tax purposes.
             </p>
 
-            <div>
-              <!-- Custom Select Dropdown with Boxless Underline Trigger -->
-              <div class="custom-select-wrapper w-full relative" id="stmt-range-wrapper">
-                <div class="boxless-select-trigger w-full flex items-center justify-between cursor-pointer" onclick="toggleStmtDropdown(event)">
-                  <span class="custom-select-val font-semibold text-[14px] text-black dark:text-white truncate" id="stmt-range-val">Last 30 Days (Current Month)</span>
-                  <span class="material-symbols-outlined custom-select-arrow text-neutral-400 text-[18px] transition-transform duration-200">expand_more</span>
-                </div>
-                <div class="custom-select-options w-full" id="stmt-options-list" onclick="event.stopPropagation()" style="max-height: 200px; overflow-y: auto;">
-                  <div class="divide-y divide-gray-100 dark:divide-white/5">
-                    <div class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-[#EDE8DF] dark:hover:bg-white/5 cursor-pointer transition-colors flex items-center justify-between font-bold text-[#0A4328] dark:text-emerald-400 selected" onclick="selectStmtRange('Last 30 Days (Current Month)', this, event)">
-                      <span>Last 30 Days (Current Month)</span>
-                      <span class="material-symbols-outlined text-[16px] stmt-check-icon">check</span>
-                    </div>
-                    <div class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-[#EDE8DF] dark:hover:bg-white/5 cursor-pointer transition-colors flex items-center justify-between text-neutral-700 dark:text-neutral-200" onclick="selectStmtRange('Last 3 Months (Quarter)', this, event)">
-                      <span>Last 3 Months (Quarter)</span>
-                    </div>
-                    <div class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-[#EDE8DF] dark:hover:bg-white/5 cursor-pointer transition-colors flex items-center justify-between text-neutral-700 dark:text-neutral-200" onclick="selectStmtRange('Last 6 Months', this, event)">
-                      <span>Last 6 Months</span>
-                    </div>
-                    <div class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-[#EDE8DF] dark:hover:bg-white/5 cursor-pointer transition-colors flex items-center justify-between text-neutral-700 dark:text-neutral-200" onclick="selectStmtRange('All Time (Since Account Creation)', this, event)">
-                      <span>All Time (Since Account Creation)</span>
-                    </div>
-                    <div class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-[#EDE8DF] dark:hover:bg-white/5 cursor-pointer transition-colors flex items-center justify-between text-neutral-700 dark:text-neutral-200" onclick="selectStmtRange('Specific Date Range (Custom)', this, event)">
-                      <div class="flex items-center gap-1.5">
-                        <span class="material-symbols-outlined text-[15px]">calendar_month</span>
-                        <span>Specific Date Range (Custom)</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <!-- Specific Date Picker UI with Manual Live Segmented Input -->
-            <div id="stmt-custom-dates" class="hidden space-y-3 pt-2.5 border-t border-dashed border-[#EBE3D5] dark:border-white/10">
-              <p class="text-[11px] font-bold text-neutral-600 dark:text-neutral-300 font-heading">Specific Date Range</p>
-              <div class="grid grid-cols-2 gap-2">
+            <div id="stmt-custom-dates" class="space-y-3 pt-0">
+              <div class="grid grid-cols-2 gap-2.5">
                 <!-- Start Date -->
                 <div>
                   <label class="block text-[10px] font-bold text-neutral-500 dark:text-neutral-400 mb-1.5 font-heading">Start Date</label>
                   <div class="flex items-center h-10 bg-[#F4EFE6] dark:bg-[#141414] hover:bg-[#F3EDE2] dark:hover:bg-white/10 border-b-2 border-[#EBE3D5] dark:border-white/10 px-2 py-1.5 focus-within:border-brand-green transition-all">
-                    <span class="material-symbols-outlined text-[14px] text-neutral-400 mr-1 pointer-events-none flex-shrink-0">calendar_month</span>
+                    <span class="material-symbols-outlined text-[15px] text-neutral-400 mr-1 pointer-events-none flex-shrink-0">calendar_month</span>
                     <div class="flex items-center justify-center flex-1 text-xs font-bold text-brand-dark dark:text-white">
                       <input type="text" id="stmt-start-day" maxlength="2" placeholder="DD" value="01" oninput="handleDateSegmentInput('stmt-start', 'day', 'modal', 'stmt')" onkeydown="handleDateSegmentKeydown(event, 'stmt-start', 'day')" class="w-5 text-center bg-transparent border-0 p-0 text-xs font-bold text-brand-dark dark:text-white placeholder-neutral-400 focus:outline-none focus:ring-0 leading-normal" />
                       <span class="text-neutral-400 font-bold select-none px-0.5">-</span>
@@ -13100,7 +13066,7 @@
                 <div>
                   <label class="block text-[10px] font-bold text-neutral-500 dark:text-neutral-400 mb-1.5 font-heading">End Date</label>
                   <div class="flex items-center h-10 bg-[#F4EFE6] dark:bg-[#141414] hover:bg-[#F3EDE2] dark:hover:bg-white/10 border-b-2 border-[#EBE3D5] dark:border-white/10 px-2 py-1.5 focus-within:border-brand-green transition-all">
-                    <span class="material-symbols-outlined text-[14px] text-neutral-400 mr-1 pointer-events-none flex-shrink-0">calendar_month</span>
+                    <span class="material-symbols-outlined text-[15px] text-neutral-400 mr-1 pointer-events-none flex-shrink-0">calendar_month</span>
                     <div class="flex items-center justify-center flex-1 text-xs font-bold text-brand-dark dark:text-white">
                       <input type="text" id="stmt-end-day" maxlength="2" placeholder="DD" value="19" oninput="handleDateSegmentInput('stmt-end', 'day', 'modal', 'stmt')" onkeydown="handleDateSegmentKeydown(event, 'stmt-end', 'day')" class="w-5 text-center bg-transparent border-0 p-0 text-xs font-bold text-brand-dark dark:text-white placeholder-neutral-400 focus:outline-none focus:ring-0 leading-normal" />
                       <span class="text-neutral-400 font-bold select-none px-0.5">-</span>
@@ -13113,7 +13079,7 @@
               </div>
             </div>
 
-            <div class="flex items-center gap-3 pt-1">
+            <div class="flex items-center gap-3 pt-2">
               <button type="button" onclick="closeActionModal()"
                 class="flex-1 py-3 rounded-full bg-[#EDE8DF] dark:bg-white/10 hover:bg-[#E5DFD4] dark:hover:bg-white/15 text-brand-dark dark:text-white font-bold text-xs font-heading transition-all cursor-pointer">
                 Cancel
@@ -13455,7 +13421,7 @@
 
     function downloadStatementReport() {
       const valEl = document.getElementById('stmt-range-val');
-      const range = valEl ? valEl.textContent : 'Selected Range';
+      const range = valEl ? valEl.textContent : 'Specific Date Range';
       let extra = '';
       if (range.includes('Custom') || range.includes('Specific')) {
         const s = getSegmentDateVal('stmt-start');
