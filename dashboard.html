@@ -1660,12 +1660,23 @@
     #counterparty-waiting-content {
       font-family: 'Inter', sans-serif;
     }
+
+    /* Prevent Terms Agreement bottom sheet modal from cutting off under top browser chrome / address bars */
+    #terms-agreement-modal {
+      padding-top: max(2.5rem, calc(env(safe-area-inset-top, 0px) + 1.5rem)) !important;
+      padding-bottom: max(0.25rem, env(safe-area-inset-bottom, 0px)) !important;
+      box-sizing: border-box !important;
+    }
+    #terms-agreement-content {
+      max-height: 84vh !important;
+      max-height: min(84dvh, 84vh, calc(100% - 0.5rem)) !important;
+    }
+
     #withdraw-modal,
     #withdraw-modal-card,
     #withdraw-modal-card *,
-    #terms-agreement-content input,
-    #terms-agreement-content select,
-    #terms-agreement-content textarea,
+    #terms-agreement-content,
+    #terms-agreement-content *:not(.material-symbols-outlined):not(.material-symbols-rounded):not(.material-icons),
     #counterparty-waiting-content input {
       font-family: 'Inter', sans-serif !important;
     }
@@ -11544,21 +11555,23 @@
 
   <!-- Terms Agreement Modal (Slide up from Bottom, Boxless Design with Custom Dropdown & City Input) -->
   <div id="terms-agreement-modal"
-    class="fixed inset-0 z-[1000002] flex items-end justify-center pointer-events-none transition-all duration-300 hidden">
+    class="fixed inset-0 z-[1000002] flex items-end justify-center pointer-events-none transition-all duration-300 hidden px-0 sm:px-4"
+    style="padding-top: max(2.5rem, calc(env(safe-area-inset-top, 0px) + 1.5rem)); padding-bottom: max(0.25rem, env(safe-area-inset-bottom, 0px)); box-sizing: border-box;">
     <!-- Backdrop Overlay -->
     <div id="terms-agreement-backdrop" onclick="handleTermsBackdropClick()"
       class="fixed inset-0 bg-black/60 backdrop-blur-md opacity-0 transition-opacity duration-300 pointer-events-auto"></div>
 
     <!-- Bottom Sheet Card (Slide-up from bottom, Boxless) -->
     <div id="terms-agreement-content"
-      class="relative w-full max-w-lg bg-[#F4EFE6] dark:bg-[#141414] rounded-t-[32px] sm:rounded-3xl border-t sm:border border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-300 ease-out z-10 p-5 sm:p-6 pointer-events-auto max-h-[92vh] flex flex-col font-sans">
+      class="relative w-full max-w-lg bg-[#F4EFE6] dark:bg-[#141414] rounded-t-[32px] sm:rounded-3xl border-t sm:border border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-300 ease-out z-10 p-5 sm:p-6 pointer-events-auto flex flex-col font-sans"
+      style="max-height: min(84dvh, 84vh, calc(100% - 0.5rem));">
       
       <!-- Top Grab Handle -->
-      <div class="w-12 h-1 bg-neutral-300 dark:bg-white/20 rounded-full mx-auto mb-2 flex-shrink-0 cursor-pointer" onclick="handleTermsBackdropClick()"></div>
+      <div class="w-12 h-1.5 bg-neutral-300 dark:bg-white/20 rounded-full mx-auto mb-3 flex-shrink-0 cursor-pointer" onclick="handleTermsBackdropClick()"></div>
 
       <!-- Header Title -->
       <div class="text-center pb-2 flex-shrink-0">
-        <h3 class="text-base sm:text-lg font-black text-brand-dark dark:text-white font-heading">
+        <h3 class="text-base sm:text-lg font-black text-brand-dark dark:text-white font-heading leading-tight">
           Agree to Transaction Terms
         </h3>
       </div>
@@ -11709,7 +11722,8 @@
       </div>
 
       <!-- Solid Non-Transparent Fixed Footer: Checkbox & Action Button -->
-      <div class="pt-3 pb-1 sticky bottom-0 bg-[#F4EFE6] dark:bg-[#141414] border-t border-[#EBE3D5] dark:border-white/10 z-20 space-y-3 flex-shrink-0">
+      <div class="pt-3 pb-3 sm:pb-3.5 sticky bottom-0 bg-[#F4EFE6] dark:bg-[#141414] border-t border-[#EBE3D5] dark:border-white/10 z-20 space-y-3 flex-shrink-0"
+        style="padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0.5rem));">
         <!-- Checkbox (Boxless, Solid non-transparent, greyed out until user scrolls to end) -->
         <div id="terms-checkbox-wrap" class="flex items-start gap-2.5 transition-all duration-300 opacity-40 pointer-events-none select-none cursor-not-allowed">
           <input type="checkbox" id="terms-agree-checkbox" disabled onchange="handleTermsCheckboxChange(this)" />
