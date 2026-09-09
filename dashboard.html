@@ -64,6 +64,7 @@
             sans: ['"Inter"', 'sans-serif'],
             heading: ['"Hanken Grotesk"', 'sans-serif'],
             display: ['"Hanken Grotesk"', 'sans-serif'],
+            mono: ['"Inter"', 'sans-serif'],
           },
           boxShadow: {
             'glass': '0 8px 32px 0 rgba(14, 82, 150, 0.06)',
@@ -77,6 +78,26 @@
   </script>
 
   <style>
+    /* Complete alignment of all numerical and mono content to body font (Inter) */
+    .font-mono,
+    [class*="font-mono"],
+    .delivery-countdown-timer,
+    .awaiting-countdown-badge,
+    .dispute-verdict-timer-text,
+    .disp-deal-acc-num,
+    .disp-seller-acc-num,
+    .disp-buyer-refund-acc-num,
+    .disp-deal-order-num,
+    .disp-deal-tracking,
+    #cp-modal-timer,
+    #more-proof-desc-counter,
+    #counter-proof-desc-counter,
+    #appeal-desc-counter,
+    #d-appeal-desc-counter {
+      font-family: 'Inter', sans-serif !important;
+      font-variant-numeric: tabular-nums !important;
+    }
+
     /* Complete prevention of unwanted mobile viewport auto-zooming on input focus and sticky tap highlights */
     *, *::before, *::after {
       -webkit-tap-highlight-color: transparent !important;
@@ -133,6 +154,19 @@
       #m-pr-search::placeholder,
       #m-activity-search::placeholder {
         font-size: 11px !important;
+      }
+
+      /* Specific mobile override for Profile & Boxless modal inputs to match More Proof input size */
+      #user-address-input,
+      #user-email-input,
+      #new-payout-bank-name,
+      #new-payout-account-num,
+      #bank-name-ghost,
+      #user-bvn-input,
+      #user-nin-input,
+      .boxless-field input {
+        font-size: 14px !important;
+        font-weight: 500 !important;
       }
 
       #m-act-day, #m-pr-date-day {
@@ -342,7 +376,7 @@
       outline: none !important;
       background: transparent !important;
       font-size: 14px !important;
-      font-weight: 600 !important;
+      font-weight: 500 !important;
       color: #102B1B !important;
       padding: 8px 0 !important;
       border-bottom: 2px solid #E4E1D5 !important;
@@ -400,7 +434,7 @@
       width: 100%;
       padding: 8px 0 !important;
       font-size: 14px !important;
-      font-weight: 600 !important;
+      font-weight: 500 !important;
       font-family: inherit;
       pointer-events: none;
       overflow: hidden;
@@ -567,6 +601,20 @@
     #modal-appeal-desc-input:focus {
       border-bottom-color: #2EA043 !important;
       box-shadow: none !important;
+    }
+
+    /* Profile Section Modal Inputs: Address, Email, Payout Account matching More Proof input size & weight */
+    #user-address-input,
+    #user-email-input,
+    #new-payout-bank-name,
+    #new-payout-account-num,
+    #bank-name-ghost,
+    #user-bvn-input,
+    #user-nin-input {
+      font-family: 'Inter', sans-serif !important;
+      font-size: 14px !important;
+      font-weight: 500 !important;
+      line-height: 1.5 !important;
     }
 
     html.dark .floating-textarea {
@@ -2850,7 +2898,8 @@
       }
 
       #m-pr-detail .pr-sub-screen > .buyer-only,
-      #m-pr-detail .pr-sub-screen > .seller-only {
+      #m-pr-detail .pr-sub-screen > .seller-only,
+      #m-pr-detail .pr-sub-screen > div:not(.sticky) {
         display: flex;
         flex: 1 1 auto;
         flex-direction: column;
@@ -2860,10 +2909,12 @@
         overflow-y: auto !important;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
+        padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 3.75rem) !important;
       }
 
       #m-pr-detail .pr-sub-screen > .buyer-only::-webkit-scrollbar,
-      #m-pr-detail .pr-sub-screen > .seller-only::-webkit-scrollbar {
+      #m-pr-detail .pr-sub-screen > .seller-only::-webkit-scrollbar,
+      #m-pr-detail .pr-sub-screen > div:not(.sticky)::-webkit-scrollbar {
         display: none;
       }
 
@@ -3090,8 +3141,6 @@
         line-height: 1.05;
       }
 
-      #m-pr-detail .pr-sub-screen .payment-made-cta-btn,
-      #d-pr-detail .pr-sub-screen .payment-made-cta-btn,
       #m-pr-detail .pr-sub-screen .paykudi-btn-primary,
       #d-pr-detail .pr-sub-screen .paykudi-btn-primary,
       #m-pr-detail .pr-sub-screen .pr-confirm-btn,
@@ -3145,10 +3194,9 @@
         font-size: 18px !important;
       }
 
+      /* In desktop, keep protection note inline below action buttons */
       .pr-protection-note,
-      #m-pr-detail .pr-protection-note,
       #d-pr-detail .pr-protection-note,
-      #m-pr-detail .seller-protection-note,
       #d-pr-detail .seller-protection-note {
         margin-top: 4px !important;
         margin-bottom: 2px !important;
@@ -3156,6 +3204,36 @@
         padding-bottom: 2px !important;
         flex-shrink: 0 !important;
         width: 100% !important;
+      }
+
+      /* In mobile payment room, float 'Your payment is protected by PayKudi' note at the bottom of the page */
+      #m-pr-detail .pr-protection-note,
+      #m-pr-detail .seller-protection-note {
+        position: fixed !important;
+        bottom: max(0.65rem, env(safe-area-inset-bottom, 0.5rem)) !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin-inline: auto !important;
+        width: fit-content !important;
+        max-width: calc(100% - 2.5rem) !important;
+        z-index: 40 !important;
+        pointer-events: auto !important;
+        padding: 4px 8px !important;
+        background: transparent !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        white-space: nowrap !important;
+      }
+
+      html.dark #m-pr-detail .pr-protection-note,
+      html.dark #m-pr-detail .seller-protection-note {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
       }
 
       #m-pr-detail .pr-sub-screen,
@@ -3228,6 +3306,8 @@
         }
       }
 
+      #m-pr-detail .payment-made-cta-btn,
+      #d-pr-detail .payment-made-cta-btn,
       .payment-made-cta-btn,
       .shipping-submit-cta-btn,
       #confirm-delivery-proceed-btn,
@@ -3239,8 +3319,10 @@
                     height 0.85s cubic-bezier(0.25, 1, 0.5, 1), 
                     border-radius 0.85s cubic-bezier(0.25, 1, 0.5, 1), 
                     background-color 0.85s cubic-bezier(0.25, 1, 0.5, 1), 
-                    box-shadow 0.85s cubic-bezier(0.25, 1, 0.5, 1),
-                    padding 0.85s cubic-bezier(0.25, 1, 0.5, 1) !important;
+                    box-shadow 0.85s cubic-bezier(0.25, 1, 0.5, 1), 
+                    padding 0.85s cubic-bezier(0.25, 1, 0.5, 1),
+                    padding-block 0.85s cubic-bezier(0.25, 1, 0.5, 1),
+                    padding-inline 0.85s cubic-bezier(0.25, 1, 0.5, 1) !important;
         white-space: nowrap !important;
         overflow: hidden !important;
       }
@@ -3258,6 +3340,8 @@
         min-height: 48px !important;
         max-height: 48px !important;
         padding: 0 !important;
+        padding-block: 0 !important;
+        padding-inline: 0 !important;
         margin-inline: auto !important;
         border-radius: 9999px !important;
         background: #0A4328 !important; /* Retains same rich forest green as button */
@@ -11302,8 +11386,7 @@
             </div>
             <div class="flex items-center justify-between">
               <span class="text-gray-400 font-medium">Estimated Timeline</span>
-              <span class="disp-deal-est-delivery font-semibold text-gray-800 dark:text-gray-100">2–3 business
-                days</span>
+              <span class="disp-deal-est-delivery font-semibold text-gray-800 dark:text-gray-100 whitespace-nowrap">2–3 business days</span>
             </div>
           </div>
 
@@ -11665,8 +11748,9 @@
 
       <!-- Sheet Header -->
       <div class="px-5 pt-3 pb-0 flex items-center justify-between flex-shrink-0" id="action-modal-header-wrap">
-        <div>
+        <div class="flex items-center gap-2.5">
           <h3 class="text-base font-black text-brand-dark dark:text-white font-heading" id="action-modal-header-title">Create Payment Room</h3>
+          <div id="action-modal-header-extra" class="flex items-center"></div>
         </div>
         <button type="button" onclick="closeActionModal()"
           class="w-8 h-8 rounded-full bg-neutral-200/60 dark:bg-white/10 text-neutral-600 dark:text-neutral-300 flex items-center justify-center hover:bg-neutral-200 dark:hover:bg-white/20 transition-all cursor-pointer"
@@ -12670,6 +12754,9 @@
       const modalContent = document.getElementById("modal-content");
       const modalBody = document.getElementById("modal-body");
       const headerTitle = document.getElementById("action-modal-header-title");
+      const headerExtra = document.getElementById("action-modal-header-extra");
+
+      if (headerExtra) headerExtra.innerHTML = '';
 
       if (!modal || !modalBody) return;
 
@@ -12944,17 +13031,24 @@
         `;
       } else if (title === 'Payout Account' || title === 'Payout Accounts' || title === 'Add Payout Account' || title === 'Add Bank Account') {
         const isDirectAdd = (title === 'Add Payout Account' || title === 'Add Bank Account');
+        if (headerExtra) {
+          headerExtra.innerHTML = `
+            <button type="button" id="payout-add-btn" onclick="togglePayoutView('add')"
+              class="${isDirectAdd ? 'hidden ' : ''}inline-flex items-center text-xs sm:text-[13px] font-bold text-brand-green dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors cursor-pointer select-none px-1 py-0.5"
+              title="Add Bank Account">
+              <span class="inline-flex items-center leading-none">
+                <span class="text-[13px] leading-none font-black mr-[1px] relative -top-[0.5px] inline-flex items-center">+</span><span class="leading-none">Add</span>
+              </span>
+            </button>
+          `;
+        }
         modalBody.innerHTML = `
           <div class="space-y-4">
             <!-- VIEW 1: Accounts List View -->
             <div id="payout-list-view" class="${isDirectAdd ? 'hidden ' : ''}space-y-3">
-              <!-- Top Row with Add Account button (No repeated modal title) -->
+              <!-- Top Row: Section Label (Add button moved to header next to Payout Accounts) -->
               <div class="flex items-center justify-between pb-1">
                 <span class="text-[11px] font-bold text-neutral-400 uppercase tracking-wider font-heading">LINKED BANK ACCOUNTS</span>
-                <button type="button" id="payout-add-btn" onclick="togglePayoutView('add')"
-                  class="text-xs sm:text-[13px] font-bold text-brand-green dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors cursor-pointer select-none mr-10 sm:mr-11 px-1 py-0.5">
-                  Add
-                </button>
               </div>
 
               <!-- Unboxed Bank Account Items (Activity-style underline rows) -->
@@ -12966,7 +13060,7 @@
                   </div>
                   <div class="flex-1 min-w-0 cursor-pointer" onclick="setPrimaryPayoutAccount(1)">
                     <p class="text-[13.5px] font-extrabold text-brand-dark dark:text-white font-heading leading-tight truncate">Access Bank Plc</p>
-                    <p class="text-[11.5px] font-mono font-bold text-neutral-600 dark:text-neutral-300 mt-0.5">0123456789</p>
+                    <p class="text-[12px] font-sans font-bold text-neutral-600 dark:text-neutral-300 mt-0.5 tracking-normal">0123456789</p>
                     <p class="text-[10px] text-neutral-400 font-medium">Marcus Vance</p>
                   </div>
                   <div class="flex items-center gap-2 flex-shrink-0">
@@ -12987,7 +13081,7 @@
                   </div>
                   <div class="flex-1 min-w-0 cursor-pointer" onclick="setPrimaryPayoutAccount(2)">
                     <p class="text-[13.5px] font-extrabold text-brand-dark dark:text-white font-heading leading-tight truncate">Guaranty Trust Bank</p>
-                    <p class="text-[11.5px] font-mono font-bold text-neutral-600 dark:text-neutral-300 mt-0.5">0234567890</p>
+                    <p class="text-[12px] font-sans font-bold text-neutral-600 dark:text-neutral-300 mt-0.5 tracking-normal">0234567890</p>
                     <p class="text-[10px] text-neutral-400 font-medium">Marcus Vance</p>
                   </div>
                   <div class="flex items-center gap-2 flex-shrink-0">
@@ -13175,6 +13269,8 @@
       const modal = document.getElementById("action-modal");
       const backdrop = document.getElementById("action-modal-backdrop");
       const modalContent = document.getElementById("modal-content");
+      const headerExtra = document.getElementById("action-modal-header-extra");
+      if (headerExtra) headerExtra.innerHTML = '';
       if (actionModalTimer) {
         clearTimeout(actionModalTimer);
         actionModalTimer = null;
@@ -13438,10 +13534,12 @@
       const listView = document.getElementById('payout-list-view');
       const addView = document.getElementById('payout-add-view');
       const headerTitle = document.getElementById('action-modal-header-title') || document.getElementById('action-modal-title');
+      const addBtn = document.getElementById('payout-add-btn');
       if (view === 'add') {
         if (listView) listView.classList.add('hidden');
         if (addView) addView.classList.remove('hidden');
         if (headerTitle) headerTitle.textContent = 'Add Payout Account';
+        if (addBtn) addBtn.classList.add('hidden');
         setTimeout(() => {
           const bankInput = document.getElementById('new-payout-bank-name');
           if (bankInput) bankInput.focus();
@@ -13450,6 +13548,7 @@
         if (addView) addView.classList.add('hidden');
         if (listView) listView.classList.remove('hidden');
         if (headerTitle) headerTitle.textContent = 'Payout Accounts';
+        if (addBtn) addBtn.classList.remove('hidden');
       }
     }
 
@@ -15309,9 +15408,11 @@
 
         // Set explicit starting pixel width to guarantee smooth, non-skipping interpolation
         var rect = b.getBoundingClientRect();
-        b.style.width = rect.width + 'px';
-        b.style.height = rect.height + 'px';
-        b.style.maxWidth = rect.width + 'px';
+        if (rect && rect.width > 0) {
+          b.style.width = rect.width + 'px';
+          b.style.height = rect.height + 'px';
+          b.style.maxWidth = rect.width + 'px';
+        }
 
         // Softly fade out text label
         var textContent = b.querySelector('.payment-btn-content');
@@ -19552,10 +19653,9 @@
             <div class="min-w-0 flex-1">
               <span class="text-neutral-400 dark:text-neutral-400 text-[11px] font-medium block leading-none">Delivery
                 Terms</span>
-              <div class="font-bold text-brand-dark dark:text-white text-xs mt-1">
-                <span class="disp-deal-route">PH to Lagos</span>
-                <span class="text-neutral-400 dark:text-neutral-400 font-normal text-[11px] ml-1">(2–3 business
-                  days)</span>
+              <div class="font-bold text-brand-dark dark:text-white text-[11px] sm:text-xs mt-0.5 flex items-baseline gap-1 flex-nowrap min-w-0">
+                <span class="disp-deal-route truncate">PH to Lagos</span>
+                <span class="text-neutral-400 dark:text-neutral-400 font-normal text-[10.5px] sm:text-[11px] whitespace-nowrap flex-shrink-0">(2–3 business days)</span>
               </div>
             </div>
           </div>
@@ -19571,8 +19671,7 @@
                 Window</span>
               <div class="font-bold text-brand-dark dark:text-white text-xs mt-1">
                 <span class="disp-deal-inspection-window">2 Hours post-delivery</span>
-                <span class="text-neutral-400 dark:text-neutral-400 font-normal text-[11px] ml-1">(To confirm or
-                  dispute)</span>
+                <span class="text-neutral-400 dark:text-neutral-400 font-normal text-[11px] ml-1 whitespace-nowrap">(To confirm or dispute)</span>
               </div>
             </div>
           </div>
