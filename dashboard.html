@@ -156,7 +156,10 @@
         font-size: 11px !important;
       }
 
-      /* Specific mobile override for Profile & Boxless modal inputs to match More Proof input size */
+      /* Stable 16px font-size for mobile text inputs & textareas to prevent iOS WebKit auto-zoom and involuntary focus loss */
+      input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="button"]):not([type="submit"]):not([type="reset"]):not([id^="m-act-"]):not([id^="m-pr-date-"]),
+      select,
+      textarea,
       #user-address-input,
       #user-email-input,
       #new-payout-bank-name,
@@ -164,19 +167,272 @@
       #bank-name-ghost,
       #user-bvn-input,
       #user-nin-input,
-      .boxless-field input {
-        font-size: 14px !important;
-        font-weight: 500 !important;
+      #more-proof-desc-input,
+      #counter-proof-desc-input,
+      #modal-appeal-desc-input,
+      #appeal-desc-input,
+      #feedback-modal-textarea,
+      #pr-chat-input,
+      #support-human-chat-input,
+      .boxless-field input,
+      .boxless-field textarea,
+      .floating-input,
+      .floating-textarea {
+        font-size: 16px !important;
+        touch-action: manipulation !important;
       }
 
-      #m-act-day, #m-pr-date-day {
+      input, textarea {
+        -webkit-user-select: text !important;
+        user-select: text !important;
+      }
+
+      /* Fixed size search icon that NEVER changes size and is perfectly centered */
+      .pr-search-icon-fixed {
+        font-size: 19px !important;
+        width: 19px !important;
+        height: 19px !important;
+        line-height: 1 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        color: #1a1a1a !important;
+        transition: transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s ease !important;
+        will-change: transform;
+      }
+      .dark .pr-search-icon-fixed,
+      [data-theme="dark"] .pr-search-icon-fixed {
+        color: #d1d5db !important;
+      }
+
+      /* Closed Morph State: circular 34px button matching inactive fulfilled tab */
+      .pr-search-morph-closed {
+        width: 34px !important;
+        min-width: 34px !important;
+        max-width: 34px !important;
+        height: 34px !important;
+        min-height: 34px !important;
+        max-height: 34px !important;
+        box-sizing: border-box !important;
+        border-radius: 9999px !important;
+        padding: 0 !important;
+        margin: 0 0 0 auto !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background-color: #F4EFE6 !important;
+        border: 1px solid #EBE3D5 !important;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+        overflow: visible !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      }
+      .dark .pr-search-morph-closed,
+      [data-theme="dark"] .pr-search-morph-closed {
+        background-color: #141414 !important;
+        border-color: rgba(255, 255, 255, 0.15) !important;
+      }
+      .pr-search-morph-closed:hover {
+        background-color: #F2ECE0 !important;
+      }
+      .dark .pr-search-morph-closed:hover,
+      [data-theme="dark"] .pr-search-morph-closed:hover {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+      }
+
+      /* Active filter indicator blue dot on top of button circle */
+      #m-pr-search-btn-badge {
+        position: absolute !important;
+        top: -2px !important;
+        right: -2px !important;
+        width: 8.5px !important;
+        height: 8.5px !important;
+        border-radius: 9999px !important;
+        background-color: #0E5296 !important;
+        box-shadow: 0 0 0 2px #F4EFE6 !important;
+        z-index: 40 !important;
+        pointer-events: none !important;
+      }
+      .dark #m-pr-search-btn-badge,
+      [data-theme="dark"] #m-pr-search-btn-badge {
+        box-shadow: 0 0 0 2px #000000 !important;
+      }
+
+      .pr-search-morph-closed #m-pr-search-icon-box {
+        width: 100% !important;
+        height: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+      .pr-search-morph-closed #m-pr-search-inner-content {
+        display: none !important;
+      }
+
+      /* Open Morph State: full-width expanded search bar matching exact 34px height/thickness */
+      .pr-search-morph-open {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        height: 34px !important;
+        min-height: 34px !important;
+        max-height: 34px !important;
+        box-sizing: border-box !important;
+        flex: 1 1 0% !important;
+        border-radius: 12px !important;
+        padding-left: 8px !important;
+        padding-right: 4px !important;
+        margin: 0 !important;
+        cursor: default !important;
+        background-color: #F4EFE6 !important;
+        border: 1px solid #EBE3D5 !important;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+        overflow: visible !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      }
+      .dark .pr-search-morph-open,
+      [data-theme="dark"] .pr-search-morph-open {
+        background-color: #141414 !important;
+        border-color: rgba(255, 255, 255, 0.15) !important;
+      }
+
+      .pr-search-morph-open #m-pr-search-icon-box {
         width: 22px !important;
+        height: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 0 !important;
+        flex-shrink: 0 !important;
       }
-      #m-act-month, #m-pr-date-month {
-        width: 24px !important;
+      .pr-search-morph-open #m-pr-search-inner-content {
+        display: flex !important;
+        pointer-events: auto !important;
+        opacity: 1 !important;
+        height: 100% !important;
+        min-height: 0 !important;
+        max-height: 34px !important;
+        box-sizing: border-box !important;
+        overflow: visible !important;
       }
-      #m-act-year, #m-pr-date-year {
-        width: 38px !important;
+      .pr-search-morph-open #m-pr-search-inner-content * {
+        pointer-events: auto !important;
+      }
+
+      #m-pr-custom-dropdown-wrap {
+        position: relative !important;
+        z-index: 60 !important;
+      }
+      #m-pr-custom-dropdown-btn {
+        pointer-events: auto !important;
+        cursor: pointer !important;
+        position: relative !important;
+        z-index: 61 !important;
+      }
+      #m-pr-custom-dropdown-menu {
+        z-index: 100 !important;
+      }
+
+      #m-pr-search {
+        font-size: 12px !important;
+        height: 100% !important;
+        min-height: 0 !important;
+        max-height: 32px !important;
+        line-height: 1 !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        box-sizing: border-box !important;
+      }
+      #m-pr-search::placeholder {
+        font-size: 12px !important;
+        line-height: 1 !important;
+      }
+
+      /* Open spin on search icon when expanding */
+      .pr-search-icon-spin {
+        transform: rotate(360deg) !important;
+      }
+
+      /* Tabs wrap slide-out & hide */
+      .pr-tabs-hidden {
+        width: 0 !important;
+        min-width: 0 !important;
+        max-width: 0 !important;
+        opacity: 0 !important;
+        transform: translateX(-30px) scale(0.92) !important;
+        pointer-events: none !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        gap: 0 !important;
+        flex: 0 0 0% !important;
+      }
+
+      /* X Close Button Morph matching inactive tab colors and 34px circle button */
+      #m-pr-search-close-btn {
+        background-color: #F4EFE6 !important;
+        border: 1px solid #EBE3D5 !important;
+        color: #1a1a1a !important;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+        box-sizing: border-box !important;
+        border-radius: 9999px !important;
+      }
+      .dark #m-pr-search-close-btn,
+      [data-theme="dark"] #m-pr-search-close-btn {
+        background-color: #141414 !important;
+        border-color: rgba(255, 255, 255, 0.15) !important;
+        color: #d1d5db !important;
+      }
+      #m-pr-search-close-btn:hover {
+        background-color: #F2ECE0 !important;
+      }
+      .dark #m-pr-search-close-btn:hover,
+      [data-theme="dark"] #m-pr-search-close-btn:hover {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+      }
+      .pr-close-btn-morph {
+        transform: scale(0.6) rotate(-90deg);
+        transition: width 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+                    opacity 0.25s ease,
+                    margin 0.3s ease,
+                    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+      }
+      .pr-close-btn-visible {
+        width: 34px !important;
+        min-width: 34px !important;
+        max-width: 34px !important;
+        height: 34px !important;
+        min-height: 34px !important;
+        max-height: 34px !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        margin-right: 6px !important;
+        transform: scale(1) rotate(0deg) !important;
+      }
+      .pr-close-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        will-change: transform;
+      }
+      #m-pr-search-close-btn:active .pr-close-icon,
+      .pr-close-icon.is-spinning {
+        transform: rotate(180deg) scale(0.85);
+      }
+
+      #m-act-day, #m-pr-date-day, #d-pr-date-day, #d-act-day {
+        width: 22px !important;
+        text-align: center !important;
+      }
+      #m-act-month, #m-pr-date-month, #d-pr-date-month, #d-act-month {
+        width: 26px !important;
+        text-align: center !important;
+      }
+      #m-act-year, #m-pr-date-year, #d-pr-date-year, #d-act-year {
+        width: 42px !important;
+        text-align: center !important;
       }
     }
 
@@ -1239,25 +1495,37 @@
     }
 
     /* ── Auto Payout On/Off Dual-Side Pill Toggle (Inspired by Reference) ── */
+    .payout-toggle,
+    .payout-toggle *,
+    .payout-toggle-header,
+    .payout-toggle-header * {
+      -webkit-tap-highlight-color: transparent !important;
+      -webkit-touch-callout: none !important;
+      outline: none !important;
+      user-select: none !important;
+      -webkit-user-select: none !important;
+    }
+
     .payout-toggle {
       position: relative;
       border-radius: 999px;
-      background: #EDE8DF;
+      background: #F4EFE6 !important;
       cursor: pointer;
-      user-select: none;
-      -webkit-user-select: none;
       box-sizing: border-box;
       overflow: hidden;
-      border: 1px solid #D4C7B2;
-      transition: border-color 0.3s ease, background-color 0.3s ease;
+      border: 1px solid #D4C7B2 !important;
+      transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+    .payout-toggle:active {
+      transform: scale(0.95) !important;
     }
     html.dark .payout-toggle {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: #000000 !important;
+      border: 1px solid rgba(255, 255, 255, 0.15) !important;
     }
     .payout-toggle.on,
     .payout-toggle.off {
-      box-shadow: none;
+      box-shadow: none !important;
     }
 
     .payout-side-text {
@@ -1273,22 +1541,45 @@
       z-index: 1;
       font-family: 'Hanken Grotesk', sans-serif;
       pointer-events: none;
+      transition: opacity 0.2s ease !important;
     }
     .payout-side-text.left {
-      left: 0;
+      left: 4px;
       width: 44px;
       color: #0A4328;
+      text-shadow: none !important;
     }
     html.dark .payout-side-text.left {
-      color: #34D399;
+      color: #34D399 !important;
+      text-shadow: none !important;
     }
     .payout-side-text.right {
-      right: 0;
+      right: 4px;
       width: 44px;
       color: #DC2626;
+      text-shadow: none !important;
     }
     html.dark .payout-side-text.right {
-      color: #F87171;
+      color: #F87171 !important;
+      text-shadow: none !important;
+    }
+
+    /* Hide text underneath the active sliding pill so it never flashes or peeks through */
+    .payout-toggle.on .payout-side-text.left,
+    .payout-toggle-header.on .payout-side-text.left {
+      opacity: 0 !important;
+    }
+    .payout-toggle.on .payout-side-text.right,
+    .payout-toggle-header.on .payout-side-text.right {
+      opacity: 1 !important;
+    }
+    .payout-toggle.off .payout-side-text.left,
+    .payout-toggle-header.off .payout-side-text.left {
+      opacity: 1 !important;
+    }
+    .payout-toggle.off .payout-side-text.right,
+    .payout-toggle-header.off .payout-side-text.right {
+      opacity: 0 !important;
     }
 
     .payout-pill {
@@ -1308,20 +1599,20 @@
       z-index: 2;
       font-family: 'Hanken Grotesk', sans-serif;
       letter-spacing: -0.2px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background 0.35s ease, box-shadow 0.35s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25) !important;
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background 0.35s ease !important;
     }
 
     .payout-toggle.on .payout-pill {
       transform: translateX(0);
       background: #0A4328;
-      box-shadow: 0 2px 10px rgba(10, 67, 40, 0.45);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25) !important;
     }
 
     .payout-toggle.off .payout-pill {
       transform: translateX(36px);
       background: #D64545;
-      box-shadow: 0 2px 10px rgba(214, 69, 69, 0.45);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25) !important;
     }
 
     .payout-pill svg {
@@ -1349,34 +1640,112 @@
     .payout-toggle-header {
       height: 32px !important;
       width: 96px !important;
-      background: linear-gradient(145deg, #052014, #08341f) !important;
-      border: 1px solid rgba(0, 0, 0, 0.45) !important;
+      background: #F4EFE6 !important;
+      border: 1px solid #D5CBB8 !important;
       border-radius: 999px !important;
-      box-shadow: inset 2.5px 2.5px 5px rgba(0, 0, 0, 0.8),
-                  inset -1.5px -1.5px 4px rgba(255, 255, 255, 0.14),
-                  0 1px 3px rgba(0, 0, 0, 0.35),
-                  0 -1px 1px rgba(255, 255, 255, 0.08) !important;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08),
+                  inset 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+      transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1) !important;
     }
     .payout-toggle-header:active {
-      box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.9),
-                  inset -1px -1px 3px rgba(255, 255, 255, 0.1) !important;
+      transform: scale(0.95) !important;
     }
     .payout-toggle-header .payout-side-text {
       font-size: 8.5px !important;
       font-weight: 800 !important;
       letter-spacing: 0.3px !important;
-      transition: opacity 0.25s ease, text-shadow 0.25s ease !important;
     }
     .payout-toggle-header .payout-side-text.left {
+      left: 4px !important;
       width: 32px !important;
-      color: #34D399 !important;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9), 0 0 6px rgba(52, 211, 153, 0.4) !important;
+      color: #0A4328 !important;
+      text-shadow: none !important;
     }
     .payout-toggle-header .payout-side-text.right {
+      right: 4px !important;
       width: 32px !important;
+      color: #DC2626 !important;
+      text-shadow: none !important;
+    }
+    html.dark .payout-toggle-header {
+      background: #000000 !important;
+      border: 1px solid rgba(255, 255, 255, 0.15) !important;
+      box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.6),
+                  0 1px 3px rgba(0, 0, 0, 0.4) !important;
+    }
+    html.dark .payout-toggle-header:active {
+      transform: scale(0.95) !important;
+    }
+
+    /* Tap feedback: when tapping to turn OFF, show RED on background */
+    .payout-toggle.on:active,
+    .payout-toggle-header.on:active {
+      background: #FEE2E2 !important;
+      -webkit-tap-highlight-color: transparent !important;
+    }
+    html.dark .payout-toggle.on:active,
+    html.dark .payout-toggle-header.on:active {
+      background: #2D0F0F !important;
+      -webkit-tap-highlight-color: transparent !important;
+    }
+    .payout-toggle.on:active .payout-pill,
+    .payout-toggle-header.on:active .payout-pill {
+      background: linear-gradient(145deg, #dc2626, #991b1b) !important;
+    }
+
+    /* Tap feedback: when tapping to turn ON, show GREEN on background */
+    .payout-toggle.off:active,
+    .payout-toggle-header.off:active {
+      background: #DCFCE7 !important;
+      -webkit-tap-highlight-color: transparent !important;
+    }
+    html.dark .payout-toggle.off:active,
+    html.dark .payout-toggle-header.off:active {
+      background: #0A2618 !important;
+      -webkit-tap-highlight-color: transparent !important;
+    }
+    .payout-toggle.off:active .payout-pill,
+    .payout-toggle-header.off:active .payout-pill {
+      background: linear-gradient(145deg, #13633b, #093c23) !important;
+    }
+
+    /* Tap Flash Animations for instant responsive click without border changes */
+    @keyframes tapFlashRedLight {
+      0% { background-color: #FEE2E2 !important; }
+      100% { background-color: #F4EFE6 !important; }
+    }
+    @keyframes tapFlashRedDark {
+      0% { background-color: #2D0F0F !important; }
+      100% { background-color: #000000 !important; }
+    }
+    @keyframes tapFlashGreenLight {
+      0% { background-color: #DCFCE7 !important; }
+      100% { background-color: #F4EFE6 !important; }
+    }
+    @keyframes tapFlashGreenDark {
+      0% { background-color: #0A2618 !important; }
+      100% { background-color: #000000 !important; }
+    }
+
+    .payout-flash-red {
+      animation: tapFlashRedLight 0.45s ease-out !important;
+    }
+    html.dark .payout-flash-red {
+      animation: tapFlashRedDark 0.45s ease-out !important;
+    }
+    .payout-flash-green {
+      animation: tapFlashGreenLight 0.45s ease-out !important;
+    }
+    html.dark .payout-flash-green {
+      animation: tapFlashGreenDark 0.45s ease-out !important;
+    }
+    html.dark .payout-toggle-header .payout-side-text.left {
+      color: #34D399 !important;
+      text-shadow: none !important;
+    }
+    html.dark .payout-toggle-header .payout-side-text.right {
       color: #F87171 !important;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9), 0 0 6px rgba(248, 113, 113, 0.4) !important;
+      text-shadow: none !important;
     }
     .payout-toggle-header .payout-pill {
       top: 2px !important;
@@ -1391,9 +1760,7 @@
       border-radius: 999px !important;
       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6) !important;
       transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-                  background 0.35s ease,
-                  box-shadow 0.35s ease,
-                  border-color 0.35s ease !important;
+                  background 0.35s ease !important;
     }
     .payout-toggle-header .payout-pill svg {
       width: 9.5px !important;
@@ -1404,18 +1771,14 @@
     .payout-toggle-header.on .payout-pill {
       transform: translateX(0) !important;
       background: linear-gradient(145deg, #13633b, #093c23) !important;
-      border: 1px solid rgba(74, 222, 128, 0.35) !important;
-      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65),
-                  -1px -1px 3px rgba(255, 255, 255, 0.22),
-                  inset 1px 1px 1.5px rgba(255, 255, 255, 0.35) !important;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
     }
     .payout-toggle-header.off .payout-pill {
       transform: translateX(32px) !important;
       background: linear-gradient(145deg, #dc2626, #991b1b) !important;
-      border: 1px solid rgba(248, 113, 113, 0.4) !important;
-      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.65),
-                  -1px -1px 3px rgba(255, 255, 255, 0.22),
-                  inset 1px 1px 1.5px rgba(255, 255, 255, 0.4) !important;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
     }
 
     @keyframes cpModalShake {
@@ -4248,105 +4611,137 @@
         <!-- MOBILE LANDING LIST -->
         <div id="m-pr-landing" class="max-w-3xl mx-auto w-full space-y-2.5">
           <!-- Top Grouping Tabs & Integrated Search/Filter (Pinned Fixed Sticky Header with Solid Background) -->
-          <div class="sticky top-0 z-30 bg-[#F4EFE6] dark:bg-[#000000] -mx-3.5 sm:-mx-4 px-3.5 sm:px-4 pt-3 pb-2.5 flex items-center justify-between gap-2">
-            <div class="flex items-center gap-1.5 flex-shrink-0">
-              <button id="m-tab-ongoing" onclick="switchPRTab('ongoing')"
-                class="pr-tab-btn h-[34px] px-2.5 sm:px-3.5 rounded-xl font-heading text-xs font-bold transition-all bg-brand-blue text-white shadow-sm flex items-center gap-1.5 cursor-pointer">
-                <span>Ongoing</span>
-                <span class="px-1.5 py-0.5 rounded-full text-[10px] font-extrabold bg-white/20 text-white"
-                  id="m-cnt-ongoing">5</span>
-              </button>
-              <button id="m-tab-fulfilled" onclick="switchPRTab('fulfilled')"
-                class="pr-tab-btn h-[34px] px-2.5 sm:px-3.5 rounded-xl font-heading text-xs font-bold transition-all bg-[#F4EFE6] dark:bg-[#141414] text-brand-dark dark:text-gray-300 hover:bg-[#F2ECE0] dark:hover:bg-white/10 border border-[#EBE3D5] dark:border-white/15 shadow-xs flex items-center gap-1.5 cursor-pointer">
-                <span>Fulfilled</span>
-                <span
-                  class="px-1.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#EBE3D5]/80 dark:bg-white/15 text-brand-dark dark:text-gray-200"
-                  id="m-cnt-fulfilled">2</span>
-              </button>
-            </div>
+          <div id="m-pr-sticky-header" class="sticky top-0 z-30 bg-[#F4EFE6] dark:bg-[#000000] -mx-3.5 sm:-mx-4 px-3.5 sm:px-4 pt-3 pb-2.5">
+            
+            <div id="m-pr-header-row" class="relative w-full h-[34px] flex items-center justify-between gap-1.5">
+              
+              <!-- Ongoing & Fulfilled Tabs Container (Slides and fades out to the left on search open) -->
+              <div id="m-pr-tabs-wrap" class="flex items-center gap-1.5 flex-shrink-0 transition-all duration-300 ease-in-out">
+                <button id="m-tab-ongoing" onclick="switchPRTab('ongoing')"
+                  class="pr-tab-btn h-[34px] px-2.5 sm:px-3.5 rounded-xl font-heading text-xs font-bold transition-all bg-brand-blue text-white shadow-sm flex items-center gap-1.5 cursor-pointer flex-shrink-0">
+                  <span>Ongoing</span>
+                  <span class="text-xs font-bold text-white/90"
+                    id="m-cnt-ongoing">5</span>
+                </button>
+                <button id="m-tab-fulfilled" onclick="switchPRTab('fulfilled')"
+                  class="pr-tab-btn h-[34px] px-2.5 sm:px-3.5 rounded-xl font-heading text-xs font-bold transition-all bg-[#F4EFE6] dark:bg-[#141414] text-brand-dark dark:text-gray-300 hover:bg-[#F2ECE0] dark:hover:bg-white/10 border border-[#EBE3D5] dark:border-white/15 shadow-xs flex items-center gap-1.5 cursor-pointer flex-shrink-0">
+                  <span>Fulfilled</span>
+                  <span class="text-xs font-bold text-gray-500 dark:text-gray-400"
+                    id="m-cnt-fulfilled">2</span>
+                </button>
+              </div>
 
-            <!-- Integrated Search Bar with Filter inside (Payment Room) -->
-            <div class="relative flex-1 min-w-[120px] max-w-[260px] ml-auto">
-              <div
-                class="h-[34px] flex items-center bg-[#F4EFE6] dark:bg-[#141414] border border-[#EBE3D5] dark:border-white/20 rounded-xl pl-2 pr-1 shadow-xs focus-within:ring-2 focus-within:ring-brand-blue/20 dark:focus-within:border-white/40 transition-all">
-                <span class="material-symbols-outlined text-gray-400 dark:text-gray-400 text-[14px] flex-shrink-0">search</span>
-                <input type="text" id="m-pr-search" oninput="filterPaymentRooms('mobile')"
-                  placeholder="Search orders"
-                  class="w-full min-w-0 bg-transparent border-0 pl-1 pr-1 py-0 h-full text-[11px] font-medium text-brand-dark dark:text-white placeholder-gray-400 focus:outline-none focus:ring-0" />
+              <!-- Close 'X' Button on Left of Expanded Bar (Spins on tap when collapsing) -->
+              <button type="button" id="m-pr-search-close-btn" onclick="closePRSearch(event)"
+                class="pr-close-btn-morph w-0 h-[34px] min-h-[34px] opacity-0 pointer-events-none rounded-full flex items-center justify-center bg-[#F4EFE6] dark:bg-[#141414] text-brand-dark dark:text-gray-300 hover:bg-[#F2ECE0] dark:hover:bg-white/10 border border-[#EBE3D5] dark:border-white/15 shadow-xs flex-shrink-0 cursor-pointer overflow-hidden select-none active:scale-95"
+                title="Close search" aria-label="Close search">
+                <span class="pr-close-icon material-symbols-outlined text-[18px]">close</span>
+              </button>
 
-                <!-- Integrated Filter Button & Dropdown Inside Search Bar -->
-                <div class="relative text-left flex-shrink-0" id="m-pr-custom-dropdown-wrap">
-                  <button type="button" onclick="togglePRCustomDropdown('mobile')" id="m-pr-custom-dropdown-btn"
-                    class="h-6 inline-flex items-center gap-1 bg-transparent hover:bg-black/5 dark:hover:bg-white/10 rounded-lg px-1.5 text-[10.5px] font-semibold text-brand-dark dark:text-gray-200 focus:outline-none font-heading cursor-pointer transition-all">
-                    <span class="material-symbols-outlined text-[12px] text-gray-600 dark:text-gray-400">tune</span>
-                    <span id="m-pr-custom-dropdown-label">Filter</span>
-                    <span id="m-pr-filter-badge"
-                      class="hidden w-3.5 h-3.5 rounded-full bg-brand-blue text-white text-[8.5px] font-extrabold items-center justify-center leading-none">0</span>
+              <!-- Morphing Search Bar: Starts as circular button matching fulfilled tab, expands smoothly to full width bar -->
+              <div id="m-pr-search-morph-wrap" onclick="handleMorphWrapClick(event)"
+                class="pr-search-morph-closed relative h-[34px] flex items-center bg-[#F4EFE6] dark:bg-[#141414] border border-[#EBE3D5] dark:border-white/15 shadow-xs transition-all duration-300 ease-in-out cursor-pointer flex-shrink-0 ml-auto">
+                
+                <!-- Search Icon: fixed size 16px, open-spins on expand -->
+                <div id="m-pr-search-icon-box"
+                  class="h-full flex items-center justify-center flex-shrink-0 select-none pointer-events-none">
+                  <span id="m-pr-search-icon"
+                    class="pr-search-icon-fixed material-symbols-outlined text-brand-dark dark:text-gray-200">search</span>
+                </div>
+
+                <!-- Inner Content: Input, Clear, and Filter (Fades in smoothly) -->
+                <div id="m-pr-search-inner-content"
+                  class="flex items-center flex-1 min-w-0 h-full opacity-0 pointer-events-none transition-opacity duration-200 pr-1">
+                  <input type="text" id="m-pr-search" oninput="handlePRSearchInput(this)"
+                    placeholder="Search Payment Room"
+                    class="w-full min-w-0 bg-transparent border-0 pl-1 pr-1 py-0 h-full text-[12px] font-medium text-brand-dark dark:text-white placeholder-gray-400 focus:outline-none focus:ring-0" />
+
+                  <!-- Clear Button -->
+                  <button type="button" id="m-pr-search-clear-btn" onclick="clearPRSearchText(event)"
+                    class="hidden w-5 h-5 rounded-full flex items-center justify-center text-gray-400 hover:text-brand-dark dark:hover:text-white mr-1 flex-shrink-0 transition-colors cursor-pointer"
+                    title="Clear search">
+                    <span class="material-symbols-outlined text-[14px]">close</span>
                   </button>
 
-                  <div id="m-pr-custom-dropdown-menu"
-                    class="hidden absolute right-0 mt-2 w-52 rounded-2xl bg-[#F4EFE6] border border-gray-200/90 shadow-2xl z-50 overflow-hidden p-2.5 space-y-1.5">
-                    <div class="px-1.5 py-0.5 flex items-center justify-between border-b border-gray-100 pb-1.5 mb-1">
-                      <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider font-heading">Filter
-                        Role</span>
-                      <button type="button" onclick="clearPRCustomFilters('mobile', event)" id="m-pr-filter-reset-btn"
-                        class="text-[11px] font-bold text-brand-blue hover:underline cursor-pointer">Reset</button>
-                    </div>
-                    <button type="button" onclick="togglePRCustomFilterOption('mobile', 'Buying', event)"
-                      id="m-pr-opt-buying"
-                      class="m-pr-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-[#EDE8DF] transition-all cursor-pointer">
-                      <span class="flex items-center gap-2">
-                        <span
-                          class="w-4 h-4 rounded-md border border-gray-300 flex items-center justify-center text-white text-[10px] transition-colors"
-                          id="m-pr-chk-buying">
-                          <i class="fa-solid fa-check hidden"></i>
-                        </span>
-                        <span>Buying</span>
-                      </span>
-                    </button>
-                    <button type="button" onclick="togglePRCustomFilterOption('mobile', 'Selling', event)"
-                      id="m-pr-opt-selling"
-                      class="m-pr-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark hover:bg-[#EDE8DF] transition-all cursor-pointer">
-                      <span class="flex items-center gap-2">
-                        <span
-                          class="w-4 h-4 rounded-md border border-gray-300 flex items-center justify-center text-white text-[10px] transition-colors"
-                          id="m-pr-chk-selling">
-                          <i class="fa-solid fa-check hidden"></i>
-                        </span>
-                        <span>Selling</span>
-                      </span>
+                  <!-- Integrated Filter Button & Dropdown Inside Search Bar -->
+                  <div class="relative text-left flex-shrink-0" id="m-pr-custom-dropdown-wrap">
+                    <button type="button" onclick="togglePRCustomDropdown('mobile', event)" id="m-pr-custom-dropdown-btn"
+                      class="h-6 inline-flex items-center gap-1 bg-transparent hover:bg-black/5 dark:hover:bg-white/10 rounded-lg px-1.5 text-[10.5px] font-semibold text-brand-dark dark:text-gray-200 focus:outline-none font-heading cursor-pointer transition-all">
+                      <span class="material-symbols-outlined text-[12px] text-gray-600 dark:text-gray-400">tune</span>
+                      <span id="m-pr-custom-dropdown-label">Filter</span>
+                      <span id="m-pr-filter-badge"
+                        class="hidden w-3.5 h-3.5 rounded-full bg-brand-blue text-white text-[8.5px] font-extrabold items-center justify-center leading-none">0</span>
                     </button>
 
-                    <!-- Manual Date Filter with Live Stationary Guides -->
-                    <div class="pt-1.5 border-t border-gray-100 px-1">
-                      <label
-                        class="text-[9.5px] font-bold text-gray-400 uppercase tracking-wider font-heading block mb-1">Filter
-                        by Date</label>
-                      <div
-                        class="flex items-center bg-[#EDE8DF] hover:bg-gray-100 border border-gray-200 rounded-xl px-2.5 py-1.5 focus-within:ring-1 focus-within:ring-brand-blue focus-within:border-brand-blue transition-all">
-                        <span
-                          class="material-symbols-outlined text-[14px] text-gray-400 mr-2 pointer-events-none flex-shrink-0">calendar_month</span>
-                        <div class="flex items-center text-[11px] font-medium text-brand-dark">
-                          <input type="text" id="m-pr-date-day" maxlength="2" placeholder="DD"
-                            oninput="handleDateSegmentInput('m-pr-date', 'day', 'mobile', 'pr')"
-                            onkeydown="handleDateSegmentKeydown(event, 'm-pr-date', 'day')"
-                            class="w-[17px] text-left bg-transparent border-0 p-0 text-[11px] font-semibold text-brand-dark placeholder-gray-400 focus:outline-none focus:ring-0 leading-none" />
-                          <span class="text-gray-400 font-medium select-none px-0.5">-</span>
-                          <input type="text" id="m-pr-date-month" maxlength="2" placeholder="MM"
-                            oninput="handleDateSegmentInput('m-pr-date', 'month', 'mobile', 'pr')"
-                            onkeydown="handleDateSegmentKeydown(event, 'm-pr-date', 'month')"
-                            class="w-[20px] text-left bg-transparent border-0 p-0 text-[11px] font-semibold text-brand-dark placeholder-gray-400 focus:outline-none focus:ring-0 leading-none" />
-                          <span class="text-gray-400 font-medium select-none px-0.5">-</span>
-                          <input type="text" id="m-pr-date-year" maxlength="4" placeholder="YYYY"
-                            oninput="handleDateSegmentInput('m-pr-date', 'year', 'mobile', 'pr')"
-                            onkeydown="handleDateSegmentKeydown(event, 'm-pr-date', 'year')"
-                            class="w-[32px] text-left bg-transparent border-0 p-0 text-[11px] font-semibold text-brand-dark placeholder-gray-400 focus:outline-none focus:ring-0 leading-none" />
+                    <div id="m-pr-custom-dropdown-menu"
+                      class="hidden absolute right-0 mt-2 w-52 rounded-2xl bg-[#F4EFE6] dark:bg-[#1A1A1A] border border-gray-200/90 dark:border-white/15 shadow-2xl z-50 overflow-hidden p-2.5 space-y-1.5">
+                      <div class="px-1.5 py-0.5 flex items-center justify-between border-b border-gray-100 dark:border-white/10 pb-1.5 mb-1">
+                        <span class="text-[10px] font-bold text-gray-400 dark:text-gray-400 uppercase tracking-wider font-heading">Filter
+                          Role</span>
+                        <button type="button" onclick="clearPRCustomFilters('mobile', event)" id="m-pr-filter-reset-btn"
+                          class="text-[11px] font-bold text-brand-blue dark:text-blue-400 hover:underline cursor-pointer">Reset</button>
+                      </div>
+                      <button type="button" onclick="togglePRCustomFilterOption('mobile', 'Buying', event)"
+                        id="m-pr-opt-buying"
+                        class="m-pr-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark dark:text-gray-200 hover:bg-[#EDE8DF] dark:hover:bg-white/10 transition-all cursor-pointer">
+                        <span class="flex items-center gap-2">
+                          <span
+                            class="w-4 h-4 rounded-md border border-gray-300 dark:border-white/20 flex items-center justify-center text-white text-[10px] transition-colors"
+                            id="m-pr-chk-buying">
+                            <i class="fa-solid fa-check hidden"></i>
+                          </span>
+                          <span>Buying</span>
+                        </span>
+                      </button>
+                      <button type="button" onclick="togglePRCustomFilterOption('mobile', 'Selling', event)"
+                        id="m-pr-opt-selling"
+                        class="m-pr-opt-item w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-semibold rounded-xl text-brand-dark dark:text-gray-200 hover:bg-[#EDE8DF] dark:hover:bg-white/10 transition-all cursor-pointer">
+                        <span class="flex items-center gap-2">
+                          <span
+                            class="w-4 h-4 rounded-md border border-gray-300 dark:border-white/20 flex items-center justify-center text-white text-[10px] transition-colors"
+                            id="m-pr-chk-selling">
+                            <i class="fa-solid fa-check hidden"></i>
+                          </span>
+                          <span>Selling</span>
+                        </span>
+                      </button>
+
+                      <!-- Manual Date Filter with Live Stationary Guides -->
+                      <div class="pt-1.5 border-t border-gray-100 dark:border-white/10 px-1">
+                        <label
+                          class="text-[9.5px] font-bold text-gray-400 dark:text-gray-400 uppercase tracking-wider font-heading block mb-1">Filter
+                          by Date</label>
+                        <div
+                          class="flex items-center bg-[#EDE8DF] dark:bg-[#141414] hover:bg-gray-100 dark:hover:bg-white/5 border border-gray-200 dark:border-white/15 rounded-xl px-2.5 py-1.5 focus-within:ring-1 focus-within:ring-brand-blue focus-within:border-brand-blue transition-all">
+                          <span
+                            class="material-symbols-outlined text-[14px] text-gray-400 mr-2 pointer-events-none flex-shrink-0">calendar_month</span>
+                          <div class="flex items-center text-[11px] font-medium text-brand-dark dark:text-white">
+                            <input type="text" id="m-pr-date-day" maxlength="2" placeholder="DD"
+                              oninput="handleDateSegmentInput('m-pr-date', 'day', 'mobile', 'pr')"
+                              onkeydown="handleDateSegmentKeydown(event, 'm-pr-date', 'day')"
+                              class="w-[22px] text-center bg-transparent border-0 p-0 text-[11px] font-semibold text-brand-dark dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-0 leading-none" />
+                            <span class="text-gray-400 dark:text-gray-500 font-medium select-none px-0.5">-</span>
+                            <input type="text" id="m-pr-date-month" maxlength="2" placeholder="MM"
+                              oninput="handleDateSegmentInput('m-pr-date', 'month', 'mobile', 'pr')"
+                              onkeydown="handleDateSegmentKeydown(event, 'm-pr-date', 'month')"
+                              class="w-[26px] text-center bg-transparent border-0 p-0 text-[11px] font-semibold text-brand-dark dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-0 leading-none" />
+                            <span class="text-gray-400 dark:text-gray-500 font-medium select-none px-0.5">-</span>
+                            <input type="text" id="m-pr-date-year" maxlength="4" placeholder="YYYY"
+                              oninput="handleDateSegmentInput('m-pr-date', 'year', 'mobile', 'pr')"
+                              onkeydown="handleDateSegmentKeydown(event, 'm-pr-date', 'year')"
+                              class="w-[42px] text-center bg-transparent border-0 p-0 text-[11px] font-semibold text-brand-dark dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-0 leading-none" />
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+
+                <!-- Indicator badge when collapsed if active filters exist -->
+                <span id="m-pr-search-btn-badge"
+                  class="hidden absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-brand-blue ring-2 ring-[#F4EFE6] dark:ring-black pointer-events-none z-30 shadow-xs"></span>
               </div>
+
             </div>
           </div>
 
@@ -8368,14 +8763,13 @@
               <button id="d-tab-ongoing" onclick="switchPRTab('ongoing')"
                 class="pr-tab-btn h-[38px] px-5 rounded-xl font-heading text-xs font-bold transition-all bg-brand-blue text-white shadow-sm flex items-center gap-2.5 cursor-pointer">
                 <span>Ongoing</span>
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-white/20 text-white"
+                <span class="text-xs font-bold text-white/90"
                   id="d-cnt-ongoing">5</span>
               </button>
               <button id="d-tab-fulfilled" onclick="switchPRTab('fulfilled')"
                 class="pr-tab-btn h-[38px] px-5 rounded-xl font-heading text-xs font-bold transition-all bg-[#F4EFE6] dark:bg-[#141414] text-brand-dark dark:text-gray-300 hover:bg-[#F2ECE0] dark:hover:bg-white/10 border border-[#EBE3D5] dark:border-white/15 shadow-xs flex items-center gap-2.5 cursor-pointer">
                 <span>Fulfilled</span>
-                <span
-                  class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#EBE3D5]/80 dark:bg-white/15 text-brand-dark dark:text-gray-200"
+                <span class="text-xs font-bold text-gray-500 dark:text-gray-400"
                   id="d-cnt-fulfilled">2</span>
               </button>
             </div>
@@ -8386,7 +8780,7 @@
                 class="h-[38px] flex items-center bg-[#F4EFE6] dark:bg-[#141414] border border-[#EBE3D5] dark:border-white/20 rounded-xl pl-3 pr-1 shadow-xs focus-within:ring-2 focus-within:ring-brand-blue/20 dark:focus-within:border-white/40 transition-all">
                 <span class="material-symbols-outlined text-gray-400 dark:text-gray-400 text-[16px] flex-shrink-0">search</span>
                 <input type="text" id="d-pr-search" oninput="filterPaymentRooms('desktop')"
-                  placeholder="Search orders"
+                  placeholder="Search Payment Room"
                   class="w-full min-w-0 bg-transparent border-0 pl-2 pr-1.5 py-0 h-full text-xs font-medium text-brand-dark dark:text-white placeholder-gray-400 focus:outline-none focus:ring-0" />
 
                 <!-- Integrated Filter Button & Dropdown Inside Search Bar -->
@@ -8435,29 +8829,29 @@
                     </button>
 
                     <!-- Manual Date Filter with Live Stationary Guides -->
-                    <div class="pt-1.5 border-t border-gray-100 px-1">
+                    <div class="pt-1.5 border-t border-gray-100 dark:border-white/10 px-1">
                       <label
-                        class="text-[9.5px] font-bold text-gray-400 uppercase tracking-wider font-heading block mb-1">Filter
+                        class="text-[9.5px] font-bold text-gray-400 dark:text-gray-400 uppercase tracking-wider font-heading block mb-1">Filter
                         by Date</label>
                       <div
-                        class="flex items-center bg-[#EDE8DF] hover:bg-gray-100 border border-gray-200 rounded-xl px-2.5 py-1.5 focus-within:ring-1 focus-within:ring-brand-blue focus-within:border-brand-blue transition-all">
+                        class="flex items-center bg-[#EDE8DF] dark:bg-[#141414] hover:bg-gray-100 dark:hover:bg-white/5 border border-gray-200 dark:border-white/15 rounded-xl px-2.5 py-1.5 focus-within:ring-1 focus-within:ring-brand-blue focus-within:border-brand-blue transition-all">
                         <span
                           class="material-symbols-outlined text-[14px] text-gray-400 mr-2 pointer-events-none flex-shrink-0">calendar_month</span>
-                        <div class="flex items-center text-[11px] font-medium text-brand-dark">
+                        <div class="flex items-center text-[11px] font-medium text-brand-dark dark:text-white">
                           <input type="text" id="d-pr-date-day" maxlength="2" placeholder="DD"
                             oninput="handleDateSegmentInput('d-pr-date', 'day', 'desktop', 'pr')"
                             onkeydown="handleDateSegmentKeydown(event, 'd-pr-date', 'day')"
-                            class="w-[17px] text-left bg-transparent border-0 p-0 text-[11px] font-semibold text-brand-dark placeholder-gray-400 focus:outline-none focus:ring-0 leading-none" />
-                          <span class="text-gray-400 font-medium select-none px-0.5">-</span>
+                            class="w-[22px] text-center bg-transparent border-0 p-0 text-[11px] font-semibold text-brand-dark dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-0 leading-none" />
+                          <span class="text-gray-400 dark:text-gray-500 font-medium select-none px-0.5">-</span>
                           <input type="text" id="d-pr-date-month" maxlength="2" placeholder="MM"
                             oninput="handleDateSegmentInput('d-pr-date', 'month', 'desktop', 'pr')"
                             onkeydown="handleDateSegmentKeydown(event, 'd-pr-date', 'month')"
-                            class="w-[20px] text-left bg-transparent border-0 p-0 text-[11px] font-semibold text-brand-dark placeholder-gray-400 focus:outline-none focus:ring-0 leading-none" />
-                          <span class="text-gray-400 font-medium select-none px-0.5">-</span>
+                            class="w-[26px] text-center bg-transparent border-0 p-0 text-[11px] font-semibold text-brand-dark dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-0 leading-none" />
+                          <span class="text-gray-400 dark:text-gray-500 font-medium select-none px-0.5">-</span>
                           <input type="text" id="d-pr-date-year" maxlength="4" placeholder="YYYY"
                             oninput="handleDateSegmentInput('d-pr-date', 'year', 'desktop', 'pr')"
                             onkeydown="handleDateSegmentKeydown(event, 'd-pr-date', 'year')"
-                            class="w-[32px] text-left bg-transparent border-0 p-0 text-[11px] font-semibold text-brand-dark placeholder-gray-400 focus:outline-none focus:ring-0 leading-none" />
+                            class="w-[42px] text-center bg-transparent border-0 p-0 text-[11px] font-semibold text-brand-dark dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-0 leading-none" />
                         </div>
                       </div>
                     </div>
@@ -12073,7 +12467,10 @@
     var activePRFiltersDesktop = new Set();
 
 
-    function togglePRCustomDropdown(view) {
+    function togglePRCustomDropdown(view, evt) {
+      if (evt) {
+        if (typeof evt.stopPropagation === 'function') evt.stopPropagation();
+      }
       const isDesktop = (view === 'desktop' || view === 'd' || view === 'd-');
       const pref = isDesktop ? 'd-' : 'm-';
       const menu = document.getElementById(pref + 'pr-custom-dropdown-menu');
@@ -12216,6 +12613,20 @@
         }
       }
 
+      // Sync circular search button indicator badge on mobile
+      if (isMobile) {
+        const searchBtnBadge = document.getElementById('m-pr-search-btn-badge');
+        if (searchBtnBadge) {
+          const searchInput = document.getElementById('m-pr-search');
+          const hasSearch = searchInput && searchInput.value.trim().length > 0;
+          if ((totalCount > 0 || hasSearch) && !isPRSearchExpanded) {
+            searchBtnBadge.classList.remove('hidden');
+          } else {
+            searchBtnBadge.classList.add('hidden');
+          }
+        }
+      }
+
       ['buying', 'selling'].forEach(typeKey => {
         const val = typeKey === 'buying' ? 'Buying' : 'Selling';
         const chk = document.getElementById(prefix + '-chk-' + typeKey);
@@ -12233,6 +12644,151 @@
           }
         }
       });
+    }
+
+    let isPRSearchExpanded = false;
+
+    function handleMorphWrapClick(e) {
+      if (!isPRSearchExpanded) {
+        openPRSearch();
+      }
+    }
+
+    function openPRSearch() {
+      if (isPRSearchExpanded) return;
+      isPRSearchExpanded = true;
+
+      const tabsWrap = document.getElementById('m-pr-tabs-wrap');
+      const morphWrap = document.getElementById('m-pr-search-morph-wrap');
+      const closeBtn = document.getElementById('m-pr-search-close-btn');
+      const searchIcon = document.getElementById('m-pr-search-icon');
+      const innerContent = document.getElementById('m-pr-search-inner-content');
+      const searchInput = document.getElementById('m-pr-search');
+      const searchBadge = document.getElementById('m-pr-search-btn-badge');
+
+      if (searchBadge) searchBadge.classList.add('hidden');
+
+      // 1. Open-spin animation on the search icon (preserves 16px size)
+      if (searchIcon) {
+        searchIcon.classList.add('pr-search-icon-spin');
+      }
+
+      // 2. Slide and fade tabs out to the left
+      if (tabsWrap) {
+        tabsWrap.classList.add('pr-tabs-hidden');
+      }
+
+      // 3. Morph button: expand width from 34px circle to full-width bar
+      if (morphWrap) {
+        morphWrap.classList.remove('pr-search-morph-closed');
+        morphWrap.classList.add('pr-search-morph-open');
+        morphWrap.style.overflow = 'visible';
+      }
+
+      // 4. Reveal close 'X' button with spin-in on the left
+      if (closeBtn) {
+        closeBtn.classList.add('pr-close-btn-visible');
+      }
+
+      // 5. Enable inner content immediately so filter and input work
+      if (innerContent) {
+        innerContent.style.pointerEvents = 'auto';
+        innerContent.style.opacity = '1';
+      }
+
+      // 6. Focus search input
+      if (searchInput) {
+        setTimeout(function () {
+          searchInput.focus();
+        }, 220);
+      }
+    }
+
+    function closePRSearch(e) {
+      if (e && typeof e.stopPropagation === 'function') e.stopPropagation();
+      if (!isPRSearchExpanded) return;
+
+      const closeBtn = document.getElementById('m-pr-search-close-btn');
+      const closeIcon = closeBtn ? closeBtn.querySelector('.pr-close-icon') : null;
+      if (closeIcon) {
+        closeIcon.classList.add('is-spinning');
+      }
+
+      const tabsWrap = document.getElementById('m-pr-tabs-wrap');
+      const morphWrap = document.getElementById('m-pr-search-morph-wrap');
+      const searchIcon = document.getElementById('m-pr-search-icon');
+      const innerContent = document.getElementById('m-pr-search-inner-content');
+      const menu = document.getElementById('m-pr-custom-dropdown-menu');
+
+      if (menu) menu.classList.add('hidden');
+
+      // Fade out inner content before collapsing
+      if (innerContent) {
+        innerContent.style.opacity = '0';
+        innerContent.style.pointerEvents = 'none';
+      }
+
+      setTimeout(function () {
+        // Contract search bar back into 34px circle
+        if (morphWrap) {
+          morphWrap.style.overflow = 'hidden';
+          morphWrap.classList.remove('pr-search-morph-open');
+          morphWrap.classList.add('pr-search-morph-closed');
+        }
+
+        // Hide 'X' button
+        if (closeBtn) {
+          closeBtn.classList.remove('pr-close-btn-visible');
+        }
+
+        // Untwist search icon
+        if (searchIcon) {
+          searchIcon.classList.remove('pr-search-icon-spin');
+        }
+
+        // Slide tabs back in from left
+        if (tabsWrap) {
+          tabsWrap.classList.remove('pr-tabs-hidden');
+        }
+
+        isPRSearchExpanded = false;
+
+        if (closeIcon) {
+          setTimeout(function () {
+            closeIcon.classList.remove('is-spinning');
+          }, 300);
+        }
+
+        updatePRFilterUI('mobile');
+      }, 150);
+    }
+
+    function handlePRSearchInput(inputEl) {
+      const clearBtn = document.getElementById('m-pr-search-clear-btn');
+      if (clearBtn) {
+        if (inputEl && inputEl.value.trim().length > 0) {
+          clearBtn.classList.remove('hidden');
+        } else {
+          clearBtn.classList.add('hidden');
+        }
+      }
+      updatePRFilterUI('mobile');
+      filterPaymentRooms('mobile');
+    }
+
+    function clearPRSearchText(e) {
+      if (e && typeof e.stopPropagation === 'function') e.stopPropagation();
+      const searchInput = document.getElementById('m-pr-search');
+      const clearBtn = document.getElementById('m-pr-search-clear-btn');
+      if (searchInput) {
+        searchInput.value = '';
+        searchInput.focus();
+      }
+      if (clearBtn) {
+        clearBtn.classList.add('hidden');
+      }
+      updatePRFilterUI('mobile');
+      filterPaymentRooms('mobile');
     }
 
     function filterPaymentRooms(view) {
@@ -12861,7 +13417,7 @@
       } else if (title === 'Email Address' || title === 'Add Email Address' || title === 'Edit Profile') {
         const currentEmail = document.getElementById('m-profile-email-txt') ? document.getElementById('m-profile-email-txt').textContent : 'marcusvance@gmail.com';
         modalBody.innerHTML = `
-          <form onsubmit="event.preventDefault(); saveUserEmail();" class="space-y-3.5 pt-0">
+          <form onsubmit="saveUserEmail(event);" class="space-y-3.5 pt-0">
             <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed -mt-1">
               Add or update your email address to receive official transaction receipts and security alerts.
             </p>
@@ -12886,7 +13442,7 @@
       } else if (title === 'Address' || title === 'Edit Address') {
         const currentAddress = document.getElementById('m-profile-address-txt') ? document.getElementById('m-profile-address-txt').textContent : '14 Adeola Odeku St, Victoria Island, Lagos';
         modalBody.innerHTML = `
-          <form onsubmit="event.preventDefault(); saveUserAddress();" class="space-y-3.5 pt-0">
+          <form onsubmit="saveUserAddress(event);" class="space-y-3.5 pt-0">
             <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed -mt-1">
               Enter your verified physical address for dispute verification and logistics coordination.
             </p>
@@ -12910,7 +13466,7 @@
         `;
       } else if (title === 'BVN Verification' || title === 'BVN & NIN Verification') {
         modalBody.innerHTML = `
-          <form onsubmit="event.preventDefault(); closeActionModal(); showToast('BVN verified successfully!', 'verified');" class="space-y-3.5 pt-0">
+          <form onsubmit="verifyUserBVN(event);" class="space-y-3.5 pt-0">
             <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed -mt-1">
               Your 11-digit BVN is securely verified with NIBSS to protect your payments and verify identity.
             </p>
@@ -12935,7 +13491,7 @@
         `;
       } else if (title === 'NIN Verification') {
         modalBody.innerHTML = `
-          <form onsubmit="event.preventDefault(); closeActionModal(); showToast('NIN verified successfully!', 'verified');" class="space-y-3.5 pt-0">
+          <form onsubmit="verifyUserNIN(event);" class="space-y-3.5 pt-0">
             <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed -mt-1">
               Your National Identification Number is verified against NIMC records for compliance and high trust.
             </p>
@@ -12960,7 +13516,7 @@
         `;
       } else if (title === 'Business Verification' || title === 'Become a Verified Seller') {
         modalBody.innerHTML = `
-          <form onsubmit="event.preventDefault(); closeActionModal(); showToast('Business info saved successfully!', 'check_circle');" class="space-y-3.5 pt-0">
+          <form onsubmit="saveUserBusiness(event);" class="space-y-3.5 pt-0">
             <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed -mt-1">
               Provide your store or business information to unlock the Verified Seller badge and instant automated payouts.
             </p>
@@ -13014,7 +13570,7 @@
         `;
       } else if (title === 'Change Transaction PIN') {
         modalBody.innerHTML = `
-          <form onsubmit="event.preventDefault(); closeActionModal(); showToast('Transaction PIN updated successfully!', 'lock_reset');" class="space-y-3.5 pt-0">
+          <form onsubmit="updateUserPin(event);" class="space-y-3.5 pt-0">
             <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed -mt-1">
               Create a secure 4-digit PIN for authorizing payments, releases, and withdrawals.
             </p>
@@ -13237,7 +13793,7 @@
         `;
       } else {
         modalBody.innerHTML = `
-          <form onsubmit="event.preventDefault(); submitModalAction();" class="space-y-4 pt-1">
+          <form onsubmit="submitModalAction(event);" class="space-y-4 pt-1">
             <div class="boxless-field relative">
               <input type="number" id="fallback-amount-input" placeholder=" " required />
               <label for="fallback-amount-input">Amount (₦)</label>
@@ -13307,14 +13863,38 @@
       }
     }
 
-    function submitModalAction() {
-      if (typeof showToast === 'function') {
-        showToast("Action submitted successfully on PayKudi network!", "check_circle");
-      }
-      closeActionModal();
+    function applyButtonLoadingState(btn) {
+      if (!btn) return function () {};
+      var originalHTML = btn.innerHTML;
+      btn.disabled = true;
+      btn.style.pointerEvents = 'none';
+      btn.classList.remove('active:scale-95', 'active:scale-98', 'active:scale-[0.98]');
+      btn.innerHTML = '<svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
+      return function restore() {
+        btn.disabled = false;
+        btn.style.pointerEvents = '';
+        btn.innerHTML = originalHTML;
+      };
     }
 
-    function saveUserPhone() {
+    function submitModalAction(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      var submitBtn = (e && e.target ? (e.target.tagName === 'BUTTON' ? e.target : e.target.querySelector('button[type="submit"]')) : null) ||
+                      (window.event && window.event.target ? (window.event.target.tagName === 'BUTTON' ? window.event.target : window.event.target.closest('form')?.querySelector('button[type="submit"]')) : null) ||
+                      document.querySelector('#action-modal-body button[type="submit"]');
+      var restoreBtn = applyButtonLoadingState(submitBtn);
+
+      setTimeout(function () {
+        if (typeof showToast === 'function') {
+          showToast("Action submitted successfully on PayKudi network!", "check_circle");
+        }
+        closeActionModal();
+        restoreBtn();
+      }, 650);
+    }
+
+    function saveUserPhone(e) {
+      if (e && e.preventDefault) e.preventDefault();
       const input = document.getElementById("user-phone-input");
       const val = (input && input.value) ? input.value.trim() : "";
       if (!val) {
@@ -13323,17 +13903,26 @@
         }
         return;
       }
-      const mTxt = document.getElementById("m-profile-phone-txt");
-      const dTxt = document.getElementById("d-profile-phone-txt");
-      if (mTxt) mTxt.textContent = val;
-      if (dTxt) dTxt.textContent = val;
-      closeActionModal();
-      if (typeof showToast === 'function') {
-        showToast("Phone number updated successfully!", "check_circle");
-      }
+      var submitBtn = (e && e.target ? (e.target.tagName === 'BUTTON' ? e.target : e.target.querySelector('button[type="submit"]')) : null) ||
+                      (window.event && window.event.target ? (window.event.target.tagName === 'BUTTON' ? window.event.target : window.event.target.closest('form')?.querySelector('button[type="submit"]')) : null) ||
+                      document.querySelector('#action-modal-body button[type="submit"]');
+      var restoreBtn = applyButtonLoadingState(submitBtn);
+
+      setTimeout(function () {
+        const mTxt = document.getElementById("m-profile-phone-txt");
+        const dTxt = document.getElementById("d-profile-phone-txt");
+        if (mTxt) mTxt.textContent = val;
+        if (dTxt) dTxt.textContent = val;
+        closeActionModal();
+        if (typeof showToast === 'function') {
+          showToast("Phone number updated successfully!", "check_circle");
+        }
+        restoreBtn();
+      }, 650);
     }
 
-    function saveUserAddress() {
+    function saveUserAddress(e) {
+      if (e && e.preventDefault) e.preventDefault();
       const input = document.getElementById("user-address-input");
       const val = (input && input.value) ? input.value.trim() : "";
       if (!val) {
@@ -13342,14 +13931,105 @@
         }
         return;
       }
-      const mTxt = document.getElementById("m-profile-address-txt");
-      const dTxt = document.getElementById("d-profile-address-txt");
-      if (mTxt) mTxt.textContent = val;
-      if (dTxt) dTxt.textContent = val;
-      closeActionModal();
-      if (typeof showToast === 'function') {
-        showToast("Address updated successfully!", "check_circle");
+      var submitBtn = (e && e.target ? (e.target.tagName === 'BUTTON' ? e.target : e.target.querySelector('button[type="submit"]')) : null) ||
+                      (window.event && window.event.target ? (window.event.target.tagName === 'BUTTON' ? window.event.target : window.event.target.closest('form')?.querySelector('button[type="submit"]')) : null) ||
+                      document.querySelector('#action-modal-body button[type="submit"]');
+      var restoreBtn = applyButtonLoadingState(submitBtn);
+
+      setTimeout(function () {
+        const mTxt = document.getElementById("m-profile-address-txt");
+        const dTxt = document.getElementById("d-profile-address-txt");
+        if (mTxt) mTxt.textContent = val;
+        if (dTxt) dTxt.textContent = val;
+        closeActionModal();
+        if (typeof showToast === 'function') {
+          showToast("Address updated successfully!", "check_circle");
+        }
+        restoreBtn();
+      }, 650);
+    }
+
+    function verifyUserBVN(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      const input = document.getElementById("user-bvn-input");
+      const val = (input && input.value) ? input.value.trim() : "";
+      if (!val || val.length < 11) {
+        if (typeof showToast === 'function') showToast("Please enter a valid 11-digit BVN.", "warning");
+        if (input) input.focus();
+        return;
       }
+      var submitBtn = (e && e.target ? (e.target.tagName === 'BUTTON' ? e.target : e.target.querySelector('button[type="submit"]')) : null) ||
+                      (window.event && window.event.target ? (window.event.target.tagName === 'BUTTON' ? window.event.target : window.event.target.closest('form')?.querySelector('button[type="submit"]')) : null) ||
+                      document.querySelector('#action-modal-body button[type="submit"]');
+      var restoreBtn = applyButtonLoadingState(submitBtn);
+
+      setTimeout(function () {
+        closeActionModal();
+        if (typeof showToast === 'function') showToast("BVN verified successfully!", "verified");
+        restoreBtn();
+      }, 700);
+    }
+
+    function verifyUserNIN(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      const input = document.getElementById("user-nin-input");
+      const val = (input && input.value) ? input.value.trim() : "";
+      if (!val || val.length < 11) {
+        if (typeof showToast === 'function') showToast("Please enter a valid 11-digit NIN.", "warning");
+        if (input) input.focus();
+        return;
+      }
+      var submitBtn = (e && e.target ? (e.target.tagName === 'BUTTON' ? e.target : e.target.querySelector('button[type="submit"]')) : null) ||
+                      (window.event && window.event.target ? (window.event.target.tagName === 'BUTTON' ? window.event.target : window.event.target.closest('form')?.querySelector('button[type="submit"]')) : null) ||
+                      document.querySelector('#action-modal-body button[type="submit"]');
+      var restoreBtn = applyButtonLoadingState(submitBtn);
+
+      setTimeout(function () {
+        closeActionModal();
+        if (typeof showToast === 'function') showToast("NIN verified successfully!", "verified");
+        restoreBtn();
+      }, 700);
+    }
+
+    function saveUserBusiness(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      const input = document.getElementById("business-name-input");
+      const val = (input && input.value) ? input.value.trim() : "";
+      if (!val) {
+        if (typeof showToast === 'function') showToast("Please enter your business or store name.", "warning");
+        if (input) input.focus();
+        return;
+      }
+      var submitBtn = (e && e.target ? (e.target.tagName === 'BUTTON' ? e.target : e.target.querySelector('button[type="submit"]')) : null) ||
+                      (window.event && window.event.target ? (window.event.target.tagName === 'BUTTON' ? window.event.target : window.event.target.closest('form')?.querySelector('button[type="submit"]')) : null) ||
+                      document.querySelector('#action-modal-body button[type="submit"]');
+      var restoreBtn = applyButtonLoadingState(submitBtn);
+
+      setTimeout(function () {
+        closeActionModal();
+        if (typeof showToast === 'function') showToast("Business info saved successfully!", "check_circle");
+        restoreBtn();
+      }, 700);
+    }
+
+    function updateUserPin(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      const curPin = document.getElementById("current-pin-input")?.value || "";
+      const newPin = document.getElementById("new-pin-input")?.value || "";
+      if (!curPin || curPin.length < 4 || !newPin || newPin.length < 4) {
+        if (typeof showToast === 'function') showToast("Please enter a valid 4-digit PIN.", "warning");
+        return;
+      }
+      var submitBtn = (e && e.target ? (e.target.tagName === 'BUTTON' ? e.target : e.target.querySelector('button[type="submit"]')) : null) ||
+                      (window.event && window.event.target ? (window.event.target.tagName === 'BUTTON' ? window.event.target : window.event.target.closest('form')?.querySelector('button[type="submit"]')) : null) ||
+                      document.querySelector('#action-modal-body button[type="submit"]');
+      var restoreBtn = applyButtonLoadingState(submitBtn);
+
+      setTimeout(function () {
+        closeActionModal();
+        if (typeof showToast === 'function') showToast("Transaction PIN updated successfully!", "lock_reset");
+        restoreBtn();
+      }, 700);
     }
 
     // --- AUTO-COLLAPSING VERIFIED SELLER CARD LOGIC ---
@@ -13390,9 +14070,8 @@
       }
     }
 
-
-
-    function saveUserEmail() {
+    function saveUserEmail(e) {
+      if (e && e.preventDefault) e.preventDefault();
       const emailInput = document.getElementById("user-email-input");
       const val = (emailInput && emailInput.value) ? emailInput.value.trim() : "";
       if (!val) {
@@ -13402,16 +14081,24 @@
         return;
       }
 
-      const mEmailTxt = document.getElementById("m-profile-email-txt");
-      const dEmailTxt = document.getElementById("d-profile-email-txt");
+      var submitBtn = (e && e.target ? (e.target.tagName === 'BUTTON' ? e.target : e.target.querySelector('button[type="submit"]')) : null) ||
+                      (window.event && window.event.target ? (window.event.target.tagName === 'BUTTON' ? window.event.target : window.event.target.closest('form')?.querySelector('button[type="submit"]')) : null) ||
+                      document.querySelector('#action-modal-body button[type="submit"]');
+      var restoreBtn = applyButtonLoadingState(submitBtn);
 
-      if (mEmailTxt) mEmailTxt.textContent = val;
-      if (dEmailTxt) dEmailTxt.textContent = val;
+      setTimeout(function () {
+        const mEmailTxt = document.getElementById("m-profile-email-txt");
+        const dEmailTxt = document.getElementById("d-profile-email-txt");
 
-      closeActionModal();
-      if (typeof showToast === 'function') {
-        showToast("Email address saved successfully!", "check_circle");
-      }
+        if (mEmailTxt) mEmailTxt.textContent = val;
+        if (dEmailTxt) dEmailTxt.textContent = val;
+
+        closeActionModal();
+        if (typeof showToast === 'function') {
+          showToast("Email address saved successfully!", "check_circle");
+        }
+        restoreBtn();
+      }, 650);
     }
 
     function copyProfileField(text, btnEl) {
@@ -13530,18 +14217,25 @@
     }
 
     function downloadStatementReport() {
-      const valEl = document.getElementById('stmt-range-val');
-      const range = valEl ? valEl.textContent : 'Specific Date Range';
-      let extra = '';
-      if (range.includes('Custom') || range.includes('Specific')) {
-        const s = getSegmentDateVal('stmt-start');
-        const e = getSegmentDateVal('stmt-end');
-        if (s && e) extra = ` (${s} to ${e})`;
-      }
-      closeActionModal();
-      if (typeof showToast === 'function') {
-        showToast(`Statement report PDF for ${range}${extra} downloaded!`, 'download');
-      }
+      var btn = (window.event && window.event.target ? window.event.target.closest('button') : null) ||
+                document.querySelector('#action-modal-body button[onclick*="downloadStatementReport"]');
+      var restoreBtn = applyButtonLoadingState(btn);
+
+      setTimeout(function () {
+        const valEl = document.getElementById('stmt-range-val');
+        const range = valEl ? valEl.textContent : 'Specific Date Range';
+        let extra = '';
+        if (range.includes('Custom') || range.includes('Specific')) {
+          const s = getSegmentDateVal('stmt-start');
+          const e = getSegmentDateVal('stmt-end');
+          if (s && e) extra = ` (${s} to ${e})`;
+        }
+        closeActionModal();
+        if (typeof showToast === 'function') {
+          showToast(`Statement report PDF for ${range}${extra} downloaded!`, 'download');
+        }
+        restoreBtn();
+      }, 650);
     }
 
     function togglePayoutView(view) {
@@ -13738,10 +14432,18 @@
         }
         return;
       }
-      if (typeof showToast === 'function') {
-        showToast(`Payout Account (${bank} - ${num}) linked successfully!`, 'verified');
-      }
-      togglePayoutView('list');
+
+      var submitBtn = document.querySelector('#payout-add-view button[onclick*="saveNewPayoutAccount"]') ||
+                      (window.event && window.event.target ? window.event.target.closest('button') : null);
+      var restoreBtn = applyButtonLoadingState(submitBtn);
+
+      setTimeout(function () {
+        if (typeof showToast === 'function') {
+          showToast(`Payout Account (${bank} - ${num}) linked successfully!`, 'verified');
+        }
+        togglePayoutView('list');
+        restoreBtn();
+      }, 650);
     }
 
     /* --- CREATE PAYMENT ROOM / NEW PAYMENT MODAL LOGIC --- */
@@ -14220,21 +14922,29 @@
     }
 
     function proceedToMakePayment() {
-      var deal = activeCounterpartyDeal || {};
-      closeCounterpartyWaitingModal();
-      if (typeof switchView === 'function') switchView('notifications');
-      if (deal.id && typeof openPRDetail === 'function') {
-        openPRDetail(deal.id);
-      }
+      var btn = document.getElementById('cp-modal-proceed-pay-btn') ||
+                (window.event && window.event.target ? window.event.target.closest('button') : null);
+      var restoreBtn = applyButtonLoadingState(btn);
 
-      // Once invite is done and user enters the room: present Agree to Terms
-      if (deal && !deal.termsAgreed) {
-        setTimeout(function () {
-          if (typeof showTermsAgreementModal === 'function') {
-            showTermsAgreementModal(deal);
-          }
-        }, 150);
-      }
+      setTimeout(function () {
+        var deal = activeCounterpartyDeal || {};
+        closeCounterpartyWaitingModal();
+        if (typeof switchView === 'function') switchView('notifications');
+        if (deal.id && typeof openPRDetail === 'function') {
+          openPRDetail(deal.id);
+        }
+
+        // Once invite is done and user enters the room: present Agree to Terms
+        if (deal && !deal.termsAgreed) {
+          setTimeout(function () {
+            if (typeof showTermsAgreementModal === 'function') {
+              showTermsAgreementModal(deal);
+            }
+          }, 150);
+        }
+
+        restoreBtn();
+      }, 600);
     }
 
     /* =========================================================================
@@ -14994,8 +15704,8 @@
           if (fulfilledBtn) {
             fulfilledBtn.className = 'pr-tab-btn h-[34px] md:h-[38px] ' + pxClass + ' rounded-xl font-heading text-xs font-bold transition-all bg-[#F4EFE6] dark:bg-[#141414] text-brand-dark dark:text-gray-300 hover:bg-[#F2ECE0] dark:hover:bg-white/10 border border-[#EBE3D5] dark:border-white/15 shadow-xs flex items-center gap-1.5 md:gap-2.5 cursor-pointer';
           }
-          if (ongoingBadge) ongoingBadge.className = 'px-1.5 md:px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-white/20 text-white';
-          if (fulfilledBadge) fulfilledBadge.className = 'px-1.5 md:px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#EBE3D5]/80 dark:bg-white/15 text-brand-dark dark:text-gray-200';
+          if (ongoingBadge) ongoingBadge.className = 'text-xs font-bold text-white/90';
+          if (fulfilledBadge) fulfilledBadge.className = 'text-xs font-bold text-gray-500 dark:text-gray-400';
         } else {
           if (fulfilledBtn) {
             fulfilledBtn.className = 'pr-tab-btn h-[34px] md:h-[38px] ' + pxClass + ' rounded-xl font-heading text-xs font-bold transition-all bg-brand-blue text-white shadow-sm flex items-center gap-1.5 md:gap-2.5 cursor-pointer';
@@ -15003,8 +15713,8 @@
           if (ongoingBtn) {
             ongoingBtn.className = 'pr-tab-btn h-[34px] md:h-[38px] ' + pxClass + ' rounded-xl font-heading text-xs font-bold transition-all bg-[#F4EFE6] dark:bg-[#141414] text-brand-dark dark:text-gray-300 hover:bg-[#F2ECE0] dark:hover:bg-white/10 border border-[#EBE3D5] dark:border-white/15 shadow-xs flex items-center gap-1.5 md:gap-2.5 cursor-pointer';
           }
-          if (fulfilledBadge) fulfilledBadge.className = 'px-1.5 md:px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-white/20 text-white';
-          if (ongoingBadge) ongoingBadge.className = 'px-1.5 md:px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#EBE3D5]/80 dark:bg-white/15 text-brand-dark dark:text-gray-200';
+          if (fulfilledBadge) fulfilledBadge.className = 'text-xs font-bold text-white/90';
+          if (ongoingBadge) ongoingBadge.className = 'text-xs font-bold text-gray-500 dark:text-gray-400';
         }
       });
 
@@ -15030,15 +15740,42 @@
         var container = document.getElementById(pref + 'pr-list-container');
         if (!container) return;
 
-        if (activeList.length === 0) {
+        var isMob = pref === 'm-';
+        var searchInput = document.getElementById(pref + 'pr-search');
+        var query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+        var filters = isMob ? activePRFiltersMobile : activePRFiltersDesktop;
+        var dateVal = (typeof getSegmentDateVal === 'function') ? getSegmentDateVal(pref + 'pr-date') : '';
+
+        var listToRender = activeList.filter(function (deal) {
+          if (query) {
+            var matchTitle = (deal.title || '').toLowerCase().includes(query);
+            var matchSeller = (deal.sellerName || '').toLowerCase().includes(query);
+            var matchBuyer = (deal.buyerName || '').toLowerCase().includes(query);
+            var matchId = (deal.id || '').toLowerCase().includes(query);
+            var matchPrice = (deal.price || '').toLowerCase().includes(query);
+            if (!matchTitle && !matchSeller && !matchBuyer && !matchId && !matchPrice) return false;
+          }
+          if (filters && filters.size > 0) {
+            var isBuying = (role === 'buyer');
+            var dealRole = isBuying ? 'Buying' : 'Selling';
+            if (!filters.has(dealRole)) return false;
+          }
+          if (dateVal) {
+            var dDate = (deal.date || deal.dateSecured || '');
+            if (!dDate.toLowerCase().includes(dateVal.toLowerCase())) return false;
+          }
+          return true;
+        });
+
+        if (listToRender.length === 0) {
           container.innerHTML = '<div class="p-8 text-center text-gray-400 bg-[#F4EFE6] dark:bg-[#141414] border border-gray-200/80 dark:border-white/10 rounded-2xl">' +
             '<span class="material-symbols-outlined text-4xl mb-2 text-gray-300 dark:text-gray-600">inventory_2</span>' +
-            '<p class="text-xs font-bold text-gray-500 font-heading">No ' + currentPRTab + ' transactions found</p>' +
+            '<p class="text-xs font-bold text-gray-500 font-heading">No ' + currentPRTab + ' transactions found' + (query ? ' matching "' + query + '"' : '') + '</p>' +
             '</div>';
           return;
         }
 
-        container.innerHTML = activeList.map(function (deal) {
+        container.innerHTML = listToRender.map(function (deal) {
           var state = getDealState(deal.id);
           var isBuying = (role === 'buyer');
           var roleText = isBuying ? 'Buying' : 'Selling';
@@ -17043,7 +17780,13 @@
       isWithdrawCheckboxChecked = false;
       updateWithdrawCheckboxUI();
 
-      showWithdrawStep('confirm');
+      var btn = document.getElementById('withdraw-proceed-to-confirm-btn');
+      var restoreBtn = applyButtonLoadingState(btn);
+
+      setTimeout(function () {
+        showWithdrawStep('confirm');
+        restoreBtn();
+      }, 500);
     }
 
     function copyWithdrawAccountHolder() {
@@ -17785,21 +18528,31 @@
         return;
       }
 
-      closeAppealModal();
+      var submitBtn = (window.event && window.event.target ? window.event.target.closest('button') : null) ||
+                      document.querySelector('#appeal-bottom-sheet-modal button[onclick*="submitAppealForm"]') ||
+                      document.querySelector('#m-view-dispute button[onclick*="submitAppealForm"]') ||
+                      document.querySelector('#d-view-dispute button[onclick*="submitAppealForm"]');
+      var restoreBtn = applyButtonLoadingState(submitBtn);
 
-      setDealState({
-        dispute: {
-          raisedBy: role || 'buyer',
-          reason: reason,
-          desc: desc,
-          fileCount: appealUploadedFiles.length,
-          startTime: Date.now()
+      setTimeout(function () {
+        closeAppealModal();
+
+        setDealState({
+          dispute: {
+            raisedBy: role || 'buyer',
+            reason: reason,
+            desc: desc,
+            fileCount: appealUploadedFiles.length,
+            startTime: Date.now()
+          }
+        });
+
+        if (typeof showToast === 'function') {
+          showToast('Dispute filed successfully. PayKudi support assigned.', 'verified');
         }
-      });
 
-      if (typeof showToast === 'function') {
-        showToast('Dispute filed successfully. PayKudi support assigned.', 'verified');
-      }
+        restoreBtn();
+      }, 700);
     }
 
     function openProvideMoreInfoModal(context) {
@@ -17930,11 +18683,19 @@
         return;
       }
 
-      closeMoreProofModal();
+      var submitBtn = document.querySelector('#more-proof-modal button[onclick*="submitMoreProofForm"]') ||
+                      (window.event && window.event.target ? window.event.target.closest('button') : null);
+      var restoreBtn = applyButtonLoadingState(submitBtn);
 
-      if (typeof showToast === 'function') {
-        showToast('Additional proof submitted! PayKudi dispute record updated.', 'verified');
-      }
+      setTimeout(function () {
+        closeMoreProofModal();
+
+        if (typeof showToast === 'function') {
+          showToast('Additional proof submitted! PayKudi dispute record updated.', 'verified');
+        }
+
+        restoreBtn();
+      }, 700);
     }
 
 
@@ -18059,11 +18820,19 @@
         return;
       }
 
-      closeCounterProofModal();
+      var submitBtn = document.querySelector('#counter-proof-modal button[onclick*="submitCounterProofForm"]') ||
+                      (window.event && window.event.target ? window.event.target.closest('button') : null);
+      var restoreBtn = applyButtonLoadingState(submitBtn);
 
-      if (typeof showToast === 'function') {
-        showToast('Counter proof submitted! PayKudi dispute specialists are reviewing.', 'verified');
-      }
+      setTimeout(function () {
+        closeCounterProofModal();
+
+        if (typeof showToast === 'function') {
+          showToast('Counter proof submitted! PayKudi dispute specialists are reviewing.', 'verified');
+        }
+
+        restoreBtn();
+      }, 700);
     }
 
 
@@ -19186,12 +19955,30 @@
       });
     }
 
+    function triggerPayoutTapFlash(toState) {
+      const btns = [document.getElementById('m-auto-payout-btn'), document.getElementById('d-auto-payout-btn')];
+      btns.forEach(btn => {
+        if (!btn) return;
+        btn.classList.remove('payout-flash-red', 'payout-flash-green');
+        void btn.offsetWidth; // Force DOM reflow to immediately restart animation
+        if (toState === 'off') {
+          btn.classList.add('payout-flash-red');
+        } else {
+          btn.classList.add('payout-flash-green');
+        }
+        setTimeout(() => {
+          btn.classList.remove('payout-flash-red', 'payout-flash-green');
+        }, 460);
+      });
+    }
+
     function toggleAutoPayout() {
       isAutoPayoutEnabled = !isAutoPayoutEnabled;
       try {
         localStorage.setItem('paykudi-auto-payout', isAutoPayoutEnabled ? 'true' : 'false');
       } catch (e) {}
       updateAutoPayoutUI();
+      triggerPayoutTapFlash(isAutoPayoutEnabled ? 'on' : 'off');
     }
 
 
@@ -20525,7 +21312,6 @@
         <div class="pt-2 sticky bottom-0 bg-[#F4EFE6] dark:bg-[#141414] pb-1 z-10">
           <button type="button" onclick="submitCounterProofForm()"
             class="w-full py-3.5 px-4 rounded-full bg-red-600 hover:bg-red-700 active:scale-95 text-white font-bold text-sm sm:text-base font-heading shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer">
-            <span class="material-symbols-outlined text-[18px] text-white">gavel</span>
             <span>Submit Counter Evidence</span>
           </button>
         </div>
@@ -20610,7 +21396,6 @@
         <div class="pt-2 sticky bottom-0 bg-[#F4EFE6] dark:bg-[#141414] pb-1 z-10">
           <button type="button" onclick="submitMoreProofForm()"
             class="w-full py-3.5 px-4 rounded-full bg-red-600 hover:bg-red-700 active:scale-95 text-white font-bold text-sm sm:text-base font-heading shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer">
-            <span class="material-symbols-outlined text-[18px] text-white">add_photo_alternate</span>
             <span>Submit Additional Proof</span>
           </button>
         </div>
@@ -24203,10 +24988,7 @@
       const submitBtn = document.getElementById('feedback-submit-btn');
       const text = textarea ? textarea.value.trim() : '';
 
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = `<span class="material-symbols-outlined text-[16px] animate-spin">progress_activity</span><span>Submitting...</span>`;
-      }
+      var restoreBtn = applyButtonLoadingState(submitBtn);
 
       setTimeout(() => {
         if (typeof showToast === 'function') {
@@ -24215,23 +24997,131 @@
         if (textarea) textarea.value = '';
         const counter = document.getElementById('feedback-char-counter');
         if (counter) counter.textContent = '0 / 500';
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = `<span class="material-symbols-outlined text-[16px]">send</span><span>Submit Feedback</span>`;
-        }
+        restoreBtn();
         closeFeedbackModal();
-      }, 600);
+      }, 700);
     }
 
-    // Automatically reset scroll & viewport offset when mobile inputs lose focus
-    document.addEventListener('blur', function (e) {
-      if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT')) {
-        setTimeout(function () {
-          window.scrollTo(0, 0);
-          if (document.body) document.body.scrollTop = 0;
-        }, 50);
+    // Mobile input focus retention & tap-outside management
+    (function () {
+      var activeTextInput = null;
+      var touchStartX = 0;
+      var touchStartY = 0;
+      var isTouchDragging = false;
+
+      function isTextEditableElement(el) {
+        if (!el) return false;
+        var tag = (el.tagName || '').toUpperCase();
+        if (tag === 'TEXTAREA') return true;
+        if (tag === 'INPUT') {
+          var type = (el.getAttribute('type') || el.type || 'text').toLowerCase();
+          return ['checkbox', 'radio', 'button', 'submit', 'reset', 'file', 'image', 'range'].indexOf(type) === -1;
+        }
+        return false;
       }
-    }, true);
+
+      // Track when any text input or textarea gains focus
+      document.addEventListener('focusin', function (e) {
+        if (isTextEditableElement(e.target)) {
+          activeTextInput = e.target;
+        }
+      }, true);
+
+      // Track when focus leaves an element
+      document.addEventListener('focusout', function (e) {
+        if (e.target === activeTextInput) {
+          // If focus transferred to another text input, keep tracking seamlessly
+          setTimeout(function () {
+            if (isTextEditableElement(document.activeElement)) {
+              activeTextInput = document.activeElement;
+            } else {
+              activeTextInput = null;
+            }
+          }, 60);
+        }
+      }, true);
+
+      // Track touch gestures to distinguish between scrolling/dragging and a tap outside
+      document.addEventListener('touchstart', function (e) {
+        if (e.touches && e.touches.length > 0) {
+          touchStartX = e.touches[0].clientX;
+          touchStartY = e.touches[0].clientY;
+          isTouchDragging = false;
+        }
+      }, { passive: true, capture: true });
+
+      document.addEventListener('touchmove', function (e) {
+        if (e.touches && e.touches.length > 0) {
+          var dx = Math.abs(e.touches[0].clientX - touchStartX);
+          var dy = Math.abs(e.touches[0].clientY - touchStartY);
+          if (dx > 8 || dy > 8) {
+            isTouchDragging = true;
+          }
+        }
+      }, { passive: true, capture: true });
+
+      // On touchend: if user is scrolling/dragging, NEVER blur the input!
+      // But if user tapped on another side of the screen, blur the active text box so keyboard drops down.
+      document.addEventListener('touchend', function (e) {
+        if (!activeTextInput) return;
+
+        // If finger moved > 8px, this was a scroll gesture. Do not blur!
+        if (isTouchDragging) {
+          return;
+        }
+
+        var tappedEl = e.target;
+        if (!tappedEl) return;
+
+        // Tapping inside the active text input itself or its child keeps it focused
+        if (tappedEl === activeTextInput || activeTextInput.contains(tappedEl)) {
+          return;
+        }
+
+        // Tapping an associated label keeps it focused
+        if (activeTextInput.id) {
+          var label = tappedEl.closest('label');
+          if (label && label.getAttribute('for') === activeTextInput.id) {
+            return;
+          }
+        }
+
+        // Tapping another text input or editable element hands focus over naturally
+        if (isTextEditableElement(tappedEl) || tappedEl.closest('input, textarea')) {
+          return;
+        }
+
+        // User tapped on another side of the screen! Drop focus cleanly.
+        activeTextInput.blur();
+        activeTextInput = null;
+      }, { passive: true, capture: true });
+
+      // Handle mouse/desktop clicks for tap-outside
+      document.addEventListener('click', function (e) {
+        if (!activeTextInput) return;
+        var clickedEl = e.target;
+        if (!clickedEl) return;
+
+        if (clickedEl === activeTextInput || activeTextInput.contains(clickedEl)) {
+          return;
+        }
+
+        if (activeTextInput.id) {
+          var label = clickedEl.closest('label');
+          if (label && label.getAttribute('for') === activeTextInput.id) {
+            return;
+          }
+        }
+
+        if (isTextEditableElement(clickedEl) || clickedEl.closest('input, textarea')) {
+          return;
+        }
+
+        // User tapped/clicked on another side of the screen!
+        activeTextInput.blur();
+        activeTextInput = null;
+      }, true);
+    })();
   </script>
 </body>
 
