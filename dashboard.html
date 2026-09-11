@@ -12020,28 +12020,26 @@
 
     <!-- Modal Content Card -->
     <div id="counterparty-waiting-content"
-      class="relative w-full max-w-md bg-[#F4EFE6] dark:bg-[#141414] rounded-t-3xl sm:rounded-3xl border-t sm:border border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full sm:translate-y-4 sm:scale-95 transition-all duration-300 ease-out z-10 p-5 space-y-4 pointer-events-auto max-h-[90vh] overflow-y-auto custom-scroll">
+      class="relative w-full max-w-md bg-[#F4EFE6] dark:bg-[#141414] rounded-t-3xl sm:rounded-3xl border-t sm:border border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full sm:translate-y-4 sm:scale-95 transition-all duration-300 ease-out z-10 pt-2.5 pb-5 px-5 space-y-3 pointer-events-auto max-h-[90vh] overflow-y-auto custom-scroll">
+
+      <!-- Absolute Close Button (Hidden until counterparty joins) -->
+      <button type="button" id="cp-modal-close-btn" onclick="closeCounterpartyWaitingModal()"
+        class="absolute top-3 right-3 w-8 h-8 rounded-full bg-neutral-200/60 dark:bg-white/10 text-neutral-600 dark:text-neutral-300 flex items-center justify-center hover:bg-neutral-200 dark:hover:bg-white/20 transition-all cursor-pointer z-20 hidden"
+        title="Close">
+        <span class="material-symbols-outlined text-[18px]">close</span>
+      </button>
 
       <!-- Top Grab Bar on Mobile (Non-removable while waiting) -->
-      <div id="cp-modal-drag-bar" class="sm:hidden pt-1 pb-1 flex justify-center cursor-default select-none"
+      <div id="cp-modal-drag-bar" class="sm:hidden pt-0 pb-0.5 flex justify-center cursor-default select-none"
         onclick="handleCounterpartyBackdropClick()">
-        <div class="w-12 h-1 bg-neutral-300 dark:bg-white/20 rounded-full"></div>
+        <div class="w-10 h-1 bg-neutral-300 dark:bg-white/20 rounded-full"></div>
       </div>
 
-      <!-- Header with Close Button (Hidden until counterparty joins) -->
-      <div class="flex items-center justify-end pb-0 -mt-1 h-3">
-        <button type="button" id="cp-modal-close-btn" onclick="closeCounterpartyWaitingModal()"
-          class="w-8 h-8 rounded-full bg-neutral-200/60 dark:bg-white/10 text-neutral-600 dark:text-neutral-300 flex items-center justify-center hover:bg-neutral-200 dark:hover:bg-white/20 transition-all cursor-pointer hidden"
-          title="Close">
-          <span class="material-symbols-outlined text-[18px]">close</span>
-        </button>
-      </div>
-
-      <!-- Pulsing Beacon Clock Timer & Status -->
+      <!-- Beacon Clock Timer & Status -->
       <div class="text-center space-y-2 pt-0">
         <!-- Circular Clock with 5-Minute Countdown Timer (Active while waiting) -->
         <div id="cp-modal-icon-wrap" onclick="simulateCounterpartyJoin()"
-          class="relative w-20 h-20 rounded-full bg-amber-500/10 dark:bg-amber-400/10 border-2 border-amber-500/30 flex items-center justify-center mx-auto shadow-sm transition-all duration-300 cursor-pointer select-none"
+          class="relative w-20 h-20 rounded-full bg-amber-500/10 dark:bg-amber-400/10 border-2 border-amber-500/30 flex items-center justify-center mx-auto shadow-none transition-all duration-300 cursor-pointer select-none"
           title="Click to simulate join immediately">
           <!-- Circular Countdown SVG Dial Ring -->
           <svg id="cp-clock-svg" class="absolute inset-0 w-full h-full -rotate-90 pointer-events-none"
@@ -12056,14 +12054,13 @@
           <!-- Center Content: Clock Icon + Countdown Digits -->
           <div id="cp-modal-clock-content" class="relative z-10 flex flex-col items-center justify-center text-center">
             <span id="cp-modal-clock-icon"
-              class="material-symbols-outlined text-[17px] text-amber-600 dark:text-amber-400 leading-none mb-0.5 animate-pulse">schedule</span>
+              class="material-symbols-outlined text-[17px] text-amber-600 dark:text-amber-400 leading-none mb-0.5">schedule</span>
             <span id="cp-modal-timer"
               class="font-mono font-black text-[14px] text-brand-dark dark:text-white tracking-tight leading-none">05:00</span>
           </div>
 
-          <!-- Pulsing ring animation -->
-          <span id="cp-modal-icon-ping"
-            class="absolute inset-0 rounded-full border border-amber-500/25 animate-ping pointer-events-none"></span>
+          <!-- Pulsing ring animation (hidden to eliminate glow) -->
+          <span id="cp-modal-icon-ping" class="hidden"></span>
         </div>
 
         <!-- Avatars of Both Parties Stacked on Each Other (Name Initials) -->
@@ -12087,9 +12084,7 @@
           <h3 id="cp-modal-status-title" class="text-lg font-black text-brand-dark dark:text-white font-heading">Waiting
             for counterparty to join room</h3>
           <p id="cp-modal-status-desc"
-            class="text-xs text-neutral-500 dark:text-neutral-400 mt-1 max-w-xs mx-auto leading-relaxed">
-            Share this room invite link with your counterparty so they can enter and confirm the transaction terms.
-          </p>
+            class="text-xs text-neutral-500 dark:text-neutral-400 mt-1 max-w-xs mx-auto leading-relaxed hidden"></p>
         </div>
       </div>
 
@@ -12118,15 +12113,15 @@
           class="text-[10.5px] font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider font-heading block mb-1.5">
           INVITE LINK
         </label>
-        <div class="flex items-center justify-between gap-2 border-b-2 border-[#E4E1D5] dark:border-white/15 pb-2">
-          <div class="flex items-center gap-2 flex-1 min-w-0">
+        <div class="flex items-center justify-between gap-1.5 sm:gap-2 border-b-2 border-[#E4E1D5] dark:border-white/15 pb-2">
+          <div class="flex items-center gap-1.5 flex-1 min-w-0">
             <span
-              class="material-symbols-outlined text-[18px] text-brand-green dark:text-emerald-400 flex-shrink-0">link</span>
+              class="material-symbols-outlined text-[16px] text-brand-green dark:text-emerald-400 flex-shrink-0">link</span>
             <input type="text" id="cp-modal-room-link-input" readonly
-              class="w-full bg-transparent border-none p-0 text-xs font-bold text-brand-dark dark:text-white focus:outline-none focus:ring-0 truncate font-mono select-all" />
+              class="w-full bg-transparent border-none p-0 text-[10.5px] sm:text-xs font-semibold text-brand-dark dark:text-white focus:outline-none focus:ring-0 font-mono tracking-tight select-all" />
           </div>
           <button type="button" id="cp-modal-copy-btn" onclick="copyCounterpartyRoomLink()"
-            class="px-3.5 py-1.5 rounded-full bg-[#0A4328] hover:bg-[#073620] text-white text-xs font-bold font-heading shadow-xs flex items-center gap-1.5 cursor-pointer active:scale-95 transition-all flex-shrink-0"
+            class="px-2.5 sm:px-3.5 py-1.5 rounded-full bg-[#0A4328] hover:bg-[#073620] text-white text-xs font-bold font-heading shadow-xs flex items-center gap-1 cursor-pointer active:scale-95 transition-all flex-shrink-0"
             title="Copy Invite Link">
             <span class="material-symbols-outlined text-[14px]" id="cp-modal-copy-icon">content_copy</span>
             <span id="cp-modal-copy-label">Copy</span>
@@ -12136,13 +12131,13 @@
 
       <!-- Action CTAs -->
       <div class="pt-2 space-y-2">
-        <!-- Waiting State: WhatsApp Share (Cannot leave until other party joins) -->
+        <!-- Waiting State: Share Link (Cannot leave until other party joins) -->
         <div id="cp-modal-waiting-actions" class="space-y-2">
-          <a id="cp-modal-whatsapp-link" href="#" target="_blank"
-            class="w-full py-3 px-4 rounded-full bg-[#25D366] hover:bg-[#1EBE5D] text-white font-bold text-xs font-heading shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer">
-            <i class="fa-brands fa-whatsapp text-[16px]"></i>
-            <span>Share Link on WhatsApp</span>
-          </a>
+          <button type="button" id="cp-modal-share-btn" onclick="shareCounterpartyLink()"
+            class="w-full py-3.5 px-4 rounded-full bg-[#0A4328] hover:bg-[#073620] text-white font-extrabold text-xs sm:text-sm font-heading shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98">
+            <span class="material-symbols-outlined text-[18px]">share</span>
+            <span>Share link with counterparty</span>
+          </button>
         </div>
 
         <!-- Joined State: Dynamic Action Button (Proceed to make payment for Buyer / Enter Payment Room for Seller) -->
@@ -15122,7 +15117,7 @@
       if (titleEl) titleEl.textContent = title;
       if (linkInput) linkInput.value = activeCounterpartyLink;
 
-      if (whatsappLink) {
+      if (whatsappLink && whatsappLink.tagName === 'A') {
         var waMsg = 'Hi! I created a secure PayKudi Payment Room for "' + title + '" (' + price + '). Order #' + ref + '. Join here to proceed: ' + activeCounterpartyLink;
         whatsappLink.href = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(waMsg);
       }
@@ -15157,17 +15152,18 @@
         clockRing.style.strokeDashoffset = '0';
       }
       if (clockContent) {
-        clockContent.innerHTML = '<span id="cp-modal-clock-icon" class="material-symbols-outlined text-[17px] text-amber-600 dark:text-amber-400 leading-none mb-0.5 animate-pulse">schedule</span>' +
+        clockContent.innerHTML = '<span id="cp-modal-clock-icon" class="material-symbols-outlined text-[17px] text-amber-600 dark:text-amber-400 leading-none mb-0.5">schedule</span>' +
           '<span id="cp-modal-timer" class="font-mono font-black text-[14px] text-brand-dark dark:text-white tracking-tight leading-none">05:00</span>';
       }
       if (iconPing) {
-        iconPing.className = 'absolute inset-0 rounded-full border border-amber-500/25 animate-ping pointer-events-none';
+        iconPing.className = 'hidden';
       }
       if (statusTitle) {
         statusTitle.textContent = 'Waiting for counterparty to join room';
       }
       if (statusDesc) {
-        statusDesc.textContent = 'Share this room invite link with your counterparty so they can enter and confirm the transaction terms.';
+        statusDesc.textContent = '';
+        statusDesc.classList.add('hidden');
       }
       if (inviteSection) {
         inviteSection.classList.remove('hidden');
@@ -15270,11 +15266,8 @@
         statusTitle.innerHTML = '<span class="text-brand-green dark:text-emerald-400">' + cpName + '</span> has joined payment room';
       }
       if (statusDesc) {
-        if (isSeller) {
-          statusDesc.textContent = 'Both parties are now in the payment room. Proceed to enter payment room and confirm transaction terms.';
-        } else {
-          statusDesc.textContent = 'Both parties are now in the payment room. Proceed to review the terms and complete your payment.';
-        }
+        statusDesc.textContent = '';
+        statusDesc.classList.add('hidden');
       }
 
       // If user is selling, do not say "Proceed to make payment"; show "Enter Payment Room"
@@ -15777,6 +15770,32 @@
       } else {
         if (linkInput) { linkInput.select(); document.execCommand('copy'); }
         onCopied();
+      }
+    }
+
+    function shareCounterpartyLink() {
+      var title = 'Payment Room';
+      var titleEl = document.getElementById('cp-modal-title');
+      if (titleEl && titleEl.textContent) title = titleEl.textContent;
+      var linkInput = document.getElementById('cp-modal-room-link-input');
+      var url = (linkInput && linkInput.value) ? linkInput.value : activeCounterpartyLink;
+      var orderNumEl = document.getElementById('cp-modal-order-number');
+      var ref = orderNumEl ? orderNumEl.textContent : '';
+
+      var shareData = {
+        title: 'PayKudi Payment Room - ' + ref,
+        text: 'Join my PayKudi Payment Room for "' + title + '" (Order #' + ref + ') to confirm transaction terms: ' + url,
+        url: url
+      };
+
+      if (navigator.share) {
+        navigator.share(shareData).catch(function (err) {
+          if (err && err.name !== 'AbortError') {
+            copyCounterpartyRoomLink();
+          }
+        });
+      } else {
+        copyCounterpartyRoomLink();
       }
     }
 
