@@ -1406,7 +1406,7 @@
     }
 
     html.dark #m-bottom-nav {
-      background-color: #F4EFE6 !important;
+      background-color: #141414 !important;
       background-image: none !important;
       backdrop-filter: none !important;
       -webkit-backdrop-filter: none !important;
@@ -1751,16 +1751,22 @@
       }
     }
 
-    /* Header Compact Auto Pay Toggle (Neumorphism / Soft UI) */
+    /* Header Compact Auto Pay Toggle */
     .payout-toggle-header {
-      height: 32px !important;
+      height: 44px !important;
       width: 96px !important;
       background: #F4EFE6 !important;
       border: 1px solid #D5CBB8 !important;
       border-radius: 999px !important;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08),
-        inset 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+      overflow: hidden !important;
+      box-shadow: none !important;
       transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+    @media (min-width: 640px) {
+      .payout-toggle-header {
+        height: 48px !important;
+      }
     }
 
     .payout-toggle-header:active {
@@ -1768,7 +1774,7 @@
     }
 
     .payout-toggle-header .payout-side-text {
-      font-size: 8.5px !important;
+      font-size: 9px !important;
       font-weight: 800 !important;
       letter-spacing: 0.3px !important;
     }
@@ -1790,8 +1796,7 @@
     html.dark .payout-toggle-header {
       background: #000000 !important;
       border: 1px solid rgba(255, 255, 255, 0.15) !important;
-      box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.6),
-        0 1px 3px rgba(0, 0, 0, 0.4) !important;
+      box-shadow: none !important;
     }
 
     html.dark .payout-toggle-header:active {
@@ -1902,24 +1907,31 @@
     }
 
     .payout-toggle-header .payout-pill {
-      top: 2px !important;
-      left: 2px !important;
-      height: 26px !important;
+      top: 6px !important;
+      left: 4px !important;
+      height: 32px !important;
       width: 60px !important;
-      font-size: 8.5px !important;
+      font-size: 9px !important;
       font-weight: 800 !important;
       letter-spacing: -0.2px !important;
       gap: 3.5px !important;
       padding: 0 4px !important;
       border-radius: 999px !important;
+      white-space: nowrap !important;
       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6) !important;
       transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
         background 0.35s ease !important;
     }
 
+    @media (min-width: 640px) {
+      .payout-toggle-header .payout-pill {
+        height: 36px !important;
+      }
+    }
+
     .payout-toggle-header .payout-pill svg {
-      width: 9.5px !important;
-      height: 9.5px !important;
+      width: 10.5px !important;
+      height: 10.5px !important;
       stroke-width: 2.2 !important;
       filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5));
     }
@@ -1932,7 +1944,7 @@
     }
 
     .payout-toggle-header.off .payout-pill {
-      transform: translateX(32px) !important;
+      transform: translateX(28px) !important;
       background: linear-gradient(145deg, #dc2626, #991b1b) !important;
       border: 1px solid rgba(255, 255, 255, 0.2) !important;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
@@ -4264,10 +4276,10 @@
             class="text-xs sm:text-[13px] font-bold text-neutral-500 dark:text-neutral-400 hover:text-brand-dark dark:hover:text-white cursor-pointer transition-colors underline underline-offset-2 select-none flex-shrink-0"
             title="Switch between Buyer and Seller views">Switch role</button>
 
-          <!-- Sticky Mini Avatar placeholder -->
+          <!-- Profile Avatar (always visible in header) -->
           <div id="m-profile-sticky-avatar" onclick="openActionModal('Edit Profile Picture')"
-            class="w-7 h-7 rounded-full overflow-hidden border border-brand-green/40 shadow-xs cursor-pointer transition-all duration-300 transform scale-0 opacity-0 hidden flex-shrink-0 bg-gray-200 dark:bg-white/10 flex items-center justify-center">
-            <span class="material-symbols-outlined text-[16px] text-gray-400 dark:text-gray-500 select-none">account_circle</span>
+            class="w-8 h-8 rounded-full overflow-hidden border-2 border-brand-green/40 shadow-sm cursor-pointer flex-shrink-0 bg-gray-200 dark:bg-white/10 flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95">
+            <span class="material-symbols-outlined text-[18px] text-gray-400 dark:text-gray-500 select-none">account_circle</span>
           </div>
 
           <!-- Mobile Theme Toggle Button -->
@@ -4299,23 +4311,13 @@
                   class="h-[22px] max-h-[22px] w-auto object-contain" />
               </button>
 
-              <!-- Auto Pay Toggle & Theme Toggle Buttons -->
+              <!-- Avatar + Theme Toggle -->
               <div class="flex items-center gap-2">
-                <!-- Auto Pay Compact Header Toggle (Height matches theme toggle button: h-8 / 32px) -->
-                <div id="m-auto-payout-btn" onclick="toggleAutoPayout()"
-                  class="payout-toggle payout-toggle-header on h-8 w-[96px] flex-shrink-0"
-                  title="Auto Payout: ON (click to turn OFF)">
-                  <div class="payout-side-text left">ON</div>
-                  <div class="payout-side-text right">OFF</div>
-                  <div class="payout-pill" id="m-payout-pill">
-                    <span class="payout-icon-wrap" id="m-payout-icon-wrap">
-                      <svg viewBox="0 0 24 24">
-                        <path d="M18.36 6.64a9 9 0 1 1-12.73 0" />
-                        <line x1="12" y1="2" x2="12" y2="12" />
-                      </svg>
-                    </span>
-                    <span>Auto Pay</span>
-                  </div>
+                <!-- Avatar circle (always visible on Home) -->
+                <div id="m-home-avatar-wrap" onclick="openActionModal('Edit Profile Picture')"
+                  class="relative w-8 h-8 rounded-full overflow-hidden border-2 border-white/30 shadow-sm cursor-pointer flex-shrink-0 bg-white/15 flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95">
+                  <span class="material-symbols-outlined text-[18px] text-white/70 select-none" id="m-home-avatar-placeholder">account_circle</span>
+                  <img id="m-home-avatar-img" src="" class="absolute inset-0 w-full h-full object-cover object-top rounded-full hidden" alt="Profile" />
                 </div>
 
                 <button type="button" onclick="toggleTheme()"
@@ -4367,19 +4369,35 @@
           <!-- Floating Action Bar Card (Overlaps the green hero section) -->
           <div class="relative -mt-8 px-4 z-20">
             <div
-              class="mobile-action-bar bg-[#F4EFE6] dark:bg-[#141414] border border-[#EBE3D5] dark:border-white/10 rounded-full p-2.5 sm:p-3 shadow-xl shadow-black/8 dark:shadow-black/40 flex items-center justify-between gap-2 sm:gap-2.5">
+              class="mobile-action-bar bg-[#F4EFE6] dark:bg-[#141414] border border-[#EBE3D5] dark:border-white/10 rounded-full p-2 sm:p-2.5 shadow-xl shadow-black/8 dark:shadow-black/40 flex items-center justify-between gap-2">
               <!-- + New Transaction (Main Pill Button) -->
               <button type="button" onclick="openActionModal('New Transaction')"
-                class="add-money-btn flex-1 min-w-0 bg-[#0A4328] hover:bg-[#073620] dark:bg-[#0A4328] dark:hover:bg-[#073620] text-white font-extrabold text-xs sm:text-[13.5px] font-heading h-12 sm:h-13 px-4 sm:px-5 rounded-full flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all cursor-pointer select-none whitespace-nowrap overflow-hidden">
+                class="add-money-btn flex-1 min-w-0 bg-[#0A4328] hover:bg-[#073620] dark:bg-[#0A4328] dark:hover:bg-[#073620] text-white font-extrabold text-xs sm:text-[13.5px] font-heading h-11 sm:h-12 px-4 sm:px-5 rounded-full flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all cursor-pointer select-none whitespace-nowrap overflow-hidden">
                 <span class="material-symbols-outlined text-[19px] sm:text-[20px]">add_circle</span>
                 <span>New Transaction</span>
               </button>
               <!-- Withdraw Button -->
               <button type="button" onclick="openWithdrawModal()"
-                class="action-round-btn w-12 h-12 sm:w-13 sm:h-13 rounded-full bg-[#18231C] hover:bg-black dark:bg-white/10 dark:hover:bg-white/20 text-white flex items-center justify-center shadow-xs active:scale-95 transition-all cursor-pointer flex-shrink-0"
+                class="action-round-btn w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#18231C] hover:bg-black dark:bg-white/10 dark:hover:bg-white/20 text-white flex items-center justify-center shadow-xs active:scale-95 transition-all cursor-pointer flex-shrink-0"
                 title="Withdraw Money">
                 <span class="material-symbols-outlined text-[20px]">outbox</span>
               </button>
+              <!-- Auto Pay Toggle -->
+              <div id="m-auto-payout-btn" onclick="toggleAutoPayout()"
+                class="payout-toggle payout-toggle-header on flex-shrink-0"
+                title="Auto Payout: ON (click to turn OFF)">
+                <div class="payout-side-text left">ON</div>
+                <div class="payout-side-text right">OFF</div>
+                <div class="payout-pill" id="m-payout-pill">
+                  <span class="payout-icon-wrap" id="m-payout-icon-wrap">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M18.36 6.64a9 9 0 1 1-12.73 0" />
+                      <line x1="12" y1="2" x2="12" y2="12" />
+                    </svg>
+                  </span>
+                  <span>Auto Pay</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -12590,13 +12608,18 @@
         }
       }
 
-      if (targetView !== 'profile') {
-        const stickyAvatar = document.getElementById('m-profile-sticky-avatar');
-        if (stickyAvatar) {
-          stickyAvatar.classList.add('hidden', 'scale-0', 'opacity-0');
-          stickyAvatar.classList.remove('scale-100', 'opacity-100');
+      // On profile: hide header avatar until main avatar scrolls out of view
+      // On all other views: always show it
+      const stickyAvatar = document.getElementById('m-profile-sticky-avatar');
+      if (stickyAvatar) {
+        if (targetView === 'profile') {
+          stickyAvatar.classList.add('hidden');
+        } else {
+          stickyAvatar.classList.remove('hidden');
         }
       }
+
+
 
       closePRChat();
       const views = ['home', 'activity', 'withdrawals', 'profile', 'notifications', 'help'];
@@ -13840,7 +13863,9 @@
           </div>
         `;
       } else if (title === 'Email Address' || title === 'Add Email Address' || title === 'Edit Profile') {
-        const currentEmail = document.getElementById('m-profile-email-txt') ? document.getElementById('m-profile-email-txt').textContent : 'marcusvance@gmail.com';
+        const rawEmail = document.getElementById('m-profile-email-txt') ? document.getElementById('m-profile-email-txt').textContent.trim() : '';
+        const emailPlaceholders = ['Add your email', 'Email Address', ''];
+        const currentEmail = emailPlaceholders.includes(rawEmail) ? '' : rawEmail;
         modalBody.innerHTML = `
           <form onsubmit="saveUserEmail(event);" class="space-y-3.5 pt-0">
             <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed -mt-1">
@@ -13865,7 +13890,10 @@
           </form>
         `;
       } else if (title === 'Address' || title === 'Edit Address') {
-        const currentAddress = document.getElementById('m-profile-address-txt') ? document.getElementById('m-profile-address-txt').textContent : '14 Adeola Odeku St, Victoria Island, Lagos';
+        const rawAddress = document.getElementById('m-profile-address-txt') ? document.getElementById('m-profile-address-txt').textContent.trim() : '';
+        // Only pre-fill if it's a real saved address (not the placeholder row text)
+        const placeholderTexts = ['Add your address', 'Address', ''];
+        const currentAddress = placeholderTexts.includes(rawAddress) ? '' : rawAddress;
         modalBody.innerHTML = `
           <form onsubmit="saveUserAddress(event);" class="space-y-3.5 pt-0">
             <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed -mt-1">
@@ -25503,23 +25531,105 @@
     function handleAvatarFileSelect(input) {
       if (!input.files || !input.files[0]) return;
       var file = input.files[0];
-      _pendingAvatarUrl = URL.createObjectURL(file);
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        _pendingAvatarUrl = e.target.result;
 
-      // Show preview in the modal circle
-      var placeholder = document.getElementById('modal-avatar-placeholder');
-      var preview = document.getElementById('modal-avatar-preview');
-      var hint = document.getElementById('modal-avatar-hint');
-      var defaultBtns = document.getElementById('avatar-default-btns');
-      var previewBtns = document.getElementById('avatar-preview-btns');
+        // Show preview in the modal circle
+        var placeholder = document.getElementById('modal-avatar-placeholder');
+        var preview = document.getElementById('modal-avatar-preview');
+        var hint = document.getElementById('modal-avatar-hint');
+        var defaultBtns = document.getElementById('avatar-default-btns');
+        var previewBtns = document.getElementById('avatar-preview-btns');
 
-      if (preview) {
-        preview.src = _pendingAvatarUrl;
-        preview.classList.remove('hidden');
+        if (preview) {
+          preview.src = _pendingAvatarUrl;
+          preview.classList.remove('hidden');
+          preview.style.display = 'block';
+        }
+        if (placeholder) {
+          placeholder.classList.add('hidden');
+          placeholder.style.display = 'none';
+        }
+        if (hint) hint.textContent = 'Looking good! Save to apply or choose a different photo.';
+        if (defaultBtns) defaultBtns.classList.add('hidden');
+        if (previewBtns) previewBtns.classList.remove('hidden');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function applyAvatarToAll(url) {
+      if (url) {
+        // Update all profile image targets
+        document.querySelectorAll('.m-profile-img-target').forEach(function(img) {
+          img.src = url;
+          img.classList.remove('hidden');
+          img.style.display = 'block';
+        });
+
+        // Hide placeholder icons in profile circles
+        var mPlaceholder = document.getElementById('m-profile-avatar-placeholder');
+        if (mPlaceholder) {
+          mPlaceholder.classList.add('hidden');
+          mPlaceholder.style.display = 'none';
+        }
+        var dPlaceholder = document.getElementById('d-profile-avatar-placeholder');
+        if (dPlaceholder) {
+          dPlaceholder.classList.add('hidden');
+          dPlaceholder.style.display = 'none';
+        }
+
+        // Update the sticky mini avatar (non-profile views header)
+        var stickyAvatar = document.getElementById('m-profile-sticky-avatar');
+        if (stickyAvatar) {
+          stickyAvatar.innerHTML = '<img src="' + url + '" class="w-full h-full object-cover object-top rounded-full" alt="Profile" />';
+        }
+
+        // Update home hero header avatar
+        var homeAvatarImg = document.getElementById('m-home-avatar-img');
+        var homeAvatarPlaceholder = document.getElementById('m-home-avatar-placeholder');
+        if (homeAvatarImg) {
+          homeAvatarImg.src = url;
+          homeAvatarImg.classList.remove('hidden');
+          homeAvatarImg.style.display = 'block';
+        }
+        if (homeAvatarPlaceholder) {
+          homeAvatarPlaceholder.classList.add('hidden');
+          homeAvatarPlaceholder.style.display = 'none';
+        }
+      } else {
+        // Reset all avatars to placeholder state
+        document.querySelectorAll('.m-profile-img-target').forEach(function(img) {
+          img.src = '';
+          img.classList.add('hidden');
+          img.style.display = 'none';
+        });
+        var mPlaceholder = document.getElementById('m-profile-avatar-placeholder');
+        if (mPlaceholder) {
+          mPlaceholder.classList.remove('hidden');
+          mPlaceholder.style.display = 'flex';
+        }
+        var dPlaceholder = document.getElementById('d-profile-avatar-placeholder');
+        if (dPlaceholder) {
+          dPlaceholder.classList.remove('hidden');
+          dPlaceholder.style.display = 'flex';
+        }
+        var stickyAvatar = document.getElementById('m-profile-sticky-avatar');
+        if (stickyAvatar) {
+          stickyAvatar.innerHTML = '<span class="material-symbols-outlined text-[18px] text-gray-400 dark:text-gray-500 select-none">account_circle</span>';
+        }
+        var homeAvatarImg = document.getElementById('m-home-avatar-img');
+        var homeAvatarPlaceholder = document.getElementById('m-home-avatar-placeholder');
+        if (homeAvatarImg) {
+          homeAvatarImg.src = '';
+          homeAvatarImg.classList.add('hidden');
+          homeAvatarImg.style.display = 'none';
+        }
+        if (homeAvatarPlaceholder) {
+          homeAvatarPlaceholder.classList.remove('hidden');
+          homeAvatarPlaceholder.style.display = 'inline-block';
+        }
       }
-      if (placeholder) placeholder.classList.add('hidden');
-      if (hint) hint.textContent = 'Looking good! Save to apply or choose a different photo.';
-      if (defaultBtns) defaultBtns.classList.add('hidden');
-      if (previewBtns) previewBtns.classList.remove('hidden');
     }
 
     function saveAvatarPhoto() {
@@ -25535,24 +25645,11 @@
       }
 
       setTimeout(function() {
-        // Update all img targets (profile page circles)
-        document.querySelectorAll('.m-profile-img-target').forEach(function(img) {
-          img.src = url;
-          img.classList.remove('hidden');
-          img.style.display = 'block';
-        });
+        try {
+          localStorage.setItem('paykudi-avatar-url', url);
+        } catch (e) { }
 
-        // Hide placeholder icons in profile circles
-        var mPlaceholder = document.getElementById('m-profile-avatar-placeholder');
-        if (mPlaceholder) mPlaceholder.style.display = 'none';
-        var dPlaceholder = document.getElementById('d-profile-avatar-placeholder');
-        if (dPlaceholder) dPlaceholder.style.display = 'none';
-
-        // Update the sticky mini avatar
-        var stickyAvatar = document.getElementById('m-profile-sticky-avatar');
-        if (stickyAvatar) {
-          stickyAvatar.innerHTML = '<img src="' + url + '" class="w-full h-full object-cover object-top rounded-full" />';
-        }
+        applyAvatarToAll(url);
 
         _pendingAvatarUrl = null;
         showToast('Profile photo saved!', 'check_circle');
@@ -25561,42 +25658,41 @@
     }
 
     function removeAvatarPhoto() {
-      document.querySelectorAll('.m-profile-img-target').forEach(function(img) {
-        img.style.display = 'none';
-        if (img.nextElementSibling) img.nextElementSibling.style.display = 'flex';
-      });
+      try {
+        localStorage.removeItem('paykudi-avatar-url');
+      } catch (e) { }
+      applyAvatarToAll(null);
       _pendingAvatarUrl = null;
       closeActionModal();
+      showToast('Profile photo removed', 'info');
     }
 
     document.addEventListener('DOMContentLoaded', function () {
+      // Restore saved avatar if exists
+      var savedAvatar = null;
+      try {
+        savedAvatar = localStorage.getItem('paykudi-avatar-url');
+      } catch (e) { }
+      if (savedAvatar) {
+        applyAvatarToAll(savedAvatar);
+      }
+
       var profileView = document.getElementById('m-view-profile');
       var stickyAvatar = document.getElementById('m-profile-sticky-avatar');
       var avatarBlock = document.getElementById('m-profile-avatar-block');
 
       if (profileView && stickyAvatar && avatarBlock) {
         profileView.addEventListener('scroll', function () {
-          if (profileView.classList.contains('hidden')) {
-            stickyAvatar.classList.add('hidden', 'scale-0', 'opacity-0');
-            stickyAvatar.classList.remove('scale-100', 'opacity-100');
-            return;
-          }
+          // Only apply scroll logic when profile view is active
+          if (profileView.classList.contains('hidden')) return;
 
           var rect = avatarBlock.getBoundingClientRect();
           if (rect.bottom < 60 || profileView.scrollTop > 80) {
+            // Main avatar out of view — show header avatar
             stickyAvatar.classList.remove('hidden');
-            requestAnimationFrame(function () {
-              stickyAvatar.classList.remove('scale-0', 'opacity-0');
-              stickyAvatar.classList.add('scale-100', 'opacity-100');
-            });
           } else {
-            stickyAvatar.classList.remove('scale-100', 'opacity-100');
-            stickyAvatar.classList.add('scale-0', 'opacity-0');
-            setTimeout(function () {
-              if (stickyAvatar.classList.contains('scale-0')) {
-                stickyAvatar.classList.add('hidden');
-              }
-            }, 250);
+            // Main avatar visible — hide header avatar
+            stickyAvatar.classList.add('hidden');
           }
         }, { passive: true });
       }
