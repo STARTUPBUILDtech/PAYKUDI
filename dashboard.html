@@ -697,8 +697,8 @@
       outline: none !important;
       background: transparent !important;
       font-size: 14px !important;
-      font-weight: 500 !important;
-      color: #102B1B !important;
+      font-weight: 600 !important;
+      color: #000000 !important;
       padding: 8px 0 !important;
       border-bottom: 2px solid #E4E1D5 !important;
       border-radius: 0 !important;
@@ -711,7 +711,7 @@
 
     html.dark .boxless-field input,
     html.dark .boxless-field textarea {
-      color: #F8FAFC !important;
+      color: #FFFFFF !important;
       border-bottom-color: rgba(255, 255, 255, 0.12) !important;
     }
 
@@ -1511,6 +1511,11 @@
       font-weight: 800 !important;
     }
 
+    #m-pr-nav-badge,
+    html.dark #m-pr-nav-badge {
+      border-color: #FFFFFF !important;
+    }
+
     /* ── Responsive enlargement for longer / taller smartphone screens ── */
     @media screen and (max-width: 768px) and (min-height: 740px) {
       #m-bottom-nav {
@@ -1950,6 +1955,87 @@
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
     }
 
+    /* Auto Pay Outer Pill Container matching New Payment Room button height */
+    .auto-pay-pill-track {
+      height: 44px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 0 5px !important;
+      border-radius: 9999px !important;
+      background-color: #F4EFE6 !important;
+      border: 1.5px solid #D5CBB8 !important;
+      box-shadow: none !important;
+      box-sizing: border-box !important;
+      flex-shrink: 0 !important;
+    }
+
+    html.dark .auto-pay-pill-track {
+      background-color: #141414 !important;
+      border: 1.5px solid rgba(255, 255, 255, 0.15) !important;
+      box-shadow: none !important;
+    }
+
+    @media (min-width: 640px) {
+      .auto-pay-pill-track {
+        height: 48px !important;
+        padding: 0 6px !important;
+      }
+    }
+
+    /* Auto Pay Single Standalone Pill Button (Non-sliding) */
+    .auto-pay-single-btn {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      height: 34px !important;
+      padding: 0 10px !important;
+      gap: 4px !important;
+      border-radius: 9999px !important;
+      font-family: 'Hanken Grotesk', sans-serif !important;
+      font-size: 10px !important;
+      font-weight: 800 !important;
+      letter-spacing: -0.2px !important;
+      white-space: nowrap !important;
+      color: #FFFFFF !important;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      user-select: none !important;
+      -webkit-tap-highlight-color: transparent !important;
+    }
+
+    @media (min-width: 640px) {
+      .auto-pay-single-btn {
+        height: 38px !important;
+        padding: 0 12px !important;
+        font-size: 11px !important;
+      }
+    }
+
+    .auto-pay-single-btn:active {
+      transform: scale(0.94) !important;
+    }
+
+    .auto-pay-single-btn.on {
+      background: linear-gradient(145deg, #13633b, #093c23) !important;
+      border-color: rgba(74, 222, 128, 0.4) !important;
+    }
+
+    .auto-pay-single-btn.off {
+      background: linear-gradient(145deg, #dc2626, #991b1b) !important;
+      border-color: rgba(248, 113, 113, 0.4) !important;
+    }
+
+    .auto-pay-single-btn svg {
+      width: 11px !important;
+      height: 11px !important;
+      stroke-width: 2.3 !important;
+      stroke: currentColor !important;
+      fill: none !important;
+      filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5));
+    }
+
     @keyframes cpModalShake {
 
       0%,
@@ -2323,12 +2409,233 @@
       line-height: 1 !important;
       display: inline-flex !important;
       align-items: center !important;
+      vertical-align: middle !important;
+      font-weight: 900 !important;
     }
 
     @media (min-width: 640px) {
       #withdraw-step-form .withdraw-naira-sign {
         font-size: 3rem !important;
       }
+    }
+
+    /* Create Payment Room amount input & naira sign (scaled slightly down for large numbers) */
+    #new-order-amount-input {
+      font-size: 1.85rem !important;
+      /* ~30px on mobile */
+      line-height: 1 !important;
+      font-weight: 900 !important;
+      vertical-align: middle !important;
+      height: auto !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      display: inline-block !important;
+    }
+
+    #new-payment-room-form .withdraw-naira-sign {
+      font-size: 1.85rem !important;
+      line-height: 1 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      vertical-align: middle !important;
+      font-weight: 900 !important;
+    }
+
+    @media (min-width: 640px) {
+      #new-order-amount-input,
+      #new-payment-room-form .withdraw-naira-sign {
+        font-size: 2.25rem !important;
+        /* 36px on desktop */
+      }
+    }
+
+    /* Ensure placeholder "0" matches exact input font size, weight, and line-height */
+    #new-order-amount-input::placeholder,
+    #new-order-amount-input::-webkit-input-placeholder {
+      font-size: 1.85rem !important;
+      line-height: 1 !important;
+      font-weight: 900 !important;
+      vertical-align: middle !important;
+      color: #A8A29E !important;
+      opacity: 0.6 !important;
+    }
+
+    html.dark #new-order-amount-input::placeholder,
+    html.dark #new-order-amount-input::-webkit-input-placeholder {
+      color: #78716C !important;
+      opacity: 0.6 !important;
+    }
+
+    @media (min-width: 640px) {
+      #new-order-amount-input::placeholder,
+      #new-order-amount-input::-webkit-input-placeholder {
+        font-size: 2.25rem !important;
+      }
+    }
+
+    #withdraw-amount-input::placeholder,
+    #withdraw-amount-input::-webkit-input-placeholder {
+      font-size: 2.25rem !important;
+      line-height: 1 !important;
+      font-weight: 900 !important;
+      vertical-align: middle !important;
+      color: #A8A29E !important;
+      opacity: 0.6 !important;
+    }
+
+    html.dark #withdraw-amount-input::placeholder,
+    html.dark #withdraw-amount-input::-webkit-input-placeholder {
+      color: #78716C !important;
+      opacity: 0.6 !important;
+    }
+
+    @media (min-width: 640px) {
+      #withdraw-amount-input::placeholder,
+      #withdraw-amount-input::-webkit-input-placeholder {
+        font-size: 3rem !important;
+      }
+    }
+
+    /* Variant bubble pill fixed compact height & exact font size matching */
+    .variant-bubble {
+      height: 22px !important;
+      min-height: 22px !important;
+      max-height: 22px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
+      box-sizing: border-box !important;
+      flex-shrink: 0 !important;
+      white-space: nowrap !important;
+      padding: 0 8px !important;
+      border-radius: 9999px !important;
+      overflow: hidden !important;
+    }
+
+    .variant-bubble span {
+      font-size: 10.5px !important;
+      font-weight: 600 !important;
+      line-height: normal !important;
+      height: 14px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
+      align-self: center !important;
+      vertical-align: middle !important;
+      letter-spacing: -0.1px !important;
+      transform: translateY(-0.5px) !important;
+    }
+
+    .variant-bubble-input {
+      font-size: 10.5px !important;
+      line-height: normal !important;
+      height: 14px !important;
+      max-height: 14px !important;
+      font-weight: 600 !important;
+      font-family: inherit !important;
+      vertical-align: middle !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      outline: none !important;
+      color: #FFFFFF !important;
+      text-align: left !important;
+      display: inline-block !important;
+      align-self: center !important;
+      min-width: 0 !important;
+      -webkit-appearance: none !important;
+      appearance: none !important;
+      letter-spacing: -0.1px !important;
+      transform: translateY(-2px) !important;
+    }
+
+    .variant-bubble .hidden,
+    .variant-bubble span.hidden,
+    .variant-bubble input.hidden,
+    .variant-bubble button.hidden {
+      display: none !important;
+    }
+
+    .variant-bubble-clear-btn {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 11px !important;
+      height: 11px !important;
+      min-width: 11px !important;
+      min-height: 11px !important;
+      max-width: 11px !important;
+      max-height: 11px !important;
+      padding: 0 !important;
+      margin: 0 0 0 2.5px !important;
+      border: none !important;
+      background: transparent !important;
+      cursor: pointer !important;
+      line-height: 1 !important;
+      flex-shrink: 0 !important;
+      vertical-align: middle !important;
+      color: rgba(255, 255, 255, 0.85) !important;
+      transform: translateY(-0.5px) !important;
+    }
+
+    .variant-bubble-clear-btn:hover {
+      color: #FFFFFF !important;
+    }
+
+    .variant-bubble-input::placeholder,
+    .variant-bubble-input::-webkit-input-placeholder {
+      font-size: 10.5px !important;
+      line-height: normal !important;
+      font-weight: 600 !important;
+      font-family: inherit !important;
+      color: rgba(255, 255, 255, 0.7) !important;
+      opacity: 0.85 !important;
+      vertical-align: middle !important;
+    }
+
+    html.dark .variant-bubble-input::placeholder,
+    html.dark .variant-bubble-input::-webkit-input-placeholder {
+      color: rgba(255, 255, 255, 0.7) !important;
+      opacity: 0.85 !important;
+    }
+
+    #variant-bubbles-container {
+      display: flex !important;
+      flex-wrap: nowrap !important;
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
+      width: 100% !important;
+      gap: 6px !important;
+    }
+
+    #variant-bubbles-container::-webkit-scrollbar {
+      display: none !important;
+    }
+
+    /* =========================================================================
+       GLOBAL AUTO CAPS LOCK FOR ALL INPUT TEXT
+       ========================================================================= */
+    input[type="text"]:not([readonly]):not([type="url"]):not(#cp-modal-room-link-input),
+    input[type="search"],
+    input:not([type]):not([readonly]),
+    textarea {
+      text-transform: uppercase !important;
+    }
+
+    #cp-modal-room-link-input,
+    input[readonly],
+    input[type="url"],
+    input[type="email"],
+    input[type="password"],
+    input[type="text"]::placeholder,
+    input[type="search"]::placeholder,
+    input:not([type])::placeholder,
+    textarea::placeholder {
+      text-transform: none !important;
     }
 
     #modal-content .font-heading,
@@ -2830,8 +3137,8 @@
     }
 
     #m-pr-list-container .pr-room-card {
-      padding: clamp(0.75rem, 2.2cqw, 1.15rem) !important;
-      gap: clamp(0.35rem, 1cqw, 0.6rem) !important;
+      padding: 10px 13px !important;
+      gap: 5px !important;
       border-radius: 0px !important;
     }
 
@@ -2846,8 +3153,8 @@
       aspect-ratio: auto !important;
       min-height: auto !important;
       height: auto !important;
-      padding: 0.85rem 1.15rem !important;
-      gap: 0.45rem !important;
+      padding: 0.7rem 1rem !important;
+      gap: 0.35rem !important;
       border-radius: 0px !important;
       display: flex !important;
       flex-direction: column !important;
@@ -2909,7 +3216,7 @@
       border-radius: 0px !important;
     }
 
-    /* PAYMENT ROOM CARDS: DEFINED VISIBLE BORDER IN LIGHT MODE (#D5CBB8), BLACK IN DARK MODE (#000000) */
+    /* PAYMENT ROOM CARDS: LIGHT THEME BORDER (#EBE3D5), DARK THEME (rgba(255, 255, 255, 0.15)) */
     .pr-room-card,
     #m-pr-list-container .pr-room-card,
     #d-pr-list-container .pr-room-card {
@@ -2919,7 +3226,7 @@
       align-items: stretch !important;
       border-radius: 0px !important;
       background-color: #F4EFE6 !important;
-      border: 1.5px solid #D5CBB8 !important;
+      border: 1.5px solid #EBE3D5 !important;
       box-shadow: none !important;
       outline: none !important;
       -webkit-tap-highlight-color: transparent !important;
@@ -2932,7 +3239,7 @@
     #m-pr-list-container .pr-room-card:hover,
     #d-pr-list-container .pr-room-card:hover {
       background-color: #EDE7DC !important;
-      border-color: #C8BCAB !important;
+      border-color: #D5CBB8 !important;
       box-shadow: none !important;
       outline: none !important;
     }
@@ -2948,7 +3255,7 @@
     #d-pr-list-container .pr-room-card:active {
       outline: none !important;
       box-shadow: none !important;
-      border: 1.5px solid #D5CBB8 !important;
+      border: 1.5px solid #EBE3D5 !important;
       -webkit-focus-ring-color: transparent !important;
     }
 
@@ -2957,7 +3264,7 @@
     html.dark #d-pr-list-container .pr-room-card {
       border-radius: 0px !important;
       background-color: #141414 !important;
-      border: 1.5px solid #000000 !important;
+      border: 1.5px solid rgba(255, 255, 255, 0.15) !important;
       box-shadow: none !important;
       outline: none !important;
       -webkit-tap-highlight-color: transparent !important;
@@ -2967,7 +3274,7 @@
     html.dark #m-pr-list-container .pr-room-card:hover,
     html.dark #d-pr-list-container .pr-room-card:hover {
       background-color: #222222 !important;
-      border-color: #000000 !important;
+      border-color: rgba(255, 255, 255, 0.25) !important;
       box-shadow: none !important;
       outline: none !important;
     }
@@ -2983,7 +3290,7 @@
     html.dark #d-pr-list-container .pr-room-card:active {
       outline: none !important;
       box-shadow: none !important;
-      border: 1.5px solid #000000 !important;
+      border: 1.5px solid rgba(255, 255, 255, 0.15) !important;
       -webkit-focus-ring-color: transparent !important;
     }
 
@@ -3384,38 +3691,63 @@
 
     #m-pr-list-container .pr-room-role,
     #d-pr-list-container .pr-room-role {
-      font-size: clamp(0.65rem, 0.3cqw + 0.56rem, 0.78rem) !important;
+      font-family: 'Hanken Grotesk', sans-serif !important;
+      font-size: clamp(0.7rem, 0.3cqw + 0.6rem, 0.82rem) !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.01em !important;
     }
 
     #m-pr-list-container .pr-room-title,
     #d-pr-list-container .pr-room-title {
-      font-size: clamp(0.74rem, 0.35cqw + 0.64rem, 0.86rem) !important;
+      font-family: 'Hanken Grotesk', sans-serif !important;
+      font-size: clamp(0.82rem, 0.4cqw + 0.72rem, 0.95rem) !important;
       font-weight: 700 !important;
-      line-height: 1.25 !important;
+      line-height: 1.35 !important;
+      white-space: normal !important;
+      word-break: break-word !important;
+      text-overflow: clip !important;
+      letter-spacing: -0.01em !important;
     }
 
     #m-pr-list-container .pr-room-price,
     #d-pr-list-container .pr-room-price {
-      font-size: clamp(1rem, 0.65cqw + 0.84rem, 1.25rem) !important;
-      font-weight: 900 !important;
-      letter-spacing: -0.02em !important;
-      line-height: 1.1 !important;
+      font-family: 'Hanken Grotesk', sans-serif !important;
+      font-size: clamp(0.78rem, 0.3cqw + 0.72rem, 0.92rem) !important;
+      font-weight: 800 !important;
+      letter-spacing: -0.01em !important;
+      font-variant-numeric: tabular-nums lining-nums !important;
+      line-height: 1 !important;
+      white-space: nowrap !important;
+      padding-left: 0.5rem !important;
     }
 
     #m-pr-list-container .pr-room-meta,
     #d-pr-list-container .pr-room-meta {
-      font-size: clamp(0.65rem, 0.3cqw + 0.56rem, 0.8rem) !important;
+      font-family: 'Inter', sans-serif !important;
+      font-size: clamp(0.72rem, 0.3cqw + 0.62rem, 0.82rem) !important;
+      line-height: 1.3 !important;
+    }
+
+    #m-pr-list-container .pr-room-meta strong,
+    #d-pr-list-container .pr-room-meta strong {
+      font-family: 'Hanken Grotesk', sans-serif !important;
+      font-weight: 700 !important;
     }
 
     #m-pr-list-container .pr-room-date,
     #d-pr-list-container .pr-room-date {
-      font-size: clamp(0.55rem, 0.18cqw + 0.48rem, 0.66rem) !important;
+      font-family: 'Inter', sans-serif !important;
+      font-size: clamp(0.65rem, 0.2cqw + 0.55rem, 0.75rem) !important;
+      font-weight: 500 !important;
       opacity: 0.85;
     }
 
     #m-pr-list-container .pr-room-status,
     #d-pr-list-container .pr-room-status {
-      font-size: clamp(0.65rem, 0.3cqw + 0.56rem, 0.8rem) !important;
+      font-family: 'Hanken Grotesk', sans-serif !important;
+      font-size: clamp(0.7rem, 0.3cqw + 0.6rem, 0.82rem) !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.01em !important;
     }
 
     #m-pr-detail,
@@ -4301,10 +4633,10 @@
         <div class="flex-none relative z-20">
           <!-- Deep Forest Green Unified Hero & Header Card (Swipe to change balance) -->
           <div id="mobile-hero-card"
-            class="relative w-full bg-gradient-to-b from-[#0A4328] via-[#073620] to-[#042415] text-white pt-0 pb-12 px-4 rounded-b-[36px] sm:rounded-b-[40px] shadow-[0_16px_32px_-8px_rgba(4,36,21,0.4)] overflow-hidden flex-none border-0 select-none cursor-grab active:cursor-grabbing"
+            class="relative w-full flex flex-col justify-between bg-gradient-to-b from-[#0A4328] via-[#073620] to-[#042415] text-white pt-0 px-4 rounded-b-[42px] sm:rounded-b-[48px] shadow-[0_20px_40px_-8px_rgba(4,36,21,0.45)] overflow-hidden flex-none border-0 select-none cursor-grab active:cursor-grabbing min-h-[300px] sm:min-h-[320px]"
             style="touch-action: pan-y;">
             <!-- Top Row: Logo on Left, Switch Role & Theme Toggle on Right -->
-            <div class="relative z-10 -mx-4 px-3.5 py-2 flex items-center justify-between mb-3">
+            <div class="relative z-10 -mx-4 px-3.5 py-2 flex items-center justify-between">
               <!-- White PayKudi Logo -->
               <button type="button" onclick="switchView('home')" class="flex items-center cursor-pointer">
                 <img src="logodarkmode.png" alt="PayKudi" style="height: 22px; max-height: 22px; width: auto;"
@@ -4331,27 +4663,30 @@
               </div>
             </div>
 
-            <!-- Available Balance & Eye Toggle -->
-            <div class="relative z-10 flex items-center justify-center gap-1.5 mt-2 text-white/75 text-xs font-medium">
-              <span id="m-slide-tag" class="font-heading tracking-wide transition-opacity duration-200">Your PayKudi
-                Balance</span>
-              <button type="button" onclick="toggleBalanceVisibility()"
-                class="text-white/70 hover:text-white transition-colors p-0.5 flex items-center cursor-pointer"
-                title="Toggle visibility">
-                <span id="mobile-eye-icon" class="material-symbols-outlined text-[18px]">visibility</span>
-              </button>
+            <!-- Middle: Centered Balance Section -->
+            <div class="relative z-10 flex-1 flex flex-col justify-center items-center text-center my-auto py-3">
+              <!-- Available Balance & Eye Toggle -->
+              <div class="flex items-center justify-center gap-1.5 text-white/75 text-xs font-medium mb-1.5">
+                <span id="m-slide-tag" class="font-heading tracking-wide transition-opacity duration-200">Your PayKudi
+                  Balance</span>
+                <button type="button" onclick="toggleBalanceVisibility()"
+                  class="text-white/70 hover:text-white transition-colors p-0.5 flex items-center cursor-pointer"
+                  title="Toggle visibility">
+                  <span id="mobile-eye-icon" class="material-symbols-outlined text-[18px]">visibility</span>
+                </button>
+              </div>
+
+              <!-- Hero Balance (Spaced Naira sign and digit) -->
+              <div class="text-center overflow-hidden">
+                <h2 id="mobile-balance-text"
+                  class="text-4xl sm:text-[44px] font-black tracking-tight font-heading text-white transition-all duration-300 drop-shadow-md leading-tight inline-block">
+                  ₦ 0
+                </h2>
+              </div>
             </div>
 
-            <!-- Hero Balance -->
-            <div class="relative z-10 text-center my-1.5 overflow-hidden">
-              <h2 id="mobile-balance-text"
-                class="text-4xl sm:text-[44px] font-black tracking-tight font-heading text-white transition-all duration-300 drop-shadow-md leading-tight inline-block">
-                ₦0
-              </h2>
-            </div>
-
-            <!-- Slide Indicator Dots -->
-            <div class="relative z-10 flex justify-center items-center gap-2 mt-2">
+            <!-- Bottom: Slide Indicator Dots At The Bottom of the Green Modal -->
+            <div class="relative z-10 flex justify-center items-center gap-2 pt-1 pb-10 sm:pb-12">
               <button type="button" onclick="setBalanceSlide(0, -1)" id="m-dot-0"
                 class="w-2.5 h-2.5 rounded-full bg-[#F4EFE6] scale-110 shadow-sm transition-all duration-300 cursor-pointer"
                 title="Available Balance"></button>
@@ -4366,8 +4701,8 @@
             </div>
           </div>
 
-          <!-- Floating Action Bar Card (Overlaps the green hero section) -->
-          <div class="relative -mt-8 px-4 z-20">
+          <!-- Floating Action Bar Card (Overlaps the bottom of the green hero section) -->
+          <div class="relative -mt-6 sm:-mt-7 px-4 z-20">
             <div
               class="mobile-action-bar bg-[#F4EFE6] dark:bg-[#141414] border border-[#EBE3D5] dark:border-white/10 rounded-full p-2 sm:p-2.5 shadow-xl shadow-black/8 dark:shadow-black/40 flex items-center justify-between gap-2">
               <!-- + New Transaction (Main Pill Button) -->
@@ -4382,13 +4717,11 @@
                 title="Withdraw Money">
                 <span class="material-symbols-outlined text-[20px]">outbox</span>
               </button>
-              <!-- Auto Pay Toggle -->
-              <div id="m-auto-payout-btn" onclick="toggleAutoPayout()"
-                class="payout-toggle payout-toggle-header on flex-shrink-0"
-                title="Auto Payout: ON (click to turn OFF)">
-                <div class="payout-side-text left">ON</div>
-                <div class="payout-side-text right">OFF</div>
-                <div class="payout-pill" id="m-payout-pill">
+              <!-- Auto Pay Pill Wrapper Matching New Payment Room Button Height -->
+              <div class="auto-pay-pill-track bg-[#F4EFE6] dark:bg-[#141414] border-[1.5px] border-[#D5CBB8] dark:border-white/15 flex items-center justify-center flex-shrink-0">
+                <button type="button" id="m-auto-payout-btn" onclick="toggleAutoPayout()"
+                  class="auto-pay-single-btn on flex-shrink-0 cursor-pointer"
+                  title="Auto Pay: ON (click to turn OFF)">
                   <span class="payout-icon-wrap" id="m-payout-icon-wrap">
                     <svg viewBox="0 0 24 24">
                       <path d="M18.36 6.64a9 9 0 1 1-12.73 0" />
@@ -4396,7 +4729,7 @@
                     </svg>
                   </span>
                   <span>Auto Pay</span>
-                </div>
+                </button>
               </div>
             </div>
           </div>
@@ -4416,141 +4749,11 @@
               </button>
             </div>
 
-            <!-- Recent Activity Money Movement Items (Preserves exact 256px 4-card height) -->
-            <div id="home-recent-activities-list" class="bg-[#F4EFE6] dark:bg-[#000000] rounded-2xl overflow-hidden min-h-[256px] flex flex-col justify-center">
-              <div class="text-center text-gray-400 w-full py-8 px-4 flex flex-col items-center justify-center min-h-[256px] my-auto">
+            <!-- Recent Activity Items (Dynamic Container for User's Own Data) -->
+            <div id="home-recent-activities-list" class="bg-[#F4EFE6] dark:bg-[#141414] rounded-2xl overflow-hidden flex flex-col min-h-[200px]">
+              <div class="text-center text-gray-400 w-full py-10 px-4 flex flex-col items-center justify-center my-auto select-none">
                 <span class="material-symbols-outlined text-4xl text-gray-300 dark:text-gray-600 opacity-60">analytics</span>
                 <p class="text-xs font-bold text-gray-500 dark:text-gray-400 font-heading mt-2">No Recent Activity</p>
-              </div>
-            </div>
-
-            <!-- Promo Discount Coupons Section (Full-Bleed Horizontal Carousel with Margin Alignment) -->
-            <div class="pt-2 space-y-2">
-              <div class="flex items-center justify-between px-1">
-                <h3 class="text-base font-extrabold text-brand-dark dark:text-white font-heading">Special Offers</h3>
-              </div>
-
-              <!-- Horizontal Scrollable Container (Bleeds to edges with px-4 gutter) -->
-              <div
-                class="flex gap-2.5 overflow-x-auto custom-scroll [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden -mx-4 px-4 py-1 snap-x snap-mandatory scroll-smooth scroll-px-4">
-                <!-- Card 1: 25% OFF (Coral Orange) -->
-                <div
-                  class="relative w-[190px] sm:w-[205px] flex-shrink-0 snap-start bg-gradient-to-r from-[#FF5E36] via-[#FF6D44] to-[#FF855D] text-white rounded-[18px] p-2.5 sm:p-3 shadow-xs overflow-hidden flex items-center justify-between gap-1.5 select-none">
-                  <!-- Left Content -->
-                  <div class="flex-1 min-w-0 z-10">
-                    <span class="text-[8.5px] font-bold text-white/85 uppercase tracking-wide font-heading block">Up
-                      to</span>
-                    <h4
-                      class="text-[17px] sm:text-lg font-black text-white font-heading tracking-tight leading-none mt-0.5">
-                      25% OFF</h4>
-                    <p class="text-[9px] text-white/90 font-medium mt-0.5 truncate">Package discount coupon</p>
-
-                    <button type="button" onclick="copyPromoCode('ST-V2586')"
-                      class="promo-code-pill bg-white/25 hover:bg-white/35 text-white border border-white/35 backdrop-blur-sm px-2.5 py-0.5 rounded-full inline-flex items-center gap-1 text-[10px] font-extrabold shadow-xs mt-1.5 active:scale-95 transition-all cursor-pointer select-none">
-                      <span class="material-symbols-outlined text-[11px] text-white">content_copy</span>
-                      <span class="font-mono tracking-wider text-white">ST-V2586</span>
-                    </button>
-                  </div>
-
-                  <!-- Right Graphic: Trimmed Coupon Ticket with % -->
-                  <div
-                    class="relative flex-shrink-0 h-14 flex items-center justify-center border-l border-dashed border-white/35 pl-1.5 ml-0.5">
-                    <div
-                      class="w-8 h-8 rounded-lg bg-white/20 backdrop-blur-md flex items-center justify-center text-white/90 shadow-inner rotate-3">
-                      <i class="fa-solid fa-percent text-[11px]"></i>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Card 2: 40% OFF (Dark Forest Green) -->
-                <div
-                  class="relative w-[190px] sm:w-[205px] flex-shrink-0 snap-start bg-gradient-to-r from-[#072417] via-[#0D3825] to-[#144F35] text-white rounded-[18px] p-2.5 sm:p-3 shadow-xs overflow-hidden flex items-center justify-between gap-1.5 select-none">
-                  <!-- Left Content -->
-                  <div class="flex-1 min-w-0 z-10">
-                    <span class="text-[8.5px] font-bold text-white/85 uppercase tracking-wide font-heading block">Get up
-                      to</span>
-                    <h4
-                      class="text-[17px] sm:text-lg font-black text-white font-heading tracking-tight leading-none mt-0.5">
-                      40% OFF</h4>
-                    <p class="text-[9px] text-white/90 font-medium mt-0.5 truncate">Discount on first order</p>
-
-                    <button type="button" onclick="copyPromoCode('FO-404030')"
-                      class="promo-code-pill bg-white/25 hover:bg-white/35 text-white border border-white/35 backdrop-blur-sm px-2.5 py-0.5 rounded-full inline-flex items-center gap-1 text-[10px] font-extrabold shadow-xs mt-1.5 active:scale-95 transition-all cursor-pointer select-none">
-                      <span class="material-symbols-outlined text-[11px] text-white">content_copy</span>
-                      <span class="font-mono tracking-wider text-white">FO-404030</span>
-                    </button>
-                  </div>
-
-                  <!-- Right Graphic: Trimmed 3D Box -->
-                  <div
-                    class="relative flex-shrink-0 h-14 flex items-center justify-center border-l border-dashed border-white/35 pl-1.5 ml-0.5">
-                    <div
-                      class="w-8 h-8 rounded-lg bg-white/20 backdrop-blur-md flex items-center justify-center text-white/90 shadow-inner -rotate-3">
-                      <span class="material-symbols-outlined text-[16px]">inventory_2</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Card 3: 15% OFF (Navy / Cobalt Blue) -->
-                <div
-                  class="relative w-[190px] sm:w-[205px] flex-shrink-0 snap-start bg-gradient-to-r from-[#0F356E] via-[#15468E] to-[#1C5BB7] text-white rounded-[18px] p-2.5 sm:p-3 shadow-xs overflow-hidden flex items-center justify-between gap-1.5 select-none">
-                  <!-- Left Content -->
-                  <div class="flex-1 min-w-0 z-10">
-                    <span class="text-[8.5px] font-bold text-white/85 uppercase tracking-wide font-heading block">Up
-                      to</span>
-                    <h4
-                      class="text-[17px] sm:text-lg font-black text-white font-heading tracking-tight leading-none mt-0.5">
-                      15% OFF</h4>
-                    <p class="text-[9px] text-white/90 font-medium mt-0.5 truncate">Package discount coupon</p>
-
-                    <button type="button" onclick="copyPromoCode('UP15-586')"
-                      class="promo-code-pill bg-white/25 hover:bg-white/35 text-white border border-white/35 backdrop-blur-sm px-2.5 py-0.5 rounded-full inline-flex items-center gap-1 text-[10px] font-extrabold shadow-xs mt-1.5 active:scale-95 transition-all cursor-pointer select-none">
-                      <span class="material-symbols-outlined text-[11px] text-white">content_copy</span>
-                      <span class="font-mono tracking-wider text-white">UP15-586</span>
-                    </button>
-                  </div>
-
-                  <!-- Right Graphic: Trimmed Coupon Ticket with % -->
-                  <div
-                    class="relative flex-shrink-0 h-14 flex items-center justify-center border-l border-dashed border-white/35 pl-1.5 ml-0.5">
-                    <div
-                      class="w-8 h-8 rounded-lg bg-white/20 backdrop-blur-md flex items-center justify-center text-white/90 shadow-inner rotate-3">
-                      <i class="fa-solid fa-percent text-[11px]"></i>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Card 4: 5% OFF (Vibrant Emerald Green) -->
-                <div
-                  class="relative w-[190px] sm:w-[205px] flex-shrink-0 snap-start bg-gradient-to-r from-[#0E6838] via-[#127F45] to-[#189A54] text-white rounded-[18px] p-2.5 sm:p-3 shadow-xs overflow-hidden flex items-center justify-between gap-1.5 select-none">
-                  <!-- Left Content -->
-                  <div class="flex-1 min-w-0 z-10">
-                    <span class="text-[8.5px] font-bold text-white/85 uppercase tracking-wide font-heading block">Up
-                      to</span>
-                    <h4
-                      class="text-[17px] sm:text-lg font-black text-white font-heading tracking-tight leading-none mt-0.5">
-                      5% OFF</h4>
-                    <p class="text-[9px] text-white/90 font-medium mt-0.5 truncate">Package discount coupon</p>
-
-                    <button type="button" onclick="copyPromoCode('UP5-E586')"
-                      class="promo-code-pill bg-white/25 hover:bg-white/35 text-white border border-white/35 backdrop-blur-sm px-2.5 py-0.5 rounded-full inline-flex items-center gap-1 text-[10px] font-extrabold shadow-xs mt-1.5 active:scale-95 transition-all cursor-pointer select-none">
-                      <span class="material-symbols-outlined text-[11px] text-white">content_copy</span>
-                      <span class="font-mono tracking-wider text-white">UP5-E586</span>
-                    </button>
-                  </div>
-
-                  <!-- Right Graphic: Trimmed Coupon Ticket with % -->
-                  <div
-                    class="relative flex-shrink-0 h-14 flex items-center justify-center border-l border-dashed border-white/35 pl-1.5 ml-0.5">
-                    <div
-                      class="w-8 h-8 rounded-lg bg-white/20 backdrop-blur-md flex items-center justify-center text-white/90 shadow-inner -rotate-3">
-                      <i class="fa-solid fa-percent text-[11px]"></i>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- End Spacer for smooth right edge padding -->
-                <div class="w-1 flex-shrink-0"></div>
               </div>
             </div>
           </div>
@@ -8091,7 +8294,7 @@
           <span class="relative inline-flex items-center justify-center">
             <span class="material-symbols-outlined" style="font-size:26px">payments</span>
             <span id="m-pr-nav-badge"
-              class="absolute -top-1.5 -right-2 bg-brand-blue text-white rounded-full text-[9px] font-extrabold w-4 h-4 flex items-center justify-center border-2 border-white dark:border-[#141414] shadow-xs">2</span>
+              class="absolute -top-1.5 -right-2 bg-brand-blue text-white rounded-full text-[9px] font-extrabold w-4 h-4 flex items-center justify-center border-2 border-white dark:border-white shadow-xs">2</span>
           </span>
           <span class="nav-link-label font-heading">Payment Room</span>
         </button>
@@ -8260,102 +8463,39 @@
                   title="Withdraw Money">
                   <span class="material-symbols-outlined text-[18px]">outbox</span>
                 </button>
-                <!-- Auto Payout Insp-style Toggle Button -->
-                <div id="d-auto-payout-btn" onclick="toggleAutoPayout()"
-                  class="payout-toggle on h-10 sm:h-11 w-[132px] sm:w-[142px] flex-shrink-0"
-                  title="Auto Payout: ON (click to turn OFF)">
-                  <div class="payout-side-text left">ON</div>
-                  <div class="payout-side-text right">OFF</div>
-                  <div class="payout-pill" id="d-payout-pill">
+                <!-- Auto Pay Pill Wrapper Matching New Payment Room Button Height -->
+                <div class="auto-pay-pill-track bg-[#F4EFE6] dark:bg-[#141414] border-[1.5px] border-[#D5CBB8] dark:border-white/15 flex items-center justify-center flex-shrink-0">
+                  <button type="button" id="d-auto-payout-btn" onclick="toggleAutoPayout()"
+                    class="auto-pay-single-btn on flex-shrink-0 cursor-pointer"
+                    title="Auto Pay: ON (click to turn OFF)">
                     <span class="payout-icon-wrap" id="d-payout-icon-wrap">
                       <svg viewBox="0 0 24 24">
                         <path d="M18.36 6.64a9 9 0 1 1-12.73 0" />
                         <line x1="12" y1="2" x2="12" y2="12" />
                       </svg>
                     </span>
-                    <span>Auto Payout</span>
-                  </div>
+                    <span>Auto Pay</span>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Two Column Grid for Main Content (Perfect desktop balance) -->
-          <div class="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
-            <!-- Left Column: Recent Activity (7 cols) -->
-            <div class="lg:col-span-7 flex flex-col justify-between">
-              <div class="flex justify-between items-center mb-2.5 px-1">
-                <h3 class="text-xl sm:text-2xl font-black text-brand-dark dark:text-white font-heading tracking-tight">
-                  Recent Activity</h3>
-                <button type="button" onclick="switchView('activity')"
-                  class="text-emerald-700 dark:text-emerald-400 font-bold text-xs sm:text-sm hover:underline cursor-pointer font-heading">
-                  View all
-                </button>
-              </div>
-              <div id="d-home-recent-activities-list"
-                class="bg-[#F4EFE6] dark:bg-[#000000] rounded-2xl overflow-hidden min-h-[256px] flex flex-col justify-center">
-                <div class="text-center text-gray-400 w-full py-8 px-4 flex flex-col items-center justify-center min-h-[256px] my-auto">
-                  <span class="material-symbols-outlined text-4xl text-gray-300 dark:text-gray-600 opacity-60">analytics</span>
-                  <p class="text-xs font-bold text-gray-500 dark:text-gray-400 font-heading mt-2">No Recent Activity</p>
-                </div>
-              </div>
+          <!-- Main Content: Recent Activity (Full Width) -->
+          <div class="mt-8">
+            <div class="flex justify-between items-center mb-2.5 px-1">
+              <h3 class="text-xl sm:text-2xl font-black text-brand-dark dark:text-white font-heading tracking-tight">
+                Recent Activity</h3>
+              <button type="button" onclick="switchView('activity')"
+                class="text-emerald-700 dark:text-emerald-400 font-bold text-xs sm:text-sm hover:underline cursor-pointer font-heading">
+                View all
+              </button>
             </div>
-
-            <!-- Right Column: Special Offers (5 cols) -->
-            <div class="lg:col-span-5 flex flex-col justify-between">
-              <div class="flex justify-between items-center mb-2.5 px-1">
-                <h3 class="text-lg sm:text-xl font-bold text-brand-dark dark:text-white font-heading">Special Offers
-                </h3>
-              </div>
-              <div class="flex-1 flex flex-col gap-4 justify-between">
-                <!-- Offer Card 1 -->
-                <div onclick="showPayKudiToast('Coupon ST-V2586 copied!')"
-                  class="coral-bg bg-[#f7774f] rounded-2xl p-5 sm:p-6 text-white relative overflow-hidden flex-1 flex justify-between items-center shadow-md hover:-translate-y-0.5 transition-transform cursor-pointer">
-                  <div class="flex flex-col z-10 min-w-0">
-                    <span class="text-[10px] font-bold uppercase tracking-wider mb-1 opacity-90 font-heading">Up
-                      to</span>
-                    <span class="text-2xl sm:text-3xl font-black mb-1 font-heading leading-tight">25% OFF</span>
-                    <span class="text-xs mb-3.5 opacity-90">Package discount coupon</span>
-                    <div
-                      class="bg-white/20 backdrop-blur-sm rounded-full py-1.5 px-3 w-max flex items-center gap-2 border border-white/30">
-                      <span class="material-symbols-outlined text-[14px]">content_copy</span>
-                      <span class="text-xs font-bold tracking-widest font-mono">ST-V2586</span>
-                    </div>
-                  </div>
-                  <div class="h-20 border-l-2 border-dashed border-white/30 mx-3 z-10 hidden sm:block"></div>
-                  <div
-                    class="w-14 h-14 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center z-10 shrink-0 border border-white/30">
-                    <span class="material-symbols-outlined text-2xl">percent</span>
-                  </div>
-                  <!-- Decorative bg elements -->
-                  <div class="absolute -right-8 -top-8 w-32 h-32 bg-white/10 rounded-full blur-2xl pointer-events-none">
-                  </div>
-                </div>
-
-                <!-- Offer Card 2 -->
-                <div onclick="showPayKudiToast('Coupon FO-404030 copied!')"
-                  class="teal-bg bg-[#0c3c22] rounded-2xl p-5 sm:p-6 text-white relative overflow-hidden flex-1 flex justify-between items-center shadow-md hover:-translate-y-0.5 transition-transform cursor-pointer">
-                  <div class="flex flex-col z-10 min-w-0">
-                    <span class="text-[10px] font-bold uppercase tracking-wider mb-1 opacity-90 font-heading">Get up
-                      to</span>
-                    <span class="text-2xl font-black mb-1 font-heading leading-tight">40% OFF</span>
-                    <span class="text-xs mb-3.5 opacity-90">Discount on first order</span>
-                    <div
-                      class="bg-white/10 backdrop-blur-sm rounded-full py-1.5 px-3 w-max flex items-center gap-2 border border-white/20">
-                      <span class="material-symbols-outlined text-[14px]">content_copy</span>
-                      <span class="text-xs font-bold tracking-widest font-mono">FO-404030</span>
-                    </div>
-                  </div>
-                  <div class="h-20 border-l-2 border-dashed border-white/20 mx-3 z-10 hidden sm:block"></div>
-                  <div
-                    class="w-14 h-14 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center z-10 shrink-0 border border-white/20">
-                    <span class="material-symbols-outlined text-2xl">local_mall</span>
-                  </div>
-                  <!-- Decorative bg elements -->
-                  <div
-                    class="absolute -left-8 -bottom-8 w-32 h-32 bg-white/5 rounded-full blur-2xl pointer-events-none">
-                  </div>
-                </div>
+            <div id="d-home-recent-activities-list"
+              class="bg-[#F4EFE6] dark:bg-[#141414] rounded-2xl overflow-hidden flex flex-col min-h-[200px]">
+              <div class="text-center text-gray-400 w-full py-10 px-4 flex flex-col items-center justify-center my-auto select-none">
+                <span class="material-symbols-outlined text-4xl text-gray-300 dark:text-gray-600 opacity-60">analytics</span>
+                <p class="text-xs font-bold text-gray-500 dark:text-gray-400 font-heading mt-2">No Recent Activity</p>
               </div>
             </div>
           </div>
@@ -8377,7 +8517,7 @@
                   <path d="M22 2L11 13M22 2L15 22L11 13L2 9L22 2Z"></path>
                 </svg>
               </div>
-              <p class="fluid-stat-val font-black font-heading text-white tracking-tight leading-none">₦0</p>
+              <p id="d-stat-act-sent" class="fluid-stat-val font-black font-heading text-white tracking-tight leading-none">₦0</p>
             </div>
 
             <!-- Received Card (Solid Green) -->
@@ -8390,7 +8530,7 @@
                   <path d="M12 4v16m0 0l-6-6m6 6l6-6"></path>
                 </svg>
               </div>
-              <p class="fluid-stat-val font-black font-heading text-white tracking-tight leading-none">₦0</p>
+              <p id="d-stat-act-received" class="fluid-stat-val font-black font-heading text-white tracking-tight leading-none">₦0</p>
             </div>
 
             <!-- Payout Card (Solid Blue) -->
@@ -8403,7 +8543,7 @@
                   <path d="M22 2L11 13M22 2L15 22L11 13L2 9L22 2Z"></path>
                 </svg>
               </div>
-              <p class="fluid-stat-val font-black font-heading text-white tracking-tight leading-none">₦0</p>
+              <p id="d-stat-act-payout" class="fluid-stat-val font-black font-heading text-white tracking-tight leading-none">₦0</p>
             </div>
           </section>
 
@@ -12100,10 +12240,17 @@
           <span class="text-base font-black text-brand-green dark:text-emerald-400 font-heading"
             id="cp-modal-amount">₦75,000</span>
         </div>
-        <div class="flex items-center justify-between py-2.5">
-          <span class="text-xs font-bold text-neutral-500 dark:text-neutral-400 font-heading">ITEM / SERVICE</span>
-          <span class="text-xs font-bold text-brand-dark dark:text-white truncate max-w-[200px]"
-            id="cp-modal-title">Vintage Sneakers</span>
+        <div class="py-2.5">
+          <div class="flex items-start justify-between">
+            <span class="text-xs font-bold text-neutral-500 dark:text-neutral-400 font-heading flex-shrink-0 pt-0.5">ITEM / SERVICE</span>
+            <div class="flex flex-col items-end text-right min-w-0 max-w-[240px]">
+              <span class="text-xs font-bold text-brand-dark dark:text-white truncate max-w-full"
+                id="cp-modal-title">Vintage Sneakers</span>
+              <!-- Variant subtext directly under the item description -->
+              <span class="text-[11px] font-medium text-neutral-500 dark:text-neutral-400 truncate max-w-full mt-0.5 hidden"
+                id="cp-modal-variants-subtext"></span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -12384,15 +12531,15 @@
 
     <!-- Bottom Sheet Card (Slide-up from bottom) -->
     <div id="modal-content"
-      class="relative w-full max-w-md bg-[#F4EFE6] dark:bg-[#141414] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-500 ease-out z-10 max-h-[88vh] flex flex-col pointer-events-auto">
+      class="relative w-full max-w-md bg-[#F4EFE6] dark:bg-[#141414] rounded-t-3xl border-t border-x border-[#EBE3D5] dark:border-white/10 shadow-2xl overflow-hidden transform translate-y-full transition-transform duration-500 ease-out z-10 max-h-[94vh] sm:max-h-[88vh] flex flex-col pointer-events-auto">
 
       <!-- Top Grab Bar / Handle -->
-      <div class="pt-3 pb-1 cursor-pointer flex justify-center flex-shrink-0" onclick="closeActionModal()">
-        <div class="w-12 h-1.5 bg-neutral-300 dark:bg-white/20 rounded-full"></div>
+      <div class="pt-2.5 pb-0.5 cursor-pointer flex justify-center flex-shrink-0" onclick="closeActionModal()">
+        <div class="w-12 h-1 bg-neutral-300 dark:bg-white/20 rounded-full"></div>
       </div>
 
       <!-- Sheet Header -->
-      <div class="px-5 pt-3 pb-0 flex items-center justify-between flex-shrink-0" id="action-modal-header-wrap">
+      <div class="px-5 pt-2 pb-2 flex items-center justify-between flex-shrink-0" id="action-modal-header-wrap">
         <div class="flex items-center gap-2.5">
           <h3 class="text-base font-black text-brand-dark dark:text-white font-heading" id="action-modal-header-title">
             Create Payment Room</h3>
@@ -12406,7 +12553,7 @@
       </div>
 
       <!-- Scrollable Body Content -->
-      <div id="modal-body" class="px-5 pt-1 pb-5 space-y-3.5 overflow-y-auto custom-scroll flex-1">
+      <div id="modal-body" class="px-5 pt-1 pb-4 space-y-2 overflow-y-auto custom-scroll flex-1">
         <!-- Dynamically Populated by JS -->
       </div>
     </div>
@@ -12422,6 +12569,64 @@
       try {
         window.history.pushState({ type: 'overlay', id: modalId, time: Date.now() }, '');
       } catch (e) { }
+    }
+
+    /* =========================================================================
+       GLOBAL AUTO CAPS LOCK FOR ALL INPUT TEXT ACROSS THE APP
+       ========================================================================= */
+    // 1. Real-time auto-uppercase on all text inputs & textareas
+    document.addEventListener('input', function (e) {
+      var el = e.target;
+      if (!el) return;
+      var tag = el.tagName ? el.tagName.toLowerCase() : '';
+      var type = el.type ? el.type.toLowerCase() : '';
+      if ((tag === 'input' && (type === 'text' || type === 'search' || !type)) || tag === 'textarea') {
+        if (type === 'password' || type === 'email' || el.readOnly || el.id === 'cp-modal-room-link-input' || el.dataset.noCaps === 'true') return;
+        if (el.id === 'new-order-amount-input' || el.inputMode === 'decimal' || el.inputMode === 'numeric') return;
+
+        var start = el.selectionStart;
+        var end = el.selectionEnd;
+        var original = el.value;
+        var upper = original.toUpperCase();
+        if (original !== upper) {
+          el.value = upper;
+          if (start !== null && end !== null) {
+            try {
+              el.setSelectionRange(start, end);
+            } catch (err) { }
+          }
+        }
+      }
+    }, true);
+
+    // 2. Activate virtual keyboard CAPS LOCK (iOS & Android)
+    document.addEventListener('focusin', function (e) {
+      var el = e.target;
+      if (!el) return;
+      var tag = el.tagName ? el.tagName.toLowerCase() : '';
+      var type = el.type ? el.type.toLowerCase() : '';
+      if ((tag === 'input' && (type === 'text' || type === 'search' || !type)) || tag === 'textarea') {
+        if (type !== 'password' && type !== 'email' && el.dataset.noCaps !== 'true') {
+          if (el.getAttribute('autocapitalize') !== 'characters') {
+            el.setAttribute('autocapitalize', 'characters');
+          }
+        }
+      }
+    }, true);
+
+    function initGlobalAutoCaps() {
+      var inputs = document.querySelectorAll('input[type="text"], input[type="search"], input:not([type]), textarea');
+      inputs.forEach(function (el) {
+        var type = (el.type || '').toLowerCase();
+        if (type !== 'password' && type !== 'email' && el.dataset.noCaps !== 'true') {
+          el.setAttribute('autocapitalize', 'characters');
+        }
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initGlobalAutoCaps);
+    } else {
+      initGlobalAutoCaps();
     }
 
     function closeTopmostActiveModal() {
@@ -12689,6 +12894,12 @@
         if (mBottomNav) {
           mBottomNav.classList.remove('pr-nav-hidden');
           mBottomNav.classList.remove('hidden');
+        }
+      }
+
+      if (targetView === 'activity') {
+        if (typeof renderFullActivitiesScreen === 'function') {
+          renderFullActivitiesScreen();
         }
       }
 
@@ -13182,12 +13393,12 @@
 
     // Auto-Sliding Balance & Protected Carousel Data
     const slidesData = [
-      { tag: "Your PayKudi Balance", subtitle: "Total Available Balance", amount: "₦0", info: "Your PayKudi Balance is 100% protected and ready for instant 24/7 bank withdrawal." },
-      { tag: "Protected Balance", subtitle: "Protected Balance", amount: "₦0", info: "Protected Balance represents active transactions protected by PayKudi." }
+      { tag: "Your PayKudi Balance", subtitle: "Total Available Balance", amount: "₦ 0", info: "Your PayKudi Balance is 100% protected and ready for instant 24/7 bank withdrawal." },
+      { tag: "Protected Balance", subtitle: "Protected Balance", amount: "₦ 0", info: "Protected Balance represents active transactions protected by PayKudi." }
     ];
 
     let isBalanceVisible = true;
-    const hiddenBalance = "₦••••••••";
+    const hiddenBalance = "₦ ••••••••";
     let activeSlideIndex = 0;
 
     function setBalanceSlide(index, direction = 0) {
@@ -13210,7 +13421,8 @@
       const dDot0 = document.getElementById("d-dot-0");
       const dDot1 = document.getElementById("d-dot-1");
 
-      const displayAmt = isBalanceVisible ? current.amount : hiddenBalance;
+      const rawDisplayAmt = isBalanceVisible ? current.amount : hiddenBalance;
+      const displayAmt = (rawDisplayAmt && rawDisplayAmt !== hiddenBalance) ? rawDisplayAmt.replace(/^₦\s*/, '₦ ') : rawDisplayAmt;
 
       // Determine slide direction for animation if not explicitly provided
       if (direction === 0 && prevIndex !== activeSlideIndex) {
@@ -13741,78 +13953,151 @@
       if (title === 'Quick Transaction' || title === 'New Transaction' || title === 'New Payment' || title === 'New Payment Room' || title === 'New Order' || title === 'Create Order' || title === 'Add Funds') {
         uploadedPaymentRoomFiles = [];
         modalBody.innerHTML = `
-          <form id="new-payment-room-form" onsubmit="submitNewOrderModal(event)" class="space-y-4 pt-1">
-            <!-- Item / service description (Boxless Underline) -->
-            <div class="boxless-field">
-              <input type="text" id="new-order-title-input" required placeholder=" " />
+          <form id="new-payment-room-form" onsubmit="submitNewOrderModal(event)" class="space-y-3.5 pt-2.5 sm:pt-3">
+            <!-- 1. Amount Section (Clean, no border line) -->
+            <div class="space-y-1 pb-2 sm:pb-2.5">
+              <div class="flex items-center justify-between">
+                <h5 class="text-[10.5px] font-bold text-neutral-400 dark:text-neutral-400 uppercase tracking-wider">Amount of Item</h5>
+              </div>
+              <div class="relative flex items-center justify-between gap-2 pt-0.5">
+                <div class="flex items-center flex-1 min-w-0">
+                  <span class="withdraw-naira-sign font-black text-brand-dark dark:text-white mr-2 flex-shrink-0 select-none text-2xl sm:text-3xl leading-none">₦</span>
+                  <input type="text" id="new-order-amount-input" inputmode="decimal" placeholder="0" oninput="formatAmountWithCommas(this)" autocomplete="off" class="w-full bg-transparent border-0 p-0 font-black text-brand-dark dark:text-white placeholder:text-neutral-300 dark:placeholder:text-neutral-700 focus:outline-none focus:ring-0 text-2xl sm:text-3xl leading-none" />
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Item / service description (Boxless Underline) -->
+            <div class="boxless-field pt-1.5" style="margin-bottom: 2px !important;">
+              <input type="text" id="new-order-title-input" required placeholder=" " autocapitalize="characters" class="text-[14px] font-semibold text-black dark:text-white" />
               <label for="new-order-title-input">Item / service description</label>
             </div>
 
-            <!-- Amount & Role Row (Boxless Underline) -->
-            <div class="grid grid-cols-2 gap-4 items-end pb-1">
-              <div class="boxless-field" style="margin-bottom: 0 !important;">
-                <input type="text" id="new-order-amount-input" inputmode="numeric" required placeholder=" " oninput="formatAmountWithCommas(this)" autocomplete="off" />
-                <label for="new-order-amount-input">Amount (₦)</label>
-              </div>
-              <div>
-                <input type="hidden" id="new-order-role-input" value="" />
-                <div class="custom-select-wrapper w-full relative" id="payment-room-role-select-wrapper">
-                  <div class="boxless-select-trigger w-full flex items-center justify-between cursor-pointer" onclick="togglePaymentRoomRoleDropdown(event)">
-                    <span class="custom-select-val font-semibold text-[14px] text-neutral-400 dark:text-neutral-400 truncate" id="payment-room-role-val">Select role</span>
-                    <span class="material-symbols-outlined custom-select-arrow text-neutral-400 text-[18px] transition-transform duration-200" id="payment-room-role-arrow">expand_more</span>
-                  </div>
+            <!-- 3. Role Selection (Boxless Select) -->
+            <div class="pb-0.5">
+              <input type="hidden" id="new-order-role-input" value="" />
+              <div class="custom-select-wrapper w-full relative" id="payment-room-role-select-wrapper">
+                <div class="boxless-select-trigger w-full flex items-center justify-between cursor-pointer" onclick="togglePaymentRoomRoleDropdown(event)">
+                  <span class="custom-select-val font-semibold text-[13.5px] text-neutral-400 dark:text-neutral-400 truncate" id="payment-room-role-val">Select role</span>
+                  <span class="material-symbols-outlined custom-select-arrow text-neutral-400 text-[18px] transition-transform duration-200" id="payment-room-role-arrow">expand_more</span>
+                </div>
 
-                  <div class="custom-select-options w-full" id="payment-room-role-options" onclick="event.stopPropagation()" style="max-height: 180px; overflow-y: auto;">
-                    <div class="divide-y divide-gray-100 dark:divide-white/5">
-                      <div class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-[#EDE8DF] dark:hover:bg-white/5 cursor-pointer transition-colors flex items-center justify-between text-neutral-700 dark:text-neutral-200" onclick="selectPaymentRoomRoleOption('seller', 'I am Selling', this, event)">
-                        <span>I am Selling</span>
-                      </div>
-                      <div class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-[#EDE8DF] dark:hover:bg-white/5 cursor-pointer transition-colors flex items-center justify-between text-neutral-700 dark:text-neutral-200" onclick="selectPaymentRoomRoleOption('buyer', 'I am Buying', this, event)">
-                        <span>I am Buying</span>
-                      </div>
+                <div class="custom-select-options w-full" id="payment-room-role-options" onclick="event.stopPropagation()" style="max-height: 180px; overflow-y: auto;">
+                  <div class="divide-y divide-gray-100 dark:divide-white/5">
+                    <div class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-[#EDE8DF] dark:hover:bg-white/5 cursor-pointer transition-colors flex items-center justify-between text-neutral-700 dark:text-neutral-200" onclick="selectPaymentRoomRoleOption('seller', 'I am Selling', this, event)">
+                      <span>I am Selling</span>
+                    </div>
+                    <div class="custom-option font-medium text-xs py-2.5 px-3.5 hover:bg-[#EDE8DF] dark:hover:bg-white/5 cursor-pointer transition-colors flex items-center justify-between text-neutral-700 dark:text-neutral-200" onclick="selectPaymentRoomRoleOption('buyer', 'I am Buying', this, event)">
+                      <span>I am Buying</span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Upload Item / Reference Images (Matching Ready to Ship styling) -->
+            <!-- 4. Select Variants Section -->
+            <div class="space-y-1.5 pt-0.5">
+              <input type="hidden" id="new-order-variant-input" value="" />
+              <label class="block text-xs font-semibold text-neutral-700 dark:text-neutral-200 font-heading">Select Variants</label>
+
+              <!-- Variant Bubble Pills Row (Horizontally Scrollable Only) -->
+              <div class="flex items-center gap-1.5 flex-nowrap overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden pt-0.5 pb-1 w-full" id="variant-bubbles-container" style="-webkit-overflow-scrolling: touch;">
+                <!-- Color Bubble -->
+                <div id="bubble-wrap-Color" onclick="activateVariantBubble('Color')"
+                  class="variant-bubble group relative flex items-center bg-[#0A4328]/10 dark:bg-emerald-950/40 border border-[#0A4328]/25 dark:border-emerald-800/40 rounded-full px-2 py-0.5 transition-all cursor-pointer select-none flex-shrink-0 whitespace-nowrap">
+                  <span id="bubble-prefix-Color" class="text-[#0A4328] dark:text-emerald-300 text-[10.5px] font-semibold transition-colors select-none leading-none">Color</span>
+                  <input type="text" id="variant-input-Color" placeholder="Color" autocapitalize="characters" oninput="handleVariantBubbleInput('Color')" onblur="handleVariantBubbleBlur('Color')" onkeydown="handleVariantBubbleKeydown('Color', event)"
+                    class="variant-bubble-input hidden text-white" />
+                  <button type="button" id="bubble-clear-Color" onmousedown="clearVariantBubble('Color', event)" onclick="clearVariantBubble('Color', event)" class="variant-bubble-clear-btn hidden text-white/80 hover:text-white cursor-pointer flex-shrink-0" title="Clear">
+                    <svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- Size Bubble -->
+                <div id="bubble-wrap-Size" onclick="activateVariantBubble('Size')"
+                  class="variant-bubble group relative flex items-center bg-[#0A4328]/10 dark:bg-emerald-950/40 border border-[#0A4328]/25 dark:border-emerald-800/40 rounded-full px-2 py-0.5 transition-all cursor-pointer select-none flex-shrink-0 whitespace-nowrap">
+                  <span id="bubble-prefix-Size" class="text-[#0A4328] dark:text-emerald-300 text-[10.5px] font-semibold transition-colors select-none leading-none">Size</span>
+                  <input type="text" id="variant-input-Size" placeholder="Size" autocapitalize="characters" oninput="handleVariantBubbleInput('Size')" onblur="handleVariantBubbleBlur('Size')" onkeydown="handleVariantBubbleKeydown('Size', event)"
+                    class="variant-bubble-input hidden text-white" />
+                  <button type="button" id="bubble-clear-Size" onmousedown="clearVariantBubble('Size', event)" onclick="clearVariantBubble('Size', event)" class="variant-bubble-clear-btn hidden text-white/80 hover:text-white cursor-pointer flex-shrink-0" title="Clear">
+                    <svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- Style Bubble -->
+                <div id="bubble-wrap-Style" onclick="activateVariantBubble('Style')"
+                  class="variant-bubble group relative flex items-center bg-[#0A4328]/10 dark:bg-emerald-950/40 border border-[#0A4328]/25 dark:border-emerald-800/40 rounded-full px-2 py-0.5 transition-all cursor-pointer select-none flex-shrink-0 whitespace-nowrap">
+                  <span id="bubble-prefix-Style" class="text-[#0A4328] dark:text-emerald-300 text-[10.5px] font-semibold transition-colors select-none leading-none">Style</span>
+                  <input type="text" id="variant-input-Style" placeholder="Style" autocapitalize="characters" oninput="handleVariantBubbleInput('Style')" onblur="handleVariantBubbleBlur('Style')" onkeydown="handleVariantBubbleKeydown('Style', event)"
+                    class="variant-bubble-input hidden text-white" />
+                  <button type="button" id="bubble-clear-Style" onmousedown="clearVariantBubble('Style', event)" onclick="clearVariantBubble('Style', event)" class="variant-bubble-clear-btn hidden text-white/80 hover:text-white cursor-pointer flex-shrink-0" title="Clear">
+                    <svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- Material Bubble -->
+                <div id="bubble-wrap-Material" onclick="activateVariantBubble('Material')"
+                  class="variant-bubble group relative flex items-center bg-[#0A4328]/10 dark:bg-emerald-950/40 border border-[#0A4328]/25 dark:border-emerald-800/40 rounded-full px-2 py-0.5 transition-all cursor-pointer select-none flex-shrink-0 whitespace-nowrap">
+                  <span id="bubble-prefix-Material" class="text-[#0A4328] dark:text-emerald-300 text-[10.5px] font-semibold transition-colors select-none leading-none">Material</span>
+                  <input type="text" id="variant-input-Material" placeholder="Material" autocapitalize="characters" oninput="handleVariantBubbleInput('Material')" onblur="handleVariantBubbleBlur('Material')" onkeydown="handleVariantBubbleKeydown('Material', event)"
+                    class="variant-bubble-input hidden text-white" />
+                  <button type="button" id="bubble-clear-Material" onmousedown="clearVariantBubble('Material', event)" onclick="clearVariantBubble('Material', event)" class="variant-bubble-clear-btn hidden text-white/80 hover:text-white cursor-pointer flex-shrink-0" title="Clear">
+                    <svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Upload Item / Reference Images -->
             <div class="pt-1">
-              <div class="upload-section-heading flex items-center gap-1.5 mb-2.5 whitespace-nowrap overflow-hidden flex-nowrap">
-                <span class="heading-title text-[10px] min-[360px]:text-[10.5px] sm:text-[11px] tracking-[0.3px] sm:tracking-[0.6px] font-extrabold text-brand-dark dark:text-white uppercase font-heading whitespace-nowrap flex-shrink-0">ITEM / REFERENCE IMAGES</span>
-                <span class="heading-subtitle text-[9px] min-[360px]:text-[9.5px] sm:text-[10.5px] text-neutral-400 dark:text-neutral-500 font-medium whitespace-nowrap truncate min-w-0">• Photos of what you are selling or buying</span>
+              <div class="upload-section-heading flex items-center gap-1.5 mb-2 whitespace-nowrap overflow-hidden flex-nowrap">
+                <span class="heading-title text-[10px] sm:text-[10.5px] tracking-[0.3px] font-extrabold text-brand-dark dark:text-white uppercase font-heading whitespace-nowrap flex-shrink-0">ITEM / REFERENCE IMAGES</span>
+                <span class="heading-subtitle text-[9px] min-[360px]:text-[9.5px] sm:text-[10px] text-neutral-400 dark:text-neutral-500 font-medium whitespace-nowrap truncate min-w-0">• Selling or buying photos</span>
               </div>
               <input type="file" id="payment-room-upload-file"
                 accept="image/jpeg,image/png,image/webp,image/*,application/pdf,.pdf" multiple
                 class="hidden" onchange="handlePaymentRoomFiles(event)" />
 
-              <div class="flex items-center gap-3 min-h-[84px] pb-1">
-                <!-- Rectangular Box Upload Tile (Matches Modal Body Color) -->
+              <div class="flex items-center gap-3 min-h-[64px] pb-0.5">
                 <div onclick="triggerPaymentRoomUpload()"
-                  class="w-20 h-20 rounded-2xl bg-[#F4EFE6] dark:bg-[#141414] border border-[#EBE3D5] dark:border-white/10 hover:border-brand-green dark:hover:border-emerald-500 flex flex-col items-center justify-center flex-shrink-0 cursor-pointer transition-all group shadow-2xs active:scale-95 z-10">
+                  class="w-16 h-16 rounded-2xl bg-[#F4EFE6] dark:bg-[#141414] border border-[#EBE3D5] dark:border-white/10 hover:border-brand-green dark:hover:border-emerald-500 flex flex-col items-center justify-center flex-shrink-0 cursor-pointer transition-all group shadow-2xs active:scale-95 z-10">
                   <div
-                    class="w-7 h-7 rounded-full bg-[#0A4328]/10 dark:bg-emerald-500/20 text-[#0A4328] dark:text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform mb-1">
-                    <span class="material-symbols-outlined text-[20px] font-bold">add</span>
+                    class="w-6 h-6 rounded-full bg-[#0A4328]/10 dark:bg-emerald-500/20 text-[#0A4328] dark:text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform mb-1">
+                    <span class="material-symbols-outlined text-[16px] font-bold">add</span>
                   </div>
-                  <span class="text-[10.5px] font-bold text-[#0A4328] dark:text-emerald-400 font-heading">Upload</span>
+                  <span class="text-[9.5px] font-bold text-[#0A4328] dark:text-emerald-400 font-heading leading-tight">Upload</span>
                 </div>
 
-                <!-- Uploaded Files Preview Gallery (Horizontal Scroll) -->
+                <!-- Uploaded Files Preview Gallery -->
                 <div id="payment-room-files-gallery"
-                  class="flex-1 flex items-center gap-3 overflow-x-auto custom-scroll pb-1"></div>
+                  class="flex-1 flex items-center gap-3 overflow-x-auto custom-scroll pb-0.5"></div>
               </div>
             </div>
 
-            <!-- Submit Button (Pill Button matching Ready to Ship) -->
-            <div class="pt-2 sticky bottom-0 bg-[#F4EFE6] dark:bg-[#141414] pb-1 z-10">
+            <!-- Submit Button -->
+            <div class="pt-2 pb-0.5">
               <button type="submit" id="create-payment-room-submit-btn"
-                class="w-full py-3.5 px-4 rounded-full bg-[#0A4328] hover:bg-[#073620] dark:bg-[#0A4328] dark:hover:bg-[#073620] active:scale-95 text-white font-bold text-sm sm:text-base font-heading shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer">
+                class="w-full py-3 px-4 rounded-full bg-[#0A4328] hover:bg-[#073620] dark:bg-[#0A4328] dark:hover:bg-[#073620] active:scale-95 text-white font-bold text-xs sm:text-sm font-heading shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer">
                 <span>Create Payment Room</span>
               </button>
             </div>
           </form>
         `;
+        renderPaymentRoomFilesGallery();
       } else if (title === 'Edit Profile Picture' || title === 'Profile Picture' || title === 'Edit Profile Photo') {
+        _pendingAvatarUrl = null;
         // Check if a photo has already been saved
         var savedImg = document.getElementById('m-profile-avatar-img');
         var hasSaved = savedImg && !savedImg.classList.contains('hidden') && savedImg.src && savedImg.src !== window.location.href;
@@ -13826,29 +14111,16 @@
             </div>
             <p id="modal-avatar-hint" class="text-xs text-neutral-500 dark:text-neutral-400">${hasSaved ? 'Tap circle to change your photo.' : 'Tap the circle to choose a photo.'}</p>
             <input type="file" id="avatar-file-input" accept="image/*" class="hidden" onchange="handleAvatarFileSelect(this)" />
-            <!-- Default buttons (shown when no new photo chosen) -->
-            <div id="avatar-default-btns" class="w-full space-y-2.5 pt-1${hasSaved ? ' hidden' : ''}">
-              <button type="button" onclick="document.getElementById('avatar-file-input').click()"
-                class="w-full py-3 rounded-full bg-brand-green hover:bg-emerald-700 text-white font-bold text-xs font-heading shadow-md transition-all active:scale-[0.98] cursor-pointer flex items-center justify-center gap-2">
-                <span class="material-symbols-outlined text-[18px]">photo_camera</span>
-                <span>Upload Photo</span>
-              </button>
-              <button type="button" onclick="closeActionModal()"
-                class="w-full py-3 rounded-full bg-[#EDE8DF] dark:bg-white/10 hover:bg-[#E5DFD4] dark:hover:bg-white/15 text-brand-dark dark:text-white font-bold text-xs font-heading transition-all cursor-pointer">
-                Cancel
-              </button>
-            </div>
-            <!-- Preview buttons (shown when a new photo is chosen, OR a photo is already saved) -->
-            <div id="avatar-preview-btns" class="w-full space-y-2.5 pt-1${hasSaved ? '' : ' hidden'}">
-              <button type="button" id="avatar-save-btn" onclick="saveAvatarPhoto()"
-                class="w-full py-3 rounded-full bg-brand-green hover:bg-emerald-700 text-white font-bold text-xs font-heading shadow-md transition-all active:scale-[0.98] cursor-pointer flex items-center justify-center gap-2">
-                <span class="material-symbols-outlined text-[18px]">check_circle</span>
+            <!-- Action buttons -->
+            <div id="avatar-preview-btns" class="w-full space-y-2.5 pt-1">
+              <button type="button" id="avatar-save-btn" onclick="saveAvatarPhoto()" disabled
+                class="w-full py-3 rounded-full bg-neutral-300 dark:bg-neutral-800 text-neutral-400 dark:text-neutral-500 font-bold text-xs font-heading transition-all cursor-not-allowed pointer-events-none flex items-center justify-center shadow-none">
                 <span>Save Photo</span>
               </button>
               <button type="button" onclick="document.getElementById('avatar-file-input').click()"
                 class="w-full py-3 rounded-full bg-[#EDE8DF] dark:bg-white/10 hover:bg-[#E5DFD4] dark:hover:bg-white/15 text-brand-dark dark:text-white font-bold text-xs font-heading transition-all cursor-pointer flex items-center justify-center gap-2">
                 <span class="material-symbols-outlined text-[18px]">photo_camera</span>
-                <span>Choose Different</span>
+                <span>${hasSaved ? 'Choose Different' : 'Upload Photo'}</span>
               </button>
               <button type="button" onclick="closeActionModal()"
                 class="w-full py-3 rounded-full bg-red-900 hover:bg-red-800 text-white font-bold text-xs font-heading transition-all cursor-pointer">
@@ -14953,7 +15225,7 @@
 
       uploadedPaymentRoomFiles.forEach(function (file, idx) {
         var card = document.createElement('div');
-        card.className = 'relative w-20 h-20 rounded-2xl border border-[#EBE3D5] dark:border-white/10 bg-[#F4EFE6] dark:bg-[#141414] flex flex-col items-center justify-center flex-shrink-0 overflow-hidden shadow-xs group p-1.5';
+        card.className = 'relative w-16 h-16 rounded-2xl border border-[#EBE3D5] dark:border-white/10 bg-[#F4EFE6] dark:bg-[#141414] flex flex-col items-center justify-center flex-shrink-0 overflow-hidden shadow-xs group p-1';
 
         var isImage = file.type.startsWith('image/');
         var isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
@@ -14961,14 +15233,14 @@
         var contentHtml = '';
         if (isImage) {
           var objectUrl = URL.createObjectURL(file);
-          contentHtml = '<img src="' + objectUrl + '" alt="' + file.name + '" class="w-full h-full object-cover rounded-xl" />';
+          contentHtml = '<img src="' + objectUrl + '" alt="' + file.name + '" class="w-full h-full object-cover rounded-lg" />';
         } else if (isPdf) {
-          contentHtml = '<div class="flex flex-col items-center text-center px-1"><span class="material-symbols-outlined text-[24px] text-red-500">picture_as_pdf</span><span class="text-[8.5px] font-bold text-brand-dark dark:text-white truncate max-w-[62px] mt-0.5">' + file.name + '</span></div>';
+          contentHtml = '<div class="flex flex-col items-center text-center px-0.5"><span class="material-symbols-outlined text-[18px] text-red-500">picture_as_pdf</span><span class="text-[7.5px] font-bold text-brand-dark dark:text-white truncate max-w-[46px] mt-0.5">' + file.name + '</span></div>';
         } else {
-          contentHtml = '<div class="flex flex-col items-center text-center px-1"><span class="material-symbols-outlined text-[24px] text-brand-blue">description</span><span class="text-[8.5px] font-bold text-brand-dark dark:text-white truncate max-w-[62px] mt-0.5">' + file.name + '</span></div>';
+          contentHtml = '<div class="flex flex-col items-center text-center px-0.5"><span class="material-symbols-outlined text-[18px] text-brand-blue">description</span><span class="text-[7.5px] font-bold text-brand-dark dark:text-white truncate max-w-[46px] mt-0.5">' + file.name + '</span></div>';
         }
 
-        card.innerHTML = contentHtml + '<button type="button" onclick="removePaymentRoomFileByIndex(' + idx + ')" class="absolute top-1 right-1 w-5 h-5 rounded-full bg-black/75 hover:bg-red-600 text-white flex items-center justify-center transition-colors cursor-pointer shadow-xs z-10" title="Remove"><span class="material-symbols-outlined text-[12px]">close</span></button>';
+        card.innerHTML = contentHtml + '<button type="button" onclick="removePaymentRoomFileByIndex(' + idx + ')" class="absolute top-0.5 right-0.5 w-4 h-4 rounded-full bg-black/75 hover:bg-red-600 text-white flex items-center justify-center transition-colors cursor-pointer shadow-xs z-10" title="Remove"><span class="material-symbols-outlined text-[10px]">close</span></button>';
         gallery.appendChild(card);
       });
     }
@@ -15003,24 +15275,158 @@
       } catch (e) { }
     }
 
+    function autoResizeVariantInput(input) {
+      if (!input) return;
+      var text = input.value || input.placeholder || '';
+      input.style.width = Math.max(text.length, 2) + 'ch';
+    }
+
+    function activateVariantBubble(type) {
+      var wrap = document.getElementById('bubble-wrap-' + type);
+      var prefix = document.getElementById('bubble-prefix-' + type);
+      var input = document.getElementById('variant-input-' + type);
+      var clearBtn = document.getElementById('bubble-clear-' + type);
+      if (!input || !wrap) return;
+
+      // Switch to input mode with submit button green background and white text
+      if (prefix) prefix.classList.add('hidden');
+      input.classList.remove('hidden');
+      autoResizeVariantInput(input);
+      wrap.className = 'variant-bubble group relative flex items-center bg-[#0A4328] border border-[#0A4328] rounded-full px-2 py-0.5 transition-all cursor-pointer select-none flex-shrink-0 whitespace-nowrap shadow-xs';
+      if (clearBtn && input.value.trim()) clearBtn.classList.remove('hidden');
+      input.focus();
+    }
+
+    function handleVariantBubbleInput(type) {
+      var wrap = document.getElementById('bubble-wrap-' + type);
+      var prefix = document.getElementById('bubble-prefix-' + type);
+      var input = document.getElementById('variant-input-' + type);
+      var clearBtn = document.getElementById('bubble-clear-' + type);
+      if (!input) return;
+
+      if (prefix) prefix.classList.add('hidden');
+      autoResizeVariantInput(input);
+
+      if (clearBtn) {
+        if (input.value.trim()) {
+          clearBtn.classList.remove('hidden');
+        } else {
+          clearBtn.classList.add('hidden');
+        }
+      }
+      syncAllVariantBubbles();
+    }
+
+    function handleVariantBubbleBlur(type) {
+      var wrap = document.getElementById('bubble-wrap-' + type);
+      var prefix = document.getElementById('bubble-prefix-' + type);
+      var input = document.getElementById('variant-input-' + type);
+      var clearBtn = document.getElementById('bubble-clear-' + type);
+      if (!input || !wrap) return;
+
+      setTimeout(function () {
+        if (!input.value.trim()) {
+          // Empty: restore initial pill state with label
+          input.classList.add('hidden');
+          if (prefix) {
+            prefix.textContent = type;
+            prefix.className = 'text-[#0A4328] dark:text-emerald-300 text-[10.5px] font-semibold select-none leading-none';
+            prefix.classList.remove('hidden');
+          }
+          if (clearBtn) clearBtn.classList.add('hidden');
+          wrap.className = 'variant-bubble group relative flex items-center bg-[#0A4328]/10 dark:bg-emerald-950/40 border border-[#0A4328]/25 dark:border-emerald-800/40 rounded-full px-2 py-0.5 transition-all cursor-pointer select-none flex-shrink-0 whitespace-nowrap';
+        } else {
+          // Has value: MATCH SUBMIT BUTTON COLOR (#0A4328) AND WHITE TEXT
+          if (prefix) {
+            prefix.textContent = input.value.trim();
+            prefix.className = 'text-white text-[10.5px] font-semibold select-none leading-none';
+            prefix.classList.remove('hidden');
+          }
+          input.classList.add('hidden');
+          if (clearBtn) clearBtn.classList.remove('hidden');
+          wrap.className = 'variant-bubble group relative flex items-center bg-[#0A4328] border border-[#0A4328] rounded-full px-2 py-0.5 transition-all cursor-pointer select-none flex-shrink-0 whitespace-nowrap shadow-xs';
+        }
+        syncAllVariantBubbles();
+      }, 100);
+    }
+
+    function handleVariantBubbleKeydown(type, e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        var input = document.getElementById('variant-input-' + type);
+        if (input) input.blur();
+      }
+    }
+
+    function clearVariantBubble(type, e) {
+      if (e) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+      var wrap = document.getElementById('bubble-wrap-' + type);
+      var prefix = document.getElementById('bubble-prefix-' + type);
+      var input = document.getElementById('variant-input-' + type);
+      var clearBtn = document.getElementById('bubble-clear-' + type);
+      if (input) {
+        input.value = '';
+        input.classList.add('hidden');
+      }
+      if (prefix) {
+        prefix.textContent = type;
+        prefix.className = 'text-[#0A4328] dark:text-emerald-300 text-[10.5px] font-semibold select-none leading-none';
+        prefix.classList.remove('hidden');
+      }
+      if (clearBtn) clearBtn.classList.add('hidden');
+      if (wrap) {
+        wrap.className = 'variant-bubble group relative flex items-center bg-[#0A4328]/10 dark:bg-emerald-950/40 border border-[#0A4328]/25 dark:border-emerald-800/40 rounded-full px-2 py-0.5 transition-all cursor-pointer select-none flex-shrink-0 whitespace-nowrap';
+      }
+      syncAllVariantBubbles();
+    }
+
+    function syncAllVariantBubbles() {
+      var types = ['Color', 'Size', 'Style', 'Material'];
+      var result = [];
+      types.forEach(function (t) {
+        var input = document.getElementById('variant-input-' + t);
+        if (input && input.value.trim()) {
+          result.push(t + ': ' + input.value.trim());
+        }
+      });
+      var hiddenInput = document.getElementById('new-order-variant-input');
+      if (hiddenInput) {
+        hiddenInput.value = result.join(', ');
+      }
+    }
+
+    function appendVariantChip(val) {
+      // Backwards-compatible if called
+      var targetInput = document.getElementById('variant-input-Color') || document.getElementById('variant-input-Size');
+      if (targetInput) {
+        targetInput.value = val;
+        syncAllVariantBubbles();
+      }
+    }
+
     function submitNewOrderModal(e) {
       if (e) e.preventDefault();
       var titleInput = document.getElementById('new-order-title-input');
+      var variantInput = document.getElementById('new-order-variant-input');
       var amountInput = document.getElementById('new-order-amount-input');
       var roleInput = document.getElementById('new-order-role-input');
 
       var title = (titleInput && titleInput.value) ? titleInput.value.trim() : '';
+      var variant = (variantInput && variantInput.value) ? variantInput.value.trim() : '';
       var amount = (amountInput && amountInput.value) ? parseInt(amountInput.value.replace(/\D/g, ''), 10) : 0;
       var selectedRole = (roleInput && roleInput.value) ? roleInput.value : 'buyer';
 
-      if (!title) {
-        if (typeof showToast === 'function') showToast('Please enter an item or service description.', 'warning');
-        if (titleInput) titleInput.focus();
-        return;
-      }
       if (!amount || amount <= 0) {
         if (typeof showToast === 'function') showToast('Please enter a valid order amount.', 'warning');
         if (amountInput) amountInput.focus();
+        return;
+      }
+      if (!title) {
+        if (typeof showToast === 'function') showToast('Please enter an item or service description.', 'warning');
+        if (titleInput) titleInput.focus();
         return;
       }
 
@@ -15033,7 +15439,9 @@
         id: newDealId,
         orderRef: newOrderRef,
         title: title,
-        itemDetails: 'Standard Order Specification',
+        baseTitle: title,
+        variant: variant,
+        itemDetails: variant || 'Standard Order Specification',
         price: priceFormatted,
         priceNumeric: priceFormatted,
         creatorRole: selectedRole,
@@ -15057,6 +15465,8 @@
         badgeBg: 'bg-amber-500/15 text-amber-800 dark:text-amber-300 border-amber-500/30',
         dotBg: 'bg-amber-500 animate-pulse',
         date: 'Today',
+        time: 'Today · ' + (new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })),
+        createdAt: Date.now(),
         dateSecured: 'Pending Payment',
         img: 'nike-air-max.png',
         disputeReason: ''
@@ -15077,6 +15487,8 @@
         // 1. Move user to Payment Room section
         if (typeof switchView === 'function') switchView('notifications');
         if (typeof renderPaymentRoomsList === 'function') renderPaymentRoomsList();
+        if (typeof renderHomeRecentActivities === 'function') renderHomeRecentActivities();
+        if (typeof renderFullActivitiesScreen === 'function') renderFullActivitiesScreen();
 
         // 2. FIRST: Show Counterparty Waiting (Invite) Modal (Do not enter room or show terms yet)
         setTimeout(function () {
@@ -15109,16 +15521,47 @@
 
       var ref = deal.orderRef || deal.id || ('ORD-' + Math.floor(100000 + Math.random() * 900000));
       var price = deal.priceNumeric || deal.price || '₦0';
-      var title = deal.title || 'Payment Room';
+      var rawTitle = deal.title || 'Payment Room';
       activeCounterpartyLink = 'https://paykudi.com/room/' + ref;
+
+      // Parse clean item name without variants in parentheses
+      var cleanItemName = deal.baseTitle || '';
+      var variantString = deal.variant || '';
+
+      if (!cleanItemName) {
+        if (deal.title && deal.title.includes(' (') && deal.title.endsWith(')')) {
+          var match = deal.title.match(/^(.*?)\s*\((.*?)\)$/);
+          if (match) {
+            cleanItemName = match[1].trim();
+            if (!variantString) variantString = match[2].trim();
+          } else {
+            cleanItemName = deal.title;
+          }
+        } else {
+          cleanItemName = deal.title || 'Payment Room';
+        }
+      }
 
       if (orderNumEl) orderNumEl.textContent = ref;
       if (amountEl) amountEl.textContent = price;
-      if (titleEl) titleEl.textContent = title;
+      if (titleEl) titleEl.textContent = cleanItemName;
       if (linkInput) linkInput.value = activeCounterpartyLink;
 
+      // Handle variants badge and list
+      // Variant subtext directly under item description
+      var variantsSubtext = document.getElementById('cp-modal-variants-subtext');
+      if (variantsSubtext) {
+        if (variantString) {
+          variantsSubtext.textContent = variantString;
+          variantsSubtext.classList.remove('hidden');
+        } else {
+          variantsSubtext.textContent = '';
+          variantsSubtext.classList.add('hidden');
+        }
+      }
+
       if (whatsappLink && whatsappLink.tagName === 'A') {
-        var waMsg = 'Hi! I created a secure PayKudi Payment Room for "' + title + '" (' + price + '). Order #' + ref + '. Join here to proceed: ' + activeCounterpartyLink;
+        var waMsg = 'Hi! I created a secure PayKudi Payment Room for "' + rawTitle + '" (' + price + '). Order #' + ref + '. Join here to proceed: ' + activeCounterpartyLink;
         whatsappLink.href = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(waMsg);
       }
 
@@ -16043,28 +16486,28 @@
 
           var roleColor = isBuying ? 'text-brand-green dark:text-emerald-400' : 'text-red-600 dark:text-red-400';
 
-          return '<button type="button" onclick="openPRDetail(\'' + deal.id + '\')" class="pr-room-card w-full text-left p-4 sm:p-5 transition-all cursor-pointer flex flex-col gap-2 group focus:outline-none focus:ring-0 active:outline-none select-none">' +
-            '<!-- Top Row: Buying / Selling Label (Sentence case, Green/Red) -->' +
+          return '<button type="button" onclick="openPRDetail(\'' + deal.id + '\')" class="pr-room-card w-full text-left p-3 sm:p-3.5 transition-all cursor-pointer flex flex-col gap-1.5 group focus:outline-none focus:ring-0 active:outline-none select-none font-sans">' +
+            '<!-- Top Row: Buying / Selling Label (left) & Amount (top right) -->' +
             '<div class="w-full flex items-center justify-between gap-2">' +
             '<span class="pr-room-role text-xs font-bold font-heading ' + roleColor + '">' + roleText + '</span>' +
+            '<span class="pr-room-price text-xs sm:text-sm font-extrabold font-heading whitespace-nowrap flex-shrink-0 tracking-normal ml-auto text-right pl-2 leading-none ' + roleColor + '">' + deal.price + '</span>' +
             '</div>' +
-            '<!-- Main Row: Product Name & Price (Price stands out on right, Title on left) -->' +
-            '<div class="w-full flex items-center justify-between gap-3">' +
-            '<h4 class="pr-room-title text-xs sm:text-sm font-semibold text-neutral-800 dark:text-neutral-200 truncate font-heading leading-snug ' + hoverColor + ' transition-colors flex-1 min-w-0 pr-2">' + deal.title + '</h4>' +
-            '<span class="pr-room-price text-base sm:text-lg md:text-xl font-black text-brand-dark dark:text-white font-heading whitespace-nowrap flex-shrink-0 tracking-tight ml-auto text-right">' + deal.price + '</span>' +
+            '<!-- Main Row: Product Name -->' +
+            '<div class="w-full">' +
+            '<h4 class="pr-room-title text-sm sm:text-[15px] font-bold text-neutral-800 dark:text-neutral-100 font-heading leading-tight ' + hoverColor + ' transition-colors break-words">' + deal.title + '</h4>' +
             '</div>' +
 
             '<!-- Seller\'s Name Row (Label Gray, Name Black -> White in Dark Mode) -->' +
             '<div class="w-full">' +
-            '<p class="pr-room-meta text-xs text-neutral-500 dark:text-neutral-400 font-medium truncate">' +
+            '<p class="pr-room-meta text-xs text-neutral-500 dark:text-neutral-400 font-medium font-sans truncate leading-tight">' +
             '<span>' + counterpartyLabel + '</span>' +
-            '<strong class="text-brand-dark dark:text-white font-bold">' + counterpartyName + '</strong>' +
+            '<strong class="text-brand-dark dark:text-white font-bold font-heading">' + counterpartyName + '</strong>' +
             '</p>' +
             '</div>' +
 
             '<!-- Bottom Row: Date/Time (Smaller, Subdued on left) & Plain Text Status (pinned right) -->' +
             '<div class="w-full flex items-center justify-between gap-2 pt-0.5">' +
-            '<span class="pr-room-date text-[10px] sm:text-[10.5px] text-neutral-400 dark:text-neutral-500 font-normal truncate flex-1 min-w-0 pr-2">' + dateTime + '</span>' +
+            '<span class="pr-room-date text-[11px] sm:text-xs text-neutral-400 dark:text-neutral-500 font-medium font-sans truncate flex-1 min-w-0 pr-2">' + dateTime + '</span>' +
             '<span class="pr-room-status text-xs font-bold font-heading whitespace-nowrap flex-shrink-0 ml-auto text-right ' + statusColor + '">' + statusText + '</span>' +
             '</div>' +
             '</button>';
@@ -16598,14 +17041,21 @@
       }
 
       // 6. Product Titles & Specifications
+      var cleanItemTitle = deal.baseTitle || (deal.title ? deal.title.replace(/\s*\([^)]*\)$/, '') : 'Payment Room');
+      var variantSpecs = deal.itemDetails || deal.variant || '';
+      if (!variantSpecs && deal.title && deal.title.includes(' (') && deal.title.endsWith(')')) {
+        var m = deal.title.match(/\((.*?)\)$/);
+        if (m) variantSpecs = m[1].trim();
+      }
+
       document.querySelectorAll('.disp-deal-title').forEach(function (el) {
-        el.textContent = deal.title;
+        el.textContent = cleanItemTitle;
       });
       document.querySelectorAll('.disp-deal-title-specs, #disp-item-name, #d-disp-item-name').forEach(function (el) {
-        el.textContent = deal.title + (deal.itemDetails ? ' (' + deal.itemDetails + ')' : '');
+        el.textContent = cleanItemTitle;
       });
       document.querySelectorAll('.disp-deal-item-details').forEach(function (el) {
-        el.textContent = deal.itemDetails || '';
+        el.textContent = variantSpecs;
       });
 
       // 7. Product Image & Evidence
@@ -16859,10 +17309,13 @@
       if (deal) {
         deal.deliveryStatus = 'payment_received';
         deal.statusText = 'Payment Received';
+        deal.dateSecured = (new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })) + ' · Today';
         deal.badgeBg = 'bg-blue-500/15 text-blue-700 dark:text-blue-300 border-blue-500/30';
         deal.dotBg = 'bg-blue-500 animate-pulse';
         syncRoleSpecificUI();
         if (typeof renderPaymentRoomsList === 'function') renderPaymentRoomsList();
+        if (typeof renderHomeRecentActivities === 'function') renderHomeRecentActivities();
+        if (typeof renderFullActivitiesScreen === 'function') renderFullActivitiesScreen();
         if (typeof openPRDetail === 'function' && deal.id) {
           openPRDetail(deal.id);
         }
@@ -20165,7 +20618,7 @@
 
         btn.classList.toggle('on', isAutoPayoutEnabled);
         btn.classList.toggle('off', !isAutoPayoutEnabled);
-        btn.setAttribute('title', isAutoPayoutEnabled ? 'Auto Payout: ON (click to turn OFF)' : 'Auto Payout: OFF (click to turn ON)');
+        btn.setAttribute('title', isAutoPayoutEnabled ? 'Auto Pay: ON (click to turn OFF)' : 'Auto Pay: OFF (click to turn ON)');
 
         if (iconWraps[idx]) {
           iconWraps[idx].innerHTML = powerIconSvg;
@@ -22006,9 +22459,9 @@
               <div class="flex items-center flex-1 min-w-0">
                 <span
                   class="withdraw-naira-sign font-black text-brand-dark dark:text-white mr-2 flex-shrink-0 select-none text-4xl sm:text-5xl leading-none">₦</span>
-                <input type="text" id="withdraw-amount-input" inputmode="decimal" placeholder=""
+                <input type="text" id="withdraw-amount-input" inputmode="decimal" placeholder="0"
                   oninput="handleWithdrawAmountInput(this)"
-                  class="w-full bg-transparent border-0 p-0 font-black text-brand-dark dark:text-white focus:outline-none focus:ring-0 text-4xl sm:text-5xl leading-none" />
+                  class="w-full bg-transparent border-0 p-0 font-black text-brand-dark dark:text-white placeholder:text-neutral-300 dark:placeholder:text-neutral-700 focus:outline-none focus:ring-0 text-4xl sm:text-5xl leading-none" />
               </div>
             </div>
             <div class="flex justify-between items-center text-[11px] text-neutral-500 dark:text-neutral-400 pt-0.5">
@@ -24519,44 +24972,14 @@
         });
       }
 
-      // 1. Home Screen Recent Activities (Strictly Recent 4 Activities)
-      var homeContainer = document.getElementById('home-recent-activities-list');
-      if (homeContainer) {
-        homeContainer.querySelectorAll('.dynamic-payout-row').forEach(function (el) { el.remove(); });
-        for (var i = payoutTransactionsList.length - 1; i >= 0; i--) {
-          var item = payoutTransactionsList[i];
-          homeContainer.insertAdjacentHTML('afterbegin', createHomeActivityRowHtml(item));
-        }
-
-        // Enforce maximum 4 recent activities on dashboard home
-        var allHomeRows = homeContainer.querySelectorAll('.activity-item-row');
-        var visibleCount = 0;
-        allHomeRows.forEach(function (row) {
-          var inner = row.querySelector('.activity-item-inner');
-          if (visibleCount < 4) {
-            row.classList.remove('hidden');
-            visibleCount++;
-            if (inner) {
-              if (visibleCount === 4 || visibleCount === allHomeRows.length) {
-                inner.classList.remove('border-b');
-              } else {
-                inner.classList.add('border-b');
-              }
-            }
-          } else {
-            row.classList.add('hidden');
-          }
-        });
+      // 1. Home Screen Recent Activities
+      if (typeof renderHomeRecentActivities === 'function') {
+        renderHomeRecentActivities();
       }
 
-      // 2. Mobile Activities Screen
-      var mContainer = document.getElementById('m-activity-list-items');
-      if (mContainer) {
-        mContainer.querySelectorAll('.dynamic-payout-row').forEach(function (el) { el.remove(); });
-        for (var j = payoutTransactionsList.length - 1; j >= 0; j--) {
-          var pItem = payoutTransactionsList[j];
-          mContainer.insertAdjacentHTML('afterbegin', createMobileActivityRowHtml(pItem));
-        }
+      // 2. Full Activities Screen (Mobile & Desktop)
+      if (typeof renderFullActivitiesScreen === 'function') {
+        renderFullActivitiesScreen();
       }
 
       // 3. Update Withdrawn Total Metric Card
@@ -24729,7 +25152,7 @@
       var act = canonicalActivities[id];
       if (!act) {
         var deal = prDealsList.find(function (d) { return d.id === id; });
-        if (deal) {
+        if (deal && deal.deliveryStatus && deal.deliveryStatus !== 'awaiting_payment') {
           act = {
             title: (role === 'buyer') ? 'Payment sent' : 'Payment Received',
             amount: deal.priceNumeric || deal.price || '₦50,000',
@@ -25573,6 +25996,14 @@
         if (hint) hint.textContent = 'Looking good! Save to apply or choose a different photo.';
         if (defaultBtns) defaultBtns.classList.add('hidden');
         if (previewBtns) previewBtns.classList.remove('hidden');
+
+        // Enable Save Photo button once a new photo is in view
+        var saveBtn = document.getElementById('avatar-save-btn');
+        if (saveBtn) {
+          saveBtn.disabled = false;
+          saveBtn.style.pointerEvents = 'auto';
+          saveBtn.className = 'w-full py-3 rounded-full bg-brand-green hover:bg-emerald-700 text-white font-bold text-xs font-heading shadow-md transition-all active:scale-[0.98] cursor-pointer flex items-center justify-center';
+        }
       };
       reader.readAsDataURL(file);
     }
@@ -25716,46 +26147,215 @@
         }, { passive: true });
       }
     });
-    /* ===== HOME RECENT ACTIVITIES RENDERER (Preserves 256px 4-card height, max 4 cards) ===== */
-    function renderHomeRecentActivities() {
-      ['home-recent-activities-list', 'd-home-recent-activities-list'].forEach(function (containerId) {
+    /* ===== DYNAMIC USER RECENT ACTIVITIES SYSTEM ===== */
+    function getActivityCardConfig(item) {
+      var t = (item.type || item.title || '').toLowerCase();
+      if (t.includes('refund')) {
+        return {
+          title: 'Refund sent',
+          amountColor: 'text-[#EF4444] dark:text-red-400',
+          iconBg: 'bg-[#FEE2E2] dark:bg-red-500/20 text-[#EF4444] dark:text-red-400',
+          svg: '<svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14L4 9l5-5"></path><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11"></path></svg>'
+        };
+      } else if (t.includes('payout') || t.includes('withdrawn') || t.includes('withdraw')) {
+        return {
+          title: 'Payout sent',
+          amountColor: 'text-[#2563EB] dark:text-blue-400',
+          iconBg: 'bg-[#DBEAFE] dark:bg-blue-500/20 text-[#2563EB] dark:text-blue-400',
+          svg: '<svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2L15 22L11 13L2 9L22 2Z"></path></svg>'
+        };
+      } else if (t.includes('received')) {
+        return {
+          title: 'Payment Received',
+          amountColor: 'text-[#10B981] dark:text-emerald-400',
+          iconBg: 'bg-[#DCFCE7] dark:bg-emerald-500/20 text-[#10B981] dark:text-emerald-400',
+          svg: '<svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16m0 0l-6-6m6 6l6-6"></path></svg>'
+        };
+      } else {
+        // Payment sent / Default sent
+        return {
+          title: 'Payment sent',
+          amountColor: 'text-[#EF4444] dark:text-red-400',
+          iconBg: 'bg-[#FEE2E2] dark:bg-red-500/20 text-[#EF4444] dark:text-red-400',
+          svg: '<svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2L15 22L11 13L2 9L22 2Z"></path></svg>'
+        };
+      }
+    }
+
+    function getAllUserActivitiesList() {
+      var list = [];
+      // 1. User Payout Transactions
+      if (typeof payoutTransactionsList !== 'undefined' && Array.isArray(payoutTransactionsList)) {
+        payoutTransactionsList.forEach(function (p) {
+          var isProcessing = (p.status === 'Processing' && (!p.expiresAt || Date.now() < p.expiresAt));
+          list.push({
+            id: p.id,
+            type: 'withdrawn',
+            filterType: 'withdrawn',
+            title: p.title || 'Payout sent',
+            time: p.time || ('Today · ' + (p.dateFormatted || 'Recently')),
+            amount: p.amount || ('₦' + (p.rawAmount || 0).toLocaleString()),
+            rawAmount: p.rawAmount || 0,
+            rawDate: p.expiresAt ? (p.expiresAt - 120000) : (p.createdAt || Date.now()),
+            isPayout: true,
+            status: p.status,
+            isProcessing: isProcessing
+          });
+        });
+      }
+      // 2. User Deals / Payment Rooms (Only once payment is actually completed/received in escrow)
+      if (typeof prDealsList !== 'undefined' && Array.isArray(prDealsList)) {
+        prDealsList.forEach(function (d) {
+          // If the deal is newly created and still awaiting payment, do NOT create a payment sent/received transaction
+          if (!d.deliveryStatus || d.deliveryStatus === 'awaiting_payment') return;
+
+          var isBuyer = (d.myRole === 'buyer' || d.creatorRole === 'buyer' || (typeof role !== 'undefined' && role === 'buyer'));
+          var title = isBuyer ? 'Payment sent' : 'Payment Received';
+          var filterType = isBuyer ? 'buying' : 'selling';
+          var timeStr = d.time || (d.date ? (d.date === 'Today' ? 'Today · ' + (new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })) : d.date) : 'Today');
+          list.push({
+            id: d.id,
+            type: isBuyer ? 'sent' : 'received',
+            filterType: filterType,
+            title: title,
+            dealTitle: d.title,
+            time: timeStr,
+            amount: d.price || d.priceNumeric || '₦0',
+            rawAmount: parseFloat((d.price || d.priceNumeric || '0').replace(/[^0-9.]/g, '')) || 0,
+            rawDate: d.createdAt || Date.now(),
+            isDeal: true,
+            status: d.deliveryStatus || 'Active'
+          });
+        });
+      }
+      // Sort newest first
+      list.sort(function (a, b) {
+        return (b.rawDate || 0) - (a.rawDate || 0);
+      });
+      return list;
+    }
+
+    function getUserAllActivities() {
+      return getAllUserActivitiesList().slice(0, 4);
+    }
+
+    function createActivityRowHtml(item, isDesktop) {
+      var cfg = getActivityCardConfig(item);
+      var dateAttr = item.rawDate ? new Date(item.rawDate).toISOString().split('T')[0] : new Date().toISOString().split('T')[0];
+      var clickAction = item.isPayout ? "openActivityReceipt('" + item.id + "')" : "openPRDetailDirect('" + item.id + "')";
+      var itemClass = isDesktop ? 'd-tx-item' : 'm-tx-item';
+
+      var statusUnderAmount = '';
+      if (item.isProcessing) {
+        statusUnderAmount = '<p class="text-[10px] sm:text-[11px] font-bold text-amber-500 dark:text-amber-400 mt-0.5 leading-none">Processing</p>';
+      } else if (item.status === 'Cancelled') {
+        statusUnderAmount = '<p class="text-[10px] sm:text-[11px] font-bold text-red-500 dark:text-red-400 mt-0.5 leading-none">Cancelled</p>';
+      }
+
+      return '<div onclick="' + clickAction + '" data-type="' + (item.filterType || item.type) + '" data-date="' + dateAttr + '" class="' + itemClass + ' dynamic-activity-row activity-item-row flex items-center gap-3.5 pl-0 pr-0 hover:bg-black/5 dark:hover:bg-white/5 transition-all cursor-pointer">' +
+        '<div class="activity-item-icon w-10 h-10 rounded-full ' + cfg.iconBg + ' flex items-center justify-center flex-shrink-0">' +
+        cfg.svg +
+        '</div>' +
+        '<div class="activity-item-inner flex-1 min-w-0 flex items-center justify-between border-b border-[#EBE3D5] dark:border-white/10 py-3.5 pr-0">' +
+        '<div class="min-w-0">' +
+        '<h4 class="activity-item-title text-[13.5px] sm:text-[14.5px] font-extrabold text-brand-dark dark:text-white font-heading leading-tight truncate">' + cfg.title + '</h4>' +
+        '<p class="activity-item-time text-[11px] sm:text-[12px] text-gray-400 dark:text-neutral-400 mt-0.5 font-medium">' + item.time + '</p>' +
+        '</div>' +
+        '<div class="activity-item-amount text-right flex-shrink-0 pl-3">' +
+        '<p class="text-[13.5px] sm:text-[15px] font-black ' + cfg.amountColor + ' font-heading leading-tight">' + item.amount + '</p>' +
+        statusUnderAmount +
+        '</div>' +
+        '</div>' +
+        '</div>';
+    }
+
+    function renderFullActivitiesScreen() {
+      var allActivities = getAllUserActivitiesList();
+
+      ['m-activity-list-items', 'd-activity-list-items'].forEach(function (containerId) {
         var container = document.getElementById(containerId);
         if (!container) return;
+        var isDesktop = (containerId === 'd-activity-list-items');
 
-        var recentDeals = (typeof prDealsList !== 'undefined' ? prDealsList : []).slice(0, 4);
-
-        if (recentDeals.length === 0) {
-          container.innerHTML = '<div class="text-center text-gray-400 w-full py-8 px-4 flex flex-col items-center justify-center min-h-[256px] my-auto">' +
+        if (!allActivities || allActivities.length === 0) {
+          container.className = 'space-y-0 divide-y-0 min-h-[300px] flex flex-col justify-center';
+          container.innerHTML = '<div class="text-center text-gray-400 w-full py-16 px-4 flex flex-col items-center justify-center min-h-[300px] my-auto select-none">' +
             '<span class="material-symbols-outlined text-4xl text-gray-300 dark:text-gray-600 opacity-60">analytics</span>' +
             '<p class="text-xs font-bold text-gray-500 dark:text-gray-400 font-heading mt-2">No Recent Activity</p>' +
             '</div>';
           return;
         }
 
-        container.innerHTML = recentDeals.map(function (deal, idx) {
-          var isLast = idx === recentDeals.length - 1;
-          var borderClass = isLast ? '' : 'border-b border-[#EBE3D5] dark:border-white/10';
-          var isBuying = (typeof role !== 'undefined' && role === 'buyer');
-          var titleText = isBuying ? 'Payment sent' : 'Payment Received';
-          var amountColor = isBuying ? 'text-red-500 dark:text-red-400' : 'text-emerald-600 dark:text-emerald-400';
-          var iconBg = isBuying ? 'bg-red-500/10 dark:bg-red-500/20 text-red-500 dark:text-red-400' : 'bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400';
-          var iconSvg = isBuying
-            ? '<svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2L15 22L11 13L2 9L22 2Z"></path></svg>'
-            : '<svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16m0 0l-6-6m6 6l6-6"></path></svg>';
-          
-          var timeText = deal.dateSecured || deal.date || 'Today';
+        container.className = 'space-y-0 divide-y-0 flex flex-col';
+        container.innerHTML = allActivities.map(function (item) {
+          return createActivityRowHtml(item, isDesktop);
+        }).join('');
+      });
 
-          return '<div onclick="openPRDetailDirect(\'' + deal.id + '\')" class="activity-item-row flex items-center gap-3.5 pl-3.5 pr-0 hover:bg-[#F3EDE2] dark:hover:bg-white/5 transition-all cursor-pointer">' +
-            '<div class="activity-item-icon w-10 h-10 rounded-full ' + iconBg + ' flex items-center justify-center flex-shrink-0">' +
-            iconSvg +
+      // Update stat cards
+      var totalSent = 0;
+      var totalReceived = 0;
+      var totalWithdrawn = 0;
+      allActivities.forEach(function (act) {
+        if (act.filterType === 'buying' || act.type === 'sent') {
+          totalSent += (act.rawAmount || 0);
+        } else if (act.filterType === 'selling' || act.type === 'received') {
+          totalReceived += (act.rawAmount || 0);
+        } else if (act.filterType === 'withdrawn' || act.type === 'withdrawn') {
+          if (act.status !== 'Cancelled') {
+            totalWithdrawn += (act.rawAmount || 0);
+          }
+        }
+      });
+
+      var dSent = document.getElementById('d-stat-act-sent');
+      if (dSent) dSent.textContent = '₦' + totalSent.toLocaleString();
+      var dRecv = document.getElementById('d-stat-act-received');
+      if (dRecv) dRecv.textContent = '₦' + totalReceived.toLocaleString();
+      var dWith = document.getElementById('d-stat-act-payout');
+      if (dWith) dWith.textContent = '₦' + totalWithdrawn.toLocaleString();
+    }
+
+    function renderHomeRecentActivities() {
+      ['home-recent-activities-list', 'd-home-recent-activities-list'].forEach(function (containerId) {
+        var container = document.getElementById(containerId);
+        if (!container) return;
+
+        var userActivities = getUserAllActivities();
+
+        if (!userActivities || userActivities.length === 0) {
+          container.innerHTML = '<div class="text-center text-gray-400 w-full py-10 px-4 flex flex-col items-center justify-center min-h-[200px] my-auto select-none">' +
+            '<span class="material-symbols-outlined text-4xl text-gray-300 dark:text-gray-600 opacity-60">analytics</span>' +
+            '<p class="text-xs font-bold text-gray-500 dark:text-gray-400 font-heading mt-2">No Recent Activity</p>' +
+            '</div>';
+          return;
+        }
+
+        container.innerHTML = userActivities.map(function (item, idx) {
+          var cfg = getActivityCardConfig(item);
+          var isLast = idx === userActivities.length - 1;
+          var borderClass = isLast ? '' : 'border-b border-[#EBE3D5] dark:border-white/10';
+          var clickAction = item.isPayout ? "openActivityReceipt('" + item.id + "')" : "openPRDetailDirect('" + item.id + "')";
+
+          var statusUnderAmount = '';
+          if (item.isProcessing) {
+            statusUnderAmount = '<p class="text-[10px] sm:text-[11px] font-bold text-amber-500 dark:text-amber-400 mt-0.5 leading-none">Processing</p>';
+          } else if (item.status === 'Cancelled') {
+            statusUnderAmount = '<p class="text-[10px] sm:text-[11px] font-bold text-red-500 dark:text-red-400 mt-0.5 leading-none">Cancelled</p>';
+          }
+
+          return '<div onclick="' + clickAction + '" class="activity-item-row flex items-center gap-3.5 pl-3.5 pr-3 hover:bg-[#EFE8DC] dark:hover:bg-white/5 transition-all cursor-pointer">' +
+            '<div class="w-10 h-10 rounded-full ' + cfg.iconBg + ' flex items-center justify-center flex-shrink-0">' +
+            cfg.svg +
             '</div>' +
-            '<div class="activity-item-inner flex-1 min-w-0 flex items-center justify-between ' + borderClass + ' py-3.5 pr-4">' +
+            '<div class="activity-item-inner flex-1 min-w-0 flex items-center justify-between ' + borderClass + ' py-3.5 pr-1">' +
             '<div class="min-w-0">' +
-            '<h4 class="activity-item-title text-[13.5px] sm:text-[14.5px] font-extrabold text-brand-dark dark:text-white font-heading leading-tight truncate">' + titleText + '</h4>' +
-            '<p class="activity-item-time text-[11px] sm:text-[12px] text-gray-400 dark:text-neutral-400 mt-0.5 font-medium truncate">' + deal.title + ' &middot; ' + timeText + '</p>' +
+            '<h4 class="text-[14px] sm:text-[14.5px] font-extrabold text-brand-dark dark:text-white font-heading leading-tight">' + cfg.title + '</h4>' +
+            '<p class="text-xs text-neutral-400 dark:text-neutral-500 mt-0.5 font-medium">' + item.time + '</p>' +
             '</div>' +
-            '<div class="activity-item-amount text-right flex-shrink-0 pl-3">' +
-            '<p class="text-[13.5px] sm:text-[15px] font-black ' + amountColor + ' font-heading">' + (deal.price || '₦50,000') + '</p>' +
+            '<div class="text-right flex-shrink-0 pl-3">' +
+            '<p class="text-[14px] sm:text-[15px] font-extrabold ' + cfg.amountColor + ' font-heading leading-tight">' + item.amount + '</p>' +
+            statusUnderAmount +
             '</div>' +
             '</div>' +
             '</div>';
@@ -25765,7 +26365,10 @@
 
     document.addEventListener('DOMContentLoaded', function () {
       renderHomeRecentActivities();
+      renderFullActivitiesScreen();
     });
+    renderHomeRecentActivities();
+    renderFullActivitiesScreen();
   </script>
 </body>
 
