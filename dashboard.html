@@ -3714,11 +3714,12 @@
       font-family: 'Hanken Grotesk', sans-serif !important;
       font-size: clamp(0.78rem, 0.3cqw + 0.72rem, 0.92rem) !important;
       font-weight: 800 !important;
-      letter-spacing: -0.01em !important;
+      letter-spacing: 0.03em !important;
       font-variant-numeric: tabular-nums lining-nums !important;
       line-height: 1 !important;
       white-space: nowrap !important;
-      padding-left: 0.5rem !important;
+      padding-left: 0.75rem !important;
+      padding-right: 0.25rem !important;
     }
 
     #m-pr-list-container .pr-room-meta,
@@ -16487,14 +16488,14 @@
           var roleColor = isBuying ? 'text-brand-green dark:text-emerald-400' : 'text-red-600 dark:text-red-400';
 
           return '<button type="button" onclick="openPRDetail(\'' + deal.id + '\')" class="pr-room-card w-full text-left p-3 sm:p-3.5 transition-all cursor-pointer flex flex-col gap-1.5 group focus:outline-none focus:ring-0 active:outline-none select-none font-sans">' +
-            '<!-- Top Row: Buying / Selling Label (left) & Amount (top right) -->' +
+            '<!-- Top Row: Buying / Selling Label -->' +
             '<div class="w-full flex items-center justify-between gap-2">' +
             '<span class="pr-room-role text-xs font-bold font-heading ' + roleColor + '">' + roleText + '</span>' +
-            '<span class="pr-room-price text-xs sm:text-sm font-extrabold font-heading whitespace-nowrap flex-shrink-0 tracking-normal ml-auto text-right pl-2 leading-none ' + roleColor + '">' + deal.price + '</span>' +
             '</div>' +
-            '<!-- Main Row: Product Name -->' +
-            '<div class="w-full">' +
-            '<h4 class="pr-room-title text-sm sm:text-[15px] font-bold text-neutral-800 dark:text-neutral-100 font-heading leading-tight ' + hoverColor + ' transition-colors break-words">' + deal.title + '</h4>' +
+            '<!-- Main Row: Item Description & Amount in line -->' +
+            '<div class="w-full flex items-center justify-between gap-4 py-0.5">' +
+            '<h4 class="pr-room-title text-sm sm:text-[15px] font-bold text-neutral-800 dark:text-neutral-100 font-heading leading-tight ' + hoverColor + ' transition-colors flex-1 min-w-0 pr-1 break-words">' + deal.title + '</h4>' +
+            '<span class="pr-room-price text-xs sm:text-sm font-extrabold font-heading whitespace-nowrap flex-shrink-0 tracking-wide ml-auto text-right pl-3 pr-0.5 leading-none ' + roleColor + '">' + deal.price + '</span>' +
             '</div>' +
 
             '<!-- Seller\'s Name Row (Label Gray, Name Black -> White in Dark Mode) -->' +
